@@ -41,7 +41,7 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
 #ifdef __ABULEDUTABLETTEV1__MODE__
     m_hauteurToolBar = 48;
 #else
-    m_hauteurToolBar = 24;
+    m_hauteurToolBar = 48;
 #endif
 
     if (isTopLevel())
@@ -108,13 +108,13 @@ QMenuBar *AbulEduTexteV1::abeTexteGetMenuBar()
 
 void AbulEduTexteV1::abeTexteSetFontFamily(QString fontFamily)
 {
-    m_comboFont->setCurrentFont(QFont(fontFamily));
+//    m_comboFont->setCurrentFont(QFont(fontFamily));
     setTextFamily(fontFamily);
 }
 
 QString AbulEduTexteV1::abeTexteGetFontFamily()
 {
-    return m_comboFont->font().family();
+//    return m_comboFont->font().family();
 }
 
 void AbulEduTexteV1::abeTexteSetFontSize(int taille)
@@ -341,8 +341,12 @@ void AbulEduTexteV1::setupToolBarAndActions()
     tb->addSeparator();
 
     // Les actions concernant le choix de la police création de la combobox
-    m_comboFont = new QFontComboBox(tb);
+    m_comboFont = new QComboBox(tb);
     m_comboFont->setObjectName("combofont");
+    m_comboFont->addItem("Andika");
+    m_comboFont->addItem("Liberation");
+    m_comboFont->addItem("Cursive standard");
+    m_comboFont->addItem("seyesBDE");
     tb->addWidget(m_comboFont);
     m_comboFont->setEditable(false);
     connect(m_comboFont, SIGNAL(activated(QString)),
@@ -568,7 +572,7 @@ void AbulEduTexteV1::updateActions(QTextCharFormat fmt)
     m_actionAlignJustify->blockSignals(false);
 
     m_comboFont->blockSignals(true);
-    m_comboFont->setCurrentFont(fmt.font());
+//    m_comboFont->setCurrentFont(fmt.font());
     m_comboFont->blockSignals(false);
 
     m_comboSize->blockSignals(true);

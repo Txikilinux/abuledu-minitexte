@@ -165,7 +165,7 @@ private:
             *m_actionPaste;
 
     /** Combobox des Polices */
-    QFontComboBox *m_comboFont;
+    QComboBox *m_comboFont;
 
     /** Combobox des tailles de polices valides */
     QComboBox *m_comboSize;
