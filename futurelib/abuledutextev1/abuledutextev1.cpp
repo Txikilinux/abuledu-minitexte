@@ -44,6 +44,14 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     m_hauteurToolBar = 48;
 #endif
 
+    m_abuleduMediatheque = new AbulEduMediathequeGetV1(0,"data");
+    m_abuleduMediatheque->abeHideBoutonTelecharger();
+    m_abuleduMediatheque->abeSetCustomBouton1(trUtf8("Insérer l'image"));
+    m_abuleduMediatheque->abeSetCustomBouton1Download(true);
+    connect(m_abuleduMediatheque, SIGNAL(signalMediathequeFileDownloaded(int)), this, SLOT(slotMediathequeDownload(int)));
+    m_abuleduMediatheque->hide();
+
+
     if (isTopLevel())
     {
         m_menuBar = new QMenuBar(this);
@@ -57,18 +65,18 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     // Au cas ou le widget serait un topLevelWidget()
     setWindowTitle(trUtf8("Sans nom")+"[*]");
     // On crée la barre d'icones et les QActions qui vont bien
-    //    setupToolBarAndActions();
-    if(isTopLevel())
-    {
-        setupMenuBar();
-    }
+    setupToolBarAndActions();
+    setupMenuBar();
     // Les connexions concernant les modifications du texte et de son nom
     connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-            this, SLOT(setWindowModified(bool)));
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
             m_actionSave, SLOT(setEnabled(bool)));
-    // Des connexions si ce n'est pas un toplevelWidget
+    connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()));
+    connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()));
+    connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()));
+    connect(this, SIGNAL(alignmentJustify()), m_actionAlignJustify, SIGNAL(triggered()));
 
+    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
+            this, SLOT(setWindowModified(bool)));
     // On émet un signal inquant si le texte a été modifié
     connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
             this, SIGNAL(somethingHasChangedInText(bool)));
@@ -79,10 +87,6 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()),
             this, SLOT(cursorMoved()));
 
-    connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentJustify()), m_actionAlignJustify, SIGNAL(triggered()));
 
 }
 
@@ -90,6 +94,12 @@ AbulEduTexteV1::~AbulEduTexteV1()
 {
     delete ui;
 }
+
+QTextEdit *AbulEduTexteV1::abeTexteGetTextEdit()
+{
+    return ui->teZoneTexte;
+}
+
 
 QTextDocument *AbulEduTexteV1::abeTexteGetDocument()
 {
@@ -108,13 +118,13 @@ QMenuBar *AbulEduTexteV1::abeTexteGetMenuBar()
 
 void AbulEduTexteV1::abeTexteSetFontFamily(QString fontFamily)
 {
-//    m_comboFont->setCurrentFont(QFont(fontFamily));
+    //    m_comboFont->setCurrentFont(QFont(fontFamily));
     setTextFamily(fontFamily);
 }
 
 QString AbulEduTexteV1::abeTexteGetFontFamily()
 {
-//    return m_comboFont->font().family();
+    //    return m_comboFont->font().family();
 }
 
 void AbulEduTexteV1::abeTexteSetFontSize(int taille)
@@ -251,7 +261,7 @@ void AbulEduTexteV1::setupToolBarAndActions()
     m_actionSave->setObjectName("save");
     m_actionSave->setShortcut(QKeySequence::Save);
     connect(m_actionSave, SIGNAL(triggered()), this, SLOT(fileSave()));
-    m_actionSave->setEnabled(false);
+    m_actionSave->setEnabled(true);
     tb->addAction(m_actionSave);
 
     m_actionPrint = new QAction(QIcon::fromTheme("document-print", QIcon(rsrcPath + "/fileprint.png")),
@@ -373,6 +383,12 @@ void AbulEduTexteV1::setupToolBarAndActions()
     m_actionTextColor->setObjectName("color");
     connect(m_actionTextColor, SIGNAL(triggered()), this, SLOT(setTextColor()));
     tb->addAction(m_actionTextColor);
+
+    m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/images/cloud.svg")), trUtf8("Insérer une image"), this);
+    m_actionImageFromData->setObjectName("mediatheque-data");
+    connect(m_actionImageFromData, SIGNAL(triggered()), m_abuleduMediatheque, SLOT(show()));
+    tb->addAction(m_actionImageFromData);
+
 }
 
 void AbulEduTexteV1::setupMenuBar()
@@ -458,12 +474,8 @@ void AbulEduTexteV1::setCurrentFileName(const QString &fileName)
 
 void AbulEduTexteV1::abeTexteSetMenuBar(bool ouiNon)
 {
-    if(!m_hasMenuBar)
-    {
-        setupMenuBar();
-    }
     m_hasMenuBar = ouiNon;
-
+    m_menuBar->hide();
 }
 
 bool AbulEduTexteV1::abeTexteHasMenuBar()
@@ -502,8 +514,8 @@ bool AbulEduTexteV1::abeTexteInsertImage(QString cheminImage, qreal width, qreal
           */
         QTextImageFormat *imageFmt = new QTextImageFormat();
         imageFmt->setName(name);
-//        imageFmt->setWidth(width);
-//        imageFmt->setHeight(height);
+        //        imageFmt->setWidth(width);
+        //        imageFmt->setHeight(height);
 
         ui->teZoneTexte->textCursor().insertImage(*imageFmt, position);
         return true;
@@ -573,10 +585,27 @@ void AbulEduTexteV1::updateActions(QTextCharFormat fmt)
     m_actionAlignJustify->blockSignals(false);
 
     m_comboFont->blockSignals(true);
-//    m_comboFont->setCurrentFont(fmt.font());
+    //    m_comboFont->setCurrentFont(fmt.font());
     m_comboFont->blockSignals(false);
 
     m_comboSize->blockSignals(true);
     m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(fmt.font().pointSize())));
     m_comboSize->blockSignals(false);
 }
+
+void AbulEduTexteV1::slotMediathequeDownload(int code)
+{
+    QString file = m_abuleduMediatheque->abeGetFile()->abeFileGetContent(0).absoluteFilePath();
+    QUrl Uri ( QString ( "file://%1" ).arg ( file ) );
+    QImage image = QImageReader ( file ).read().scaledToWidth(150,Qt::SmoothTransformation);
+
+    QTextDocument * textDocument = ui->teZoneTexte->document();
+    textDocument->addResource( QTextDocument::ImageResource, Uri, QVariant ( image ) );
+    QTextCursor cursor = ui->teZoneTexte->textCursor();
+    QTextImageFormat imageFormat;
+    imageFormat.setWidth( image.width() );
+    imageFormat.setHeight( image.height() );
+    imageFormat.setName( Uri.toString() );
+    cursor.insertImage(imageFormat);
+}
+

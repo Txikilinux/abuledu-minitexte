@@ -22,20 +22,19 @@
   */
 
 #include <QtGui/QApplication>
-#include "mainwindow.h"
 #include <QLibraryInfo>
 #include <QTranslator>
+
+#include "version.h"
+#include "mainwindow.h"
 #include "abuledutextev1.h"
+#include "abuleduapplicationv1.h"
+
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    // pour avoir les boutons des boîtes de dialogue dans la langue locale (fr par défaut)
-    QTranslator qtTranslator;
-    qtTranslator.load(
-            "qt_" + QLocale::system().name(),
-            QLibraryInfo::location(QLibraryInfo::TranslationsPath)
-            );
-    a.installTranslator(&qtTranslator);
+    AbulEduApplicationV1 a(argc, argv,VER_INTERNALNAME_STR, VER_PRODUCTVERSION_STR, VER_COMPANYDOMAIN_STR, "abuledu");
+    a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
+
     MainWindow w;
     w.show();
     

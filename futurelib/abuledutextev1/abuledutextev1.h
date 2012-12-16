@@ -43,6 +43,9 @@
 #include <QTextImageFormat>
 #include <QTextFrameFormat>
 #include <QUrl>
+#include <QTextEdit>
+#include "abuledumediathequegetv1.h"
+#include <QImageReader>
 
 namespace Ui {
 class AbulEduTexteV1;
@@ -124,6 +127,9 @@ public:
       */
     bool abeTexteInsertImage(QString cheminImage, qreal width = 0, qreal height = 0, QTextFrameFormat::Position position = QTextFrameFormat::InFlow, QString name = "");
 
+
+    QTextEdit *abeTexteGetTextEdit();
+
 private:
     Ui::AbulEduTexteV1 *ui;
     /** Crée la barre de d'icones et les actions correspondantes */
@@ -162,7 +168,8 @@ private:
             *m_actionRedo,
             *m_actionCut,
             *m_actionCopy,
-            *m_actionPaste;
+            *m_actionPaste,
+            *m_actionImageFromData;
 
     /** Combobox des Polices */
     QComboBox *m_comboFont;
@@ -185,8 +192,9 @@ private:
     bool m_hasMenuBar;
 
 
+    AbulEduMediathequeGetV1 *m_abuleduMediatheque;
 
-private slots:
+public slots:
     /** Formate le texte en fonction des toolButtons activés
       * Gras, Souligné, Italic
       */
@@ -216,6 +224,9 @@ private slots:
     void cursorMoved();
     /** Mets à jour l'état des boutons de la tool barre en fonction du formatage */
     void updateActions(QTextCharFormat fmt);
+
+    void slotMediathequeDownload(int code);
+
 signals:
 
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */

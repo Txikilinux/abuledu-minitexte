@@ -27,9 +27,9 @@
 #include <QDebug>
 #include <QMainWindow>
 #include <QTextDocument>
-#include "abuledutextev1.h"
 #include <QMenu>
 #include <QAction>
+#include "abuledutextev1.h"
 
 namespace Ui {
 class MainWindow;
