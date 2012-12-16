@@ -607,5 +607,19 @@ void AbulEduTexteV1::slotMediathequeDownload(int code)
     imageFormat.setHeight( image.height() );
     imageFormat.setName( Uri.toString() );
     cursor.insertImage(imageFormat);
+    cursor.insertText("\n");
+
+    //Les sources et l'auteur (?)
+    QTextListFormat listFormat;
+    cursor.insertList(listFormat);
+    QTextCharFormat fmt;
+    fmt.setFontItalic(true);
+    cursor.insertText("Source: " + m_abuleduMediatheque->abeGetFile()->abeFileGetIdentifier() + "\n",fmt);
+    cursor.insertText("Auteur: " + m_abuleduMediatheque->abeGetFile()->abeFileGetCreator(),fmt);
+
+    //Retour normal
+    QTextBlockFormat blockFormat;
+    fmt.setFontItalic(false);
+    cursor.insertBlock(blockFormat,fmt);
 }
 
