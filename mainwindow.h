@@ -1,7 +1,7 @@
 /** MiniTexte pour Tablette
   *
   * @warning aucun traitement d'erreur n'est pour l'instant implémenté
-  * @see https://redmine.ryxeo.com/projects/leterrier-minitexte
+  * @see https://redmine.ryxeo.com/projects/abuledu-minitexte
   * @author 2011 Jean-Louis Frucot <frucot.jeanlouis@free.fr>
   * @author 2012 Eric Seigne <eric.seigne@ryxeo.com>
   * @see The GNU Public License (GPL)

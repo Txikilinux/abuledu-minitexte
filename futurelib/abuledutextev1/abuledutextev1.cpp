@@ -57,7 +57,7 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     // Au cas ou le widget serait un topLevelWidget()
     setWindowTitle(trUtf8("Sans nom")+"[*]");
     // On crée la barre d'icones et les QActions qui vont bien
-    setupToolBarAndActions();
+    //    setupToolBarAndActions();
     if(isTopLevel())
     {
         setupMenuBar();
@@ -234,6 +234,7 @@ void AbulEduTexteV1::setupToolBarAndActions()
 {
     // Création de la Barre de boutons
     tb = new QToolBar(this);
+    tb->setToolButtonStyle(Qt::ToolButtonIconOnly);
     tb->setFixedHeight(m_hauteurToolBar);
     tb->setWindowTitle(trUtf8("&Édition"));
 
