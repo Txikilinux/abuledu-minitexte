@@ -4,6 +4,7 @@
   * @warning aucun traitement d'erreur n'est pour l'instant implémenté
   * @see https://redmine.ryxeo.com/projects/leterrier-aller
   * @author 2011 Jean-Louis Frucot <frucot.jeanlouis@free.fr>
+  * @author 2012 Éric Seigne <eric.seigne@ryxeo.com>
   * @see The GNU Public License (GPL)
   *
   * This program is free software; you can redistribute it and/or modify
@@ -51,6 +52,9 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     connect(m_abuleduMediatheque, SIGNAL(signalMediathequeFileDownloaded(int)), this, SLOT(slotMediathequeDownload(int)));
     m_abuleduMediatheque->hide();
 
+    m_abuledufile = new AbulEduFileV1(this);
+    m_abuleduFileManager = new AbulEduBoxFileManagerV1(0,m_abuledufile);
+    connect(m_abuleduFileManager, SIGNAL(signalAbeFileSelected()), this, SLOT(slotFileOpen()));
 
     if (isTopLevel())
     {
@@ -264,6 +268,15 @@ void AbulEduTexteV1::setupToolBarAndActions()
     m_actionSave->setEnabled(true);
     tb->addAction(m_actionSave);
 
+    // Ouvrir un fichier
+    m_actionOpen = new QAction(QIcon::fromTheme("document-open", QIcon(rsrcPath + "/fileopen.png")),
+                               trUtf8("&Ouvrir"), this);
+    m_actionOpen->setObjectName("open");
+    m_actionOpen->setShortcut(QKeySequence::Open);
+    connect(m_actionOpen, SIGNAL(triggered()), this, SLOT(slotFileOpen()));
+    m_actionOpen->setEnabled(true);
+    tb->addAction(m_actionOpen);
+
     m_actionPrint = new QAction(QIcon::fromTheme("document-print", QIcon(rsrcPath + "/fileprint.png")),
                                 tr("&Print..."), this);
     m_actionPrint->setObjectName("print");
@@ -402,6 +415,7 @@ void AbulEduTexteV1::setupMenuBar()
     menu->setObjectName("fichier");
     m_menuBar->addMenu(menu);
     menu->addAction(m_actionSave);
+    menu->addAction(m_actionOpen);
     menu->addAction(m_actionPrint);
 
     QMenu *menu2 = new QMenu(trUtf8("F&ormat"));
@@ -424,6 +438,7 @@ void AbulEduTexteV1::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
     cursor.mergeCharFormat(format);
     ui->teZoneTexte->mergeCurrentCharFormat(format);
 }
+
 bool AbulEduTexteV1::fileSave()
 {
     if (m_fileName.isEmpty())
@@ -621,5 +636,10 @@ void AbulEduTexteV1::slotMediathequeDownload(int code)
     QTextBlockFormat blockFormat;
     fmt.setFontItalic(false);
     cursor.insertBlock(blockFormat,fmt);
+}
+
+void AbulEduTexteV1::slotFileOpen()
+{
+    m_abuleduFileManager->show();
 }
 

@@ -4,6 +4,7 @@
   * @warning aucun traitement d'erreur n'est pour l'instant implémenté
   * @see https://redmine.ryxeo.com/projects/leterrier-aller
   * @author 2011 Jean-Louis Frucot <frucot.jeanlouis@free.fr>
+  * @author 2012 Éric Seigne <eric.seigne@ryxeo.com>
   * @see The GNU Public License (GPL)
   *
   * This program is free software; you can redistribute it and/or modify
@@ -44,8 +45,9 @@
 #include <QTextFrameFormat>
 #include <QUrl>
 #include <QTextEdit>
-#include "abuledumediathequegetv1.h"
 #include <QImageReader>
+#include "abuledumediathequegetv1.h"
+#include "abuleduboxfilemanagerv1.h"
 
 namespace Ui {
 class AbulEduTexteV1;
@@ -59,6 +61,7 @@ class AbulEduTexteV1 : public QWidget
     Q_PROPERTY(QString Police READ abeTexteGetFontFamily WRITE abeTexteSetFontFamily )
     Q_PROPERTY(bool toolBarVisible READ abeTexteToolBarIsVisible WRITE abeTexteToolBarSetVisible DESIGNABLE true)
     Q_PROPERTY(bool menuBarVisible READ abeTexteHasMenuBar() WRITE abeTexteSetMenuBar DESIGNABLE true)
+
 public:
     explicit AbulEduTexteV1(QWidget *parent = 0);
     ~AbulEduTexteV1();
@@ -155,6 +158,7 @@ private:
 
     /** Liste des QActions (pas toutes implémentées) */
     QAction *m_actionSave,
+            *m_actionOpen,
             *m_actionPrint,
             *m_actionTextBold,
             *m_actionTextItalic,
@@ -193,6 +197,8 @@ private:
 
 
     AbulEduMediathequeGetV1 *m_abuleduMediatheque;
+    AbulEduFileV1           *m_abuledufile;
+    AbulEduBoxFileManagerV1 *m_abuleduFileManager;
 
 public slots:
     /** Formate le texte en fonction des toolButtons activés
@@ -226,9 +232,9 @@ public slots:
     void updateActions(QTextCharFormat fmt);
 
     void slotMediathequeDownload(int code);
+    void slotFileOpen();
 
 signals:
-
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
     void somethingHasChangedInText(bool);
 
