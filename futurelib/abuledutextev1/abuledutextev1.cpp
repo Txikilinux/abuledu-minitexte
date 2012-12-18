@@ -640,6 +640,10 @@ void AbulEduTexteV1::slotMediathequeDownload(int code)
 
 void AbulEduTexteV1::slotFileOpen()
 {
+#ifdef __ABULEDUTABLETTEV1__MODE__
+    m_abuleduFileManager->showFullScreen();
+#else
     m_abuleduFileManager->show();
+#endif
 }
 
