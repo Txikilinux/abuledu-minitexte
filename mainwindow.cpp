@@ -30,10 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->widgetTextEditor->abeTexteSetMenuBar(false);
-
-#ifdef __ABULEDUTABLETTEV1__MODE__
-    showFullScreen();
-#endif
 }
 
 MainWindow::~MainWindow()
