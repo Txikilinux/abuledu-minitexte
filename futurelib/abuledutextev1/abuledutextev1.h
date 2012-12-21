@@ -130,7 +130,6 @@ public:
       */
     bool abeTexteInsertImage(QString cheminImage, qreal width = 0, qreal height = 0, QTextFrameFormat::Position position = QTextFrameFormat::InFlow, QString name = "");
 
-
     QTextEdit *abeTexteGetTextEdit();
 
 private:

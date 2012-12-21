@@ -30,10 +30,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->widgetTextEditor->abeTexteSetMenuBar(false);
+    setFixedSize(1024, 600);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-

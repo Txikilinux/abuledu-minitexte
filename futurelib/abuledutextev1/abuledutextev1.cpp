@@ -90,8 +90,6 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     // Le curseur a été déplacé
     connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()),
             this, SLOT(cursorMoved()));
-
-
 }
 
 AbulEduTexteV1::~AbulEduTexteV1()
@@ -103,7 +101,6 @@ QTextEdit *AbulEduTexteV1::abeTexteGetTextEdit()
 {
     return ui->teZoneTexte;
 }
-
 
 QTextDocument *AbulEduTexteV1::abeTexteGetDocument()
 {
