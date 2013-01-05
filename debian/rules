@@ -23,6 +23,7 @@ install/abuledu-minitexte::
 	#mkdir -p $(BUILDTEMP)/$(DEST)/data
 	mkdir -p $(BUILDTEMP)/usr/share/applications
 	cp -a $(BUILDTEMP).wrapper $(BUILDTEMP)/usr/bin/${EXEC}
+	chmod +x $(BUILDTEMP)/usr/bin/${EXEC}
 	cp -a $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
 	cp -a $(CURDIR)/data/images/abuledu-minitexte.svg $(BUILDTEMP)/$(DEST)
 	#cp -a $(CURDIR)/lang/*.qm $(BUILDTEMP)/$(EXECDEST)/lang
