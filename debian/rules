@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/qmake.mk
+
+# Add here any variable or target overrides you need.
+QMAKE=qmake-qt4
+CFLAGS=-O3
+CXXFLAGS=-O3
+NBCPU=$(shell cat /proc/cpuinfo | grep processor | wc -l)
+MAKE=make -j$(NBCPU)
+EXEC=abuledu-minitexte
+DEST=/usr/share/abuledu-minitexte
+EXECDEST=/usr/lib/abuledu-minitexte
+BUILDTEMP=$(CURDIR)/debian/abuledu-minitexte
+
+install/abuledu-minitexte::
+	mkdir -p $(BUILDTEMP)/usr/bin/
+	mkdir -p $(BUILDTEMP)/$(EXECDEST)
+	mkdir -p $(BUILDTEMP)/$(DEST)
+	#mkdir -p $(BUILDTEMP)/$(EXECDEST)/lang
+	#mkdir -p $(BUILDTEMP)/$(DEST)/conf
+	#mkdir -p $(BUILDTEMP)/$(DEST)/data
+	mkdir -p $(BUILDTEMP)/usr/share/applications
+	cp -a $(BUILDTEMP).wrapper $(BUILDTEMP)/usr/bin/${EXEC}
+	cp -a $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
+	cp -a $(CURDIR)/data/images/abuledu-minitexte.svg $(BUILDTEMP)/$(DEST)
+	#cp -a $(CURDIR)/lang/*.qm $(BUILDTEMP)/$(EXECDEST)/lang
+	#cp -a $(CURDIR)/data/* $(BUILDTEMP)/$(DEST)/data
+	cp -a $(CURDIR)/${EXEC} $(BUILDTEMP)/$(EXECDEST)/
+	strip $(BUILDTEMP)/$(EXECDEST)/${EXEC}

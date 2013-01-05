@@ -1,0 +1,17 @@
+Source: abuledu-minitexte
+Section: admin
+Priority: extra
+Maintainer: Eric Seigne <eric.seigne@ryxeo.com>
+Build-Depends: cdbs, libqtwebkit-dev | libqt4-webkit(<<4:4.8.1), qt4-qmake, libqt4-dev, libqt4-phonon-dev | libphonon-dev, phonon, zlib1g-dev, libpulse-dev, libexiv2-dev, libqt4-webkit
+Standards-Version: 3.8.3
+Homepage: http://www.abuledu.org/abuledu-minitexte
+Vcs-Browser: https://redmine.ryxeo.com/projects/abuledu-minitexte/issues
+
+
+
+Package: abuledu-minitexte
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqt4-xml
+Description: Mini traitement de texte pour AbulEdu
+ Ce mini traitement de texte est proposé sur les tablettes en guise de bloc notes.
+
