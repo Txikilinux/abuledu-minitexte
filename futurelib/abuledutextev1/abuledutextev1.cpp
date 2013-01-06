@@ -52,8 +52,9 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     connect(m_abuleduMediatheque, SIGNAL(signalMediathequeFileDownloaded(int)), this, SLOT(slotMediathequeDownload(int)));
     m_abuleduMediatheque->hide();
 
-    m_abuledufile = new AbulEduFileV1(this);
-    m_abuleduFileManager = new AbulEduBoxFileManagerV1(0,m_abuledufile);
+    m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
+    m_abuleduFileManager = new AbulEduBoxFileManagerV1(0);
+    m_abuleduFileManager->abeSetFile(m_abuledufile);
     connect(m_abuleduFileManager, SIGNAL(signalAbeFileSelected()), this, SLOT(slotFileOpen()));
 
     if (isTopLevel())

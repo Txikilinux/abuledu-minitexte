@@ -195,9 +195,9 @@ private:
     bool m_hasMenuBar;
 
 
-    AbulEduMediathequeGetV1 *m_abuleduMediatheque;
-    AbulEduFileV1           *m_abuledufile;
-    AbulEduBoxFileManagerV1 *m_abuleduFileManager;
+    AbulEduMediathequeGetV1       *m_abuleduMediatheque;
+    QSharedPointer<AbulEduFileV1>  m_abuledufile;
+    AbulEduBoxFileManagerV1       *m_abuleduFileManager;
 
 public slots:
     /** Formate le texte en fonction des toolButtons activés
