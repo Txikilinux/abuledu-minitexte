@@ -27,9 +27,9 @@
 
 // Choix des icones en fonction de la plateforme
 #ifdef Q_WS_MAC
-const QString rsrcPath = ":/images/mac";
+const QString rsrcPath = ":/abuledutextev1/images/mac";
 #else
-const QString rsrcPath = ":/images/win";
+const QString rsrcPath = ":/abuledutextev1/images/win";
 #endif
 
 AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
@@ -49,6 +49,7 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     m_abuleduMediatheque->abeHideBoutonTelecharger();
     m_abuleduMediatheque->abeSetCustomBouton1(trUtf8("Insérer l'image"));
     m_abuleduMediatheque->abeSetCustomBouton1Download(true);
+    m_abuleduMediatheque->abeSetDefaultView(AbulEduMediathequeGetV1::abeMediathequeThumbnails);
     connect(m_abuleduMediatheque, SIGNAL(signalMediathequeFileDownloaded(int)), this, SLOT(slotMediathequeDownload(int)));
     m_abuleduMediatheque->hide();
 
@@ -91,6 +92,8 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     // Le curseur a été déplacé
     connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()),
             this, SLOT(cursorMoved()));
+
+    ui->teZoneTexte->setFocus();
 }
 
 AbulEduTexteV1::~AbulEduTexteV1()
@@ -203,6 +206,7 @@ void AbulEduTexteV1::setTextAlign(QAction *action)
 
 void AbulEduTexteV1::setTextFamily(const QString &f)
 {
+    qDebug() << " Fonte : " << f;
     // On applique le format de font sélectionnée
     QTextCharFormat fmt;
     fmt.setFontFamily(f);
@@ -362,13 +366,18 @@ void AbulEduTexteV1::setupToolBarAndActions()
 
     tb->addSeparator();
 
+    QFontDatabase fonts;
+    if( ! fonts.addApplicationFont(":/abuledutextev1/fonts/Seyes")) {
+        qDebug() << "Erreur sur :/abuledutextev1/fonts/SEYESBDE.TTF";
+    }
+
     // Les actions concernant le choix de la police création de la combobox
     m_comboFont = new QComboBox(tb);
     m_comboFont->setObjectName("combofont");
     m_comboFont->addItem("Andika");
-    m_comboFont->addItem("Liberation");
-    m_comboFont->addItem("Cursive standard");
-    m_comboFont->addItem("seyesBDE");
+    m_comboFont->addItem("CrayonE");
+    m_comboFont->addItem("PlumBAE");
+    m_comboFont->addItem("SeyesBDE");
     tb->addWidget(m_comboFont);
     m_comboFont->setEditable(false);
     connect(m_comboFont, SIGNAL(activated(QString)),
@@ -395,9 +404,9 @@ void AbulEduTexteV1::setupToolBarAndActions()
     connect(m_actionTextColor, SIGNAL(triggered()), this, SLOT(setTextColor()));
     tb->addAction(m_actionTextColor);
 
-    m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/images/cloud.svg")), trUtf8("Insérer une image"), this);
+    m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/abuledutextev1/images/cloud.svg")), trUtf8("Insérer une image"), this);
     m_actionImageFromData->setObjectName("mediatheque-data");
-    connect(m_actionImageFromData, SIGNAL(triggered()), m_abuleduMediatheque, SLOT(show()));
+    connect(m_actionImageFromData, SIGNAL(triggered()), m_abuleduMediatheque, SLOT(showFullScreen()));
     tb->addAction(m_actionImageFromData);
 
 }
@@ -634,6 +643,8 @@ void AbulEduTexteV1::slotMediathequeDownload(int code)
     QTextBlockFormat blockFormat;
     fmt.setFontItalic(false);
     cursor.insertBlock(blockFormat,fmt);
+
+    m_abuleduMediatheque->hide();
 }
 
 void AbulEduTexteV1::slotFileOpen()

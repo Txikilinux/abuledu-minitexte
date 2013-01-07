@@ -24,7 +24,11 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QTextEdit" name="teZoneTexte"/>
+    <widget class="QTextEdit" name="teZoneTexte">
+     <property name="autoFormatting">
+      <set>QTextEdit::AutoAll</set>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

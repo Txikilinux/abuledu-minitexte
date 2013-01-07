@@ -48,6 +48,7 @@ private:
 
 private slots:
 
+    void on_actionQuitter_triggered();
 };
 
 #endif // MAINWINDOW_H

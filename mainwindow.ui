@@ -26,6 +26,36 @@
     </item>
    </layout>
   </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionQuitter"/>
+  </widget>
+  <action name="actionQuitter">
+   <property name="icon">
+    <iconset resource="lib/abuledufilev1/abuleduboxfilemanagerv1.qrc">
+     <normaloff>:/abuleduboxfilemanagerv1/fermer-32</normaloff>:/abuleduboxfilemanagerv1/fermer-32</iconset>
+   </property>
+   <property name="text">
+    <string>quitter</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -36,6 +66,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="lib/abuledufilev1/abuleduboxfilemanagerv1.qrc"/>
+ </resources>
  <connections/>
 </ui>
