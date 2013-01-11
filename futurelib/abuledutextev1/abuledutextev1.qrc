@@ -41,18 +41,7 @@
         <file>images/win/zoomout.png</file>
         <file>images/cloud.svg</file>
         <file alias="Crayon">fonts/CRAYONE.TTF</file>
-        <file>fonts/CRAYONL.TTF</file>
         <file alias="Plume">fonts/PLUMBAE.TTF</file>
-        <file>fonts/PLUMBAL.TTF</file>
-        <file>fonts/PLUMBDE.TTF</file>
-        <file>fonts/PLUMBDL.TTF</file>
-        <file>fonts/PLUMNAE.TTF</file>
-        <file>fonts/PLUMNAL.TTF</file>
-        <file>fonts/PLUMNDE.TTF</file>
-        <file>fonts/PLUMNDL.TTF</file>
         <file alias="Seyes">fonts/SEYESBDE.TTF</file>
-        <file>fonts/SEYESBDL.TTF</file>
-        <file>fonts/SEYESNDE.TTF</file>
-        <file>fonts/SEYESNDL.TTF</file>
     </qresource>
 </RCC>

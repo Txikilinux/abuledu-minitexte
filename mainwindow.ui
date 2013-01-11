@@ -42,20 +42,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionQuitter"/>
   </widget>
-  <action name="actionQuitter">
-   <property name="icon">
-    <iconset resource="lib/abuledufilev1/abuleduboxfilemanagerv1.qrc">
-     <normaloff>:/abuleduboxfilemanagerv1/fermer-32</normaloff>:/abuleduboxfilemanagerv1/fermer-32</iconset>
-   </property>
-   <property name="text">
-    <string>quitter</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -66,8 +53,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="lib/abuledufilev1/abuleduboxfilemanagerv1.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

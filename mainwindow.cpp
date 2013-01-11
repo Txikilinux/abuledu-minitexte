@@ -31,9 +31,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->widgetTextEditor->abeTexteSetMenuBar(false);
     showFullScreen();
+
     ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
 
-//    setFixedSize(1024, 600);
+    QWidget *spacerWidget = new QWidget(ui->toolBar);
+    spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    spacerWidget->setVisible(true);
+    QAction *actionQuit = new QAction(QIcon(":/abuleduboxfilemanagerv1/fermer-32"),trUtf8("Quit"), this);
+    connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
+
+    ui->toolBar->addWidget(spacerWidget);
+    ui->toolBar->addAction(actionQuit);
+    //    setFixedSize(1024, 600);
 }
 
 MainWindow::~MainWindow()

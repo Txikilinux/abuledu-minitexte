@@ -37,7 +37,7 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     ui(new Ui::AbulEduTexteV1)
 {
     ui->setupUi(this);
-    m_localDebug = false;
+    m_localDebug = true;
 
 #ifdef __ABULEDUTABLETTEV1__MODE__
     m_hauteurToolBar = 48;
@@ -260,6 +260,14 @@ void AbulEduTexteV1::setupToolBarAndActions()
     /** @todo utiliser le thème abuledu pour les icones des toolboutons
       * Pour l'instant, on utilise l'icone du thème, sinon celle du fichier de ressources
       */
+    // Ouvrir un fichier
+    m_actionOpen = new QAction(QIcon::fromTheme("document-open", QIcon(rsrcPath + "/fileopen.png")),
+                               trUtf8("&Ouvrir"), this);
+    m_actionOpen->setObjectName("open");
+    m_actionOpen->setShortcut(QKeySequence::Open);
+    connect(m_actionOpen, SIGNAL(triggered()), this, SLOT(slotFileOpen()));
+    m_actionOpen->setEnabled(true);
+    tb->addAction(m_actionOpen);
 
     // Sauvegarde du texte
     m_actionSave = new QAction(QIcon::fromTheme("document-save", QIcon(rsrcPath + "/filesave.png")),
@@ -270,17 +278,9 @@ void AbulEduTexteV1::setupToolBarAndActions()
     m_actionSave->setEnabled(true);
     tb->addAction(m_actionSave);
 
-    // Ouvrir un fichier
-    m_actionOpen = new QAction(QIcon::fromTheme("document-open", QIcon(rsrcPath + "/fileopen.png")),
-                               trUtf8("&Ouvrir"), this);
-    m_actionOpen->setObjectName("open");
-    m_actionOpen->setShortcut(QKeySequence::Open);
-    connect(m_actionOpen, SIGNAL(triggered()), this, SLOT(slotFileOpen()));
-    m_actionOpen->setEnabled(true);
-    tb->addAction(m_actionOpen);
 
     m_actionPrint = new QAction(QIcon::fromTheme("document-print", QIcon(rsrcPath + "/fileprint.png")),
-                                tr("&Print..."), this);
+                                trUtf8("&Imprimer..."), this);
     m_actionPrint->setObjectName("print");
     m_actionPrint->setPriority(QAction::LowPriority);
     m_actionPrint->setShortcut(QKeySequence::Print);
@@ -462,12 +462,20 @@ bool AbulEduTexteV1::fileSave()
 bool AbulEduTexteV1::fileSaveAs()
 {
     /** @todo Voir si l'on propose d'autres formats d'enregistrement du texte */
+    m_abuleduFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
+#ifdef __ABULEDUTABLETTEV1__MODE__
+    m_abuleduFileManager->showFullScreen();
+#else
+    m_abuleduFileManager->show();
+#endif
+
+    QString fn = m_abuleduFileManager->abeGetFile()->abeFileGetFileName().absoluteFilePath();
     //    QString fn = QFileDialog::getSaveFileName(this, trUtf8("Sauvegarder sous..."),
     //                                              QString(), trUtf8("Fichiers ODF (*.odt);;Fichiers HTML (*.htm *.html);;All Files (*)"));
-    QString fn = QFileDialog::getSaveFileName(this, trUtf8("Sauvegarder sous..."),
-                                              QString(), trUtf8("Fichiers ODF (*.odt)"));
-    if (fn.isEmpty())
-        return false;
+//    QString fn = QFileDialog::getSaveFileName(this, trUtf8("Sauvegarder sous..."),
+//                                              QString(), trUtf8("Fichiers ODF (*.odt)"));
+//    if (fn.isEmpty())
+//        return false;
     //    if (! (fn.endsWith(".odt", Qt::CaseInsensitive) || fn.endsWith(".htm", Qt::CaseInsensitive) || fn.endsWith(".html", Qt::CaseInsensitive)) )
     if (! (fn.endsWith(".odt", Qt::CaseInsensitive)))
         fn += ".odt"; // default
