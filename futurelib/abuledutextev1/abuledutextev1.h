@@ -29,7 +29,7 @@
 #include <QToolBar>
 #include <QAction>
 #include <QTextCharFormat>
-#include <QFontComboBox>
+//#include <QFontComboBox>
 #include <QComboBox>
 #include <QColorDialog>
 #include <QTextDocumentWriter>
@@ -175,10 +175,14 @@ private:
             *m_actionImageFromData;
 
     /** Combobox des Polices */
-    QComboBox *m_comboFont;
+//    QComboBox *m_comboFont;
+    QPushButton *m_btnFontAndika;
+    QPushButton *m_btnFontPlume;
+    QPushButton *m_btnFontCrayon;
+    QPushButton *m_btnFontSeyes;
 
     /** Combobox des tailles de polices valides */
-    QComboBox *m_comboSize;
+//    QComboBox *m_comboSize;
 
     /** Groupe des actions d'alignement */
     QActionGroup *m_alignActions;
@@ -197,7 +201,8 @@ private:
 
     AbulEduMediathequeGetV1       *m_abuleduMediatheque;
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
-    AbulEduBoxFileManagerV1       *m_abuleduFileManager;
+    AbulEduBoxFileManagerV1       *m_abuleduFileManagerOpen;
+    AbulEduBoxFileManagerV1       *m_abuleduFileManagerSave;
 
 public slots:
     /** Formate le texte en fonction des toolButtons activés
@@ -209,7 +214,7 @@ public slots:
     void setTextAlign(QAction *action);
 
     /** Applique la font sélectionnée */
-    void setTextFamily(const QString &f);
+    void setTextFamily();
 
     /** Applique la taille de font sélectionnée */
     void setTextSize(const QString &p);
@@ -231,7 +236,12 @@ public slots:
     void updateActions(QTextCharFormat fmt);
 
     void slotMediathequeDownload(int code);
-    void slotFileOpen();
+
+    /** affiche la box file open */
+    void fileOpen();
+
+    /** ouvre le fichier */
+    void slotOpenFile();
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */

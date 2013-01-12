@@ -28,9 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    setAttribute(Qt::WA_QuitOnClose);
+
     ui->setupUi(this);
     ui->widgetTextEditor->abeTexteSetMenuBar(false);
-    showFullScreen();
 
     ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
 
