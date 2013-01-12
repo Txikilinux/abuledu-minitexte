@@ -54,6 +54,8 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
     m_abuleduMediatheque->hide();
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
+    setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
+
     m_abuleduFileManagerOpen = new AbulEduBoxFileManagerV1(0);
     m_abuleduFileManagerOpen->abeSetFile(m_abuledufile);
     connect(m_abuleduFileManagerOpen, SIGNAL(signalAbeFileSelected()), this, SLOT(slotOpenFile()));
@@ -99,6 +101,7 @@ AbulEduTexteV1::AbulEduTexteV1(QWidget *parent) :
             this, SLOT(cursorMoved()));
 
     ui->teZoneTexte->setFocus();
+    m_isNewFile = true;
 }
 
 AbulEduTexteV1::~AbulEduTexteV1()
@@ -224,6 +227,12 @@ void AbulEduTexteV1::setTextFamily()
     mergeFormatOnWordOrSelection(fmt);
     setTextSize("20");
     ui->teZoneTexte->setFocus();
+
+    //Espacement vertical different
+    QTextBlockFormat format;
+    format.setLineHeight(sender()->property("interligne").toInt(), QTextBlockFormat::ProportionalHeight);
+    QTextCursor curseur = ui->teZoneTexte->textCursor();
+    curseur.setBlockFormat(format);
 }
 
 void AbulEduTexteV1::setTextSize(const QString &p)
@@ -394,24 +403,28 @@ void AbulEduTexteV1::setupToolBarAndActions()
     m_btnFontAndika = new QPushButton("Andika");
     m_btnFontAndika->setFont(QFont("Andika",14));
     m_btnFontAndika->setObjectName("Andika");
+    m_btnFontAndika->setProperty("interligne",100);
     tb->addWidget(m_btnFontAndika);
     connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
     m_btnFontSeyes= new QPushButton("Seyes");
     m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
     m_btnFontSeyes->setObjectName("SeyesBDE");
+    m_btnFontSeyes->setProperty("interligne",200);
     tb->addWidget(m_btnFontSeyes);
     connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
     m_btnFontCrayon= new QPushButton("Crayon");
     m_btnFontCrayon->setFont(QFont("CrayonE",16));
     m_btnFontCrayon->setObjectName("CrayonE");
+    m_btnFontCrayon->setProperty("interligne",100);
     tb->addWidget(m_btnFontCrayon);
     connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
     m_btnFontPlume= new QPushButton("Plume");
     m_btnFontPlume->setFont(QFont("PlumBAE",16));
     m_btnFontPlume->setObjectName("PlumBAE");
+    m_btnFontPlume->setProperty("interligne",100);
     tb->addWidget(m_btnFontPlume);
     connect(m_btnFontPlume, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
@@ -499,7 +512,7 @@ void AbulEduTexteV1::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 bool AbulEduTexteV1::fileSave()
 {
     qDebug() << "Ecriture dans le fichier " << m_fileName;
-    if (m_fileName.isEmpty()) {
+    if (m_isNewFile) {
         return fileSaveAs(); // Ouverture du sélecteur de fichier
     }
 
@@ -549,6 +562,7 @@ bool AbulEduTexteV1::fileSaveAs()
 #endif
 
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
+    m_isNewFile = false;
     return fileSave();
 }
 void AbulEduTexteV1::setCurrentFileName(const QString &fileName)

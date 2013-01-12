@@ -43,6 +43,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->toolBar->addWidget(spacerWidget);
     ui->toolBar->addAction(actionQuit);
+    resize(1024,600);
+
+    setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
+
     //    setFixedSize(1024, 600);
 }
 

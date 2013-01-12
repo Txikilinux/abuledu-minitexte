@@ -197,6 +197,7 @@ private:
     QString m_font;
 
     bool m_hasMenuBar;
+    bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...
 
 
     AbulEduMediathequeGetV1       *m_abuleduMediatheque;
