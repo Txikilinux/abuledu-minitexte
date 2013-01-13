@@ -29,7 +29,22 @@
 #include <QTextDocument>
 #include <QMenu>
 #include <QAction>
-#include "abuledutextev1.h"
+
+#include <QTextCharFormat>
+#include <QColorDialog>
+#include <QTextDocumentWriter>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QPrinterInfo>
+#include <QTextCursor>
+#include <QTextImageFormat>
+#include <QTextFrameFormat>
+#include <QUrl>
+#include <QImageReader>
+
+#include "abuledumediathequegetv1.h"
+#include "abuleduboxfilemanagerv1.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -43,12 +58,196 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     
+    /** Retourne un pointeur vers le document de la zone de texte */
+    QTextDocument *abeTexteGetDocument();
+
+    /** Retourne un pointeur vers la barre de boutons */
+    QToolBar *abeTexteGetToolBar();
+
+    /** Retourne un pointeur vers la barre de boutons */
+    QMenuBar *abeTexteGetMenuBar();
+
+    /** Fixe la police sous le curseur courant
+      * @param fontFamily le nom de la police
+      */
+    void abeTexteSetFontFamily(QString fontFamily);
+    QString abeTexteGetFontFamily();
+
+    /** Fixe la taille de la police courante
+      * @param taille la taille de la police
+      */
+    void abeTexteSetFontSize(int taille);
+
+    /** Fixe l'alignement du paragraphe courant
+      * @param align L'alignement du paragraphe : Qt::AlignLeft Qt::AlignRight Qt::AlignHCenter QT::AlignJustify
+      */
+    void abeTexteSetAlignment(Qt::Alignment align);
+
+    /** Active le Bold ou pas
+      * @param onOff active/désactive le Bold
+      */
+    void abeTexteSetBold(bool onOff);
+
+    /** Active l'Italic ou pas
+      * @param onOff active/désactive l'italic
+      */
+    void abeTexteSetItalic(bool onOff);
+
+
+    /** Active le souligné ou pas
+      * @param onOff active/désactive le souligné
+      */
+    void abeTexteSetUnderline(bool onOff);
+
+    /** Montre ou cache la ToolBar
+      * @param ouiNon visible/masquée
+      */
+    void abeTexteToolBarSetVisible(bool ouiNon);
+
+    /** Retourne la visibilité de la ToolBar
+      * @return true->visible, false->invisible
+      */
+    bool abeTexteToolBarIsVisible();
+
+    /** Crée la QMenuBar si elle ne l'était pas */
+    void abeTexteSetMenuBar(bool ouiNon);
+
+    /** Retourne l'existance de la menuBar
+      * @return true->Elle existe, false-> elle n'existe pas.
+      */
+    bool abeTexteHasMenuBar();
+
+    /** insére une image à lo'endroit du curseur
+      * @param cheminImage Le chemin vers l'image à insérer
+      */
+    bool abeTexteInsertImage(QString cheminImage, qreal width = 0, qreal height = 0, QTextFrameFormat::Position position = QTextFrameFormat::InFlow, QString name = "");
+
 private:
     Ui::MainWindow *ui;
+    /** Crée la barre de d'icones et les actions correspondantes */
+    void setupToolBarAndActions();
 
-private slots:
+    /** Applique le format passé en référence sur le mot en dessous du curseur, ou à la sélection
+      * @param format le formatage à appliquer au texte
+      */
+    void mergeFormatOnWordOrSelection(const QTextCharFormat &format);
 
-    void on_actionQuitter_triggered();
+    /** Fixe la couleur de l'icone dans la barre de boutons
+      * @param couleur une couleur sous forme de QColor
+      */
+    void colorChanged(const QColor &couleur);
+
+    /** Fixe le nom du fichier
+      * @param fileName le chemin du fichier
+      */
+    void setCurrentFileName(const QString &fileName);
+
+    /** Crée une barre de menu avec les QActions disponibles */
+    void setupMenuBar();
+
+    /** Liste des QActions (pas toutes implémentées) */
+    QAction *m_actionSave,
+            *m_actionOpen,
+            *m_actionPrint,
+            *m_actionTextBold,
+            *m_actionTextItalic,
+            *m_actionTextUnderline,
+            *m_actionTextColor,
+            *m_actionAlignLeft,
+            *m_actionAlignCenter,
+            *m_actionAlignRight,
+            *m_actionAlignJustify,
+            *m_actionUndo,
+            *m_actionRedo,
+            *m_actionCut,
+            *m_actionCopy,
+            *m_actionPaste,
+            *m_actionImageFromData;
+
+    /** Combobox des Polices */
+//    QComboBox *m_comboFont;
+    QPushButton *m_btnFontAndika;
+    QPushButton *m_btnFontPlume;
+    QPushButton *m_btnFontCrayon;
+    QPushButton *m_btnFontSeyes;
+
+    /** Combobox des tailles de polices valides */
+//    QComboBox *m_comboSize;
+
+    /** Groupe des actions d'alignement */
+    QActionGroup *m_alignActions;
+
+    /** Le chemin du fichier */
+    QString m_fileName;
+
+    bool m_localDebug;
+    QToolBar *tb;
+    QMenuBar *m_menuBar;
+    int m_hauteurToolBar;
+    QString m_font;
+
+    bool m_hasMenuBar;
+    bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...
+
+
+    AbulEduMediathequeGetV1       *m_abuleduMediatheque;
+    QSharedPointer<AbulEduFileV1>  m_abuledufile;
+    AbulEduBoxFileManagerV1       *m_abuleduFileManagerOpen;
+    AbulEduBoxFileManagerV1       *m_abuleduFileManagerSave;
+
+public slots:
+    /** Formate le texte en fonction des toolButtons activés
+      * Gras, Souligné, Italic
+      */
+    void setTextFormat();
+
+    /** Aligne le texte en fonction des boutons activés */
+    void setTextAlign(QAction *action);
+
+    /** Applique la font sélectionnée */
+    void setTextFamily();
+
+    /** Applique la taille de font sélectionnée */
+    void setTextSize(const QString &p);
+
+    /** Applique la couleur de texte sélectionnée */
+    void setTextColor();
+
+    /** Enregistre le texte */
+    bool fileSave();
+
+    /** Enregistre sous ... le texte */
+    bool fileSaveAs();
+
+    void filePrint();
+
+//    void cursorMoved(QTextCursor curseur);
+    void cursorMoved();
+    /** Mets à jour l'état des boutons de la tool barre en fonction du formatage */
+    void updateActions(QTextCharFormat fmt);
+
+    void slotMediathequeDownload(int code);
+
+    /** affiche la box file open */
+    void fileOpen();
+
+    /** ouvre le fichier */
+    void slotOpenFile();
+
+signals:
+    /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
+    void somethingHasChangedInText(bool);
+
+    /** Signal émis lors du changement de nom du fichier
+      * @param le nom du fichier avec [*] en fin de nom
+      */
+    void fileNameHasChanged(const QString newFileName);
+
+    // Signaux émis pour simuler l'appui sur les toolbutons
+    void alignmentRight();
+    void alignmentLeft();
+    void alignmentCenter();
+    void alignmentJustify();
 };
 
 #endif // MAINWINDOW_H

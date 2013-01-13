@@ -27,7 +27,7 @@
 
 #include "version.h"
 #include "mainwindow.h"
-#include "abuledutextev1.h"
+//#include "abuledutextev1.h"
 #include "abuleduapplicationv1.h"
 
 int main(int argc, char *argv[])
