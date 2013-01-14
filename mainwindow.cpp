@@ -382,13 +382,13 @@ void MainWindow::setupToolBarAndActions()
     tb->addSeparator();
 
     QFontDatabase fonts;
-    if( ! fonts.addApplicationFont(":/abuledutextev1/data/fonts/Seyes")) {
+    if( ! fonts.addApplicationFont(":/abuledutextev1/Seyes")) {
         qDebug() << "Erreur sur :/fonts/SEYESBDE.TTF";
     }
-    if( ! fonts.addApplicationFont(":/abuledutextev1/data/fonts/Crayon")) {
+    if( ! fonts.addApplicationFont(":/abuledutextev1/Crayon")) {
         qDebug() << "Erreur sur :/fonts/CRAYONE.TTF";
     }
-    if( ! fonts.addApplicationFont(":/abuledutextev1/data/fonts/Plume")) {
+    if( ! fonts.addApplicationFont(":/abuledutextev1/Plume")) {
         qDebug() << "Erreur sur :/fonts/PLUMBAE.TTF";
     }
 
@@ -401,8 +401,8 @@ void MainWindow::setupToolBarAndActions()
     connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
     m_btnFontSeyes= new QPushButton("Seyes");
-    m_btnFontSeyes->setFont(QFont("seyes",16));
-    m_btnFontSeyes->setObjectName("Seyes");
+    m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
+    m_btnFontSeyes->setObjectName("SeyesBDE");
     m_btnFontSeyes->setProperty("interligne",200);
     tb->addWidget(m_btnFontSeyes);
     connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()));
