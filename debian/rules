@@ -3,30 +3,26 @@
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/qmake.mk
 
-# Add here any variable or target overrides you need.
-QMAKE=qmake-qt4
+QMAKE=qmake-qt4 #pour jaunty
+QTDIR=/usr
+QTPLUGINS=/usr/lib/qt4/plugins
+#QMAKE=qmake-qt4 #apres jaunty
 CFLAGS=-O3
 CXXFLAGS=-O3
-NBCPU=$(shell cat /proc/cpuinfo | grep processor | wc -l)
-MAKE=make -j$(NBCPU)
-EXEC=abuledu-minitexte
-DEST=/usr/share/abuledu-minitexte
-EXECDEST=/usr/lib/abuledu-minitexte
-BUILDTEMP=$(CURDIR)/debian/abuledu-minitexte
+EXECNAME=abuledu-minitexte
+DEST=/usr/share/$(EXECNAME)
+EXECDEST=/usr/lib/$(EXECNAME)
+BUILDTEMP=$(CURDIR)/debian/$(EXECNAME)
 
-install/abuledu-minitexte::
-	mkdir -p $(BUILDTEMP)/usr/bin/
-	mkdir -p $(BUILDTEMP)/$(EXECDEST)
-	mkdir -p $(BUILDTEMP)/$(DEST)
-	#mkdir -p $(BUILDTEMP)/$(EXECDEST)/lang
-	#mkdir -p $(BUILDTEMP)/$(DEST)/conf
-	#mkdir -p $(BUILDTEMP)/$(DEST)/data
-	mkdir -p $(BUILDTEMP)/usr/share/applications
-	cp -a $(BUILDTEMP).wrapper $(BUILDTEMP)/usr/bin/${EXEC}
-	chmod +x $(BUILDTEMP)/usr/bin/${EXEC}
-	cp -a $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
-	cp -a $(CURDIR)/data/images/abuledu-minitexte.svg $(BUILDTEMP)/$(DEST)
-	#cp -a $(CURDIR)/lang/*.qm $(BUILDTEMP)/$(EXECDEST)/lang
-	#cp -a $(CURDIR)/data/* $(BUILDTEMP)/$(DEST)/data
-	cp -a $(CURDIR)/${EXEC} $(BUILDTEMP)/$(EXECDEST)/
-	strip $(BUILDTEMP)/$(EXECDEST)/${EXEC}
+install/$(EXECNAME)::
+	install -d -m 755 $(BUILDTEMP)/usr/bin/
+	install -d -m 755 $(BUILDTEMP)/$(EXECDEST)
+	install -d -m 755 $(BUILDTEMP)/$(DEST)/data/picto
+	install -d -m 755 $(BUILDTEMP)/$(DEST)/conf
+	install -d -m 755 $(BUILDTEMP)/usr/share/applications
+	install -m 755 $(BUILDTEMP).wrapper $(BUILDTEMP)/usr/bin/$(EXECNAME)
+	install -m 644 $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
+	install -m 644 $(CURDIR)/data/*.abe $(BUILDTEMP)/$(DEST)/data || true
+	install -m 644 $(CURDIR)/exemples/*.abe $(BUILDTEMP)/$(DEST)/data || true
+	install -s -m 755 $(CURDIR)/$(EXECNAME) $(BUILDTEMP)/$(EXECDEST)/
+	install -m 644 $(CURDIR)/data/images/*$(EXECNAME)*.svg $(BUILDTEMP)/$(DEST)
