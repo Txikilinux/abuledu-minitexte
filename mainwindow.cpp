@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
-    ui->teZoneTexte->setFocus();
+    //ui->teZoneTexte->setFocus();
     //    setFixedSize(1024, 600);
 
     m_picoLecteur = new AbulEduPicottsV1(4);

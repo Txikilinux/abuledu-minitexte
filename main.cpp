@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     MainWindow w;
 #ifdef __ABULEDUTABLETTEV1__MODE__
     QApplication::setStyle("plastique");
-    w.showFullScreen();    
+    w.showFullScreen();
 #else
     w.show();
 #endif
