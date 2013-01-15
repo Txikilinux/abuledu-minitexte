@@ -38,5 +38,5 @@ include(lib/abuleduflatboutonv1/abuleduflatboutonv1.pri)
 include(lib/maia/maia.pri)
 include(lib/abuledufilev1/abuledufilev1.pri)
 
-
 #include(futurelib/abuledutextev1/abuledutextev1.pri)
+include(lib/abuledupicottsv1/abuledupicottsv1.pri)

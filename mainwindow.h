@@ -44,6 +44,7 @@
 
 #include "abuledumediathequegetv1.h"
 #include "abuleduboxfilemanagerv1.h"
+#include "abuledupicottsv1.h"
 
 
 namespace Ui {
@@ -194,6 +195,7 @@ private:
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
     AbulEduBoxFileManagerV1       *m_abuleduFileManagerOpen;
     AbulEduBoxFileManagerV1       *m_abuleduFileManagerSave;
+    AbulEduPicottsV1              *m_picoLecteur;
 
 public slots:
     /** Formate le texte en fonction des toolButtons activés
@@ -248,6 +250,11 @@ signals:
     void alignmentLeft();
     void alignmentCenter();
     void alignmentJustify();
+
+private slots:
+    void on_btnLire_clicked();
+    void on_btnPause_clicked();
+    void on_btnStop_clicked();
 };
 
 #endif // MAINWINDOW_H

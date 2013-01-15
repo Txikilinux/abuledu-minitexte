@@ -108,6 +108,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->teZoneTexte->setFocus();
     //    setFixedSize(1024, 600);
+
+    m_picoLecteur = new AbulEduPicottsV1(4);
+
 }
 
 MainWindow::~MainWindow()
@@ -765,4 +768,29 @@ void MainWindow::slotOpenFile()
 
     ui->teZoneTexte->update();
     qDebug() << document->toHtml();
+}
+
+void MainWindow::on_btnLire_clicked()
+{
+    QString txt = QString("<break time=\"1s\"><speed level=\"80\"><volume level=\"150\">%1</speed>").arg(ui->teZoneTexte->toPlainText());
+    m_picoLecteur->abePicoPlay(txt);
+    ui->btnPause->setText(trUtf8("Pause"));
+}
+
+void MainWindow::on_btnPause_clicked()
+{
+    if(ui->btnPause->text() == trUtf8("Continuer")) {
+        m_picoLecteur->abePicoResume();
+        ui->btnPause->setText(trUtf8("Pause"));
+    }
+    else {
+        m_picoLecteur->abePicoPause();
+        ui->btnPause->setText(trUtf8("Continuer"));
+    }
+}
+
+
+void MainWindow::on_btnStop_clicked()
+{
+    m_picoLecteur->abePicoStop();
 }
