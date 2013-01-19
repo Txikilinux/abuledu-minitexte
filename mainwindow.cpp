@@ -772,7 +772,7 @@ void MainWindow::slotOpenFile()
 
 void MainWindow::on_btnLire_clicked()
 {
-    QString txt = QString("<break time=\"1s\"><speed level=\"80\"><volume level=\"150\">%1</speed>").arg(ui->teZoneTexte->toPlainText());
+    QString txt = QString("<break time=\"1s\"><speed level=\"80\"><volume level=\"100\">%1</speed>").arg(ui->teZoneTexte->toPlainText());
     m_picoLecteur->abePicoPlay(txt);
     ui->btnPause->setText(trUtf8("Pause"));
 }
