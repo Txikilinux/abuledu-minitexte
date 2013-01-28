@@ -3,9 +3,7 @@
         <file alias="Crayon">data/fonts/CRAYONE.TTF</file>
         <file alias="Plume">data/fonts/PLUMBAE.TTF</file>
         <file alias="Seyes">data/fonts/SEYESBDE.TTF</file>
-        <file>data/images/abuledu-minitexte.svg</file>
         <file>data/images/cloud.svg</file>
-        <file>data/images/logo32.png</file>
         <file>data/images/mac/editcopy.png</file>
         <file>data/images/mac/editcut.png</file>
         <file>data/images/mac/editpaste.png</file>
