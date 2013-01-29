@@ -1,5 +1,5 @@
 #!/bin/sh
 
-xdg-desktop-menu install  --novendor --mode system /usr/share/applications/abuledu-minitexte.desktop
-
 #DEBHELPER#
+
+exit 0

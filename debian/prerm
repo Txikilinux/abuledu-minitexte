@@ -1,5 +1,0 @@
-#!/bin/bash
-
-xdg-desktop-menu uninstall /usr/share/applications/abuledu-minitexte.desktop
-
-#DEBHELPER#
