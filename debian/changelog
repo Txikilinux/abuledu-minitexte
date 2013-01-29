@@ -1,3 +1,15 @@
+abuledu-minitexte (0.6.0~ryxeo10~precise1) precise; urgency=low
+
+  * new auto build from panda-01
+
+ -- ARM AutoBuild System <panda-autobuild-01@ryxeo.com>  Tue, 29 Jan 2013 09:55:38 +0100
+
+abuledu-minitexte (0.6.0~ryxeo9~precise1) precise; urgency=low
+
+  * new auto build from panda-01
+
+ -- ARM AutoBuild System <panda-autobuild-01@ryxeo.com>  Mon, 28 Jan 2013 11:42:28 +0100
+
 abuledu-minitexte (0.1.1~ryxeo1) lucid; urgency=low
 
   * premier paquet

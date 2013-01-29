@@ -9,5 +9,5 @@ Exec=abuledu-minitexte
 Comment[fr]=Un mini traitement de texte pour AbulEdu
 Name=AbulEdu Mini Text Writer
 Comment=A tiny text writer for AbulEdu
-Icon=/usr/share/abuledu-minitexte/abuledu-minitexte.svg
+Icon=/usr/share/abuledu-minitexte/abuledu-minitexte-256.png
 Categories=Education;
