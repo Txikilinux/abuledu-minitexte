@@ -25,4 +25,4 @@ install/$(EXECNAME)::
 	install -m 644 $(CURDIR)/data/*.abe $(BUILDTEMP)/$(DEST)/data || true
 	install -m 644 $(CURDIR)/exemples/*.abe $(BUILDTEMP)/$(DEST)/data || true
 	install -s -m 755 $(CURDIR)/$(EXECNAME) $(BUILDTEMP)/$(EXECDEST)/
-	install -m 644 $(CURDIR)/data/images/*$(EXECNAME)*.svg $(BUILDTEMP)/$(DEST)
+	#install -m 644 $(CURDIR)/data/images/*$(EXECNAME)*.png $(BUILDTEMP)/$(DEST)
