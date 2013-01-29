@@ -3,7 +3,7 @@
 Version=1.0
 Type=Application
 Terminal=false
-Icon[fr]=/usr/share/abuledu-minitexte/abuledu-minitexte.svg
+Icon[fr]=/usr/share/abuledu-minitexte/abuledu-minitexte-256.png
 Name[fr]=Mini traitement de texte pour AbulEdu
 Exec=abuledu-minitexte
 Comment[fr]=Un mini traitement de texte pour AbulEdu
