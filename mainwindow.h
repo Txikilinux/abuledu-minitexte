@@ -42,6 +42,7 @@
 #include <QUrl>
 #include <QImageReader>
 
+#include "abuleduflatboutonv1.h"
 #include "abuledumediathequegetv1.h"
 #include "abuleduboxfilemanagerv1.h"
 #include "abuledupicottsv1.h"
@@ -235,6 +236,9 @@ public slots:
 
     /** ouvre le fichier */
     void slotOpenFile();
+
+    /** gestion du retour de sauvegarde fichier via la box file manager */
+    void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation box,QString fileName, bool etat);
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
