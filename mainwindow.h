@@ -168,10 +168,10 @@ private:
 
     /** Combobox des Polices */
 //    QComboBox *m_comboFont;
-    QPushButton *m_btnFontAndika;
-    QPushButton *m_btnFontPlume;
-    QPushButton *m_btnFontCrayon;
-    QPushButton *m_btnFontSeyes;
+    AbulEduFlatBoutonV1 *m_btnFontAndika;
+    AbulEduFlatBoutonV1 *m_btnFontPlume;
+    AbulEduFlatBoutonV1 *m_btnFontCrayon;
+    AbulEduFlatBoutonV1 *m_btnFontSeyes;
 
     /** Combobox des tailles de polices valides */
 //    QComboBox *m_comboSize;

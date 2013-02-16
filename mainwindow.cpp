@@ -112,6 +112,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_picoLecteur = new AbulEduPicottsV1(4);
 
+//    ui->frmPico->hide();
 }
 
 MainWindow::~MainWindow()
@@ -410,6 +411,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
     m_btnFontSeyes->setObjectName("SeyesBDE");
     m_btnFontSeyes->setProperty("interligne",200);
+    //m_btnFontSeyes->setTextePadding(30,10,30,10);
     tb->addWidget(m_btnFontSeyes);
     connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
@@ -417,7 +419,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontCrayon->setText("Crayon");
     m_btnFontCrayon->setFont(QFont("CrayonE",16));
     m_btnFontCrayon->setObjectName("CrayonE");
-    m_btnFontCrayon->setProperty("interligne",100);
+    m_btnFontCrayon->setProperty("interligne",120);
     tb->addWidget(m_btnFontCrayon);
     connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
@@ -425,9 +427,11 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontPlume->setText("Plume");
     m_btnFontPlume->setFont(QFont("PlumBAE",16));
     m_btnFontPlume->setObjectName("PlumBAE");
-    m_btnFontPlume->setProperty("interligne",100);
+    m_btnFontPlume->setProperty("interligne",120);
     tb->addWidget(m_btnFontPlume);
     connect(m_btnFontPlume, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+
+    tb->addSeparator();
 
     // Les actions concernant le choix de la police création de la combobox
 //    m_comboFont = new QComboBox(tb);
