@@ -222,7 +222,9 @@ void MainWindow::setTextFamily()
 
     //Espacement vertical different
     QTextBlockFormat format;
+#if QT_VERSION >= 0x040700
     format.setLineHeight(sender()->property("interligne").toInt(), QTextBlockFormat::ProportionalHeight);
+#endif
     QTextCursor curseur = ui->teZoneTexte->textCursor();
     curseur.setBlockFormat(format);
 }
