@@ -64,7 +64,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_abuleduFileManagerSave = new AbulEduBoxFileManagerV1(0);
     m_abuleduFileManagerSave->abeSetFile(m_abuledufile);
     m_abuleduFileManagerSave->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
-
+    connect(m_abuleduFileManagerSave, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
+            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
 
     // Au cas ou le widget serait un topLevelWidget()
     setWindowTitle(trUtf8("Sans nom")+"[*]");
@@ -97,7 +98,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QWidget *spacerWidget = new QWidget(ui->toolBar);
     spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     spacerWidget->setVisible(true);
-    QAction *actionQuit = new QAction(QIcon(":/abuleduboxfilemanagerv1/fermer-32"),trUtf8("Quit"), this);
+    QAction *actionQuit = new QAction(QIcon(":/abuledutextev1/fermer-48"),trUtf8("Quit"), this);
     connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
 
     ui->toolBar->addWidget(spacerWidget);
@@ -111,6 +112,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_picoLecteur = new AbulEduPicottsV1(4);
 
+//    ui->frmPico->hide();
 }
 
 MainWindow::~MainWindow()
@@ -225,7 +227,7 @@ void MainWindow::setTextFamily()
     fmt.setFontFamily(f);
     mergeFormatOnWordOrSelection(fmt);
     setTextSize("20");
-    ui->teZoneTexte->setFocus();
+//    ui->teZoneTexte->setFocus();
 
     //Espacement vertical different
     QTextBlockFormat format;
@@ -273,7 +275,7 @@ void MainWindow::setupToolBarAndActions()
     tb = ui->toolBar;
     tb->setToolButtonStyle(Qt::ToolButtonIconOnly);
     tb->setFixedHeight(m_hauteurToolBar);
-    tb->setWindowTitle(trUtf8("&Édition"));
+//    tb->setWindowTitle(trUtf8("&Édition"));
 
     /** @todo utiliser le thème abuledu pour les icones des toolboutons
       * Pour l'instant, on utilise l'icone du thème, sinon celle du fichier de ressources
@@ -396,33 +398,40 @@ void MainWindow::setupToolBarAndActions()
     }
 
     //Pour tablettes, je préfère des boutons ...
-    m_btnFontAndika = new QPushButton("Andika");
+    m_btnFontAndika = new AbulEduFlatBoutonV1();
+    m_btnFontAndika->setText("Andika");
     m_btnFontAndika->setFont(QFont("andika",14));
     m_btnFontAndika->setObjectName("andika");
     m_btnFontAndika->setProperty("interligne",100);
     tb->addWidget(m_btnFontAndika);
     connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
-    m_btnFontSeyes= new QPushButton("Seyes");
+    m_btnFontSeyes= new AbulEduFlatBoutonV1();
+    m_btnFontSeyes->setText("Seyes");
     m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
     m_btnFontSeyes->setObjectName("SeyesBDE");
     m_btnFontSeyes->setProperty("interligne",200);
+    //m_btnFontSeyes->setTextePadding(30,10,30,10);
     tb->addWidget(m_btnFontSeyes);
     connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
-    m_btnFontCrayon= new QPushButton("Crayon");
+    m_btnFontCrayon= new AbulEduFlatBoutonV1();
+    m_btnFontCrayon->setText("Crayon");
     m_btnFontCrayon->setFont(QFont("CrayonE",16));
     m_btnFontCrayon->setObjectName("CrayonE");
-    m_btnFontCrayon->setProperty("interligne",100);
+    m_btnFontCrayon->setProperty("interligne",120);
     tb->addWidget(m_btnFontCrayon);
     connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
-    m_btnFontPlume= new QPushButton("Plume");
+    m_btnFontPlume= new AbulEduFlatBoutonV1();
+    m_btnFontPlume->setText("Plume");
     m_btnFontPlume->setFont(QFont("PlumBAE",16));
     m_btnFontPlume->setObjectName("PlumBAE");
-    m_btnFontPlume->setProperty("interligne",100);
+    m_btnFontPlume->setProperty("interligne",120);
     tb->addWidget(m_btnFontPlume);
     connect(m_btnFontPlume, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+
+    tb->addSeparator();
 
     // Les actions concernant le choix de la police création de la combobox
 //    m_comboFont = new QComboBox(tb);
@@ -482,10 +491,9 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 
 bool MainWindow::fileSave()
 {
+    setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
+
     qDebug() << "Ecriture dans le fichier " << m_fileName;
-    if (m_isNewFile) {
-        return fileSaveAs(); // Ouverture du sélecteur de fichier
-    }
 
     //
     QFileInfo fi(m_fileName);
@@ -506,35 +514,36 @@ bool MainWindow::fileSave()
         }
     }
 
-    if(m_abuledufile->abeFileSave(m_abuledufile->abeFileGetFileName().absoluteFilePath(),
-                               liste,
-                               fi.absolutePath(),
-                               QString("abe"))) {
-        //rien à dire
-        qDebug() << "Sauvegarde ok, fichier : " << m_abuledufile->abeFileGetFileName().absoluteFilePath();
-    }
-    else {
-        AbulEduMessageBoxV1 *alertBox=new AbulEduMessageBoxV1(trUtf8("Erreur de sauvegarde"),trUtf8("ERREUR: Le document n'a pas été sauvegardé."));
-        alertBox->show();
+    m_abuledufile->abeFileExportPrepare(liste, fi.absolutePath(), "abe");
+
+    if (m_isNewFile) {
+        fileSaveAs(); // Ouverture du sélecteur de fichier
     }
 
-
-    return success;
-}
-
-bool MainWindow::fileSaveAs()
-{
-    /** @todo Voir si l'on propose d'autres formats d'enregistrement du texte */
-
+//    if(m_abuledufile->abeFileSave(m_abuledufile->abeFileGetFileName().absoluteFilePath(),
+//                               liste,
+//                               fi.absolutePath(),
+//                               QString("abe"))) {
+//        //rien à dire
+//        qDebug() << "Sauvegarde ok, fichier : " << m_abuledufile->abeFileGetFileName().absoluteFilePath();
+//    }
+//    else {
+//        AbulEduMessageBoxV1 *alertBox=new AbulEduMessageBoxV1(trUtf8("Erreur de sauvegarde"),trUtf8("ERREUR: Le document n'a pas été sauvegardé."));
+//        alertBox->show();
+//    }
 #ifdef __ABULEDUTABLETTEV1__MODE__
     m_abuleduFileManagerSave->showFullScreen();
 #else
     m_abuleduFileManagerSave->show();
 #endif
 
-    setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
+    return success;
+}
+
+bool MainWindow::fileSaveAs()
+{
     m_isNewFile = false;
-    return fileSave();
+    fileSave();
 }
 void MainWindow::setCurrentFileName(const QString &fileName)
 {
@@ -676,6 +685,9 @@ void MainWindow::slotMediathequeDownload(int code)
 {
     QString file = m_abuleduMediatheque->abeGetFile()->abeFileGetContent(0).absoluteFilePath();
     QString filename = m_abuleduMediatheque->abeGetFile()->abeFileGetContent(0).baseName() + ".png";
+
+    qDebug() << "  slotMediathequeDownload : " << file << " et " << filename;
+
     QUrl Uri ( QString ( "mydata://data/%1" ).arg ( filename ) );
     QImage image = QImageReader ( file ).read().scaledToWidth(150,Qt::SmoothTransformation);
 
@@ -768,6 +780,11 @@ void MainWindow::slotOpenFile()
 
     ui->teZoneTexte->update();
     qDebug() << document->toHtml();
+}
+
+void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation box, QString fileName, bool etat)
+{
+    qDebug() << "slotAbeFileSaved : " << fileName << " et " << etat;
 }
 
 void MainWindow::on_btnLire_clicked()

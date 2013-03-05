@@ -13,15 +13,21 @@
   <property name="windowTitle">
    <string>Mini traitement de texte pour AbulÉdu</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QToolBar {
+  background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(2, 141, 255, 255), stop:1 rgba(56, 167, 255, 227));
+}
+QToolBar {
+  border-bottom: 2px solid white;
+}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget #centralWidget {
+  background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(84, 181, 255, 213), stop:1 rgba(195, 231, 255, 157));
+}</string>
+   </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="3">
-     <widget class="QTextEdit" name="teZoneTexte">
-      <property name="autoFormatting">
-       <set>QTextEdit::AutoAll</set>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="4">
      <widget class="QFrame" name="frmPico">
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -58,6 +64,37 @@
           </size>
          </property>
         </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QFrame" name="frmPrincipale">
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255);
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QTextEdit" name="teZoneTexte">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <property name="autoFormatting">
+          <set>QTextEdit::AutoAll</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

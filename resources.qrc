@@ -42,5 +42,6 @@
         <file>data/images/win/textunder.png</file>
         <file>data/images/win/zoomin.png</file>
         <file>data/images/win/zoomout.png</file>
+        <file alias="fermer-48">data/images/fermer-48.png</file>
     </qresource>
 </RCC>
