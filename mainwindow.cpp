@@ -94,15 +94,6 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isNewFile = true;
 
 //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
-
-    QWidget *spacerWidget = new QWidget(ui->toolBar);
-    spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    spacerWidget->setVisible(true);
-    QAction *actionQuit = new QAction(QIcon(":/abuledutextev1/fermer-48"),trUtf8("Quit"), this);
-    connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
-
-    ui->toolBar->addWidget(spacerWidget);
-    ui->toolBar->addAction(actionQuit);
     resize(1024,600);
 
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
@@ -476,6 +467,16 @@ void MainWindow::setupToolBarAndActions()
     connect(m_actionImageFromData, SIGNAL(triggered()), m_abuleduMediatheque, SLOT(show()));
 #endif
     tb->addAction(m_actionImageFromData);
+
+
+    QWidget *spacerWidget = new QWidget(ui->toolBar);
+    spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    spacerWidget->setVisible(true);
+    QAction *actionQuit = new QAction(QIcon(":/abuledutextev1/fermer-48"),trUtf8("Quit"), this);
+    connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
+
+    ui->toolBar->addWidget(spacerWidget);
+    ui->toolBar->addAction(actionQuit);
 
 }
 

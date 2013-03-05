@@ -1,5 +1,13 @@
 #!/bin/sh
 
-#DEBHELPER#
+ICON=/usr/share/applications/abuledu-minitexte.desktop
+ALACARTEDIR=/usr/share/abuledu-alacarte/data/profile1.applications/
 
-exit 0
+xdg-desktop-menu install  --novendor --mode system ${ICON}
+
+#alacarte
+if [ -d "${ALACARTEDIR}" ]; then
+    cp ${ICON} ${ALACARTEDIR}
+fi
+
+#DEBHELPER#
