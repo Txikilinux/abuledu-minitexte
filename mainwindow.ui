@@ -67,7 +67,7 @@ QToolBar {
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="CouleurFondNormale">
         <color>
@@ -91,7 +91,7 @@ QToolBar {
         </color>
        </property>
        <property name="iconeNormale">
-        <string/>
+        <string>:/abuledutextev1/buttons/leaf</string>
        </property>
       </widget>
      </item>
@@ -152,7 +152,7 @@ border-radius:10px;</string>
       <widget class="AbulEduFlatBoutonV1" name="btnImporterMot">
        <property name="minimumSize">
         <size>
-         <width>92</width>
+         <width>64</width>
          <height>92</height>
         </size>
        </property>
@@ -175,7 +175,7 @@ border-radius:10px;</string>
         <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/new');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/newHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
-        <string/>
+        <string>Nouveau</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
@@ -416,7 +416,7 @@ border-radius:10px;</string>
       <x>0</x>
       <y>50</y>
       <width>861</width>
-      <height>521</height>
+      <height>511</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -429,7 +429,7 @@ border-radius:10px;</string>
      <item row="1" column="0">
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="pageTexte">
         <layout class="QGridLayout" name="gridLayout_5">
@@ -503,21 +503,21 @@ border-radius:10px;</string>
         </layout>
        </widget>
        <widget class="QWidget" name="pagePrint">
-        <widget class="QWidget" name="gridLayoutWidget">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>50</y>
-           <width>741</width>
-           <height>321</height>
-          </rect>
-         </property>
-         <layout class="QGridLayout" name="glPrint"/>
-        </widget>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <item row="0" column="0">
+          <layout class="QGridLayout" name="glPrint"/>
+         </item>
+        </layout>
         <zorder>gridLayoutWidget</zorder>
         <zorder>frFormat</zorder>
        </widget>
-       <widget class="QWidget" name="pageColor"/>
+       <widget class="QWidget" name="pageColor">
+        <layout class="QGridLayout" name="gridLayout_7">
+         <item row="0" column="0">
+          <layout class="QVBoxLayout" name="vlColor"/>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
      <item row="0" column="0">

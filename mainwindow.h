@@ -134,10 +134,7 @@ private:
       */
     void mergeFormatOnWordOrSelection(const QTextCharFormat &format);
 
-    /** Fixe la couleur de l'icone dans la barre de boutons
-      * @param couleur une couleur sous forme de QColor
-      */
-    void colorChanged(const QColor &couleur);
+
 
     /** Fixe le nom du fichier
       * @param fileName le chemin du fichier
@@ -269,6 +266,12 @@ private slots:
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void on_btnAnnuler_clicked();
+    void on_stackedWidget_currentChanged(int arg1);
+
+    /** Fixe la couleur de l'icone dans la barre de boutons
+      * @param couleur une couleur sous forme de QColor
+      */
+    void colorChanged(const QColor &col);
 };
 
 #endif // MAINWINDOW_H

@@ -59,5 +59,6 @@
         <file alias="help">data/images/aide.png</file>
         <file alias="quitHover">data/images/quit-over.png</file>
         <file alias="quit">data/images/quit.png</file>
+        <file alias="leaf">data/images/feuille.png</file>
     </qresource>
 </RCC>

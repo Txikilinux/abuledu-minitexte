@@ -100,6 +100,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolBar->setFixedWidth(1024);
     ui->frBoutons->move(0,40);
     ui->frBoutons->setVisible(false);
+    ui->btnEnregistrer->setStyleSheet(ui->btnEnregistrer->styleSheet().replace("image-position: center","image-position: top"));
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
     //ui->teZoneTexte->setFocus();
@@ -109,6 +110,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    ui->frmPico->hide();
     ui->toolBar->setParent(ui->frFormat);
+
+    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
 MainWindow::~MainWindow()
@@ -249,22 +252,27 @@ void MainWindow::setTextSize(const QString &p)
 void MainWindow::setTextColor()
 {
     // Applique la couleur sélectionnée au texte
-    QColor col = QColorDialog::getColor(ui->teZoneTexte->textColor(), this);
+    ui->stackedWidget->setCurrentWidget(ui->pageColor);
+    QColorDialog* colorDialogProv = new QColorDialog(ui->pageColor);
+    ui->vlColor->addWidget(colorDialogProv);
+    colorDialogProv->setWindowFlags(Qt::Widget);
+    colorDialogProv->setOptions(QColorDialog::DontUseNativeDialog);
+    connect(colorDialogProv,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)));
+
+    // On met à jour l'icone dans la barre de boutons
+}
+
+void MainWindow::colorChanged(const QColor &col)
+{
     if (!col.isValid())
         return;
     QTextCharFormat fmt;
     fmt.setForeground(col);
     mergeFormatOnWordOrSelection(fmt);
-
-    // On met à jour l'icone dans la barre de boutons
-    colorChanged(col);
-}
-
-void MainWindow::colorChanged(const QColor &couleur)
-{
-    QPixmap pix(16, 16);
-    pix.fill(couleur);
+    QPixmap pix(16,16);
+    pix.fill(col);
     m_actionTextColor->setIcon(pix);
+    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
 void MainWindow::setupToolBarAndActions()
@@ -827,13 +835,14 @@ void MainWindow::on_btnFeuille_clicked()
     if (ui->frBoutons->isVisible())
     {
         ui->frBoutons->setVisible(false);
-        ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/boitamots/boutons/iconeAbuledu');image-position: center;}");
+        ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}");
+
     }
     else
     {
         ui->frBoutons->setVisible(true);
         ui->frBoutons->raise();
-        ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(53,166,247,255);border-image:url(':/boitamots/boutons/iconeAbuledu');image-position: center;}");
+        ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(53,166,247,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}");
     }
 }
 
@@ -869,4 +878,9 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 void MainWindow::on_btnAnnuler_clicked()
 {
     close();
+}
+
+void MainWindow::on_stackedWidget_currentChanged(int arg1)
+{
+    qDebug()<<"page courante : "<<ui->stackedWidget->currentWidget()->objectName();
 }
