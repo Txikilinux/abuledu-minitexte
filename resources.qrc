@@ -44,4 +44,20 @@
         <file>data/images/win/zoomout.png</file>
         <file alias="fermer-48">data/images/fermer-48.png</file>
     </qresource>
+    <qresource prefix="/abuledutextev1/buttons">
+        <file alias="dataHover">data/images/data-over.png</file>
+        <file alias="data">data/images/data.png</file>
+        <file alias="newHover">data/images/nouveau-over.png</file>
+        <file alias="new">data/images/nouveau.png</file>
+        <file alias="printHover">data/images/imprimer-over.png</file>
+        <file alias="print">data/images/imprimer.png</file>
+        <file alias="openHover">data/images/ouvrir-over.png</file>
+        <file alias="open">data/images/ouvrir.png</file>
+        <file alias="exportHover">data/images/exporter-over.png</file>
+        <file alias="export">data/images/exporter.png</file>
+        <file alias="helpHover">data/images/aide-over.png</file>
+        <file alias="help">data/images/aide.png</file>
+        <file alias="quitHover">data/images/quit-over.png</file>
+        <file alias="quit">data/images/quit.png</file>
+    </qresource>
 </RCC>

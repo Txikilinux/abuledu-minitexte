@@ -191,6 +191,9 @@ private:
     bool m_hasMenuBar;
     bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...
 
+    /** Position de la souris pour gerer le deplacement de la fenetre */
+    QPoint m_dragPosition;
+    bool   m_isWindowMoving;
 
     AbulEduMediathequeGetV1       *m_abuleduMediatheque;
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
@@ -259,6 +262,13 @@ private slots:
     void on_btnLire_clicked();
     void on_btnPause_clicked();
     void on_btnStop_clicked();
+    void on_btnFeuille_clicked();
+    void on_btnPrint_clicked();
+
+    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void on_btnAnnuler_clicked();
 };
 
 #endif // MAINWINDOW_H

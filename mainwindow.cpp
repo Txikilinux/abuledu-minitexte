@@ -72,8 +72,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // On crée la barre d'icones et les QActions qui vont bien
     setupToolBarAndActions();
     // Les connexions concernant les modifications du texte et de son nom
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-            m_actionSave, SLOT(setEnabled(bool)));
+//    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
+//            m_actionSave, SLOT(setEnabled(bool)));
     connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()));
     connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()));
     connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()));
@@ -94,8 +94,12 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isNewFile = true;
 
 //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
+    setWindowFlags(Qt::CustomizeWindowHint);
     resize(1024,600);
-
+    ui->frPrincipale->setGeometry(QRect(0,40,1024,560));
+    ui->toolBar->setFixedWidth(1024);
+    ui->frBoutons->move(0,40);
+    ui->frBoutons->setVisible(false);
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
     //ui->teZoneTexte->setFocus();
@@ -104,6 +108,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_picoLecteur = new AbulEduPicottsV1(4);
 
 //    ui->frmPico->hide();
+    ui->toolBar->setParent(ui->frFormat);
 }
 
 MainWindow::~MainWindow()
@@ -177,12 +182,12 @@ void MainWindow::abeTexteSetUnderline(bool onOff)
 
 void MainWindow::abeTexteToolBarSetVisible(bool ouiNon)
 {
-    tb->setVisible(ouiNon);
+//    tb->setVisible(ouiNon);
 }
 
 bool MainWindow::abeTexteToolBarIsVisible()
 {
-    return tb->isVisible();
+    return true;// tb->isVisible();
 }
 
 void MainWindow::setTextFormat()
@@ -268,30 +273,30 @@ void MainWindow::setupToolBarAndActions()
     tb = ui->toolBar;
     tb->setToolButtonStyle(Qt::ToolButtonIconOnly);
     tb->setFixedHeight(m_hauteurToolBar);
-//    tb->setWindowTitle(trUtf8("&Édition"));
+    tb->setWindowTitle(trUtf8("&Édition"));
 
     /** @todo utiliser le thème abuledu pour les icones des toolboutons
       * Pour l'instant, on utilise l'icone du thème, sinon celle du fichier de ressources
       */
-    // Ouvrir un fichier
+    /* Ouvrir un fichier est inutile car déplacé dans la frBoutons
     m_actionOpen = new QAction(QIcon::fromTheme("document-open", QIcon(rsrcPath + "/fileopen.png")),
                                trUtf8("&Ouvrir"), this);
     m_actionOpen->setObjectName("open");
     m_actionOpen->setShortcut(QKeySequence::Open);
     connect(m_actionOpen, SIGNAL(triggered()), this, SLOT(fileOpen()));
     m_actionOpen->setEnabled(true);
-    tb->addAction(m_actionOpen);
+    tb->addAction(m_actionOpen); */
 
-    // Sauvegarde du texte
+    /* sauvegarder un fichier est inutile car déplacé dans la frBoutons
     m_actionSave = new QAction(QIcon::fromTheme("document-save", QIcon(rsrcPath + "/filesave.png")),
                                trUtf8("&Enregistrer"), this);
     m_actionSave->setObjectName("save");
     m_actionSave->setShortcut(QKeySequence::Save);
     connect(m_actionSave, SIGNAL(triggered()), this, SLOT(fileSave()));
     m_actionSave->setEnabled(true);
-    tb->addAction(m_actionSave);
+    tb->addAction(m_actionSave); */
 
-
+    /* Imprimer un fichier est inutile car déplacé dans la frBoutons
     m_actionPrint = new QAction(QIcon::fromTheme("document-print", QIcon(rsrcPath + "/fileprint.png")),
                                 trUtf8("&Imprimer..."), this);
     m_actionPrint->setObjectName("print");
@@ -300,7 +305,7 @@ void MainWindow::setupToolBarAndActions()
     connect(m_actionPrint, SIGNAL(triggered()), this, SLOT(filePrint()));
     tb->addAction(m_actionPrint);
 
-    tb->addSeparator();
+    tb->addSeparator();*/
 
     // Formatage des caractères
     m_actionTextBold = new QAction(QIcon::fromTheme("format-text-bold", QIcon(rsrcPath + "/textbold.png")),
@@ -471,14 +476,14 @@ void MainWindow::setupToolBarAndActions()
     tb->addAction(m_actionImageFromData);
 
 
-    QWidget *spacerWidget = new QWidget(ui->toolBar);
-    spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    spacerWidget->setVisible(true);
-    QAction *actionQuit = new QAction(QIcon(":/abuledutextev1/fermer-48"),trUtf8("Quit"), this);
-    connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
+//    QWidget *spacerWidget = new QWidget(ui->toolBar);
+//    spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+//    spacerWidget->setVisible(true);
+//    QAction *actionQuit = new QAction(QIcon(":/abuledutextev1/fermer-48"),trUtf8("Quit"), this);
+//    connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
 
-    ui->toolBar->addWidget(spacerWidget);
-    ui->toolBar->addAction(actionQuit);
+//    ui->toolBar->addWidget(spacerWidget);
+//    ui->toolBar->addAction(actionQuit);
 
 }
 
@@ -617,7 +622,9 @@ void MainWindow::filePrint()
 {
 #ifndef QT_NO_PRINTER
     QPrinter printer(QPrinter::HighResolution);
-    QPrintDialog *dlg = new QPrintDialog(&printer, this);
+    QPrintDialog *dlg = new QPrintDialog(&printer, ui->pagePrint);
+    dlg->setStyleSheet("background-color:#FFFFFF");
+    ui->glPrint->addWidget(dlg);
     if (ui->teZoneTexte->textCursor().hasSelection())
         dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
     dlg->setWindowTitle(trUtf8("Imprimer le document"));
@@ -813,4 +820,53 @@ void MainWindow::on_btnPause_clicked()
 void MainWindow::on_btnStop_clicked()
 {
     m_picoLecteur->abePicoStop();
+}
+
+void MainWindow::on_btnFeuille_clicked()
+{
+    if (ui->frBoutons->isVisible())
+    {
+        ui->frBoutons->setVisible(false);
+        ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/boitamots/boutons/iconeAbuledu');image-position: center;}");
+    }
+    else
+    {
+        ui->frBoutons->setVisible(true);
+        ui->frBoutons->raise();
+        ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(53,166,247,255);border-image:url(':/boitamots/boutons/iconeAbuledu');image-position: center;}");
+    }
+}
+
+void MainWindow::on_btnPrint_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pagePrint);
+    filePrint();
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if (m_isWindowMoving) {
+        move(event->globalPos() - m_dragPosition);
+        event->accept();
+    }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton && ui->lblTitre->rect().contains(event->pos())) {
+        m_dragPosition = event->globalPos() - frameGeometry().topLeft();
+        event->accept();
+        m_isWindowMoving = true;
+    }
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    m_isWindowMoving = false;
+}
+
+void MainWindow::on_btnAnnuler_clicked()
+{
+    close();
 }
