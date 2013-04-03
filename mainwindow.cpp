@@ -418,6 +418,8 @@ void MainWindow::setupToolBarAndActions()
 
     //Pour tablettes, je préfère des boutons ...
     m_btnFontAndika = new AbulEduFlatBoutonV1();
+    m_btnFontAndika->setFixedWidth(80);
+    m_btnFontAndika->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::blue),QColor(Qt::lightGray));
     m_btnFontAndika->setText("Andika");
     m_btnFontAndika->setFont(QFont("andika",14));
     m_btnFontAndika->setObjectName("andika");
@@ -426,7 +428,9 @@ void MainWindow::setupToolBarAndActions()
     connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
     m_btnFontSeyes= new AbulEduFlatBoutonV1();
+    m_btnFontSeyes->setFixedWidth(80);
     m_btnFontSeyes->setText("Seyes");
+    m_btnFontSeyes->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::blue),QColor(Qt::lightGray));
     m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
     m_btnFontSeyes->setObjectName("SeyesBDE");
     m_btnFontSeyes->setProperty("interligne",200);
@@ -435,6 +439,8 @@ void MainWindow::setupToolBarAndActions()
     connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
     m_btnFontCrayon= new AbulEduFlatBoutonV1();
+    m_btnFontCrayon->setFixedWidth(80);
+    m_btnFontCrayon->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::blue),QColor(Qt::lightGray));
     m_btnFontCrayon->setText("Crayon");
     m_btnFontCrayon->setFont(QFont("CrayonE",16));
     m_btnFontCrayon->setObjectName("CrayonE");
@@ -443,6 +449,8 @@ void MainWindow::setupToolBarAndActions()
     connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()));
 
     m_btnFontPlume= new AbulEduFlatBoutonV1();
+    m_btnFontPlume->setFixedWidth(80);
+    m_btnFontPlume->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::blue),QColor(Qt::lightGray));
     m_btnFontPlume->setText("Plume");
     m_btnFontPlume->setFont(QFont("PlumBAE",16));
     m_btnFontPlume->setObjectName("PlumBAE");
