@@ -125,6 +125,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //    setFixedSize(1024, 600);
 
     m_picoLecteur = new AbulEduPicottsV1(4);
+    ui->btnLire->setEnabled(true);
+    ui->btnPause->setEnabled(false);
+    ui->btnStop->setEnabled(false);
 
 //    ui->frmPico->hide();
     ui->toolBar->setParent(ui->frFormat);
@@ -879,7 +882,6 @@ void MainWindow::on_btnPause_clicked()
     ui->btnStop->setEnabled(true);
 }
 
-
 void MainWindow::on_btnStop_clicked()
 {
     m_picoLecteur->abePicoStop();
@@ -895,7 +897,6 @@ void MainWindow::on_btnFeuille_clicked()
     {
         ui->frBoutons->setVisible(false);
         ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}");
-
     }
     else
     {
