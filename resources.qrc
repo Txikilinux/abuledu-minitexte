@@ -53,8 +53,8 @@
         <file alias="print">data/images/imprimer.png</file>
         <file alias="openHover">data/images/ouvrir-over.png</file>
         <file alias="open">data/images/ouvrir.png</file>
-        <file alias="exportHover">data/images/exporter-over.png</file>
-        <file alias="export">data/images/exporter.png</file>
+        <file alias="saveHover">data/images/exporter-over.png</file>
+        <file alias="save">data/images/exporter.png</file>
         <file alias="helpHover">data/images/aide-over.png</file>
         <file alias="help">data/images/aide.png</file>
         <file alias="quitHover">data/images/quit-over.png</file>

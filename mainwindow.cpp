@@ -100,8 +100,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolBar->setFixedWidth(1024);
     ui->frBoutons->move(0,40);
     ui->frBoutons->setVisible(false);
-    ui->btnSave->setStyleSheet(ui->btnSave->styleSheet().replace("border-image","background-image"));
-    ui->btnSave->setStyleSheet(ui->btnSave->styleSheet().replace("image-position: center","image-position: top"));
+    foreach(QObject* enfant,ui->frBoutons->children())
+    {
+        if(dynamic_cast<AbulEduFlatBoutonV1*>(enfant))
+        {
+                AbulEduFlatBoutonV1* enfantCaste = (AbulEduFlatBoutonV1*) enfant;
+            enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace("border-image","text-align: bottom;background-image"));
+            enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace("image-position: center","background-position: center top"));
+            enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace(" color:rgba(0,0,0","color:rgba(255,255,255"));
+        }
+    }
+
+
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
     //ui->teZoneTexte->setFocus();
@@ -115,6 +125,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
     qDebug()<<"styleSheet btnSave";
     qDebug()<<ui->btnSave->styleSheet();
+    qDebug()<<ui->btnSave->parent();
 }
 
 MainWindow::~MainWindow()
