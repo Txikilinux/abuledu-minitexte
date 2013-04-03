@@ -261,11 +261,11 @@ private slots:
     void on_btnStop_clicked();
     void on_btnFeuille_clicked();
     void on_btnPrint_clicked();
+    void on_btnQuit_clicked();
 
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
-    void on_btnAnnuler_clicked();
     void on_stackedWidget_currentChanged(int arg1);
 
     /** Fixe la couleur de l'icone dans la barre de boutons

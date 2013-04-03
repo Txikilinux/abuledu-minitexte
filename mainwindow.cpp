@@ -100,7 +100,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolBar->setFixedWidth(1024);
     ui->frBoutons->move(0,40);
     ui->frBoutons->setVisible(false);
-    ui->btnEnregistrer->setStyleSheet(ui->btnEnregistrer->styleSheet().replace("image-position: center","image-position: top"));
+    ui->btnSave->setStyleSheet(ui->btnSave->styleSheet().replace("border-image","background-image"));
+    ui->btnSave->setStyleSheet(ui->btnSave->styleSheet().replace("image-position: center","image-position: top"));
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
     //ui->teZoneTexte->setFocus();
@@ -112,6 +113,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolBar->setParent(ui->frFormat);
 
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
+    qDebug()<<"styleSheet btnSave";
+    qDebug()<<ui->btnSave->styleSheet();
 }
 
 MainWindow::~MainWindow()
@@ -875,7 +878,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     m_isWindowMoving = false;
 }
 
-void MainWindow::on_btnAnnuler_clicked()
+void MainWindow::on_btnQuit_clicked()
 {
     close();
 }

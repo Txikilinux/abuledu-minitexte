@@ -67,7 +67,7 @@ QToolBar {
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="CouleurFondNormale">
         <color>
@@ -91,7 +91,7 @@ QToolBar {
         </color>
        </property>
        <property name="iconeNormale">
-        <string>:/abuledutextev1/buttons/leaf</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -149,7 +149,7 @@ border-radius:10px;</string>
       <number>2</number>
      </property>
      <item row="0" column="0">
-      <widget class="AbulEduFlatBoutonV1" name="btnImporterMot">
+      <widget class="AbulEduFlatBoutonV1" name="btnNew">
        <property name="minimumSize">
         <size>
          <width>64</width>
@@ -169,13 +169,13 @@ border-radius:10px;</string>
         <string/>
        </property>
        <property name="whatsThis">
-        <string>import</string>
+        <string>new</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/new');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/newHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
-        <string>Nouveau</string>
+        <string>&amp;Nouveau</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
@@ -185,15 +185,15 @@ border-radius:10px;</string>
         </color>
        </property>
        <property name="iconeNormale">
-        <string>:/abuledutextev1/buttons/new</string>
+        <string/>
        </property>
        <property name="IconeSurvol">
-        <string>:/abuledutextev1/buttons/newHover</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="AbulEduFlatBoutonV1" name="btnExporterBAM">
+      <widget class="AbulEduFlatBoutonV1" name="btnOpen">
        <property name="minimumSize">
         <size>
          <width>92</width>
@@ -213,13 +213,13 @@ border-radius:10px;</string>
         <string/>
        </property>
        <property name="whatsThis">
-        <string>export</string>
+        <string>open</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/open');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/openHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
-        <string/>
+        <string>&amp;Ouvrir</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
@@ -229,15 +229,15 @@ border-radius:10px;</string>
         </color>
        </property>
        <property name="iconeNormale">
-        <string>:/abuledutextev1/buttons/open</string>
+        <string/>
        </property>
        <property name="IconeSurvol">
-        <string>:/abuledutextev1/buttons/openHover</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="AbulEduFlatBoutonV1" name="btnEnregistrer">
+      <widget class="AbulEduFlatBoutonV1" name="btnSave">
        <property name="minimumSize">
         <size>
          <width>92</width>
@@ -260,10 +260,10 @@ border-radius:10px;</string>
         <string>save</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/export');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/exportHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
-        <string/>
+        <string>&amp;Enregistrer</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
@@ -273,15 +273,15 @@ border-radius:10px;</string>
         </color>
        </property>
        <property name="iconeNormale">
-        <string>:/abuledutextev1/buttons/export</string>
+        <string/>
        </property>
        <property name="IconeSurvol">
-        <string>:/abuledutextev1/buttons/exportHover</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="0" column="7">
-      <widget class="AbulEduFlatBoutonV1" name="btnAnnuler">
+      <widget class="AbulEduFlatBoutonV1" name="btnQuit">
        <property name="minimumSize">
         <size>
          <width>92</width>
@@ -304,10 +304,10 @@ border-radius:10px;</string>
         <string>quit</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/quit');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/quitHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
-        <string/>
+        <string>&amp;Quitter</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
@@ -317,15 +317,15 @@ border-radius:10px;</string>
         </color>
        </property>
        <property name="iconeNormale">
-        <string>:/abuledutextev1/buttons/quit</string>
+        <string/>
        </property>
        <property name="IconeSurvol">
-        <string>:/abuledutextev1/buttons/quitHover</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="0" column="6">
-      <widget class="AbulEduFlatBoutonV1" name="btnAide">
+      <widget class="AbulEduFlatBoutonV1" name="btnHelp">
        <property name="minimumSize">
         <size>
          <width>92</width>
@@ -345,16 +345,16 @@ border-radius:10px;</string>
         <string>help</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/help');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/helpHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
-        <string/>
+        <string>Aide</string>
        </property>
        <property name="iconeNormale">
-        <string>:/abuledutextev1/buttons/help</string>
+        <string/>
        </property>
        <property name="IconeSurvol">
-        <string>:/abuledutextev1/buttons/helpHover</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -372,14 +372,17 @@ border-radius:10px;</string>
          <height>92</height>
         </size>
        </property>
+       <property name="whatsThis">
+        <string>print</string>
+       </property>
        <property name="text">
-        <string/>
+        <string>Im&amp;primer</string>
        </property>
        <property name="iconeNormale">
-        <string>:/abuledutextev1/buttons/print</string>
+        <string/>
        </property>
        <property name="IconeSurvol">
-        <string>:/abuledutextev1/buttons/printHover</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -397,14 +400,17 @@ border-radius:10px;</string>
          <height>92</height>
         </size>
        </property>
+       <property name="whatsThis">
+        <string>data</string>
+       </property>
        <property name="text">
-        <string/>
+        <string>&amp;Data</string>
        </property>
        <property name="iconeNormale">
-        <string>:/abuledutextev1/buttons/data</string>
+        <string/>
        </property>
        <property name="IconeSurvol">
-        <string>:/abuledutextev1/buttons/dataHover</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -508,8 +514,6 @@ border-radius:10px;</string>
           <layout class="QGridLayout" name="glPrint"/>
          </item>
         </layout>
-        <zorder>gridLayoutWidget</zorder>
-        <zorder>frFormat</zorder>
        </widget>
        <widget class="QWidget" name="pageColor">
         <layout class="QGridLayout" name="gridLayout_7">
