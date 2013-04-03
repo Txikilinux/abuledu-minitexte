@@ -435,7 +435,7 @@ border-radius:10px;</string>
      <item row="1" column="0">
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>4</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="pageTexte">
         <layout class="QGridLayout" name="gridLayout_5">
@@ -591,3 +591,4 @@ border-radius:10px;</string>
  <resources/>
  <connections/>
 </ui>
+

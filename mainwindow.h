@@ -55,11 +55,11 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    
+
     /** Retourne un pointeur vers le document de la zone de texte */
     QTextDocument *abeTexteGetDocument();
 
@@ -194,8 +194,6 @@ private:
 
     AbulEduMediathequeGetV1       *m_abuleduMediatheque;
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
-    AbulEduBoxFileManagerV1       *m_abuleduFileManagerOpen;
-    AbulEduBoxFileManagerV1       *m_abuleduFileManagerSave;
     AbulEduPicottsV1              *m_picoLecteur;
 
 public slots:
@@ -229,16 +227,16 @@ public slots:
     /** Mets à jour l'état des boutons de la tool barre en fonction du formatage */
     void updateActions(QTextCharFormat fmt);
 
-    void slotMediathequeDownload(int code);
+    void slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code);
 
     /** affiche la box file open */
     void fileOpen();
 
     /** ouvre le fichier */
-    void slotOpenFile();
+    void slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile);
 
     /** gestion du retour de sauvegarde fichier via la box file manager */
-    void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation box,QString fileName, bool etat);
+    void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success);
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
@@ -272,6 +270,8 @@ private slots:
       * @param couleur une couleur sous forme de QColor
       */
     void colorChanged(const QColor &col);
+    void on_btnOpen_clicked();
+    void on_btnSave_clicked();
 };
 
 #endif // MAINWINDOW_H

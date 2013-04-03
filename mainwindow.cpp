@@ -51,20 +51,24 @@ MainWindow::MainWindow(QWidget *parent) :
     m_abuleduMediatheque->abeSetCustomBouton1(trUtf8("Insérer l'image"));
     m_abuleduMediatheque->abeSetCustomBouton1Download(true);
     m_abuleduMediatheque->abeSetDefaultView(AbulEduMediathequeGetV1::abeMediathequeThumbnails);
-    connect(m_abuleduMediatheque, SIGNAL(signalMediathequeFileDownloaded(int)), this, SLOT(slotMediathequeDownload(int)));
+    connect(m_abuleduMediatheque, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)));
     m_abuleduMediatheque->hide();
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
 
-    m_abuleduFileManagerOpen = new AbulEduBoxFileManagerV1(0);
-    m_abuleduFileManagerOpen->abeSetFile(m_abuledufile);
-    connect(m_abuleduFileManagerOpen, SIGNAL(signalAbeFileSelected()), this, SLOT(slotOpenFile()));
+//    m_abuleduFileManagerOpen = new AbulEduBoxFileManagerV1(0);
+//    m_abuleduFileManagerOpen->abeSetFile(m_abuledufile);
+//    connect(m_abuleduFileManagerOpen, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)));
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)));
 
-    m_abuleduFileManagerSave = new AbulEduBoxFileManagerV1(0);
-    m_abuleduFileManagerSave->abeSetFile(m_abuledufile);
-    m_abuleduFileManagerSave->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
-    connect(m_abuleduFileManagerSave, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
+
+//    m_abuleduFileManagerSave = new AbulEduBoxFileManagerV1(0);
+//    m_abuleduFileManagerSave->abeSetFile(m_abuledufile);
+//    m_abuleduFileManagerSave->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
+//    connect(m_abuleduFileManagerSave, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
+//            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
             this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
 
     // Au cas ou le widget serait un topLevelWidget()
@@ -111,7 +115,6 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
     //ui->teZoneTexte->setFocus();
@@ -133,8 +136,6 @@ MainWindow::~MainWindow()
     delete ui;
 
     delete m_abuleduMediatheque;
-    delete m_abuleduFileManagerOpen;
-    delete m_abuleduFileManagerSave;
     m_abuledufile->abeClean();
 }
 
@@ -487,7 +488,7 @@ void MainWindow::setupToolBarAndActions()
     connect(m_actionTextColor, SIGNAL(triggered()), this, SLOT(setTextColor()));
     tb->addAction(m_actionTextColor);
 
-    m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/abuledutextev1/data/images/cloud.svg")), trUtf8("Insérer une image"), this);
+    m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/abuledutextev1/buttons/dataHover")), trUtf8("Insérer une image"), this);
     m_actionImageFromData->setObjectName("mediatheque-data");
 
 #ifdef __ABULEDUTABLETTEV1__MODE__
@@ -547,25 +548,11 @@ bool MainWindow::fileSave()
     m_abuledufile->abeFileExportPrepare(liste, fi.absolutePath(), "abe");
 
     if (m_isNewFile) {
-        fileSaveAs(); // Ouverture du sélecteur de fichier
+        fileSaveAs();
     }
 
-//    if(m_abuledufile->abeFileSave(m_abuledufile->abeFileGetFileName().absoluteFilePath(),
-//                               liste,
-//                               fi.absolutePath(),
-//                               QString("abe"))) {
-//        //rien à dire
-//        qDebug() << "Sauvegarde ok, fichier : " << m_abuledufile->abeFileGetFileName().absoluteFilePath();
-//    }
-//    else {
-//        AbulEduMessageBoxV1 *alertBox=new AbulEduMessageBoxV1(trUtf8("Erreur de sauvegarde"),trUtf8("ERREUR: Le document n'a pas été sauvegardé."));
-//        alertBox->show();
-//    }
-#ifdef __ABULEDUTABLETTEV1__MODE__
-    m_abuleduFileManagerSave->showFullScreen();
-#else
-    m_abuleduFileManagerSave->show();
-#endif
+    ui->abeBoxFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
+    ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
 
     return success;
 }
@@ -713,8 +700,9 @@ void MainWindow::updateActions(QTextCharFormat fmt)
 //    m_comboSize->blockSignals(false);
 }
 
-void MainWindow::slotMediathequeDownload(int code)
+void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
 {
+    /** @todo utiliser le paramètre abeFile */
     QString file = m_abuleduMediatheque->abeGetFile()->abeFileGetContent(0).absoluteFilePath();
     QString filename = m_abuleduMediatheque->abeGetFile()->abeFileGetContent(0).baseName() + ".png";
 
@@ -765,21 +753,21 @@ void MainWindow::slotMediathequeDownload(int code)
 
 void MainWindow::fileOpen()
 {
-#ifdef __ABULEDUTABLETTEV1__MODE__
-    m_abuleduFileManagerOpen->showFullScreen();
-#else
-    m_abuleduFileManagerOpen->show();
-#endif
+    ui->abeBoxFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeOpen);
+    ui->abeBoxFileManager->abeRefresh(AbulEduBoxFileManagerV1::abePC);
+    ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
 }
 
-void MainWindow::slotOpenFile()
+void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 {
-    qDebug() << "Ouverture du fichier " << m_abuledufile->abeFileGetFileName().absoluteFilePath();
-    setCurrentFileName(m_abuledufile->abeFileGetContent(0).absoluteFilePath());
-    m_abuleduFileManagerOpen->hide();
+    /** @todo utiliser le paramètre abeFile */
+
+    qDebug() << "Ouverture du fichier " << abeFile->abeFileGetFileName().filePath();
+    setCurrentFileName(abeFile->abeFileGetContent(0).absoluteFilePath());
 
     // ==============================================================================
     // lecture du fichier html
+    qDebug()<<m_fileName;
     QFile  htmlFile(m_fileName);
     if (!htmlFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
@@ -791,6 +779,8 @@ void MainWindow::slotOpenFile()
         htmlContent.append(in.readLine());
     }
 
+    qDebug()<<" lecture finie";
+    qDebug()<<htmlContent;
     QTextDocument *document = new QTextDocument();
     document->setHtml(htmlContent);
     ui->teZoneTexte->setDocument(document);
@@ -811,12 +801,54 @@ void MainWindow::slotOpenFile()
     }
 
     ui->teZoneTexte->update();
-    qDebug() << document->toHtml();
+    on_btnFeuille_clicked();
 }
 
-void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation box, QString fileName, bool etat)
+void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success)
 {
-    qDebug() << "slotAbeFileSaved : " << fileName << " et " << etat;
+    qDebug() << "slotAbeFileSaved : " << fileName << " et " << success;
+    QString emplacement;
+    if (location == AbulEduBoxFileManagerV1::abePC)
+    {
+        emplacement = trUtf8("votre ordinateur");
+    }
+    else if (location == AbulEduBoxFileManagerV1::abeBoxPerso)
+    {
+        emplacement = trUtf8("votre abeBox personnelle");
+    }
+    else if (location == AbulEduBoxFileManagerV1::abeBoxShare)
+    {
+        emplacement = trUtf8("une abeBox partagée");
+    }
+    else if (location == AbulEduBoxFileManagerV1::abeMediatheque)
+    {
+        emplacement = trUtf8("AbulEdu-Médiathèque");
+    }
+    else
+    {
+        emplacement = trUtf8("un endroit inconnu");
+    }
+
+    QString message;
+    if (success == true)
+    {
+        message = trUtf8("Votre fichier a été enregistré dans ")+emplacement;
+        if (!fileName.isEmpty())
+        {
+            message.append(trUtf8(" sous le nom : ")+fileName.split("/").last());
+        }
+    }
+    else
+    {
+        message = trUtf8("Votre fichier n'a pas pu être enregistré...");
+    }
+    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message);
+    if (success == true)
+    {
+        msgEnregistrement->setWink();
+    }
+    msgEnregistrement->show();
+    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
 void MainWindow::on_btnLire_clicked()
@@ -897,4 +929,20 @@ void MainWindow::on_btnQuit_clicked()
 void MainWindow::on_stackedWidget_currentChanged(int arg1)
 {
     qDebug()<<"page courante : "<<ui->stackedWidget->currentWidget()->objectName();
+}
+
+void MainWindow::on_btnOpen_clicked()
+{
+    fileOpen();
+}
+
+void MainWindow::on_btnSave_clicked()
+{
+    if (fileSave())
+    {
+        ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
+        ui->abeBoxFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
+        ui->abeBoxFileManager->abeSetFile(m_abuledufile);
+        ui->abeBoxFileManager->abeRefresh(AbulEduBoxFileManagerV1::abePC);
+    }
 }
