@@ -134,8 +134,6 @@ private:
       */
     void mergeFormatOnWordOrSelection(const QTextCharFormat &format);
 
-
-
     /** Fixe le nom du fichier
       * @param fileName le chemin du fichier
       */
@@ -272,6 +270,7 @@ private slots:
     void colorChanged(const QColor &col);
     void on_btnOpen_clicked();
     void on_btnSave_clicked();
+    void on_btnNew_clicked();
 };
 
 #endif // MAINWINDOW_H

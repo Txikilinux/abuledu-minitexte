@@ -115,6 +115,9 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
+    /* Je me demande si on a bien besoin d'accéder à Data directement dans la barre des tâches ?! */
+    ui->btnData->hide();
+
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
     //ui->teZoneTexte->setFocus();
@@ -126,9 +129,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolBar->setParent(ui->frFormat);
 
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
-    qDebug()<<"styleSheet btnSave";
-    qDebug()<<ui->btnSave->styleSheet();
-    qDebug()<<ui->btnSave->parent();
 }
 
 MainWindow::~MainWindow()
@@ -842,13 +842,14 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
     {
         message = trUtf8("Votre fichier n'a pas pu être enregistré...");
     }
-    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message);
+    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,this);
     if (success == true)
     {
         msgEnregistrement->setWink();
     }
     msgEnregistrement->show();
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
+    on_btnFeuille_clicked();
 }
 
 void MainWindow::on_btnLire_clicked()
@@ -938,6 +939,11 @@ void MainWindow::on_btnOpen_clicked()
 
 void MainWindow::on_btnSave_clicked()
 {
+    /* Je n'enregistre pas si la zone de texte est vide */
+    if(ui->teZoneTexte->toPlainText().isEmpty())
+    {
+        return;
+    }
     if (fileSave())
     {
         ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
@@ -945,4 +951,17 @@ void MainWindow::on_btnSave_clicked()
         ui->abeBoxFileManager->abeSetFile(m_abuledufile);
         ui->abeBoxFileManager->abeRefresh(AbulEduBoxFileManagerV1::abePC);
     }
+}
+
+void MainWindow::on_btnNew_clicked()
+{
+    on_btnFeuille_clicked();
+    if(isWindowModified())
+    {
+        AbulEduMessageBoxV1* msgBox = new AbulEduMessageBoxV1(trUtf8("Attention"), trUtf8("Des modifications n'ont pas été enregistrées."),this);
+        msgBox->show();
+        return;
+    }
+    m_abuledufile->abeClean();
+    ui->teZoneTexte->clear();
 }
