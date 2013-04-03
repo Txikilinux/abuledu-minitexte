@@ -190,7 +190,6 @@ private:
     QPoint m_dragPosition;
     bool   m_isWindowMoving;
 
-    AbulEduMediathequeGetV1       *m_abuleduMediatheque;
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
     AbulEduPicottsV1              *m_picoLecteur;
 
@@ -271,6 +270,8 @@ private slots:
     void on_btnOpen_clicked();
     void on_btnSave_clicked();
     void on_btnNew_clicked();
+
+    void showAbeMediathequeGet();
 };
 
 #endif // MAINWINDOW_H

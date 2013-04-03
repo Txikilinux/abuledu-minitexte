@@ -46,13 +46,13 @@ MainWindow::MainWindow(QWidget *parent) :
     m_hauteurToolBar = 48;
 #endif
 
-    m_abuleduMediatheque = new AbulEduMediathequeGetV1(0,"data");
-    m_abuleduMediatheque->abeHideBoutonTelecharger();
-    m_abuleduMediatheque->abeSetCustomBouton1(trUtf8("Insérer l'image"));
-    m_abuleduMediatheque->abeSetCustomBouton1Download(true);
-    m_abuleduMediatheque->abeSetDefaultView(AbulEduMediathequeGetV1::abeMediathequeThumbnails);
-    connect(m_abuleduMediatheque, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)));
-    m_abuleduMediatheque->hide();
+    ui->abeMediathequeGet->abeSetSourceEnum(AbulEduMediathequeGetV1::abeData);
+    ui->abeMediathequeGet->abeHideBoutonTelecharger();
+    ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
+    ui->abeMediathequeGet->abeSetCustomBouton1Download(true);
+    ui->abeMediathequeGet->abeSetDefaultView(AbulEduMediathequeGetV1::abeMediathequeThumbnails);
+    /* Attention au cas où il n'y a pas de réponse, on est bloqué à un endroit du stackedWidget */
+    connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)));
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
@@ -134,8 +134,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-
-    delete m_abuleduMediatheque;
     m_abuledufile->abeClean();
 }
 
@@ -491,11 +489,7 @@ void MainWindow::setupToolBarAndActions()
     m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/abuledutextev1/buttons/dataHover")), trUtf8("Insérer une image"), this);
     m_actionImageFromData->setObjectName("mediatheque-data");
 
-#ifdef __ABULEDUTABLETTEV1__MODE__
-    connect(m_actionImageFromData, SIGNAL(triggered()), m_abuleduMediatheque, SLOT(showFullScreen()));
-#else
-    connect(m_actionImageFromData, SIGNAL(triggered()), m_abuleduMediatheque, SLOT(show()));
-#endif
+    connect(m_actionImageFromData, SIGNAL(triggered()), this, SLOT(showAbeMediathequeGet()));
     tb->addAction(m_actionImageFromData);
 
 
@@ -703,8 +697,8 @@ void MainWindow::updateActions(QTextCharFormat fmt)
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
 {
     /** @todo utiliser le paramètre abeFile */
-    QString file = m_abuleduMediatheque->abeGetFile()->abeFileGetContent(0).absoluteFilePath();
-    QString filename = m_abuleduMediatheque->abeGetFile()->abeFileGetContent(0).baseName() + ".png";
+    QString file = abeFile->abeFileGetContent(0).absoluteFilePath();
+    QString filename = abeFile->abeFileGetContent(0).baseName() + ".png";
 
     qDebug() << "  slotMediathequeDownload : " << file << " et " << filename;
 
@@ -740,15 +734,15 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
     cursor.insertList(listFormat);
     QTextCharFormat fmt;
     fmt.setFontItalic(true);
-    cursor.insertText("Source: " + m_abuleduMediatheque->abeGetFile()->abeFileGetIdentifier() + "\n",fmt);
-    cursor.insertText("Auteur: " + m_abuleduMediatheque->abeGetFile()->abeFileGetCreator(),fmt);
+    cursor.insertText("Source: " + abeFile->abeFileGetIdentifier() + "\n",fmt);
+    cursor.insertText("Auteur: " + abeFile->abeFileGetCreator(),fmt);
 
     //Retour normal
     QTextBlockFormat blockFormat;
     fmt.setFontItalic(false);
     cursor.insertBlock(blockFormat,fmt);
 
-    m_abuleduMediatheque->hide();
+    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
 void MainWindow::fileOpen()
@@ -964,4 +958,9 @@ void MainWindow::on_btnNew_clicked()
     }
     m_abuledufile->abeClean();
     ui->teZoneTexte->clear();
+}
+
+void MainWindow::showAbeMediathequeGet()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageMediathequeGet);
 }
