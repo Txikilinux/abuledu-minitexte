@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setAttribute(Qt::WA_QuitOnClose);
 
     ui->setupUi(this);
-
+    m_localDebug = false;
 //
 #ifdef __ABULEDUTABLETTEV1__MODE__
     m_hauteurToolBar = 48;
@@ -237,7 +237,7 @@ void MainWindow::setTextAlign(QAction *action)
 void MainWindow::setTextFamily()
 {
     QString f = sender()->objectName();
-    qDebug() << " Fonte : " << f;
+    if (m_localDebug) qDebug() << " Fonte : " << f;
     // On applique le format de font sélectionnée
     QTextCharFormat fmt;
     fmt.setFontFamily(f);
@@ -412,13 +412,13 @@ void MainWindow::setupToolBarAndActions()
 
     QFontDatabase fonts;
     if( ! fonts.addApplicationFont(":/abuledutextev1/Seyes")) {
-        qDebug() << "Erreur sur :/fonts/SEYESBDE.TTF";
+        if (m_localDebug) qDebug() << "Erreur sur :/fonts/SEYESBDE.TTF";
     }
     if( ! fonts.addApplicationFont(":/abuledutextev1/Crayon")) {
-        qDebug() << "Erreur sur :/fonts/CRAYONE.TTF";
+        if (m_localDebug) qDebug() << "Erreur sur :/fonts/CRAYONE.TTF";
     }
     if( ! fonts.addApplicationFont(":/abuledutextev1/Plume")) {
-        qDebug() << "Erreur sur :/fonts/PLUMBAE.TTF";
+        if (m_localDebug) qDebug() << "Erreur sur :/fonts/PLUMBAE.TTF";
     }
 
     //Pour tablettes, je préfère des boutons ...
@@ -531,7 +531,7 @@ bool MainWindow::fileSave()
 {
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
 
-    qDebug() << "Ecriture dans le fichier " << m_fileName;
+    if (m_localDebug) qDebug() << "Ecriture dans le fichier " << m_fileName;
 
     //
     QFileInfo fi(m_fileName);
@@ -599,7 +599,7 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
 {
     QFile fichier(cheminImage);
     if(!fichier.exists()){
-        qDebug()<<__PRETTY_FUNCTION__<<"ligne"<<__LINE__<<"Le fichier n'existe pas"<<cheminImage;
+        if (m_localDebug) qDebug()<<__PRETTY_FUNCTION__<<"ligne"<<__LINE__<<"Le fichier n'existe pas"<<cheminImage;
         return false;
     }
     else
@@ -713,7 +713,7 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
     QString file = abeFile->abeFileGetContent(0).absoluteFilePath();
     QString filename = abeFile->abeFileGetContent(0).baseName() + ".png";
 
-    qDebug() << "  slotMediathequeDownload : " << file << " et " << filename;
+    if (m_localDebug) qDebug() << "  slotMediathequeDownload : " << file << " et " << filename;
 
     QUrl Uri ( QString ( "mydata://data/%1" ).arg ( filename ) );
     QImage image = QImageReader ( file ).read().scaledToWidth(150,Qt::SmoothTransformation);
@@ -734,9 +734,9 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
         rep.mkpath(fi.absolutePath() + "/data/");
     }
     if(!image.save(imageDest)) {
-//        qDebug() << "******* ERREUR de sauvegarde de " << imageDest;
+//        if (m_localDebug) qDebug() << "******* ERREUR de sauvegarde de " << imageDest;
     }
-    qDebug() << "Sauvegarde de l'image dans " << imageDest;
+    if (m_localDebug) qDebug() << "Sauvegarde de l'image dans " << imageDest;
 
     imageFormat.setName(Uri.toString());
     cursor.insertImage(imageFormat);
@@ -767,14 +767,12 @@ void MainWindow::fileOpen()
 
 void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 {
-    /** @todo utiliser le paramètre abeFile */
-
-    qDebug() << "Ouverture du fichier " << abeFile->abeFileGetFileName().filePath();
+    if (m_localDebug) qDebug() << "Ouverture du fichier " << abeFile->abeFileGetFileName().filePath();
     setCurrentFileName(abeFile->abeFileGetContent(0).absoluteFilePath());
 
     // ==============================================================================
     // lecture du fichier html
-    qDebug()<<m_fileName;
+    if (m_localDebug) qDebug()<<m_fileName;
     QFile  htmlFile(m_fileName);
     if (!htmlFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
@@ -786,8 +784,6 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
         htmlContent.append(in.readLine());
     }
 
-    qDebug()<<" lecture finie";
-    qDebug()<<htmlContent;
     QTextDocument *document = new QTextDocument();
     document->setHtml(htmlContent);
     ui->teZoneTexte->setDocument(document);
@@ -803,7 +799,7 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
             QUrl Uri ( QString ( "mydata://data/%1" ).arg ( fi.fileName() ) );
             QImage image = QImageReader(fi.absoluteFilePath()).read();
             textDocument->addResource( QTextDocument::ImageResource, Uri, QVariant ( image ) );
-            qDebug() << " ++ " << fi.absoluteFilePath() << " en tant que " << Uri;
+            if (m_localDebug) qDebug() << " ++ " << fi.absoluteFilePath() << " en tant que " << Uri;
         }
     }
 
@@ -813,7 +809,7 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 
 void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success)
 {
-    qDebug() << "slotAbeFileSaved : " << fileName << " et " << success;
+    if (m_localDebug) qDebug() << "slotAbeFileSaved : " << fileName << " et " << success;
     QString emplacement;
     if (location == AbulEduBoxFileManagerV1::abePC)
     {
@@ -942,7 +938,7 @@ void MainWindow::on_btnQuit_clicked()
 
 void MainWindow::on_stackedWidget_currentChanged(int arg1)
 {
-    qDebug()<<"page courante : "<<ui->stackedWidget->currentWidget()->objectName();
+    if (m_localDebug) qDebug()<<"page courante : "<<ui->stackedWidget->currentWidget()->objectName();
 }
 
 void MainWindow::on_btnOpen_clicked()
