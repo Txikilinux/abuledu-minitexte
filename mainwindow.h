@@ -193,6 +193,8 @@ private:
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
     AbulEduPicottsV1              *m_picoLecteur;
 
+    bool m_isPicoReading;
+
 public slots:
     /** Formate le texte en fonction des toolButtons activés
       * Gras, Souligné, Italic

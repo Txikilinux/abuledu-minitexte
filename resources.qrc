@@ -63,6 +63,9 @@
         <file alias="play">data/images/play.png</file>
         <file alias="pause">data/images/pause.png</file>
         <file alias="stop">data/images/stop.png</file>
+        <file alias="stop-gris">data/images/stop-gris.png</file>
+        <file alias="play-gris">data/images/play-gris.png</file>
+        <file alias="pause-gris">data/images/pause-gris.png</file>
     </qresource>
     <qresource prefix="/abuledutextev1/format">
         <file alias="italic">data/images/italik.png</file>

@@ -462,8 +462,8 @@ border-radius:10px;</string>
              <widget class="AbulEduFlatBoutonV1" name="btnLire">
               <property name="minimumSize">
                <size>
-                <width>64</width>
-                <height>64</height>
+                <width>48</width>
+                <height>48</height>
                </size>
               </property>
               <property name="iconSize">
@@ -475,18 +475,24 @@ border-radius:10px;</string>
               <property name="iconeNormale">
                <string>:/abuledutextev1/buttons/play</string>
               </property>
+              <property name="IconeDisabled">
+               <string>:/abuledutextev1/buttons/play-gris</string>
+              </property>
              </widget>
             </item>
             <item>
              <widget class="AbulEduFlatBoutonV1" name="btnPause">
               <property name="minimumSize">
                <size>
-                <width>64</width>
-                <height>64</height>
+                <width>48</width>
+                <height>48</height>
                </size>
               </property>
               <property name="iconeNormale">
                <string>:/abuledutextev1/buttons/pause</string>
+              </property>
+              <property name="IconeDisabled">
+               <string>:/abuledutextev1/buttons/pause-gris</string>
               </property>
              </widget>
             </item>
@@ -494,12 +500,15 @@ border-radius:10px;</string>
              <widget class="AbulEduFlatBoutonV1" name="btnStop">
               <property name="minimumSize">
                <size>
-                <width>64</width>
-                <height>64</height>
+                <width>48</width>
+                <height>48</height>
                </size>
               </property>
               <property name="iconeNormale">
                <string>:/abuledutextev1/buttons/stop</string>
+              </property>
+              <property name="IconeDisabled">
+               <string>:/abuledutextev1/buttons/stop-gris</string>
               </property>
              </widget>
             </item>

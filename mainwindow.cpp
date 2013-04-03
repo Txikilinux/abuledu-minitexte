@@ -96,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(cursorMoved()));
 
     m_isNewFile = true;
+    m_isPicoReading = false;
 
 //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
     setWindowFlags(Qt::CustomizeWindowHint);
@@ -858,26 +859,34 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
 void MainWindow::on_btnLire_clicked()
 {
     QString txt = QString("<break time=\"1s\"><speed level=\"80\"><volume level=\"100\">%1</speed>").arg(ui->teZoneTexte->toPlainText());
-    m_picoLecteur->abePicoPlay(txt);
-    ui->btnPause->setText(trUtf8("Pause"));
+    if(m_isPicoReading == true) {
+        m_picoLecteur->abePicoResume();
+    }
+    else {
+        m_picoLecteur->abePicoPlay(txt);
+    }
+    ui->btnLire->setEnabled(false);
+    ui->btnPause->setEnabled(true);
+    ui->btnStop->setEnabled(true);
+    m_isPicoReading = !m_isPicoReading;
 }
 
 void MainWindow::on_btnPause_clicked()
 {
-    if(ui->btnPause->text() == trUtf8("Continuer")) {
-        m_picoLecteur->abePicoResume();
-        ui->btnPause->setText(trUtf8("Pause"));
-    }
-    else {
-        m_picoLecteur->abePicoPause();
-        ui->btnPause->setText(trUtf8("Continuer"));
-    }
+    m_picoLecteur->abePicoPause();
+    ui->btnLire->setEnabled(true);
+    ui->btnPause->setEnabled(false);
+    ui->btnStop->setEnabled(true);
 }
 
 
 void MainWindow::on_btnStop_clicked()
 {
     m_picoLecteur->abePicoStop();
+    m_isPicoReading = false;
+    ui->btnLire->setEnabled(true);
+    ui->btnPause->setEnabled(false);
+    ui->btnStop->setEnabled(false);
 }
 
 void MainWindow::on_btnFeuille_clicked()
