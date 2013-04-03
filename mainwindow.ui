@@ -67,7 +67,7 @@ QToolBar {
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="CouleurFondNormale">
         <color>
@@ -91,6 +91,9 @@ QToolBar {
         </color>
        </property>
        <property name="iconeNormale">
+        <string>:/abuledutextev1/buttons/leaf</string>
+       </property>
+       <property name="IconeSurvol">
         <string>:/abuledutextev1/buttons/leaf</string>
        </property>
       </widget>
@@ -435,7 +438,7 @@ border-radius:10px;</string>
      <item row="1" column="0">
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="pageTexte">
         <layout class="QGridLayout" name="gridLayout_5">
@@ -456,23 +459,47 @@ border-radius:10px;</string>
           <widget class="QFrame" name="frmPico">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QPushButton" name="btnLire">
-              <property name="text">
-               <string>Lire</string>
+             <widget class="AbulEduFlatBoutonV1" name="btnLire">
+              <property name="minimumSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="iconeNormale">
+               <string>:/abuledutextev1/buttons/play</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnPause">
-              <property name="text">
-               <string>Pause</string>
+             <widget class="AbulEduFlatBoutonV1" name="btnPause">
+              <property name="minimumSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="iconeNormale">
+               <string>:/abuledutextev1/buttons/pause</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnStop">
-              <property name="text">
-               <string>Stop</string>
+             <widget class="AbulEduFlatBoutonV1" name="btnStop">
+              <property name="minimumSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="iconeNormale">
+               <string>:/abuledutextev1/buttons/stop</string>
               </property>
              </widget>
             </item>
@@ -591,4 +618,3 @@ border-radius:10px;</string>
  <resources/>
  <connections/>
 </ui>
-
