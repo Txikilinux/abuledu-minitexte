@@ -271,6 +271,7 @@ void MainWindow::setTextColor()
     colorDialogProv->setWindowFlags(Qt::Widget);
     colorDialogProv->setOptions(QColorDialog::DontUseNativeDialog);
     connect(colorDialogProv,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)));
+    connect(colorDialogProv, SIGNAL(rejected()),this,SLOT(showTextPage()));
 
     // On met à jour l'icone dans la barre de boutons
 }
@@ -972,3 +973,10 @@ void MainWindow::showAbeMediathequeGet()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageMediathequeGet);
 }
+
+void MainWindow::showTextPage()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
+}
+
+

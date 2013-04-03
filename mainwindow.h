@@ -272,6 +272,7 @@ private slots:
     void on_btnNew_clicked();
 
     void showAbeMediathequeGet();
+    void showTextPage();
 };
 
 #endif // MAINWINDOW_H
