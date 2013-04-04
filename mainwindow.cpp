@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
     setWindowFlags(Qt::CustomizeWindowHint);
     resize(1024,600);
-    ui->frPrincipale->setGeometry(QRect(0,40,1024,560));
+    ui->frPrincipale->setGeometry(QRect(0,90,1024,510));
     ui->toolBar->setFixedWidth(1024);
     ui->frBoutons->move(0,40);
     ui->frBoutons->setVisible(false);
