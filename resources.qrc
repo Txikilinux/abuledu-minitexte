@@ -68,12 +68,12 @@
         <file alias="pause-gris">data/images/pause-gris.png</file>
     </qresource>
     <qresource prefix="/abuledutextev1/format">
-        <file alias="italic">data/images/italik.png</file>
-        <file alias="Underlined">data/images/soulign.png</file>
-        <file alias="bold">data/images/gras.png</file>
-        <file alias="right">data/images/align-droit.png</file>
-        <file alias="left">data/images/align-gauch.png</file>
-        <file alias="center">data/images/centrer.png</file>
-        <file alias="justify">data/images/justifier.png</file>
+        <file alias="italic">data/images/italik-appuy.png</file>
+        <file alias="underlined">data/images/soulign-appuy.png</file>
+        <file alias="bold">data/images/gras-appuy.png</file>
+        <file alias="right">data/images/align-droit-appuy.png</file>
+        <file alias="left">data/images/align-gauch-appuy.png</file>
+        <file alias="center">data/images/centrer-appuy.png</file>
+        <file alias="justify">data/images/justifier-appuy.png</file>
     </qresource>
 </RCC>

@@ -24,13 +24,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-// Choix des icones en fonction de la plateforme
-#ifdef Q_WS_MAC
-const QString rsrcPath = ":/abuledutextev1/data/images/mac";
-#else
-const QString rsrcPath = ":/abuledutextev1/data/images/win";
-#endif
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -339,7 +332,7 @@ void MainWindow::setupToolBarAndActions()
     tb->addSeparator();*/
 
     // Formatage des caractères
-    m_actionTextBold = new QAction(QIcon::fromTheme("format-text-bold", QIcon(rsrcPath + "/textbold.png")),
+    m_actionTextBold = new QAction(QIcon(":/abuledutextev1/format/bold"),
                                    trUtf8("&Gras"), this);
     m_actionTextBold->setObjectName("bold");
     m_actionTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
@@ -351,7 +344,7 @@ void MainWindow::setupToolBarAndActions()
     tb->addAction(m_actionTextBold);
     m_actionTextBold->setCheckable(true);
 
-    m_actionTextItalic = new QAction(QIcon::fromTheme("format-text-italic", QIcon(rsrcPath + "/textitalic.png")),
+    m_actionTextItalic = new QAction(QIcon(":/abuledutextev1/format/italic"),
                                      trUtf8("&Italique"), this);
     m_actionTextItalic->setObjectName("italique");
     m_actionTextItalic->setPriority(QAction::LowPriority);
@@ -363,7 +356,7 @@ void MainWindow::setupToolBarAndActions()
     tb->addAction(m_actionTextItalic);
     m_actionTextItalic->setCheckable(true);
 
-    m_actionTextUnderline = new QAction(QIcon::fromTheme("format-text-underline", QIcon(rsrcPath + "/textunder.png")),
+    m_actionTextUnderline = new QAction(QIcon(":/abuledutextev1/format/underlined"),
                                         trUtf8("&Souligné"), this);
     m_actionTextUnderline->setObjectName("underline");
     m_actionTextUnderline->setShortcut(Qt::CTRL + Qt::Key_U);
@@ -384,15 +377,15 @@ void MainWindow::setupToolBarAndActions()
 
     // On modifie la position des icones en fonction du sens du texte LTR ou RTL
     if (QApplication::isLeftToRight()) {
-        m_actionAlignLeft = new QAction(QIcon::fromTheme("format-justify-left", QIcon(rsrcPath + "/textleft.png")), trUtf8("À gauc&he"), m_alignActions);
-        m_actionAlignCenter = new QAction(QIcon::fromTheme("format-justify-center", QIcon(rsrcPath + "/textcenter.png")), trUtf8("Au c&entre"), m_alignActions);
-        m_actionAlignRight = new QAction(QIcon::fromTheme("format-justify-right", QIcon(rsrcPath + "/textright.png")), trUtf8("À d&roite"), m_alignActions);
+        m_actionAlignLeft = new QAction(QIcon(":/abuledutextev1/format/left"), trUtf8("À gauc&he"), m_alignActions);
+        m_actionAlignCenter = new QAction(QIcon(":/abuledutextev1/format/center"), trUtf8("Au c&entre"), m_alignActions);
+        m_actionAlignRight = new QAction(QIcon(":/abuledutextev1/format/right"), trUtf8("À d&roite"), m_alignActions);
     } else {
-        m_actionAlignRight = new QAction(QIcon::fromTheme("format-justify-right", QIcon(rsrcPath + "/textright.png")), trUtf8("&À d&roite"), m_alignActions);
-        m_actionAlignCenter = new QAction(QIcon::fromTheme("format-justify-center", QIcon(rsrcPath + "/textcenter.png")), trUtf8("Au c&entre"), m_alignActions);
-        m_actionAlignLeft = new QAction(QIcon::fromTheme("format-justify-left", QIcon(rsrcPath + "/textleft.png")), trUtf8("À gauc&he"), m_alignActions);
+        m_actionAlignRight = new QAction(QIcon(":/abuledutextev1/format/right"), trUtf8("À d&roite"), m_alignActions);
+        m_actionAlignCenter = new QAction(QIcon(":/abuledutextev1/format/center"), trUtf8("Au c&entre"), m_alignActions);
+        m_actionAlignLeft = new QAction(QIcon(":/abuledutextev1/format/left"), trUtf8("À gauc&he"), m_alignActions);
     }
-    m_actionAlignJustify = new QAction(QIcon::fromTheme("format-justify-fill", QIcon(rsrcPath + "/textjustify.png")), trUtf8("&Justifié"), m_alignActions);
+    m_actionAlignJustify = new QAction(QIcon(":/abuledutextev1/format/justify"), trUtf8("&Justifié"), m_alignActions);
 
     m_actionAlignLeft->setShortcut(Qt::CTRL + Qt::Key_L);
     m_actionAlignLeft->setObjectName("alignleft");
