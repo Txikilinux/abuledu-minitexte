@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     m_localDebug = false;
-//
+    //
 #ifdef __ABULEDUTABLETTEV1__MODE__
     m_hauteurToolBar = 48;
 #else
@@ -57,17 +57,17 @@ MainWindow::MainWindow(QWidget *parent) :
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
 
-//    m_abuleduFileManagerOpen = new AbulEduBoxFileManagerV1(0);
-//    m_abuleduFileManagerOpen->abeSetFile(m_abuledufile);
-//    connect(m_abuleduFileManagerOpen, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)));
+    //    m_abuleduFileManagerOpen = new AbulEduBoxFileManagerV1(0);
+    //    m_abuleduFileManagerOpen->abeSetFile(m_abuledufile);
+    //    connect(m_abuleduFileManagerOpen, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)));
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)));
 
 
-//    m_abuleduFileManagerSave = new AbulEduBoxFileManagerV1(0);
-//    m_abuleduFileManagerSave->abeSetFile(m_abuledufile);
-//    m_abuleduFileManagerSave->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
-//    connect(m_abuleduFileManagerSave, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
-//            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
+    //    m_abuleduFileManagerSave = new AbulEduBoxFileManagerV1(0);
+    //    m_abuleduFileManagerSave->abeSetFile(m_abuledufile);
+    //    m_abuleduFileManagerSave->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
+    //    connect(m_abuleduFileManagerSave, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
+    //            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
             this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
 
@@ -76,8 +76,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // On crée la barre d'icones et les QActions qui vont bien
     setupToolBarAndActions();
     // Les connexions concernant les modifications du texte et de son nom
-//    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-//            m_actionSave, SLOT(setEnabled(bool)));
+    //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
+    //            m_actionSave, SLOT(setEnabled(bool)));
     connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()));
     connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()));
     connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()));
@@ -98,7 +98,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isNewFile = true;
     m_isPicoReading = false;
 
-//    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
+    //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
     setWindowFlags(Qt::CustomizeWindowHint);
     resize(1024,600);
     ui->frPrincipale->setGeometry(QRect(0,40,1024,560));
@@ -107,9 +107,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->frBoutons->setVisible(false);
     foreach(QObject* enfant,ui->frBoutons->children())
     {
-        if(dynamic_cast<AbulEduFlatBoutonV1*>(enfant))
+        if(qobject_cast<AbulEduFlatBoutonV1*>(enfant))
         {
-                AbulEduFlatBoutonV1* enfantCaste = (AbulEduFlatBoutonV1*) enfant;
+            AbulEduFlatBoutonV1* enfantCaste = (AbulEduFlatBoutonV1*) enfant;
             enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace("border-image","text-align: bottom;background-image"));
             enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace("image-position: center","background-position: center top"));
             enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace(" color:rgba(0,0,0","color:rgba(255,255,255"));
@@ -129,10 +129,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btnPause->setEnabled(false);
     ui->btnStop->setEnabled(false);
 
-//    ui->frmPico->hide();
+    //    ui->frmPico->hide();
     ui->toolBar->setParent(ui->frFormat);
-
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
+
+}
+
+void MainWindow::myFocusChangedSlot(QWidget *ex, QWidget *neo)
+{
+    qDebug() << "ex :: " << ex << " // neo :: " << neo;
 }
 
 MainWindow::~MainWindow()
@@ -165,7 +170,7 @@ QString MainWindow::abeTexteGetFontFamily()
 void MainWindow::abeTexteSetFontSize(int taille)
 {
     /** @todo Tester taille et l'adapter en fonction des tailles disponibles dans la combobox m_comboSize */
-//    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(taille)));
+    //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(taille)));
     setTextSize(QString::number(taille));
 }
 
@@ -202,7 +207,7 @@ void MainWindow::abeTexteSetUnderline(bool onOff)
 
 void MainWindow::abeTexteToolBarSetVisible(bool ouiNon)
 {
-//    tb->setVisible(ouiNon);
+    //    tb->setVisible(ouiNon);
 }
 
 bool MainWindow::abeTexteToolBarIsVisible()
@@ -243,7 +248,7 @@ void MainWindow::setTextFamily()
     fmt.setFontFamily(f);
     mergeFormatOnWordOrSelection(fmt);
     setTextSize("20");
-//    ui->teZoneTexte->setFocus();
+    //    ui->teZoneTexte->setFocus();
 
     //Espacement vertical different
     QTextBlockFormat format;
@@ -466,30 +471,30 @@ void MainWindow::setupToolBarAndActions()
     tb->addSeparator();
 
     // Les actions concernant le choix de la police création de la combobox
-//    m_comboFont = new QComboBox(tb);
-//    m_comboFont->setObjectName("combofont");
-//    m_comboFont->addItem("Andika");
-//    m_comboFont->addItem("CrayonE");
-//    m_comboFont->addItem("PlumBAE");
-//    m_comboFont->addItem("SeyesBDE");
-//    tb->addWidget(m_comboFont);
-//    m_comboFont->setEditable(false);
-//    connect(m_comboFont, SIGNAL(activated(QString)),
-//            this, SLOT(setTextFamily(QString)));
-//    // La taille de la police, création de la combobox
-//    m_comboSize = new QComboBox(tb);
-//    m_comboSize->setObjectName("comboSize");
-//    tb->addWidget(m_comboSize);
-//    m_comboSize->setEditable(true);
+    //    m_comboFont = new QComboBox(tb);
+    //    m_comboFont->setObjectName("combofont");
+    //    m_comboFont->addItem("Andika");
+    //    m_comboFont->addItem("CrayonE");
+    //    m_comboFont->addItem("PlumBAE");
+    //    m_comboFont->addItem("SeyesBDE");
+    //    tb->addWidget(m_comboFont);
+    //    m_comboFont->setEditable(false);
+    //    connect(m_comboFont, SIGNAL(activated(QString)),
+    //            this, SLOT(setTextFamily(QString)));
+    //    // La taille de la police, création de la combobox
+    //    m_comboSize = new QComboBox(tb);
+    //    m_comboSize->setObjectName("comboSize");
+    //    tb->addWidget(m_comboSize);
+    //    m_comboSize->setEditable(true);
 
-//    QFontDatabase db;
-//    foreach(int size, db.standardSizes())
-//        m_comboSize->addItem(QString::number(size)); // On ajoute dans la combobox les tailles valides
+    //    QFontDatabase db;
+    //    foreach(int size, db.standardSizes())
+    //        m_comboSize->addItem(QString::number(size)); // On ajoute dans la combobox les tailles valides
 
-//    connect(m_comboSize, SIGNAL(activated(QString)),
-//            this, SLOT(setTextSize(QString)));
-//    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(QApplication::font()
-//                                                                       .pointSize())));
+    //    connect(m_comboSize, SIGNAL(activated(QString)),
+    //            this, SLOT(setTextSize(QString)));
+    //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(QApplication::font()
+    //                                                                       .pointSize())));
 
     // Création de l'icone de la couleur sélectionnée
     QPixmap pix(16, 16);
@@ -506,14 +511,14 @@ void MainWindow::setupToolBarAndActions()
     tb->addAction(m_actionImageFromData);
 
 
-//    QWidget *spacerWidget = new QWidget(ui->toolBar);
-//    spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-//    spacerWidget->setVisible(true);
-//    QAction *actionQuit = new QAction(QIcon(":/abuledutextev1/fermer-48"),trUtf8("Quit"), this);
-//    connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
+    //    QWidget *spacerWidget = new QWidget(ui->toolBar);
+    //    spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    //    spacerWidget->setVisible(true);
+    //    QAction *actionQuit = new QAction(QIcon(":/abuledutextev1/fermer-48"),trUtf8("Quit"), this);
+    //    connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
 
-//    ui->toolBar->addWidget(spacerWidget);
-//    ui->toolBar->addAction(actionQuit);
+    //    ui->toolBar->addWidget(spacerWidget);
+    //    ui->toolBar->addAction(actionQuit);
 
 }
 
@@ -698,13 +703,13 @@ void MainWindow::updateActions(QTextCharFormat fmt)
     m_actionAlignJustify->setChecked(ui->teZoneTexte->alignment().testFlag(Qt::AlignJustify));
     m_actionAlignJustify->blockSignals(false);
 
-//    m_comboFont->blockSignals(true);
-//    //    m_comboFont->setCurrentFont(fmt.font());
-//    m_comboFont->blockSignals(false);
+    //    m_comboFont->blockSignals(true);
+    //    //    m_comboFont->setCurrentFont(fmt.font());
+    //    m_comboFont->blockSignals(false);
 
-//    m_comboSize->blockSignals(true);
-//    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(fmt.font().pointSize())));
-//    m_comboSize->blockSignals(false);
+    //    m_comboSize->blockSignals(true);
+    //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(fmt.font().pointSize())));
+    //    m_comboSize->blockSignals(false);
 }
 
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
@@ -720,7 +725,7 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
 
     QFileInfo fi(m_fileName);
     QString imageDest = QString("%1/data/%2").arg(fi.absolutePath()).arg(filename);
-//    Uri.setUrl(imageDest);
+    //    Uri.setUrl(imageDest);
 
     QTextDocument * textDocument = ui->teZoneTexte->document();
     textDocument->addResource( QTextDocument::ImageResource, Uri, QVariant ( image ) );
@@ -734,7 +739,7 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
         rep.mkpath(fi.absolutePath() + "/data/");
     }
     if(!image.save(imageDest)) {
-//        if (m_localDebug) qDebug() << "******* ERREUR de sauvegarde de " << imageDest;
+        //        if (m_localDebug) qDebug() << "******* ERREUR de sauvegarde de " << imageDest;
     }
     if (m_localDebug) qDebug() << "Sauvegarde de l'image dans " << imageDest;
 
@@ -908,29 +913,6 @@ void MainWindow::on_btnPrint_clicked()
     filePrint();
 }
 
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_isWindowMoving) {
-        move(event->globalPos() - m_dragPosition);
-        event->accept();
-    }
-}
-
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && ui->lblTitre->rect().contains(event->pos())) {
-        m_dragPosition = event->globalPos() - frameGeometry().topLeft();
-        event->accept();
-        m_isWindowMoving = true;
-    }
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent *event)
-{
-    Q_UNUSED(event);
-    m_isWindowMoving = false;
-}
-
 void MainWindow::on_btnQuit_clicked()
 {
     close();
@@ -986,3 +968,33 @@ void MainWindow::showTextPage()
 }
 
 
+/** ************************************************************************************************************************
+                            METHODES NON TABLETTE
+  ************************************************************************************************************************** **/
+
+#ifndef __ABULEDUTABLETTEV1__MODE__
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if (m_isWindowMoving) {
+        move(event->globalPos() - m_dragPosition);
+        event->accept();
+    }
+
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton && ui->lblTitre->rect().contains(event->pos())) {
+        m_dragPosition = event->globalPos() - frameGeometry().topLeft();
+        event->accept();
+        m_isWindowMoving = true;
+    }
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    m_isWindowMoving = false;
+}
+
+#endif

@@ -259,11 +259,8 @@ private slots:
     void on_btnFeuille_clicked();
     void on_btnPrint_clicked();
     void on_btnQuit_clicked();
-
-    void mouseMoveEvent(QMouseEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
     void on_stackedWidget_currentChanged(int arg1);
+
 
     /** Fixe la couleur de l'icone dans la barre de boutons
       * @param couleur une couleur sous forme de QColor
@@ -275,6 +272,18 @@ private slots:
 
     void showAbeMediathequeGet();
     void showTextPage();
+    void myFocusChangedSlot(QWidget *ex, QWidget *neo);
+
+    /** ************************************************************************************************************************
+                                METHODES NON TABLETTE
+      ************************************************************************************************************************** **/
+#ifndef __ABULEDUTABLETTEV1__MODE__
+    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+
+#endif
+
 };
 
 #endif // MAINWINDOW_H
