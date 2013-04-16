@@ -29,18 +29,25 @@
 #include "mainwindow.h"
 //#include "abuledutextev1.h"
 #include "abuleduapplicationv1.h"
+#include "abuledusplashscreenv1.h"
 
 int main(int argc, char *argv[])
 {
     AbulEduApplicationV1 a(argc, argv,VER_INTERNALNAME_STR, VER_PRODUCTVERSION_STR, VER_COMPANYDOMAIN_STR, "abuledu");
     a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
 
-    MainWindow w;
+    MainWindow *w;
+    w = new MainWindow();
+        // ================== splashscreen
+        AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
+        splash->abeSplashScreenLauchUtilitaire(true);
+        splash->show();
+        splash->setMainWindow(w);
+        //pour les developpeurs presses, remplacer le 1000 par 100
+        splash->launch(1000);
+        // ================== splashscreen end
 #ifdef __ABULEDUTABLETTEV1__MODE__
     QApplication::setStyle("plastique");
-    w.showFullScreen();
-#else
-    w.show();
 #endif
     return a.exec();
 }

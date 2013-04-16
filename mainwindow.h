@@ -261,6 +261,7 @@ private slots:
     void on_btnQuit_clicked();
     void on_stackedWidget_currentChanged(int arg1);
 
+    void slotShowMainPage();
 
     /** Fixe la couleur de l'icone dans la barre de boutons
       * @param couleur une couleur sous forme de QColor

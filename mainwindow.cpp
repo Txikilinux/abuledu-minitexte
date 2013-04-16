@@ -44,8 +44,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
     ui->abeMediathequeGet->abeSetCustomBouton1Download(true);
     ui->abeMediathequeGet->abeSetDefaultView(AbulEduMediathequeGetV1::abeMediathequeThumbnails);
+    ui->abeMediathequeGet->abeShowCloseBtn(true);
     /* Attention au cas où il n'y a pas de réponse, on est bloqué à un endroit du stackedWidget */
-    connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)));
+    connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)),Qt::UniqueConnection);
+    connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeExited()),this, SLOT(slotShowMainPage()),Qt::UniqueConnection);
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
@@ -422,7 +424,8 @@ void MainWindow::setupToolBarAndActions()
     //Pour tablettes, je préfère des boutons ...
     m_btnFontAndika = new AbulEduFlatBoutonV1();
     m_btnFontAndika->setFixedWidth(80);
-    m_btnFontAndika->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::blue),QColor(Qt::lightGray));
+    m_btnFontAndika->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
+    m_btnFontAndika->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontAndika->setText("Andika");
     m_btnFontAndika->setFont(QFont("andika",14));
     m_btnFontAndika->setObjectName("andika");
@@ -433,7 +436,9 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontSeyes= new AbulEduFlatBoutonV1();
     m_btnFontSeyes->setFixedWidth(80);
     m_btnFontSeyes->setText("Seyes");
-    m_btnFontSeyes->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::blue),QColor(Qt::lightGray));
+    m_btnFontSeyes->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
+//    m_btnFontSeyes->setCouleursFond(QColor("#67beff"),QColor("#67beff"),QColor("#328aec"),QColor(Qt::lightGray));
+    m_btnFontSeyes->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
     m_btnFontSeyes->setObjectName("SeyesBDE");
     m_btnFontSeyes->setProperty("interligne",200);
@@ -443,7 +448,8 @@ void MainWindow::setupToolBarAndActions()
 
     m_btnFontCrayon= new AbulEduFlatBoutonV1();
     m_btnFontCrayon->setFixedWidth(80);
-    m_btnFontCrayon->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::blue),QColor(Qt::lightGray));
+    m_btnFontCrayon->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
+    m_btnFontCrayon->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontCrayon->setText("Crayon");
     m_btnFontCrayon->setFont(QFont("CrayonE",16));
     m_btnFontCrayon->setObjectName("CrayonE");
@@ -453,7 +459,8 @@ void MainWindow::setupToolBarAndActions()
 
     m_btnFontPlume= new AbulEduFlatBoutonV1();
     m_btnFontPlume->setFixedWidth(80);
-    m_btnFontPlume->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::blue),QColor(Qt::lightGray));
+    m_btnFontPlume->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
+    m_btnFontPlume->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontPlume->setText("Plume");
     m_btnFontPlume->setFont(QFont("PlumBAE",16));
     m_btnFontPlume->setObjectName("PlumBAE");
@@ -916,6 +923,11 @@ void MainWindow::on_stackedWidget_currentChanged(int arg1)
     if (m_localDebug) qDebug()<<"page courante : "<<ui->stackedWidget->currentWidget()->objectName();
 }
 
+void MainWindow::slotShowMainPage()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
+}
+
 void MainWindow::on_btnOpen_clicked()
 {
     fileOpen();
@@ -952,6 +964,7 @@ void MainWindow::on_btnNew_clicked()
 
 void MainWindow::showAbeMediathequeGet()
 {
+    ui->abeMediathequeGet->setVisible(true);
     ui->stackedWidget->setCurrentWidget(ui->pageMediathequeGet);
 }
 
