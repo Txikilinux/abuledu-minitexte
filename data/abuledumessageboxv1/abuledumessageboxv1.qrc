@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/abuledumessageboxv1/icon">
+        <file alias="oups">picto/etonnee.png</file>
+        <file alias="wink">picto/wink.png</file>
+    </qresource>
+    <qresource prefix="/abuledumessageboxv1/button">
+        <file alias="close">picto/icon-fermer.png</file>
+    </qresource>
+    <qresource prefix="/abuledumessageboxv1/settings">
+        <file alias="conf">abuledumessageboxv1.conf</file>
+    </qresource>
+</RCC>
