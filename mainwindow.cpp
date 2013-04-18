@@ -66,6 +66,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
             this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
 
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()));
+
     // Au cas ou le widget serait un topLevelWidget()
     setWindowTitle(trUtf8("Sans nom")+"[*]");
     // On crée la barre d'icones et les QActions qui vont bien
@@ -91,6 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(cursorMoved()));
 
     m_isNewFile = true;
+    m_wantNewFile = false;
     m_isPicoReading = false;
 
     //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
@@ -127,7 +130,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //    ui->frmPico->hide();
     ui->toolBar->setParent(ui->frFormat);
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
-
 }
 
 void MainWindow::myFocusChangedSlot(QWidget *ex, QWidget *neo)
@@ -857,6 +859,11 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
     }
     msgEnregistrement->show();
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
+    if(m_wantNewFile)
+    {
+        slotClearCurrent();
+        m_wantNewFile = false;
+    }
     on_btnFeuille_clicked();
 }
 
@@ -928,6 +935,13 @@ void MainWindow::slotShowMainPage()
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
+void MainWindow::slotClearCurrent()
+{
+    m_abuledufile->abeClean();
+    ui->teZoneTexte->clear();
+    setWindowModified(false);
+}
+
 void MainWindow::on_btnOpen_clicked()
 {
     fileOpen();
@@ -947,6 +961,7 @@ void MainWindow::on_btnSave_clicked()
         ui->abeBoxFileManager->abeSetFile(m_abuledufile);
         ui->abeBoxFileManager->abeRefresh(AbulEduBoxFileManagerV1::abePC);
     }
+    setWindowModified(false);
 }
 
 void MainWindow::on_btnNew_clicked()
@@ -954,12 +969,14 @@ void MainWindow::on_btnNew_clicked()
     on_btnFeuille_clicked();
     if(isWindowModified())
     {
-        AbulEduMessageBoxV1* msgBox = new AbulEduMessageBoxV1(trUtf8("Attention"), trUtf8("Des modifications n'ont pas été enregistrées."),this);
-        msgBox->show();
-        return;
+        m_wantNewFile = true;
+        on_btnSave_clicked();
     }
-    m_abuledufile->abeClean();
-    ui->teZoneTexte->clear();
+    else
+    {
+        slotClearCurrent();
+    }
+    return;
 }
 
 void MainWindow::showAbeMediathequeGet()

@@ -185,6 +185,7 @@ private:
 
     bool m_hasMenuBar;
     bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...
+    bool m_wantNewFile;
 
     /** Position de la souris pour gerer le deplacement de la fenetre */
     QPoint m_dragPosition;
@@ -262,6 +263,8 @@ private slots:
     void on_stackedWidget_currentChanged(int arg1);
 
     void slotShowMainPage();
+
+    void slotClearCurrent();
 
     /** Fixe la couleur de l'icone dans la barre de boutons
       * @param couleur une couleur sous forme de QColor
