@@ -75,5 +75,7 @@
         <file alias="left">data/images/align-gauch-appuy.png</file>
         <file alias="center">data/images/centrer-appuy.png</file>
         <file alias="justify">data/images/justifier-appuy.png</file>
+        <file alias="decrease">data/images/reduire.png</file>
+        <file alias="increase">data/images/agrandrir.png</file>
     </qresource>
 </RCC>

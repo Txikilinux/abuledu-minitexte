@@ -305,34 +305,6 @@ void MainWindow::setupToolBarAndActions()
     /** @todo utiliser le thème abuledu pour les icones des toolboutons
       * Pour l'instant, on utilise l'icone du thème, sinon celle du fichier de ressources
       */
-    /* Ouvrir un fichier est inutile car déplacé dans la frBoutons
-    m_actionOpen = new QAction(QIcon::fromTheme("document-open", QIcon(rsrcPath + "/fileopen.png")),
-                               trUtf8("&Ouvrir"), this);
-    m_actionOpen->setObjectName("open");
-    m_actionOpen->setShortcut(QKeySequence::Open);
-    connect(m_actionOpen, SIGNAL(triggered()), this, SLOT(fileOpen()));
-    m_actionOpen->setEnabled(true);
-    tb->addAction(m_actionOpen); */
-
-    /* sauvegarder un fichier est inutile car déplacé dans la frBoutons
-    m_actionSave = new QAction(QIcon::fromTheme("document-save", QIcon(rsrcPath + "/filesave.png")),
-                               trUtf8("&Enregistrer"), this);
-    m_actionSave->setObjectName("save");
-    m_actionSave->setShortcut(QKeySequence::Save);
-    connect(m_actionSave, SIGNAL(triggered()), this, SLOT(fileSave()));
-    m_actionSave->setEnabled(true);
-    tb->addAction(m_actionSave); */
-
-    /* Imprimer un fichier est inutile car déplacé dans la frBoutons
-    m_actionPrint = new QAction(QIcon::fromTheme("document-print", QIcon(rsrcPath + "/fileprint.png")),
-                                trUtf8("&Imprimer..."), this);
-    m_actionPrint->setObjectName("print");
-    m_actionPrint->setPriority(QAction::LowPriority);
-    m_actionPrint->setShortcut(QKeySequence::Print);
-    connect(m_actionPrint, SIGNAL(triggered()), this, SLOT(filePrint()));
-    tb->addAction(m_actionPrint);
-
-    tb->addSeparator();*/
 
     // Formatage des caractères
     m_actionTextBold = new QAction(QIcon(":/abuledutextev1/format/bold"),
@@ -370,6 +342,24 @@ void MainWindow::setupToolBarAndActions()
     connect(m_actionTextUnderline, SIGNAL(triggered()), this, SLOT(setTextFormat()));
     tb->addAction(m_actionTextUnderline);
     m_actionTextUnderline->setCheckable(true);
+
+    m_btnFontIncrease = new AbulEduFlatBoutonV1();
+    m_btnFontIncrease->setFixedSize(30,30);
+    m_btnFontIncrease->setCouleurFondPressed(QColor("#328aec"));
+    m_btnFontIncrease->setIconeNormale(":/abuledutextev1/format/increase");
+    m_btnFontIncrease->setObjectName("increase");
+    m_btnFontIncrease->setProperty("interligne",100);
+    tb->addWidget(m_btnFontIncrease);
+    connect(m_btnFontIncrease, SIGNAL(clicked()), this, SLOT(increaseFontSize()));
+
+    m_btnFontDecrease = new AbulEduFlatBoutonV1();
+    m_btnFontDecrease->setFixedSize(30,30);
+    m_btnFontDecrease->setCouleurFondPressed(QColor("#328aec"));
+    m_btnFontDecrease->setIconeNormale(":/abuledutextev1/format/decrease");
+    m_btnFontDecrease->setObjectName("decrease");
+    m_btnFontDecrease->setProperty("interligne",100);
+    tb->addWidget(m_btnFontDecrease);
+    connect(m_btnFontDecrease, SIGNAL(clicked()), this, SLOT(decreaseFontSize()));
 
     tb->addSeparator();
 
@@ -426,7 +416,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontAndika = new AbulEduFlatBoutonV1();
     m_btnFontAndika->setFixedWidth(80);
     m_btnFontAndika->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-    m_btnFontAndika->setCouleurFondPressed(QColor("#328aec"));
+//    m_btnFontAndika->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontAndika->setText("Andika");
     m_btnFontAndika->setFont(QFont("andika",14));
     m_btnFontAndika->setObjectName("andika");
@@ -439,7 +429,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontSeyes->setText("Seyes");
     m_btnFontSeyes->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
 //    m_btnFontSeyes->setCouleursFond(QColor("#67beff"),QColor("#67beff"),QColor("#328aec"),QColor(Qt::lightGray));
-    m_btnFontSeyes->setCouleurFondPressed(QColor("#328aec"));
+//    m_btnFontSeyes->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
     m_btnFontSeyes->setObjectName("SeyesBDE");
     m_btnFontSeyes->setProperty("interligne",200);
@@ -450,7 +440,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontCrayon= new AbulEduFlatBoutonV1();
     m_btnFontCrayon->setFixedWidth(80);
     m_btnFontCrayon->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-    m_btnFontCrayon->setCouleurFondPressed(QColor("#328aec"));
+//    m_btnFontCrayon->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontCrayon->setText("Crayon");
     m_btnFontCrayon->setFont(QFont("CrayonE",16));
     m_btnFontCrayon->setObjectName("CrayonE");
@@ -461,7 +451,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontPlume= new AbulEduFlatBoutonV1();
     m_btnFontPlume->setFixedWidth(80);
     m_btnFontPlume->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-    m_btnFontPlume->setCouleurFondPressed(QColor("#328aec"));
+//    m_btnFontPlume->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontPlume->setText("Plume");
     m_btnFontPlume->setFont(QFont("PlumBAE",16));
     m_btnFontPlume->setObjectName("PlumBAE");

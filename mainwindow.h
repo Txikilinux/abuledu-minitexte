@@ -143,10 +143,7 @@ private:
     void setupMenuBar();
 
     /** Liste des QActions (pas toutes implémentées) */
-    QAction *m_actionSave,
-            *m_actionOpen,
-            *m_actionPrint,
-            *m_actionTextBold,
+    QAction *m_actionTextBold,
             *m_actionTextItalic,
             *m_actionTextUnderline,
             *m_actionTextColor,
@@ -167,6 +164,8 @@ private:
     AbulEduFlatBoutonV1 *m_btnFontPlume;
     AbulEduFlatBoutonV1 *m_btnFontCrayon;
     AbulEduFlatBoutonV1 *m_btnFontSeyes;
+    AbulEduFlatBoutonV1 *m_btnFontIncrease;
+    AbulEduFlatBoutonV1 *m_btnFontDecrease;
 
     /** Combobox des tailles de polices valides */
 //    QComboBox *m_comboSize;
