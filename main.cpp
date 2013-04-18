@@ -38,11 +38,6 @@ int main(int argc, char *argv[])
 
     MainWindow *w;
     w = new MainWindow();
-
-
-//    QPoint rect = abeApp->desktop()->availableGeometry().center();
-//    QRect frect = abeApp->desktop()->availableGeometry();
-//    frect.moveCenter(QDesktopWidget().availableGeometry().center());
     w->move(QDesktopWidget().availableGeometry().topLeft());
         // ================== splashscreen
         AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
