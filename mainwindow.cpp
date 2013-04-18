@@ -44,10 +44,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
     ui->abeMediathequeGet->abeSetCustomBouton1Download(true);
     ui->abeMediathequeGet->abeSetDefaultView(AbulEduMediathequeGetV1::abeMediathequeThumbnails);
-    ui->abeMediathequeGet->abeShowCloseBtn(true);
     /* Attention au cas où il n'y a pas de réponse, on est bloqué à un endroit du stackedWidget */
     connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)),Qt::UniqueConnection);
-    connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeExited()),this, SLOT(slotShowMainPage()),Qt::UniqueConnection);
+    connect(ui->abeMediathequeGet, SIGNAL(signalAbeMediathequeGetCloseOrHide()),this, SLOT(slotShowMainPage()),Qt::UniqueConnection);
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
