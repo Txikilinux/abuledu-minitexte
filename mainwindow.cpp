@@ -129,11 +129,50 @@ MainWindow::MainWindow(QWidget *parent) :
     //    ui->frmPico->hide();
     ui->toolBar->setParent(ui->frFormat);
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
+    QTextCharFormat tcf;
+    tcf.setFontFamily("Andika");
+    tcf.setFontItalic(false);
+    tcf.setFontPointSize(16);
+    ui->teZoneTexte->textCursor().setCharFormat(tcf);
 }
 
 void MainWindow::myFocusChangedSlot(QWidget *ex, QWidget *neo)
 {
     qDebug() << "ex :: " << ex << " // neo :: " << neo;
+}
+
+void MainWindow::increaseFontSize(int increase)
+{
+    QTextCursor cursor = ui->teZoneTexte->textCursor();
+    if (!cursor.hasSelection())
+        // Si pas de sélection, on utilise le mot sous le curseur
+        cursor.select(QTextCursor::WordUnderCursor);
+    QTextCharFormat fmt;
+    if(cursor.charFormat().fontPointSize() > 15)
+    {
+        fmt.setFontPointSize(cursor.charFormat().fontPointSize()+increase);
+    }
+    else
+    {
+        fmt.setFontPointSize(15+increase);
+    }
+    // On l'applique
+    mergeFormatOnWordOrSelection(fmt);
+}
+
+void MainWindow::decreaseFontSize(int decrease)
+{
+    QTextCursor cursor = ui->teZoneTexte->textCursor();
+    if (!cursor.hasSelection())
+        // Si pas de sélection, on utilise le mot sous le curseur
+        cursor.select(QTextCursor::WordUnderCursor);
+    QTextCharFormat fmt;
+    if(cursor.charFormat().fontPointSize() > 15)
+    {
+        fmt.setFontPointSize(cursor.charFormat().fontPointSize()-decrease);
+    }
+    // On l'applique
+    mergeFormatOnWordOrSelection(fmt);
 }
 
 MainWindow::~MainWindow()
@@ -343,15 +382,6 @@ void MainWindow::setupToolBarAndActions()
     tb->addAction(m_actionTextUnderline);
     m_actionTextUnderline->setCheckable(true);
 
-    m_btnFontIncrease = new AbulEduFlatBoutonV1();
-    m_btnFontIncrease->setFixedSize(30,30);
-    m_btnFontIncrease->setCouleurFondPressed(QColor("#328aec"));
-    m_btnFontIncrease->setIconeNormale(":/abuledutextev1/format/increase");
-    m_btnFontIncrease->setObjectName("increase");
-    m_btnFontIncrease->setProperty("interligne",100);
-    tb->addWidget(m_btnFontIncrease);
-    connect(m_btnFontIncrease, SIGNAL(clicked()), this, SLOT(increaseFontSize()));
-
     m_btnFontDecrease = new AbulEduFlatBoutonV1();
     m_btnFontDecrease->setFixedSize(30,30);
     m_btnFontDecrease->setCouleurFondPressed(QColor("#328aec"));
@@ -360,6 +390,15 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontDecrease->setProperty("interligne",100);
     tb->addWidget(m_btnFontDecrease);
     connect(m_btnFontDecrease, SIGNAL(clicked()), this, SLOT(decreaseFontSize()));
+
+    m_btnFontIncrease = new AbulEduFlatBoutonV1();
+    m_btnFontIncrease->setFixedSize(30,30);
+    m_btnFontIncrease->setCouleurFondPressed(QColor("#328aec"));
+    m_btnFontIncrease->setIconeNormale(":/abuledutextev1/format/increase");
+    m_btnFontIncrease->setObjectName("increase");
+    m_btnFontIncrease->setProperty("interligne",100);
+    tb->addWidget(m_btnFontIncrease);
+    connect(m_btnFontIncrease, SIGNAL(clicked()), this, SLOT(increaseFontSize()));
 
     tb->addSeparator();
 

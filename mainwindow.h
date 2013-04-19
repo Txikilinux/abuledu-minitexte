@@ -237,21 +237,6 @@ public slots:
     /** gestion du retour de sauvegarde fichier via la box file manager */
     void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success);
 
-signals:
-    /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
-    void somethingHasChangedInText(bool);
-
-    /** Signal émis lors du changement de nom du fichier
-      * @param le nom du fichier avec [*] en fin de nom
-      */
-    void fileNameHasChanged(const QString newFileName);
-
-    // Signaux émis pour simuler l'appui sur les toolbutons
-    void alignmentRight();
-    void alignmentLeft();
-    void alignmentCenter();
-    void alignmentJustify();
-
 private slots:
     void on_btnLire_clicked();
     void on_btnPause_clicked();
@@ -277,6 +262,12 @@ private slots:
     void showTextPage();
     void myFocusChangedSlot(QWidget *ex, QWidget *neo);
 
+    /** Augmente la police de caractères utilisée */
+    void increaseFontSize(int increase = 2);
+
+    /** Diminue la police de caractères utilisée */
+    void decreaseFontSize(int decrease = 2);
+
     /** ************************************************************************************************************************
                                 METHODES NON TABLETTE
       ************************************************************************************************************************** **/
@@ -286,6 +277,22 @@ private slots:
     void mouseReleaseEvent(QMouseEvent *event);
 
 #endif
+
+
+signals:
+    /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
+    void somethingHasChangedInText(bool);
+
+    /** Signal émis lors du changement de nom du fichier
+      * @param le nom du fichier avec [*] en fin de nom
+      */
+    void fileNameHasChanged(const QString newFileName);
+
+    // Signaux émis pour simuler l'appui sur les toolbutons
+    void alignmentRight();
+    void alignmentLeft();
+    void alignmentCenter();
+    void alignmentJustify();
 
 };
 
