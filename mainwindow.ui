@@ -65,7 +65,7 @@
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(7,146,235,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="CouleurFondNormale">
         <color>
@@ -92,7 +92,7 @@
         <string>:/abuledutextev1/buttons/leaf</string>
        </property>
        <property name="IconeSurvol">
-        <string>:/abuledutextev1/buttons/leaf</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -173,13 +173,34 @@ border-radius:10px;</string>
         <string>new</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/new');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/newHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/new');image-position: center;}:hover{color:rgba(255,255,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/newHover');image-position: center;}:pressed{color:rgba(255,255,255,255);background-color:rgba(255,255,255,50);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
         <string>&amp;Nouveau</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTexteSurvol">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTextePressed">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurFondPressed">
+        <color alpha="50">
          <red>255</red>
          <green>255</green>
          <blue>255</blue>
@@ -217,13 +238,34 @@ border-radius:10px;</string>
         <string>open</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/open');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/openHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/open');image-position: center;}:hover{color:rgba(255,255,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/openHover');image-position: center;}:pressed{color:rgba(255,255,255,255);background-color:rgba(255,255,255,50);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
         <string>&amp;Ouvrir</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTexteSurvol">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTextePressed">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurFondPressed">
+        <color alpha="50">
          <red>255</red>
          <green>255</green>
          <blue>255</blue>
@@ -261,13 +303,34 @@ border-radius:10px;</string>
         <string>save</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/save');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/saveHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/save');image-position: center;}:hover{color:rgba(255,255,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/saveHover');image-position: center;}:pressed{color:rgba(255,255,255,255);background-color:rgba(255,255,255,50);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
         <string>&amp;Enregistrer</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTexteSurvol">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTextePressed">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurFondPressed">
+        <color alpha="50">
          <red>255</red>
          <green>255</green>
          <blue>255</blue>
@@ -305,13 +368,34 @@ border-radius:10px;</string>
         <string>quit</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/quit');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/quitHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/quit');image-position: center;}:hover{color:rgba(255,255,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/quitHover');image-position: center;}:pressed{color:rgba(255,255,255,255);background-color:rgba(255,255,255,50);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
         <string>&amp;Quitter</string>
        </property>
        <property name="CouleurTexteNormale">
         <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTexteSurvol">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTextePressed">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurFondPressed">
+        <color alpha="50">
          <red>255</red>
          <green>255</green>
          <blue>255</blue>
@@ -346,10 +430,38 @@ border-radius:10px;</string>
         <string>help</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/help');image-position: center;}:hover{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/helpHover');image-position: center;}:pressed{color:rgba(0,0,255,255);background-color:rgba(0,0,0,0);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
+        <string notr="true">QPushButton &gt; *{color:red;}QPushButton{border: none; color:rgba(255,255,255,255);background-repeat: no-repeat;background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/help');image-position: center;}:hover{color:rgba(255,255,255,255);background-color:rgba(0,0,0,0);border-image:url(':/abuledutextev1/buttons/helpHover');image-position: center;}:pressed{color:rgba(255,255,255,255);background-color:rgba(255,255,255,50);image-position: center;}:disabled{border: none; color:rgba(160,160,164,255);background-color:rgba(0,0,0,0);image:none;image-position: center;}</string>
        </property>
        <property name="text">
         <string>Aide</string>
+       </property>
+       <property name="CouleurTexteNormale">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTexteSurvol">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTextePressed">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurFondPressed">
+        <color alpha="50">
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
        </property>
        <property name="iconeNormale">
         <string>:/abuledutextev1/buttons/help</string>
@@ -379,6 +491,34 @@ border-radius:10px;</string>
        <property name="text">
         <string>Im&amp;primer</string>
        </property>
+       <property name="CouleurTexteNormale">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTexteSurvol">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTextePressed">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurFondPressed">
+        <color alpha="50">
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
        <property name="iconeNormale">
         <string>:/abuledutextev1/buttons/print</string>
        </property>
@@ -406,6 +546,34 @@ border-radius:10px;</string>
        </property>
        <property name="text">
         <string>&amp;Data</string>
+       </property>
+       <property name="CouleurTexteNormale">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTexteSurvol">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurTextePressed">
+        <color>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </property>
+       <property name="CouleurFondPressed">
+        <color alpha="50">
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
        </property>
        <property name="iconeNormale">
         <string>:/abuledutextev1/buttons/data</string>
@@ -471,10 +639,10 @@ border-radius:10px;</string>
                </size>
               </property>
               <property name="iconeNormale">
-               <string>:/abuledutextev1/buttons/play</string>
+               <string/>
               </property>
               <property name="IconeDisabled">
-               <string>:/abuledutextev1/buttons/play-gris</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -487,10 +655,10 @@ border-radius:10px;</string>
                </size>
               </property>
               <property name="iconeNormale">
-               <string>:/abuledutextev1/buttons/pause</string>
+               <string/>
               </property>
               <property name="IconeDisabled">
-               <string>:/abuledutextev1/buttons/pause-gris</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -503,10 +671,10 @@ border-radius:10px;</string>
                </size>
               </property>
               <property name="iconeNormale">
-               <string>:/abuledutextev1/buttons/stop</string>
+               <string/>
               </property>
               <property name="IconeDisabled">
-               <string>:/abuledutextev1/buttons/stop-gris</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -589,12 +757,6 @@ border-radius:10px;</string>
     </property>
     <layout class="QGridLayout" name="gridLayout_2"/>
    </widget>
-   <zorder>frTop</zorder>
-   <zorder>frBoutons</zorder>
-   <zorder>frPrincipale</zorder>
-   <zorder>frFormat</zorder>
-   <zorder>frFormat</zorder>
-   <zorder>frFormat</zorder>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="sizePolicy">
