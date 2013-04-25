@@ -195,6 +195,12 @@ private:
 
     bool m_isPicoReading;
 
+#ifndef QT_NO_PRINTER
+    /** Gestion Impression */
+    QPrintDialog *m_printDialog;
+    QPrinter *m_printer;
+
+#endif
 public slots:
     /** Formate le texte en fonction des toolButtons activés
       * Gras, Souligné, Italic
@@ -219,7 +225,7 @@ public slots:
     /** Enregistre sous ... le texte */
     bool fileSaveAs();
 
-    void filePrint();
+    void filePrint(QPrinter*);
 
 //    void cursorMoved(QTextCursor curseur);
     void cursorMoved();
@@ -237,6 +243,7 @@ public slots:
     /** gestion du retour de sauvegarde fichier via la box file manager */
     void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success);
 
+    void test(int);
 private slots:
     void on_btnLire_clicked();
     void on_btnPause_clicked();

@@ -29,21 +29,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     setAttribute(Qt::WA_QuitOnClose);
-
     ui->setupUi(this);
+    m_hauteurToolBar = 48;
+
     m_localDebug = false;
-    //
-#ifdef __ABULEDUTABLETTEV1__MODE__
-    m_hauteurToolBar = 48;
-#else
-    m_hauteurToolBar = 48;
-#endif
 
     ui->abeMediathequeGet->abeSetSourceEnum(AbulEduMediathequeGetV1::abeData);
     ui->abeMediathequeGet->abeHideBoutonTelecharger();
     ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
     ui->abeMediathequeGet->abeSetCustomBouton1Download(true);
     ui->abeMediathequeGet->abeSetDefaultView(AbulEduMediathequeGetV1::abeMediathequeThumbnails);
+
     /* Attention au cas où il n'y a pas de réponse, on est bloqué à un endroit du stackedWidget */
     connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)),Qt::UniqueConnection);
     connect(ui->abeMediathequeGet, SIGNAL(signalAbeMediathequeGetCloseOrHide()),this, SLOT(showTextPage()),Qt::UniqueConnection);
@@ -96,6 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isPicoReading = false;
 
     //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
+    //! @todo Les tailles en "dur" sont pas top !
     setWindowFlags(Qt::CustomizeWindowHint);
     resize(1024,600);
     ui->frPrincipale->setGeometry(QRect(0,90,1024,510));
@@ -118,9 +115,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
-    //ui->teZoneTexte->setFocus();
-    //    setFixedSize(1024, 600);
-
     m_picoLecteur = new AbulEduPicottsV1(4);
     ui->btnLire->setEnabled(true);
     ui->btnPause->setEnabled(false);
@@ -134,6 +128,29 @@ MainWindow::MainWindow(QWidget *parent) :
     tcf.setFontItalic(false);
     tcf.setFontPointSize(16);
     ui->teZoneTexte->textCursor().setCharFormat(tcf);
+
+#ifndef QT_NO_PRINTER
+    m_printer = new QPrinter(QPrinter::HighResolution);
+    m_printDialog = new QPrintDialog(m_printer, this);
+    m_printDialog->setStyleSheet("background-color:#FFFFFF");
+    ui->glPrint->addWidget(m_printDialog);
+
+    connect(m_printDialog, SIGNAL(rejected()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+    connect(m_printDialog, SIGNAL(finished(int)), this, SLOT(test(int)), Qt::UniqueConnection);
+    connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
+    //            if (ui->teZoneTexte->textCursor().hasSelection())
+    //                dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+    //            dlg->setWindowTitle(trUtf8("Imprimer le document"));
+    //            if (dlg->exec() == QDialog::Accepted) {
+    //                ui->teZoneTexte->print(&printer);
+    //            }
+    //            delete dlg;
+#endif
+}
+
+void MainWindow::test(int a)
+{
+    qDebug() << a;
 }
 
 void MainWindow::myFocusChangedSlot(QWidget *ex, QWidget *neo)
@@ -670,25 +687,24 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
     }
 }
 
-void MainWindow::filePrint()
+void MainWindow::filePrint(QPrinter *printer)
 {
-    //! On cache le menu feuille
-    if(ui->frBoutons->isVisible())
-        on_btnFeuille_clicked();
+    qDebug() << __PRETTY_FUNCTION__;
+    qDebug() << printer;
 
-#ifndef QT_NO_PRINTER
-    QPrinter printer(QPrinter::HighResolution);
-    QPrintDialog *dlg = new QPrintDialog(&printer, ui->pagePrint);
-    dlg->setStyleSheet("background-color:#FFFFFF");
-    ui->glPrint->addWidget(dlg);
-    if (ui->teZoneTexte->textCursor().hasSelection())
-        dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
-    dlg->setWindowTitle(trUtf8("Imprimer le document"));
-    if (dlg->exec() == QDialog::Accepted) {
-        ui->teZoneTexte->print(&printer);
-    }
-    delete dlg;
-#endif
+    //#ifndef QT_NO_PRINTER
+    //    QPrinter printer(QPrinter::HighResolution);
+    //    QPrintDialog *dlg = new QPrintDialog(&printer, ui->pagePrint);
+    //    dlg->setStyleSheet("background-color:#FFFFFF");
+    //    ui->glPrint->addWidget(dlg);
+    //    if (ui->teZoneTexte->textCursor().hasSelection())
+    //        dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+    //    dlg->setWindowTitle(trUtf8("Imprimer le document"));
+    //    if (dlg->exec() == QDialog::Accepted) {
+    //        ui->teZoneTexte->print(&printer);
+    //    }
+    //    delete dlg;
+    //#endif
 }
 
 void MainWindow::cursorMoved()
@@ -949,8 +965,16 @@ void MainWindow::on_btnFeuille_clicked()
 
 void MainWindow::on_btnPrint_clicked()
 {
+    qDebug() << __PRETTY_FUNCTION__;
+
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
+    if(!m_printDialog->isVisible())
+        m_printDialog->showNormal();
+
     ui->stackedWidget->setCurrentWidget(ui->pagePrint);
-    filePrint();
 }
 
 void MainWindow::on_btnQuit_clicked()
