@@ -672,6 +672,10 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
 
 void MainWindow::filePrint()
 {
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
 #ifndef QT_NO_PRINTER
     QPrinter printer(QPrinter::HighResolution);
     QPrintDialog *dlg = new QPrintDialog(&printer, ui->pagePrint);
@@ -687,15 +691,8 @@ void MainWindow::filePrint()
 #endif
 }
 
-//void MainWindow::cursorMoved(QTextCursor curseur)
-//{
-
-
-//}
-
 void MainWindow::cursorMoved()
 {
-    //    if(m_localDebug)qDebug()<<__PRETTY_FUNCTION__<<"ligne"<<__LINE__;
     updateActions(ui->teZoneTexte->textCursor().charFormat());
 }
 
@@ -804,6 +801,10 @@ void MainWindow::fileOpen()
 
 void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 {
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
     if (m_localDebug) qDebug() << "Ouverture du fichier " << abeFile->abeFileGetFileName().filePath();
     setCurrentFileName(abeFile->abeFileGetContent(0).absoluteFilePath());
 
@@ -841,11 +842,14 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
     }
 
     ui->teZoneTexte->update();
-    on_btnFeuille_clicked();
 }
 
 void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success)
 {
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
     if (m_localDebug) qDebug() << "slotAbeFileSaved : " << fileName << " et " << success;
     QString emplacement;
     if (location == AbulEduBoxFileManagerV1::abePC)
@@ -894,7 +898,6 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
         slotClearCurrent();
         m_wantNewFile = false;
     }
-    on_btnFeuille_clicked();
 }
 
 void MainWindow::on_btnLire_clicked()
@@ -948,7 +951,6 @@ void MainWindow::on_btnPrint_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pagePrint);
     filePrint();
-    on_btnFeuille_clicked();
 }
 
 void MainWindow::on_btnQuit_clicked()
@@ -970,8 +972,11 @@ void MainWindow::slotClearCurrent()
 
 void MainWindow::on_btnOpen_clicked()
 {
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
     fileOpen();
-    on_btnFeuille_clicked();
 }
 
 void MainWindow::on_btnSave_clicked()
@@ -993,7 +998,10 @@ void MainWindow::on_btnSave_clicked()
 
 void MainWindow::on_btnNew_clicked()
 {
-    on_btnFeuille_clicked();
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
     if(isWindowModified())
     {
         m_wantNewFile = true;
