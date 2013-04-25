@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->abeMediathequeGet->abeSetDefaultView(AbulEduMediathequeGetV1::abeMediathequeThumbnails);
     /* Attention au cas où il n'y a pas de réponse, on est bloqué à un endroit du stackedWidget */
     connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)),Qt::UniqueConnection);
-    connect(ui->abeMediathequeGet, SIGNAL(signalAbeMediathequeGetCloseOrHide()),this, SLOT(slotShowMainPage()),Qt::UniqueConnection);
+    connect(ui->abeMediathequeGet, SIGNAL(signalAbeMediathequeGetCloseOrHide()),this, SLOT(showTextPage()),Qt::UniqueConnection);
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //    m_abuleduFileManagerOpen = new AbulEduBoxFileManagerV1(0);
     //    m_abuleduFileManagerOpen->abeSetFile(m_abuledufile);
     //    connect(m_abuleduFileManagerOpen, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)));
-    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)));
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)), Qt::UniqueConnection);
 
 
     //    m_abuleduFileManagerSave = new AbulEduBoxFileManagerV1(0);
@@ -63,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //    connect(m_abuleduFileManagerSave, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
     //            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
-            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
+            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)), Qt::UniqueConnection);
 
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()));
 
@@ -306,6 +306,7 @@ void MainWindow::setTextSize(const QString &p)
     }
 }
 
+/** @todo Empecher la création de plusieurs boites de couleurs  */
 void MainWindow::setTextColor()
 {
     // Applique la couleur sélectionnée au texte
@@ -455,7 +456,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontAndika = new AbulEduFlatBoutonV1();
     m_btnFontAndika->setFixedWidth(80);
     m_btnFontAndika->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-//    m_btnFontAndika->setCouleurFondPressed(QColor("#328aec"));
+    //    m_btnFontAndika->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontAndika->setText("Andika");
     m_btnFontAndika->setFont(QFont("andika",14));
     m_btnFontAndika->setObjectName("andika");
@@ -467,8 +468,8 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontSeyes->setFixedWidth(80);
     m_btnFontSeyes->setText("Seyes");
     m_btnFontSeyes->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-//    m_btnFontSeyes->setCouleursFond(QColor("#67beff"),QColor("#67beff"),QColor("#328aec"),QColor(Qt::lightGray));
-//    m_btnFontSeyes->setCouleurFondPressed(QColor("#328aec"));
+    //    m_btnFontSeyes->setCouleursFond(QColor("#67beff"),QColor("#67beff"),QColor("#328aec"),QColor(Qt::lightGray));
+    //    m_btnFontSeyes->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
     m_btnFontSeyes->setObjectName("SeyesBDE");
     m_btnFontSeyes->setProperty("interligne",200);
@@ -479,7 +480,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontCrayon= new AbulEduFlatBoutonV1();
     m_btnFontCrayon->setFixedWidth(80);
     m_btnFontCrayon->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-//    m_btnFontCrayon->setCouleurFondPressed(QColor("#328aec"));
+    //    m_btnFontCrayon->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontCrayon->setText("Crayon");
     m_btnFontCrayon->setFont(QFont("CrayonE",16));
     m_btnFontCrayon->setObjectName("CrayonE");
@@ -490,7 +491,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontPlume= new AbulEduFlatBoutonV1();
     m_btnFontPlume->setFixedWidth(80);
     m_btnFontPlume->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-//    m_btnFontPlume->setCouleurFondPressed(QColor("#328aec"));
+    //    m_btnFontPlume->setCouleurFondPressed(QColor("#328aec"));
     m_btnFontPlume->setText("Plume");
     m_btnFontPlume->setFont(QFont("PlumBAE",16));
     m_btnFontPlume->setObjectName("PlumBAE");
@@ -798,6 +799,7 @@ void MainWindow::fileOpen()
     ui->abeBoxFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeOpen);
     ui->abeBoxFileManager->abeRefresh(AbulEduBoxFileManagerV1::abePC);
     ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
+    ui->frFormat->setEnabled(false);
 }
 
 void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
@@ -946,6 +948,7 @@ void MainWindow::on_btnPrint_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pagePrint);
     filePrint();
+    on_btnFeuille_clicked();
 }
 
 void MainWindow::on_btnQuit_clicked()
@@ -958,11 +961,6 @@ void MainWindow::on_stackedWidget_currentChanged(int arg1)
     if (m_localDebug) qDebug()<<"page courante : "<<ui->stackedWidget->currentWidget()->objectName();
 }
 
-void MainWindow::slotShowMainPage()
-{
-    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
-}
-
 void MainWindow::slotClearCurrent()
 {
     m_abuledufile->abeClean();
@@ -973,6 +971,7 @@ void MainWindow::slotClearCurrent()
 void MainWindow::on_btnOpen_clicked()
 {
     fileOpen();
+    on_btnFeuille_clicked();
 }
 
 void MainWindow::on_btnSave_clicked()
@@ -1016,6 +1015,7 @@ void MainWindow::showAbeMediathequeGet()
 void MainWindow::showTextPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
+    ui->frFormat->setEnabled(true);
 }
 
 

@@ -245,9 +245,6 @@ private slots:
     void on_btnPrint_clicked();
     void on_btnQuit_clicked();
     void on_stackedWidget_currentChanged(int arg1);
-
-    void slotShowMainPage();
-
     void slotClearCurrent();
 
     /** Fixe la couleur de l'icone dans la barre de boutons
