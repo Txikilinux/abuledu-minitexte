@@ -11,8 +11,7 @@ TARGET = abuledu-minitexte
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    mycolordialog.cpp
+        mainwindow.cpp
 
 HEADERS  += mainwindow.h \
             version.h \
