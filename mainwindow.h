@@ -129,6 +129,9 @@ private:
     /** Crée la barre de d'icones et les actions correspondantes */
     void setupToolBarAndActions();
 
+    /** Implémente le mécanisme de translation de l'application dans la langue locale */
+    void installTranslator();
+
     /** Applique le format passé en référence sur le mot en dessous du curseur, ou à la sélection
       * @param format le formatage à appliquer au texte
       */
@@ -201,6 +204,11 @@ private:
     QPrinter *m_printer;
 
 #endif
+
+    QTranslator qtTranslator;
+    QTranslator myappTranslator;
+    QString m_locale;
+
 public slots:
     /** Formate le texte en fonction des toolButtons activés
       * Gras, Souligné, Italic
@@ -244,6 +252,7 @@ public slots:
     void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success);
 
     void test(int);
+
 private slots:
     void on_btnLire_clicked();
     void on_btnPause_clicked();

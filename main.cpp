@@ -36,9 +36,13 @@ int main(int argc, char *argv[])
     AbulEduApplicationV1 a(argc, argv,VER_INTERNALNAME_STR, VER_PRODUCTVERSION_STR, VER_COMPANYDOMAIN_STR, "abuledu");
     a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
 
+
+
+
+
     MainWindow *w;
     w = new MainWindow();
-    w->move(QDesktopWidget().availableGeometry().topLeft());
+//    w->move(QDesktopWidget().availableGeometry().topLeft());
         // ================== splashscreen
         AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
         splash->abeSplashScreenLauchUtilitaire(true);

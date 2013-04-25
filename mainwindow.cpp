@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_localDebug = false;
 
+    installTranslator();
+
     ui->abeMediathequeGet->abeSetSourceEnum(AbulEduMediathequeGetV1::abeData);
     ui->abeMediathequeGet->abeHideBoutonTelecharger();
     ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
@@ -146,11 +148,30 @@ MainWindow::MainWindow(QWidget *parent) :
     //            }
     //            delete dlg;
 #endif
+
+    //! On Centre la fenetre
+    QDesktopWidget *widget = QApplication::desktop();
+    int desktop_width = widget->width();
+    int desktop_height = widget->height();
+    this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
+
 }
 
+//! Slot de Test ---> Ne Pas Degommer Icham
 void MainWindow::test(int a)
 {
     qDebug() << a;
+}
+
+void MainWindow::installTranslator()
+{
+    m_locale = QLocale::system().name().section('_', 0, 0);
+    myappTranslator.load("leterrier-imagessequentielles_"+m_locale, "./lang");
+    abeApp->installTranslator(&myappTranslator);
+    // pour avoir les boutons des boîtes de dialogue dans la langue locale (fr par défaut)
+    qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    abeApp->installTranslator(&qtTranslator);
+
 }
 
 void MainWindow::myFocusChangedSlot(QWidget *ex, QWidget *neo)
