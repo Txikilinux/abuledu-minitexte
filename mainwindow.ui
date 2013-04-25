@@ -613,10 +613,10 @@ border-radius:10px;</string>
      <enum>QFrame::Raised</enum>
     </property>
     <layout class="QGridLayout" name="gridLayout_6">
-     <property name="horizontalSpacing">
+     <property name="margin">
       <number>0</number>
      </property>
-     <property name="margin">
+     <property name="spacing">
       <number>0</number>
      </property>
      <item row="0" column="0">
