@@ -202,8 +202,9 @@ private:
     /** Gestion Impression */
     QPrintDialog *m_printDialog;
     QPrinter *m_printer;
-
 #endif
+    /** Gestion Choix Couleur */
+    QColorDialog* m_colorDialog;
 
     QTranslator qtTranslator;
     QTranslator myappTranslator;

@@ -118,18 +118,24 @@ MainWindow::MainWindow(QWidget *parent) :
     tcf.setFontPointSize(16);
     ui->teZoneTexte->textCursor().setCharFormat(tcf);
 
+    //! Gestion Impression
 #ifndef QT_NO_PRINTER
     m_printer = new QPrinter(QPrinter::HighResolution);
     m_printDialog = new QPrintDialog(m_printer, this);
-     m_printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+    m_printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
     m_printDialog->setStyleSheet("background-color:#FFFFFF");
     ui->glPrint->addWidget(m_printDialog);
 
     connect(m_printDialog, SIGNAL(rejected()), this, SLOT(showTextPage()), Qt::UniqueConnection);
     connect(m_printDialog, SIGNAL(finished(int)), this, SLOT(test(int)), Qt::UniqueConnection);
     connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
-
 #endif
+
+    //! Gestion Couleur
+    m_colorDialog = new QColorDialog(this);
+    ui->vlColor->addWidget(m_colorDialog);
+    connect(m_colorDialog,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
+    connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
     //! On Centre la fenetre
     QDesktopWidget *widget = QApplication::desktop();
@@ -326,25 +332,20 @@ void MainWindow::setTextSize(const QString &p)
     }
 }
 
-/** @todo Empecher la création de plusieurs boites de couleurs  */
 void MainWindow::setTextColor()
 {
-    // Applique la couleur sélectionnée au texte
     ui->stackedWidget->setCurrentWidget(ui->pageColor);
-    QColorDialog* colorDialogProv = new QColorDialog(ui->pageColor);
-    ui->vlColor->addWidget(colorDialogProv);
-    colorDialogProv->setWindowFlags(Qt::Widget);
-    colorDialogProv->setOptions(QColorDialog::DontUseNativeDialog);
-    connect(colorDialogProv,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
-    connect(colorDialogProv, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
-    // On met à jour l'icone dans la barre de boutons
+    if(!m_colorDialog->isVisible())
+        m_colorDialog->setVisible(true);
 }
 
 void MainWindow::colorChanged(const QColor &col)
 {
+
     if (!col.isValid())
         return;
+
     QTextCharFormat fmt;
     fmt.setForeground(col);
     mergeFormatOnWordOrSelection(fmt);
