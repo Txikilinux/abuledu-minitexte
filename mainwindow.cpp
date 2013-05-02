@@ -137,6 +137,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_colorDialog,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
     connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
+    //! Gestion Aide @todo non implémentée
+    connect(ui->btnHelp, SIGNAL(clicked()), this, SLOT(slotHelp()), Qt::UniqueConnection);
+
     //! On Centre la fenetre
     QDesktopWidget *widget = QApplication::desktop();
     int desktop_width = widget->width();
@@ -963,8 +966,6 @@ void MainWindow::on_btnFeuille_clicked()
 
 void MainWindow::on_btnPrint_clicked()
 {
-    qDebug() << __PRETTY_FUNCTION__;
-
     //! On cache le menu feuille
     if(ui->frBoutons->isVisible())
         on_btnFeuille_clicked();
@@ -975,6 +976,19 @@ void MainWindow::on_btnPrint_clicked()
     ui->stackedWidget->setCurrentWidget(ui->pagePrint);
 }
 
+void MainWindow::slotHelp()
+{
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
+    //! On affiche un message
+    QString message("Aide pas encore disponible.");
+    AbulEduMessageBoxV1* msgAide = new AbulEduMessageBoxV1(trUtf8("Aide"), message,this);
+    msgAide->setWink();
+    msgAide->show();
+    connect(msgAide, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+}
 void MainWindow::on_btnQuit_clicked()
 {
     close();
@@ -1003,6 +1017,10 @@ void MainWindow::on_btnOpen_clicked()
 
 void MainWindow::on_btnSave_clicked()
 {
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
     /* Je n'enregistre pas si la zone de texte est vide */
     if(ui->teZoneTexte->toPlainText().isEmpty())
     {
@@ -1079,3 +1097,5 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 }
 
 #endif
+
+
