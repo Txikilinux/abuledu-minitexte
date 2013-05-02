@@ -121,19 +121,14 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifndef QT_NO_PRINTER
     m_printer = new QPrinter(QPrinter::HighResolution);
     m_printDialog = new QPrintDialog(m_printer, this);
+     m_printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
     m_printDialog->setStyleSheet("background-color:#FFFFFF");
     ui->glPrint->addWidget(m_printDialog);
 
     connect(m_printDialog, SIGNAL(rejected()), this, SLOT(showTextPage()), Qt::UniqueConnection);
     connect(m_printDialog, SIGNAL(finished(int)), this, SLOT(test(int)), Qt::UniqueConnection);
     connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
-    //            if (ui->teZoneTexte->textCursor().hasSelection())
-    //                dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
-    //            dlg->setWindowTitle(trUtf8("Imprimer le document"));
-    //            if (dlg->exec() == QDialog::Accepted) {
-    //                ui->teZoneTexte->print(&printer);
-    //            }
-    //            delete dlg;
+
 #endif
 
     //! On Centre la fenetre
@@ -630,6 +625,7 @@ bool MainWindow::fileSaveAs()
     m_isNewFile = false;
     fileSave();
 }
+
 void MainWindow::setCurrentFileName(const QString &fileName)
 {
     m_fileName = fileName;
@@ -654,7 +650,6 @@ void MainWindow::setCurrentFileName(const QString &fileName)
     // On émet un signal avec le nom du fichier suivi de [*] pour affichage dans titre de fenêtre
     emit fileNameHasChanged(shownName);
 }
-
 
 bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal height, QTextFrameFormat::Position position, QString name)
 {
@@ -697,22 +692,16 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
 
 void MainWindow::filePrint(QPrinter *printer)
 {
-    qDebug() << __PRETTY_FUNCTION__;
-    qDebug() << printer;
+    //! On imprime
+    ui->teZoneTexte->print(printer);
 
-    //#ifndef QT_NO_PRINTER
-    //    QPrinter printer(QPrinter::HighResolution);
-    //    QPrintDialog *dlg = new QPrintDialog(&printer, ui->pagePrint);
-    //    dlg->setStyleSheet("background-color:#FFFFFF");
-    //    ui->glPrint->addWidget(dlg);
-    //    if (ui->teZoneTexte->textCursor().hasSelection())
-    //        dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
-    //    dlg->setWindowTitle(trUtf8("Imprimer le document"));
-    //    if (dlg->exec() == QDialog::Accepted) {
-    //        ui->teZoneTexte->print(&printer);
-    //    }
-    //    delete dlg;
-    //#endif
+    //! On affiche un message
+    QString message("Impression en cours");
+    AbulEduMessageBoxV1* msgImpression = new AbulEduMessageBoxV1(trUtf8("Impression"), message,this);
+    msgImpression->setWink();
+    msgImpression->show();
+    connect(msgImpression, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+
 }
 
 void MainWindow::cursorMoved()
@@ -820,7 +809,7 @@ void MainWindow::fileOpen()
     ui->abeBoxFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeOpen);
     ui->abeBoxFileManager->abeRefresh(AbulEduBoxFileManagerV1::abePC);
     ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
-    ui->frFormat->setEnabled(false);
+    ui->frFormat->setEnabled(true);
 }
 
 void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
