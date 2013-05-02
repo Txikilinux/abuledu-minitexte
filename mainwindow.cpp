@@ -63,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
             this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)), Qt::UniqueConnection);
 
-    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()));
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()), Qt::UniqueConnection);
 
     // Au cas ou le widget serait un topLevelWidget()
     setWindowTitle(trUtf8("Sans nom")+"[*]");
@@ -72,22 +72,19 @@ MainWindow::MainWindow(QWidget *parent) :
     // Les connexions concernant les modifications du texte et de son nom
     //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
     //            m_actionSave, SLOT(setEnabled(bool)));
-    connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentJustify()), m_actionAlignJustify, SIGNAL(triggered()));
+    connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()), Qt::UniqueConnection);
+    connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()), Qt::UniqueConnection);
+    connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()), Qt::UniqueConnection);
+    connect(this, SIGNAL(alignmentJustify()), m_actionAlignJustify, SIGNAL(triggered()), Qt::UniqueConnection);
 
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-            this, SLOT(setWindowModified(bool)));
+    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
     // On émet un signal inquant si le texte a été modifié
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-            this, SIGNAL(somethingHasChangedInText(bool)));
+    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
     //    // Le curseur a changé lors d'une opération d'édition
     //    connect(ui->teZoneTexte->document(), SIGNAL(cursorPositionChanged(QTextCursor)),
     //            this, SLOT(cursorMoved(QTextCursor)));
     // Le curseur a été déplacé
-    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()),
-            this, SLOT(cursorMoved()));
+    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(cursorMoved()), Qt::UniqueConnection);
 
     m_isNewFile = true;
     m_wantNewFile = false;
@@ -353,8 +350,8 @@ void MainWindow::setTextColor()
     ui->vlColor->addWidget(colorDialogProv);
     colorDialogProv->setWindowFlags(Qt::Widget);
     colorDialogProv->setOptions(QColorDialog::DontUseNativeDialog);
-    connect(colorDialogProv,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)));
-    connect(colorDialogProv, SIGNAL(rejected()),this,SLOT(showTextPage()));
+    connect(colorDialogProv,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
+    connect(colorDialogProv, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
     // On met à jour l'icone dans la barre de boutons
 }
@@ -393,7 +390,7 @@ void MainWindow::setupToolBarAndActions()
     QFont bold;
     bold.setBold(true);
     m_actionTextBold->setFont(bold);
-    connect(m_actionTextBold, SIGNAL(triggered()), this, SLOT(setTextFormat()));
+    connect(m_actionTextBold, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
     tb->addAction(m_actionTextBold);
     m_actionTextBold->setCheckable(true);
 
@@ -405,7 +402,7 @@ void MainWindow::setupToolBarAndActions()
     QFont italic;
     italic.setItalic(true);
     m_actionTextItalic->setFont(italic);
-    connect(m_actionTextItalic, SIGNAL(triggered()), this, SLOT(setTextFormat()));
+    connect(m_actionTextItalic, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
     tb->addAction(m_actionTextItalic);
     m_actionTextItalic->setCheckable(true);
 
@@ -417,7 +414,7 @@ void MainWindow::setupToolBarAndActions()
     QFont underline;
     underline.setUnderline(true);
     m_actionTextUnderline->setFont(underline);
-    connect(m_actionTextUnderline, SIGNAL(triggered()), this, SLOT(setTextFormat()));
+    connect(m_actionTextUnderline, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
     tb->addAction(m_actionTextUnderline);
     m_actionTextUnderline->setCheckable(true);
 
@@ -428,7 +425,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontDecrease->setObjectName("decrease");
     m_btnFontDecrease->setProperty("interligne",100);
     tb->addWidget(m_btnFontDecrease);
-    connect(m_btnFontDecrease, SIGNAL(clicked()), this, SLOT(decreaseFontSize()));
+    connect(m_btnFontDecrease, SIGNAL(clicked()), this, SLOT(decreaseFontSize()), Qt::UniqueConnection);
 
     m_btnFontIncrease = new AbulEduFlatBoutonV1();
     m_btnFontIncrease->setFixedSize(30,30);
@@ -437,14 +434,14 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontIncrease->setObjectName("increase");
     m_btnFontIncrease->setProperty("interligne",100);
     tb->addWidget(m_btnFontIncrease);
-    connect(m_btnFontIncrease, SIGNAL(clicked()), this, SLOT(increaseFontSize()));
+    connect(m_btnFontIncrease, SIGNAL(clicked()), this, SLOT(increaseFontSize()), Qt::UniqueConnection);
 
     tb->addSeparator();
 
     // Alignement des paragraphes
     m_alignActions = new QActionGroup(this);
     m_alignActions->setObjectName("groupalign");
-    connect(m_alignActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextAlign(QAction*)));
+    connect(m_alignActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextAlign(QAction*)), Qt::UniqueConnection);
 
     // On modifie la position des icones en fonction du sens du texte LTR ou RTL
     if (QApplication::isLeftToRight()) {
@@ -500,7 +497,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontAndika->setObjectName("andika");
     m_btnFontAndika->setProperty("interligne",100);
     tb->addWidget(m_btnFontAndika);
-    connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+    connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
     m_btnFontSeyes= new AbulEduFlatBoutonV1();
     m_btnFontSeyes->setFixedWidth(80);
@@ -513,7 +510,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontSeyes->setProperty("interligne",200);
     //m_btnFontSeyes->setTextePadding(30,10,30,10);
     tb->addWidget(m_btnFontSeyes);
-    connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+    connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
     m_btnFontCrayon= new AbulEduFlatBoutonV1();
     m_btnFontCrayon->setFixedWidth(80);
@@ -524,7 +521,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontCrayon->setObjectName("CrayonE");
     m_btnFontCrayon->setProperty("interligne",120);
     tb->addWidget(m_btnFontCrayon);
-    connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+    connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
     m_btnFontPlume= new AbulEduFlatBoutonV1();
     m_btnFontPlume->setFixedWidth(80);
@@ -535,7 +532,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontPlume->setObjectName("PlumBAE");
     m_btnFontPlume->setProperty("interligne",120);
     tb->addWidget(m_btnFontPlume);
-    connect(m_btnFontPlume, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+    connect(m_btnFontPlume, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
     tb->addSeparator();
 
@@ -570,13 +567,13 @@ void MainWindow::setupToolBarAndActions()
     pix.fill(Qt::black);
     m_actionTextColor = new QAction(pix, trUtf8("&Couleur..."), this);
     m_actionTextColor->setObjectName("color");
-    connect(m_actionTextColor, SIGNAL(triggered()), this, SLOT(setTextColor()));
+    connect(m_actionTextColor, SIGNAL(triggered()), this, SLOT(setTextColor()), Qt::UniqueConnection);
     tb->addAction(m_actionTextColor);
 
     m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/abuledutextev1/buttons/dataHover")), trUtf8("Insérer une image"), this);
     m_actionImageFromData->setObjectName("mediatheque-data");
 
-    connect(m_actionImageFromData, SIGNAL(triggered()), this, SLOT(showAbeMediathequeGet()));
+    connect(m_actionImageFromData, SIGNAL(triggered()), this, SLOT(showAbeMediathequeGet()), Qt::UniqueConnection);
     tb->addAction(m_actionImageFromData);
 
 
