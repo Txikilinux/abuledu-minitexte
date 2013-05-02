@@ -65,13 +65,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()), Qt::UniqueConnection);
 
-    // Au cas ou le widget serait un topLevelWidget()
-    setWindowTitle(trUtf8("Sans nom")+"[*]");
     // On crée la barre d'icones et les QActions qui vont bien
     setupToolBarAndActions();
     // Les connexions concernant les modifications du texte et de son nom
-    //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-    //            m_actionSave, SLOT(setEnabled(bool)));
     connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()), Qt::UniqueConnection);
     connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()), Qt::UniqueConnection);
     connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()), Qt::UniqueConnection);
@@ -80,9 +76,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
     // On émet un signal inquant si le texte a été modifié
     connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
-    //    // Le curseur a changé lors d'une opération d'édition
-    //    connect(ui->teZoneTexte->document(), SIGNAL(cursorPositionChanged(QTextCursor)),
-    //            this, SLOT(cursorMoved(QTextCursor)));
     // Le curseur a été déplacé
     connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(cursorMoved()), Qt::UniqueConnection);
 
@@ -90,7 +83,6 @@ MainWindow::MainWindow(QWidget *parent) :
     m_wantNewFile = false;
     m_isPicoReading = false;
 
-    //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
     //! @todo Les tailles en "dur" sont pas top !
     setWindowFlags(Qt::CustomizeWindowHint);
     resize(1024,600);
@@ -111,8 +103,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* Je me demande si on a bien besoin d'accéder à Data directement dans la barre des tâches ?! */
     ui->btnData->hide();
-
-    setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
 
     m_picoLecteur = new AbulEduPicottsV1(4);
     ui->btnLire->setEnabled(true);
