@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_hauteurToolBar = 48;
 
-    m_localDebug = false;
+    m_localDebug = true;
 
     installTranslator();
 
@@ -145,6 +145,8 @@ MainWindow::MainWindow(QWidget *parent) :
     int desktop_width = widget->width();
     int desktop_height = widget->height();
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
+
+    ui->teZoneTexte->ensureCursorVisible();
 }
 
 //! Slot de Test ---> Ne Pas Degommer Icham
@@ -1063,6 +1065,7 @@ void MainWindow::showTextPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
     ui->frFormat->setEnabled(true);
+    ui->teZoneTexte->ensureCursorVisible();
 }
 
 
