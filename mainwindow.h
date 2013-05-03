@@ -41,6 +41,7 @@
 #include <QTextFrameFormat>
 #include <QUrl>
 #include <QImageReader>
+#include <QTouchEvent>
 
 #include "abuleduflatboutonv1.h"
 #include "abuledumediathequegetv1.h"
@@ -308,6 +309,8 @@ signals:
     void alignmentCenter();
     void alignmentJustify();
 
+protected:
+    bool eventFilter(QObject *, QEvent *);
 };
 
 #endif // MAINWINDOW_H

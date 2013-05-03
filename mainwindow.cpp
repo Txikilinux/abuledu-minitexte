@@ -146,6 +146,10 @@ MainWindow::MainWindow(QWidget *parent) :
     int desktop_height = widget->height();
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
 
+    ui->pageTexte->setAttribute(Qt::WA_AcceptTouchEvents);
+
+    qDebug() << "test attribut touchEvent :" << ui->pageTexte->testAttribute(Qt::WA_AcceptTouchEvents);
+    installEventFilter(ui->pageTexte);
 }
 
 //! Slot de Test ---> Ne Pas Degommer Icham
@@ -1094,6 +1098,25 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
     m_isWindowMoving = false;
+}
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
+{
+    switch(ev->type()){
+    case QEvent::TouchBegin:
+        qDebug() << "obj ::  "<< obj << "  :: ev :: " << ev;
+        break;
+    case QEvent::TouchEnd:
+        qDebug() << "obj ::  "<< obj << "  :: ev :: " << ev;
+        break;
+    case QEvent::TouchUpdate:
+        qDebug() << "obj ::  "<< obj << "  :: ev :: " << ev;
+        break;
+    default:
+        qDebug() << "obj ::  "<< obj << "  :: ev :: " << ev;
+        break;
+    }
+
 }
 
 #endif
