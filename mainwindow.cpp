@@ -1098,14 +1098,3 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 }
 
 #endif
-
-bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
-{
-    if(obj->objectName() == "teZoneTexte"){
-        qDebug() << "obj ::  "<< obj << "  :: ev :: " << ev;
-    }
-}
-
-
-
-

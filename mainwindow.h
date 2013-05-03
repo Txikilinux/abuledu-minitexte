@@ -307,9 +307,6 @@ signals:
     void alignmentLeft();
     void alignmentCenter();
     void alignmentJustify();
-
-protected:
-    bool eventFilter(QObject *, QEvent *);
 };
 
 #endif // MAINWINDOW_H
