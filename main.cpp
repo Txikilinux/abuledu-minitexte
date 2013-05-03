@@ -47,6 +47,8 @@ int main(int argc, char *argv[])
     splash->setMainWindow(w);
     splash->launch(100); //pour les developpeurs presses, remplacer le 1000 par 100
 
+    a.installEventFilter(w);
+
 #ifdef __ABULEDUTABLETTEV1__MODE__
     QApplication::setStyle("plastique");
 #endif
