@@ -39,12 +39,13 @@ int main(int argc, char *argv[])
     MainWindow *w;
     w = new MainWindow();
 
+
     //! Splashscreen
     AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
     splash->abeSplashScreenLauchUtilitaire(true);
     splash->show();
     splash->setMainWindow(w);
-    splash->launch(1000); //pour les developpeurs presses, remplacer le 1000 par 100
+    splash->launch(100); //pour les developpeurs presses, remplacer le 1000 par 100
 
 #ifdef __ABULEDUTABLETTEV1__MODE__
     QApplication::setStyle("plastique");
