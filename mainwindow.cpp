@@ -573,7 +573,7 @@ void MainWindow::setupToolBarAndActions()
     connect(m_actionTextColor, SIGNAL(triggered()), this, SLOT(setTextColor()));
     tb->addAction(m_actionTextColor);
 
-    m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/abuledutextev1/buttons/dataHover")), trUtf8("Insérer une image"), this);
+    m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/abuledutextev1/buttons/data")), trUtf8("Insérer une image"), this);
     m_actionImageFromData->setObjectName("mediatheque-data");
 
     connect(m_actionImageFromData, SIGNAL(triggered()), this, SLOT(showAbeMediathequeGet()));
