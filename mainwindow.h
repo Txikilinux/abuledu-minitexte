@@ -202,8 +202,9 @@ private:
     /** Gestion Impression */
     QPrintDialog *m_printDialog;
     QPrinter *m_printer;
-
 #endif
+    /** Gestion Choix Couleur */
+    QColorDialog* m_colorDialog;
 
     QTranslator qtTranslator;
     QTranslator myappTranslator;
@@ -281,6 +282,7 @@ private slots:
     /** Diminue la police de caractères utilisée */
     void decreaseFontSize(int decrease = 2);
 
+    void slotHelp();
     /** ************************************************************************************************************************
                                 METHODES NON TABLETTE
       ************************************************************************************************************************** **/
@@ -290,7 +292,6 @@ private slots:
     void mouseReleaseEvent(QMouseEvent *event);
 
 #endif
-
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
@@ -306,7 +307,6 @@ signals:
     void alignmentLeft();
     void alignmentCenter();
     void alignmentJustify();
-
 };
 
 #endif // MAINWINDOW_H

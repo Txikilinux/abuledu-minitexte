@@ -36,23 +36,19 @@ int main(int argc, char *argv[])
     AbulEduApplicationV1 a(argc, argv,VER_INTERNALNAME_STR, VER_PRODUCTVERSION_STR, VER_COMPANYDOMAIN_STR, "abuledu");
     a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
 
-
-
-
-
     MainWindow *w;
     w = new MainWindow();
-//    w->move(QDesktopWidget().availableGeometry().topLeft());
-        // ================== splashscreen
-        AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
-        splash->abeSplashScreenLauchUtilitaire(true);
-        splash->show();
-        splash->setMainWindow(w);
-        //pour les developpeurs presses, remplacer le 1000 par 100
-        splash->launch(1000);
-        // ================== splashscreen end
+
+    //! Splashscreen
+    AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
+    splash->abeSplashScreenLauchUtilitaire(true);
+    splash->show();
+    splash->setMainWindow(w);
+    splash->launch(100); //pour les developpeurs presses, remplacer le 1000 par 100
+
 #ifdef __ABULEDUTABLETTEV1__MODE__
     QApplication::setStyle("plastique");
 #endif
+
     return a.exec();
 }

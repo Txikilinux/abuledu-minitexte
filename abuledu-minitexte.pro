@@ -14,8 +14,7 @@ SOURCES += main.cpp\
         mainwindow.cpp
 
 HEADERS  += mainwindow.h \
-            version.h \
-    mycolordialog.h
+            version.h
 
 FORMS    += mainwindow.ui
 

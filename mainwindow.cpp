@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_hauteurToolBar = 48;
 
-    m_localDebug = false;
+    m_localDebug = true;
 
     installTranslator();
 
@@ -63,37 +63,26 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
             this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)), Qt::UniqueConnection);
 
-    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()));
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()), Qt::UniqueConnection);
 
-    // Au cas ou le widget serait un topLevelWidget()
-    setWindowTitle(trUtf8("Sans nom")+"[*]");
     // On crée la barre d'icones et les QActions qui vont bien
     setupToolBarAndActions();
     // Les connexions concernant les modifications du texte et de son nom
-    //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-    //            m_actionSave, SLOT(setEnabled(bool)));
-    connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()));
-    connect(this, SIGNAL(alignmentJustify()), m_actionAlignJustify, SIGNAL(triggered()));
+    connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()), Qt::UniqueConnection);
+    connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()), Qt::UniqueConnection);
+    connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()), Qt::UniqueConnection);
+    connect(this, SIGNAL(alignmentJustify()), m_actionAlignJustify, SIGNAL(triggered()), Qt::UniqueConnection);
 
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-            this, SLOT(setWindowModified(bool)));
+    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
     // On émet un signal inquant si le texte a été modifié
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
-            this, SIGNAL(somethingHasChangedInText(bool)));
-    //    // Le curseur a changé lors d'une opération d'édition
-    //    connect(ui->teZoneTexte->document(), SIGNAL(cursorPositionChanged(QTextCursor)),
-    //            this, SLOT(cursorMoved(QTextCursor)));
+    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
     // Le curseur a été déplacé
-    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()),
-            this, SLOT(cursorMoved()));
+    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(cursorMoved()), Qt::UniqueConnection);
 
     m_isNewFile = true;
     m_wantNewFile = false;
     m_isPicoReading = false;
 
-    //    ui->toolBar->addWidget(ui->widgetTextEditor->abeTexteGetToolBar());
     //! @todo Les tailles en "dur" sont pas top !
     setWindowFlags(Qt::CustomizeWindowHint);
     resize(1024,600);
@@ -115,8 +104,6 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Je me demande si on a bien besoin d'accéder à Data directement dans la barre des tâches ?! */
     ui->btnData->hide();
 
-    setWindowTitle(trUtf8("Mini traitement de texte pour AbulÉdu - Fichier Sans nom")+"[*]");
-
     m_picoLecteur = new AbulEduPicottsV1(4);
     ui->btnLire->setEnabled(true);
     ui->btnPause->setEnabled(false);
@@ -131,30 +118,33 @@ MainWindow::MainWindow(QWidget *parent) :
     tcf.setFontPointSize(16);
     ui->teZoneTexte->textCursor().setCharFormat(tcf);
 
+    //! Gestion Impression
 #ifndef QT_NO_PRINTER
     m_printer = new QPrinter(QPrinter::HighResolution);
     m_printDialog = new QPrintDialog(m_printer, this);
+    m_printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
     m_printDialog->setStyleSheet("background-color:#FFFFFF");
     ui->glPrint->addWidget(m_printDialog);
 
     connect(m_printDialog, SIGNAL(rejected()), this, SLOT(showTextPage()), Qt::UniqueConnection);
     connect(m_printDialog, SIGNAL(finished(int)), this, SLOT(test(int)), Qt::UniqueConnection);
     connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
-    //            if (ui->teZoneTexte->textCursor().hasSelection())
-    //                dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
-    //            dlg->setWindowTitle(trUtf8("Imprimer le document"));
-    //            if (dlg->exec() == QDialog::Accepted) {
-    //                ui->teZoneTexte->print(&printer);
-    //            }
-    //            delete dlg;
 #endif
+
+    //! Gestion Couleur
+    m_colorDialog = new QColorDialog(this);
+    ui->vlColor->addWidget(m_colorDialog);
+    connect(m_colorDialog,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
+    connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
+
+    //! Gestion Aide @todo non implémentée
+    connect(ui->btnHelp, SIGNAL(clicked()), this, SLOT(slotHelp()), Qt::UniqueConnection);
 
     //! On Centre la fenetre
     QDesktopWidget *widget = QApplication::desktop();
     int desktop_width = widget->width();
     int desktop_height = widget->height();
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
-
 }
 
 //! Slot de Test ---> Ne Pas Degommer Icham
@@ -344,25 +334,20 @@ void MainWindow::setTextSize(const QString &p)
     }
 }
 
-/** @todo Empecher la création de plusieurs boites de couleurs  */
 void MainWindow::setTextColor()
 {
-    // Applique la couleur sélectionnée au texte
     ui->stackedWidget->setCurrentWidget(ui->pageColor);
-    QColorDialog* colorDialogProv = new QColorDialog(ui->pageColor);
-    ui->vlColor->addWidget(colorDialogProv);
-    colorDialogProv->setWindowFlags(Qt::Widget);
-    colorDialogProv->setOptions(QColorDialog::DontUseNativeDialog);
-    connect(colorDialogProv,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)));
-    connect(colorDialogProv, SIGNAL(rejected()),this,SLOT(showTextPage()));
 
-    // On met à jour l'icone dans la barre de boutons
+    if(!m_colorDialog->isVisible())
+        m_colorDialog->setVisible(true);
 }
 
 void MainWindow::colorChanged(const QColor &col)
 {
+
     if (!col.isValid())
         return;
+
     QTextCharFormat fmt;
     fmt.setForeground(col);
     mergeFormatOnWordOrSelection(fmt);
@@ -393,7 +378,7 @@ void MainWindow::setupToolBarAndActions()
     QFont bold;
     bold.setBold(true);
     m_actionTextBold->setFont(bold);
-    connect(m_actionTextBold, SIGNAL(triggered()), this, SLOT(setTextFormat()));
+    connect(m_actionTextBold, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
     tb->addAction(m_actionTextBold);
     m_actionTextBold->setCheckable(true);
 
@@ -405,7 +390,7 @@ void MainWindow::setupToolBarAndActions()
     QFont italic;
     italic.setItalic(true);
     m_actionTextItalic->setFont(italic);
-    connect(m_actionTextItalic, SIGNAL(triggered()), this, SLOT(setTextFormat()));
+    connect(m_actionTextItalic, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
     tb->addAction(m_actionTextItalic);
     m_actionTextItalic->setCheckable(true);
 
@@ -417,7 +402,7 @@ void MainWindow::setupToolBarAndActions()
     QFont underline;
     underline.setUnderline(true);
     m_actionTextUnderline->setFont(underline);
-    connect(m_actionTextUnderline, SIGNAL(triggered()), this, SLOT(setTextFormat()));
+    connect(m_actionTextUnderline, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
     tb->addAction(m_actionTextUnderline);
     m_actionTextUnderline->setCheckable(true);
 
@@ -428,7 +413,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontDecrease->setObjectName("decrease");
     m_btnFontDecrease->setProperty("interligne",100);
     tb->addWidget(m_btnFontDecrease);
-    connect(m_btnFontDecrease, SIGNAL(clicked()), this, SLOT(decreaseFontSize()));
+    connect(m_btnFontDecrease, SIGNAL(clicked()), this, SLOT(decreaseFontSize()), Qt::UniqueConnection);
 
     m_btnFontIncrease = new AbulEduFlatBoutonV1();
     m_btnFontIncrease->setFixedSize(30,30);
@@ -437,14 +422,14 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontIncrease->setObjectName("increase");
     m_btnFontIncrease->setProperty("interligne",100);
     tb->addWidget(m_btnFontIncrease);
-    connect(m_btnFontIncrease, SIGNAL(clicked()), this, SLOT(increaseFontSize()));
+    connect(m_btnFontIncrease, SIGNAL(clicked()), this, SLOT(increaseFontSize()), Qt::UniqueConnection);
 
     tb->addSeparator();
 
     // Alignement des paragraphes
     m_alignActions = new QActionGroup(this);
     m_alignActions->setObjectName("groupalign");
-    connect(m_alignActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextAlign(QAction*)));
+    connect(m_alignActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextAlign(QAction*)), Qt::UniqueConnection);
 
     // On modifie la position des icones en fonction du sens du texte LTR ou RTL
     if (QApplication::isLeftToRight()) {
@@ -500,7 +485,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontAndika->setObjectName("andika");
     m_btnFontAndika->setProperty("interligne",100);
     tb->addWidget(m_btnFontAndika);
-    connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+    connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
     m_btnFontSeyes= new AbulEduFlatBoutonV1();
     m_btnFontSeyes->setFixedWidth(80);
@@ -513,7 +498,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontSeyes->setProperty("interligne",200);
     //m_btnFontSeyes->setTextePadding(30,10,30,10);
     tb->addWidget(m_btnFontSeyes);
-    connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+    connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
     m_btnFontCrayon= new AbulEduFlatBoutonV1();
     m_btnFontCrayon->setFixedWidth(80);
@@ -524,7 +509,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontCrayon->setObjectName("CrayonE");
     m_btnFontCrayon->setProperty("interligne",120);
     tb->addWidget(m_btnFontCrayon);
-    connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+    connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
     m_btnFontPlume= new AbulEduFlatBoutonV1();
     m_btnFontPlume->setFixedWidth(80);
@@ -535,7 +520,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontPlume->setObjectName("PlumBAE");
     m_btnFontPlume->setProperty("interligne",120);
     tb->addWidget(m_btnFontPlume);
-    connect(m_btnFontPlume, SIGNAL(clicked()), this, SLOT(setTextFamily()));
+    connect(m_btnFontPlume, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
     tb->addSeparator();
 
@@ -570,13 +555,13 @@ void MainWindow::setupToolBarAndActions()
     pix.fill(Qt::black);
     m_actionTextColor = new QAction(pix, trUtf8("&Couleur..."), this);
     m_actionTextColor->setObjectName("color");
-    connect(m_actionTextColor, SIGNAL(triggered()), this, SLOT(setTextColor()));
+    connect(m_actionTextColor, SIGNAL(triggered()), this, SLOT(setTextColor()), Qt::UniqueConnection);
     tb->addAction(m_actionTextColor);
 
     m_actionImageFromData = new QAction(QIcon::fromTheme("image-from-data", QIcon(":/abuledutextev1/buttons/data")), trUtf8("Insérer une image"), this);
     m_actionImageFromData->setObjectName("mediatheque-data");
 
-    connect(m_actionImageFromData, SIGNAL(triggered()), this, SLOT(showAbeMediathequeGet()));
+    connect(m_actionImageFromData, SIGNAL(triggered()), this, SLOT(showAbeMediathequeGet()), Qt::UniqueConnection);
     tb->addAction(m_actionImageFromData);
 
 
@@ -643,6 +628,7 @@ bool MainWindow::fileSaveAs()
     m_isNewFile = false;
     fileSave();
 }
+
 void MainWindow::setCurrentFileName(const QString &fileName)
 {
     m_fileName = fileName;
@@ -667,7 +653,6 @@ void MainWindow::setCurrentFileName(const QString &fileName)
     // On émet un signal avec le nom du fichier suivi de [*] pour affichage dans titre de fenêtre
     emit fileNameHasChanged(shownName);
 }
-
 
 bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal height, QTextFrameFormat::Position position, QString name)
 {
@@ -710,22 +695,16 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
 
 void MainWindow::filePrint(QPrinter *printer)
 {
-    qDebug() << __PRETTY_FUNCTION__;
-    qDebug() << printer;
+    //! On imprime
+    ui->teZoneTexte->print(printer);
 
-    //#ifndef QT_NO_PRINTER
-    //    QPrinter printer(QPrinter::HighResolution);
-    //    QPrintDialog *dlg = new QPrintDialog(&printer, ui->pagePrint);
-    //    dlg->setStyleSheet("background-color:#FFFFFF");
-    //    ui->glPrint->addWidget(dlg);
-    //    if (ui->teZoneTexte->textCursor().hasSelection())
-    //        dlg->addEnabledOption(QAbstractPrintDialog::PrintSelection);
-    //    dlg->setWindowTitle(trUtf8("Imprimer le document"));
-    //    if (dlg->exec() == QDialog::Accepted) {
-    //        ui->teZoneTexte->print(&printer);
-    //    }
-    //    delete dlg;
-    //#endif
+    //! On affiche un message
+    QString message("Impression en cours");
+    AbulEduMessageBoxV1* msgImpression = new AbulEduMessageBoxV1(trUtf8("Impression"), message,this);
+    msgImpression->setWink();
+    msgImpression->show();
+    connect(msgImpression, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+
 }
 
 void MainWindow::cursorMoved()
@@ -833,7 +812,7 @@ void MainWindow::fileOpen()
     ui->abeBoxFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeOpen);
     ui->abeBoxFileManager->abeRefresh(AbulEduBoxFileManagerV1::abePC);
     ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
-    ui->frFormat->setEnabled(false);
+    ui->frFormat->setEnabled(true);
 }
 
 void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
@@ -986,8 +965,6 @@ void MainWindow::on_btnFeuille_clicked()
 
 void MainWindow::on_btnPrint_clicked()
 {
-    qDebug() << __PRETTY_FUNCTION__;
-
     //! On cache le menu feuille
     if(ui->frBoutons->isVisible())
         on_btnFeuille_clicked();
@@ -998,6 +975,19 @@ void MainWindow::on_btnPrint_clicked()
     ui->stackedWidget->setCurrentWidget(ui->pagePrint);
 }
 
+void MainWindow::slotHelp()
+{
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
+    //! On affiche un message
+    QString message("Aide pas encore disponible.");
+    AbulEduMessageBoxV1* msgAide = new AbulEduMessageBoxV1(trUtf8("Aide"), message,this);
+    msgAide->setWink();
+    msgAide->show();
+    connect(msgAide, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+}
 void MainWindow::on_btnQuit_clicked()
 {
     close();
@@ -1026,6 +1016,10 @@ void MainWindow::on_btnOpen_clicked()
 
 void MainWindow::on_btnSave_clicked()
 {
+    //! On cache le menu feuille
+    if(ui->frBoutons->isVisible())
+        on_btnFeuille_clicked();
+
     /* Je n'enregistre pas si la zone de texte est vide */
     if(ui->teZoneTexte->toPlainText().isEmpty())
     {
