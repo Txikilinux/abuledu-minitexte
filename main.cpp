@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     splash->abeSplashScreenLauchUtilitaire(true);
     splash->show();
     splash->setMainWindow(w);
-    splash->launch(100); //pour les developpeurs presses, remplacer le 1000 par 100
+    splash->launch(1000); //pour les developpeurs presses, remplacer le 1000 par 100 mais attention : plus le temps de transmettre l'authentification
 
 #ifdef __ABULEDUTABLETTEV1__MODE__
     QApplication::setStyle("plastique");
