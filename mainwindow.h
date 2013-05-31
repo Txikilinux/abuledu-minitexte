@@ -3,7 +3,8 @@
   * @warning aucun traitement d'erreur n'est pour l'instant implémenté
   * @see https://redmine.ryxeo.com/projects/abuledu-minitexte
   * @author 2011 Jean-Louis Frucot <frucot.jeanlouis@free.fr>
-  * @author 2012 Eric Seigne <eric.seigne@ryxeo.com>
+  * @author 2012-2013 Eric Seigne <eric.seigne@ryxeo.com>
+  * @author 2013 Philippe Cadaugade <philippe.cadaugade@ryxeo.com>
   * @see The GNU Public License (GPL)
   *
   * This program is free software; you can redistribute it and/or modify

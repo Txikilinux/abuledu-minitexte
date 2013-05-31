@@ -26,7 +26,7 @@ win32{
 }
 
 macx {
- ICON = macos/icones/macos.icns
+ ICON = macos/icones/abuledu-minitexte.icns
 }
 
 include(lib/abuleduapplicationv1/abuleduapplicationv1.pri)
