@@ -689,11 +689,11 @@ border-radius:10px;</string>
                 <height>64</height>
                </size>
               </property>
-              <property name="iconeNormale" stdset="0">
-               <string/>
+              <property name="iconeNormale">
+               <string>:/abuledutextev1/buttons/play</string>
               </property>
-              <property name="IconeDisabled" stdset="0">
-               <string/>
+              <property name="IconeDisabled">
+               <string>:/abuledutextev1/buttons/play-gris</string>
               </property>
              </widget>
             </item>
@@ -705,11 +705,11 @@ border-radius:10px;</string>
                 <height>48</height>
                </size>
               </property>
-              <property name="iconeNormale" stdset="0">
-               <string/>
+              <property name="iconeNormale">
+               <string>:/abuledutextev1/buttons/pause</string>
               </property>
-              <property name="IconeDisabled" stdset="0">
-               <string/>
+              <property name="IconeDisabled">
+               <string>:/abuledutextev1/buttons/pause-gris</string>
               </property>
              </widget>
             </item>
@@ -721,11 +721,11 @@ border-radius:10px;</string>
                 <height>48</height>
                </size>
               </property>
-              <property name="iconeNormale" stdset="0">
-               <string/>
+              <property name="iconeNormale">
+               <string>:/abuledutextev1/buttons/stop</string>
               </property>
-              <property name="IconeDisabled" stdset="0">
-               <string/>
+              <property name="IconeDisabled">
+               <string>:/abuledutextev1/buttons/stop-gris</string>
               </property>
              </widget>
             </item>
