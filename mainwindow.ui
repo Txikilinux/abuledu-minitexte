@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>600</height>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -152,7 +152,10 @@ font-size:24px;
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:#35A6F7;
-border-radius:10px;</string>
+border-top-left-radius: 0px;
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
@@ -689,10 +692,10 @@ border-radius:10px;</string>
                 <height>64</height>
                </size>
               </property>
-              <property name="iconeNormale">
+              <property name="iconeNormale" stdset="0">
                <string>:/abuledutextev1/buttons/play</string>
               </property>
-              <property name="IconeDisabled">
+              <property name="IconeDisabled" stdset="0">
                <string>:/abuledutextev1/buttons/play-gris</string>
               </property>
              </widget>
@@ -705,10 +708,10 @@ border-radius:10px;</string>
                 <height>48</height>
                </size>
               </property>
-              <property name="iconeNormale">
+              <property name="iconeNormale" stdset="0">
                <string>:/abuledutextev1/buttons/pause</string>
               </property>
-              <property name="IconeDisabled">
+              <property name="IconeDisabled" stdset="0">
                <string>:/abuledutextev1/buttons/pause-gris</string>
               </property>
              </widget>
@@ -721,10 +724,10 @@ border-radius:10px;</string>
                 <height>48</height>
                </size>
               </property>
-              <property name="iconeNormale">
+              <property name="iconeNormale" stdset="0">
                <string>:/abuledutextev1/buttons/stop</string>
               </property>
-              <property name="IconeDisabled">
+              <property name="IconeDisabled" stdset="0">
                <string>:/abuledutextev1/buttons/stop-gris</string>
               </property>
              </widget>
@@ -839,15 +842,15 @@ border-radius:10px;</string>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>AbulEduFlatBoutonV1</class>
-   <extends>QPushButton</extends>
-   <header>abuleduflatboutonv1.h</header>
-  </customwidget>
-  <customwidget>
    <class>AbulEduBoxFileManagerV1</class>
    <extends>QWidget</extends>
    <header>abuleduboxfilemanagerv1.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AbulEduFlatBoutonV1</class>
+   <extends>QPushButton</extends>
+   <header>abuleduflatboutonv1.h</header>
   </customwidget>
   <customwidget>
    <class>AbulEduMediathequeGetV1</class>
