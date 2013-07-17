@@ -98,10 +98,10 @@
         </color>
        </property>
        <property name="iconeNormale" stdset="0">
-        <string>:/abuledutextev1/buttons/leaf</string>
+        <string notr="true">:/abuledutextev1/buttons/leaf</string>
        </property>
        <property name="IconeSurvol" stdset="0">
-        <string/>
+        <string notr="true"/>
        </property>
       </widget>
      </item>
@@ -228,10 +228,10 @@ border-bottom-left-radius: 10px;</string>
         </color>
        </property>
        <property name="iconeNormale" stdset="0">
-        <string>:/abuledutextev1/buttons/new</string>
+        <string notr="true">:/abuledutextev1/buttons/new</string>
        </property>
        <property name="IconeSurvol" stdset="0">
-        <string>:/abuledutextev1/buttons/newHover</string>
+        <string notr="true">:/abuledutextev1/buttons/newHover</string>
        </property>
       </widget>
      </item>
@@ -296,10 +296,10 @@ border-bottom-left-radius: 10px;</string>
         </color>
        </property>
        <property name="iconeNormale" stdset="0">
-        <string>:/abuledutextev1/buttons/open</string>
+        <string notr="true">:/abuledutextev1/buttons/open</string>
        </property>
        <property name="IconeSurvol" stdset="0">
-        <string>:/abuledutextev1/buttons/openHover</string>
+        <string notr="true">:/abuledutextev1/buttons/openHover</string>
        </property>
       </widget>
      </item>
@@ -364,10 +364,10 @@ border-bottom-left-radius: 10px;</string>
         </color>
        </property>
        <property name="iconeNormale" stdset="0">
-        <string>:/abuledutextev1/buttons/save</string>
+        <string notr="true">:/abuledutextev1/buttons/save</string>
        </property>
        <property name="IconeSurvol" stdset="0">
-        <string>:/abuledutextev1/buttons/saveHover</string>
+        <string notr="true">:/abuledutextev1/buttons/saveHover</string>
        </property>
       </widget>
      </item>
@@ -432,10 +432,10 @@ border-bottom-left-radius: 10px;</string>
         </color>
        </property>
        <property name="iconeNormale" stdset="0">
-        <string>:/abuledutextev1/buttons/quit</string>
+        <string notr="true">:/abuledutextev1/buttons/quit</string>
        </property>
        <property name="IconeSurvol" stdset="0">
-        <string>:/abuledutextev1/buttons/quitHover</string>
+        <string notr="true">:/abuledutextev1/buttons/quitHover</string>
        </property>
       </widget>
      </item>
@@ -497,10 +497,10 @@ border-bottom-left-radius: 10px;</string>
         </color>
        </property>
        <property name="iconeNormale" stdset="0">
-        <string>:/abuledutextev1/buttons/help</string>
+        <string notr="true">:/abuledutextev1/buttons/help</string>
        </property>
        <property name="IconeSurvol" stdset="0">
-        <string>:/abuledutextev1/buttons/helpHover</string>
+        <string notr="true">:/abuledutextev1/buttons/helpHover</string>
        </property>
       </widget>
      </item>
@@ -556,10 +556,10 @@ border-bottom-left-radius: 10px;</string>
         </color>
        </property>
        <property name="iconeNormale" stdset="0">
-        <string>:/abuledutextev1/buttons/print</string>
+        <string notr="true">:/abuledutextev1/buttons/print</string>
        </property>
        <property name="IconeSurvol" stdset="0">
-        <string>:/abuledutextev1/buttons/printHover</string>
+        <string notr="true">:/abuledutextev1/buttons/printHover</string>
        </property>
       </widget>
      </item>
@@ -615,10 +615,10 @@ border-bottom-left-radius: 10px;</string>
         </color>
        </property>
        <property name="iconeNormale" stdset="0">
-        <string>:/abuledutextev1/buttons/data</string>
+        <string notr="true">:/abuledutextev1/buttons/data</string>
        </property>
        <property name="IconeSurvol" stdset="0">
-        <string>:/abuledutextev1/buttons/dataHover</string>
+        <string notr="true">:/abuledutextev1/buttons/dataHover</string>
        </property>
       </widget>
      </item>
@@ -693,10 +693,10 @@ border-bottom-left-radius: 10px;</string>
                </size>
               </property>
               <property name="iconeNormale" stdset="0">
-               <string>:/abuledutextev1/buttons/play</string>
+               <string notr="true">:/abuledutextev1/buttons/play</string>
               </property>
               <property name="IconeDisabled" stdset="0">
-               <string>:/abuledutextev1/buttons/play-gris</string>
+               <string notr="true">:/abuledutextev1/buttons/play-gris</string>
               </property>
              </widget>
             </item>
@@ -709,10 +709,10 @@ border-bottom-left-radius: 10px;</string>
                </size>
               </property>
               <property name="iconeNormale" stdset="0">
-               <string>:/abuledutextev1/buttons/pause</string>
+               <string notr="true">:/abuledutextev1/buttons/pause</string>
               </property>
               <property name="IconeDisabled" stdset="0">
-               <string>:/abuledutextev1/buttons/pause-gris</string>
+               <string notr="true">:/abuledutextev1/buttons/pause-gris</string>
               </property>
              </widget>
             </item>
@@ -725,10 +725,10 @@ border-bottom-left-radius: 10px;</string>
                </size>
               </property>
               <property name="iconeNormale" stdset="0">
-               <string>:/abuledutextev1/buttons/stop</string>
+               <string notr="true">:/abuledutextev1/buttons/stop</string>
               </property>
               <property name="IconeDisabled" stdset="0">
-               <string>:/abuledutextev1/buttons/stop-gris</string>
+               <string notr="true">:/abuledutextev1/buttons/stop-gris</string>
               </property>
              </widget>
             </item>
