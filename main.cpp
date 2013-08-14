@@ -32,17 +32,18 @@ int main(int argc, char *argv[])
     a.setAbeApplicationLongName(QObject::trUtf8(VER_FILEDESCRIPTION_STR));
 
     MainWindow *w;
-    w = new MainWindow();
-
-    //! Splashscreen
-    AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
-    splash->abeSplashScreenLauchUtilitaire(true);
-    splash->show();
-    splash->setMainWindow(w);
-    splash->launch(1000); //pour les developpeurs presses, remplacer le 1000 par 100 mais attention : plus le temps de transmettre l'authentification
 
 #ifdef __ABULEDUTABLETTEV1__MODE__
-    QApplication::setStyle("plastique");
+    w = new MainWindow();
+    w->showFullScreen();
+#else
+    //! Splashscreen
+    AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowFullScreen);
+//    splash->abeSplashScreenLauchUtilitaire(true);
+    splash->show();
+    w = new MainWindow();
+    splash->setMainWindow(w);
+    splash->launch(1000); //pour les developpeurs presses, remplacer le 1000 par 100 mais attention : plus le temps de transmettre l'authentification
 #endif
 
     return a.exec();

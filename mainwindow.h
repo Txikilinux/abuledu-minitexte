@@ -240,7 +240,9 @@ public slots:
     /** Enregistre sous ... le texte */
     bool fileSaveAs();
 
+#ifndef QT_NO_PRINTER
     void filePrint(QPrinter*);
+#endif
 
 //    void cursorMoved(QTextCursor curseur);
     void cursorMoved();

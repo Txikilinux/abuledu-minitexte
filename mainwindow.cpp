@@ -87,9 +87,11 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     //! @todo Les tailles en "dur" sont pas top !
     setWindowFlags(Qt::CustomizeWindowHint);
+#ifndef __ABULEDUTABLETTEV1__MODE__
     resize(1024,600);
     ui->frPrincipale->setGeometry(QRect(0,90,1024,510));
     ui->toolBar->setFixedWidth(1024);
+#endif
     ui->frBoutons->move(0,40);
     ui->frBoutons->setVisible(false);
     foreach(QObject* enfant,ui->frBoutons->children())
@@ -697,6 +699,7 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
     }
 }
 
+#ifndef QT_NO_PRINTER
 void MainWindow::filePrint(QPrinter *printer)
 {
     //! On imprime
@@ -710,6 +713,7 @@ void MainWindow::filePrint(QPrinter *printer)
     connect(msgImpression, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
 
 }
+#endif
 
 void MainWindow::cursorMoved()
 {
@@ -979,8 +983,10 @@ void MainWindow::on_btnPrint_clicked()
     if(ui->frBoutons->isVisible())
         on_btnFeuille_clicked();
 
+#ifndef QT_NO_PRINTER
     if(!m_printDialog->isVisible())
         m_printDialog->showNormal();
+#endif
 
     ui->stackedWidget->setCurrentWidget(ui->pagePrint);
 }
