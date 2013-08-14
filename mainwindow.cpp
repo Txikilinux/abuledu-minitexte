@@ -82,8 +82,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_isNewFile = true;
     m_wantNewFile = false;
+#ifndef Q_OS_ANDROID
     m_isPicoReading = false;
-
+#endif
     //! @todo Les tailles en "dur" sont pas top !
     setWindowFlags(Qt::CustomizeWindowHint);
     resize(1024,600);
@@ -105,10 +106,12 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Je me demande si on a bien besoin d'accéder à Data directement dans la barre des tâches ?! */
     ui->btnData->hide();
 
+#ifndef Q_OS_ANDROID
     m_picoLecteur = new AbulEduPicottsV1(4);
     ui->btnLire->setEnabled(true);
     ui->btnPause->setEnabled(false);
     ui->btnStop->setEnabled(false);
+#endif
 
     //    ui->frmPico->hide();
     ui->toolBar->setParent(ui->frFormat);
@@ -919,6 +922,7 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
 
 void MainWindow::on_btnLire_clicked()
 {
+#ifndef Q_OS_ANDROID
     QString txt = QString("<break time=\"1s\"><speed level=\"80\"><volume level=\"100\">%1</speed>").arg(ui->teZoneTexte->toPlainText());
     if(m_isPicoReading == true) {
         m_picoLecteur->abePicoResume();
@@ -930,23 +934,28 @@ void MainWindow::on_btnLire_clicked()
     ui->btnPause->setEnabled(true);
     ui->btnStop->setEnabled(true);
     m_isPicoReading = !m_isPicoReading;
+#endif
 }
 
 void MainWindow::on_btnPause_clicked()
 {
+#ifndef Q_OS_ANDROID
     m_picoLecteur->abePicoPause();
     ui->btnLire->setEnabled(true);
     ui->btnPause->setEnabled(false);
     ui->btnStop->setEnabled(true);
+#endif
 }
 
 void MainWindow::on_btnStop_clicked()
 {
+#ifndef Q_OS_ANDROID
     m_picoLecteur->abePicoStop();
     m_isPicoReading = false;
     ui->btnLire->setEnabled(true);
     ui->btnPause->setEnabled(false);
     ui->btnStop->setEnabled(false);
+#endif
 }
 
 void MainWindow::on_btnFeuille_clicked()

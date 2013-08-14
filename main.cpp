@@ -21,13 +21,8 @@
   * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
   */
 
-#include <QtGui/QApplication>
-#include <QLibraryInfo>
-#include <QTranslator>
-
-#include "version.h"
 #include "mainwindow.h"
-//#include "abuledutextev1.h"
+#include "version.h"
 #include "abuleduapplicationv1.h"
 #include "abuledusplashscreenv1.h"
 

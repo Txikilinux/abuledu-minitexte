@@ -46,7 +46,10 @@
 #include "abuleduflatboutonv1.h"
 #include "abuledumediathequegetv1.h"
 #include "abuleduboxfilemanagerv1.h"
+
+#ifndef Q_OS_ANDROID
 #include "abuledupicottsv1.h"
+#endif
 
 
 namespace Ui {
@@ -195,9 +198,11 @@ private:
     bool   m_isWindowMoving;
 
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
+#ifndef Q_OS_ANDROID
     AbulEduPicottsV1              *m_picoLecteur;
-
     bool m_isPicoReading;
+#endif
+
 
 #ifndef QT_NO_PRINTER
     /** Gestion Impression */
