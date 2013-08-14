@@ -38,7 +38,7 @@ macx {
  ICON = macos/icones/abuledu-minitexte.icns
 }
 
-include(lib/abuleduapplicationv1/abuleduapplicationv1.  pri)
+include(lib/abuleduapplicationv1/abuleduapplicationv1.pri)
 include(lib/abuleduconstantesv1/abuleduconstantesv1.pri)
 include(lib/abuledunetworkaccessmanagerv1/abuledunetworkaccessmanagerv1.pri)
 include(lib/abuledumessageboxv1/abuledumessageboxv1.pri)
