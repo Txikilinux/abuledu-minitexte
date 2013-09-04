@@ -945,6 +945,12 @@ border-bottom-left-radius: 10px;</string>
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>1024</width>
+     <height>0</height>
+    </size>
+   </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>

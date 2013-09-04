@@ -86,14 +86,8 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifndef Q_OS_ANDROID
     m_isPicoReading = false;
 #endif
-    //! @todo Les tailles en "dur" sont pas top !
     setWindowFlags(Qt::CustomizeWindowHint);
-#ifndef __ABULEDUTABLETTEV1__MODE__
-    resize(1024,600);
-    ui->frPrincipale->setGeometry(QRect(0,90,1024,510));
-    ui->toolBar->setFixedWidth(1024);
 
-#endif
     ui->frBoutons->move(0,40);
     ui->frBoutons->setVisible(false);
     foreach(QObject* enfant,ui->frBoutons->children())
