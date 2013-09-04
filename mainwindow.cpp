@@ -92,6 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
     resize(1024,600);
     ui->frPrincipale->setGeometry(QRect(0,90,1024,510));
     ui->toolBar->setFixedWidth(1024);
+
 #endif
     ui->frBoutons->move(0,40);
     ui->frBoutons->setVisible(false);
@@ -152,6 +153,15 @@ MainWindow::MainWindow(QWidget *parent) :
     int desktop_width = widget->width();
     int desktop_height = widget->height();
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
+
+    ui->btnMinimized->setCouleurFondSurvol(QColor(6,109,255));
+    ui->btnMinimized->setCouleurFondNormale(QColor(255,255,255,50));
+    ui->btnMinimized->setAllMargins(8,4,8,12);
+    ui->btnMinimized->setBorderRadius(4);
+    ui->btnFullScreen->setCouleurFondSurvol(QColor(6,109,255));
+    ui->btnFullScreen->setCouleurFondNormale(QColor(255,255,255,50));
+    ui->btnFullScreen->setAllMargins(8,12,8,4);
+    ui->btnFullScreen->setBorderRadius(4);
 }
 
 //! Slot de Test ---> Ne Pas Degommer Icham
@@ -1110,6 +1120,33 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
     m_isWindowMoving = false;
+}
+
+void MainWindow::showEvent(QShowEvent *)
+{
+    ui->vl_centralWidget->removeWidget(ui->frBoutons);
+    ui->frBoutons->move(0,40);
+    ui->frBoutons->adjustSize();
+}
+
+
+void MainWindow::on_btnFullScreen_clicked()
+{
+    if(isFullScreen())
+    {
+        showNormal();
+        ui->btnFullScreen->setIconeNormale(":/abuledutextev1/buttons/showMaximized");
+    }
+    else
+    {
+        showFullScreen();
+        ui->btnFullScreen->setIconeNormale(":/abuledutextev1/buttons/showNormal");
+    }
+}
+
+void MainWindow::on_btnMinimized_clicked()
+{
+    showMinimized();
 }
 
 #endif

@@ -66,6 +66,9 @@
         <file alias="stop-gris">data/images/stop-gris.png</file>
         <file alias="play-gris">data/images/play-gris.png</file>
         <file alias="pause-gris">data/images/pause-gris.png</file>
+        <file alias="showMinimized">data/images/fenetreReduit.png</file>
+        <file alias="showNormal">data/images/fenetreMoyen.png</file>
+        <file alias="showMaximized">data/images/fenetreGrand.png</file>
     </qresource>
     <qresource prefix="/abuledutextev1/format">
         <file alias="italic">data/images/italik-appuy.png</file>

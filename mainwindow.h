@@ -298,7 +298,9 @@ private slots:
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
-
+    void showEvent(QShowEvent *);
+    void on_btnFullScreen_clicked();
+    void on_btnMinimized_clicked();
 #endif
 
 signals:
