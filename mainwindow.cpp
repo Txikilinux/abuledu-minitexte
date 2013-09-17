@@ -88,21 +88,6 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     setWindowFlags(Qt::CustomizeWindowHint);
 
-    ui->frBoutons->move(0,40);
-    ui->frBoutons->setVisible(false);
-    foreach(QObject* enfant,ui->frBoutons->children())
-    {
-        if(qobject_cast<AbulEduFlatBoutonV1*>(enfant))
-        {
-            AbulEduFlatBoutonV1* enfantCaste = (AbulEduFlatBoutonV1*) enfant;
-            enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace("border-image","text-align: bottom;background-image"));
-            enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace("image-position: center","background-position: center top"));
-            enfantCaste->setStyleSheet(enfantCaste->styleSheet().replace(" color:rgba(0,0,0","color:rgba(255,255,255"));
-        }
-    }
-
-    /* Je me demande si on a bien besoin d'accéder à Data directement dans la barre des tâches ?! */
-    ui->btnData->hide();
 
 #ifndef Q_OS_ANDROID
     m_picoLecteur = new AbulEduPicottsV1(4);
@@ -140,22 +125,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
     //! Gestion Aide @todo non implémentée
-    connect(ui->btnHelp, SIGNAL(clicked()), this, SLOT(slotHelp()), Qt::UniqueConnection);
+//    connect(ui->btnHelp, SIGNAL(clicked()), this, SLOT(slotHelp()), Qt::UniqueConnection);
 
     //! On Centre la fenetre
     QDesktopWidget *widget = QApplication::desktop();
     int desktop_width = widget->width();
     int desktop_height = widget->height();
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
-
-    ui->btnMinimized->setCouleurFondSurvol(QColor(6,109,255));
-    ui->btnMinimized->setCouleurFondNormale(QColor(255,255,255,50));
-    ui->btnMinimized->setAllMargins(8,4,8,12);
-    ui->btnMinimized->setBorderRadius(4);
-    ui->btnFullScreen->setCouleurFondSurvol(QColor(6,109,255));
-    ui->btnFullScreen->setCouleurFondNormale(QColor(255,255,255,50));
-    ui->btnFullScreen->setAllMargins(8,12,8,4);
-    ui->btnFullScreen->setBorderRadius(4);
 }
 
 //! Slot de Test ---> Ne Pas Degommer Icham
@@ -830,10 +806,6 @@ void MainWindow::fileOpen()
 
 void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 {
-    //! On cache le menu feuille
-    if(ui->frBoutons->isVisible())
-        on_btnFeuille_clicked();
-
     if (m_localDebug) qDebug() << "Ouverture du fichier " << abeFile->abeFileGetFileName().filePath();
     setCurrentFileName(abeFile->abeFileGetContent(0).absoluteFilePath());
 
@@ -875,10 +847,6 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 
 void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success)
 {
-    //! On cache le menu feuille
-    if(ui->frBoutons->isVisible())
-        on_btnFeuille_clicked();
-
     if (m_localDebug) qDebug() << "slotAbeFileSaved : " << fileName << " et " << success;
     QString emplacement;
     if (location == AbulEduBoxFileManagerV1::abePC)
@@ -967,27 +935,8 @@ void MainWindow::on_btnStop_clicked()
 #endif
 }
 
-void MainWindow::on_btnFeuille_clicked()
+void MainWindow::on_abeMenuFeuilleBtnPrint_clicked()
 {
-    if (ui->frBoutons->isVisible())
-    {
-        ui->frBoutons->setVisible(false);
-        ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(6,109,255,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}");
-    }
-    else
-    {
-        ui->frBoutons->setVisible(true);
-        ui->frBoutons->raise();
-        ui->btnFeuille->setStyleSheet("QPushButton > *{color:red;}QPushButton{border: none; color:rgba(0,0,0,255);background-repeat: no-repeat;background-color:rgba(53,166,247,255);border-image:url(':/abuledutextev1/buttons/leaf');image-position: center;}");
-    }
-}
-
-void MainWindow::on_btnPrint_clicked()
-{
-    //! On cache le menu feuille
-    if(ui->frBoutons->isVisible())
-        on_btnFeuille_clicked();
-
 #ifndef QT_NO_PRINTER
     if(!m_printDialog->isVisible())
         m_printDialog->showNormal();
@@ -996,20 +945,21 @@ void MainWindow::on_btnPrint_clicked()
     ui->stackedWidget->setCurrentWidget(ui->pagePrint);
 }
 
+void MainWindow::on_abeMenuFeuilleBtnHelp_clicked()
+{
+    slotHelp();
+}
+
 void MainWindow::slotHelp()
 {
-    //! On cache le menu feuille
-    if(ui->frBoutons->isVisible())
-        on_btnFeuille_clicked();
-
     //! On affiche un message
-    QString message("Aide pas encore disponible.");
+    QString message = trUtf8("Écris un texte, tu pourras l'enregistrer, l'imprimer, l'écouter lire, etc...");
     AbulEduMessageBoxV1* msgAide = new AbulEduMessageBoxV1(trUtf8("Aide"), message,this);
     msgAide->setWink();
     msgAide->show();
     connect(msgAide, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
 }
-void MainWindow::on_btnQuit_clicked()
+void MainWindow::on_abeMenuFeuilleBtnQuit_clicked()
 {
     close();
 }
@@ -1026,21 +976,13 @@ void MainWindow::slotClearCurrent()
     setWindowModified(false);
 }
 
-void MainWindow::on_btnOpen_clicked()
+void MainWindow::on_abeMenuFeuilleBtnOpen_clicked()
 {
-    //! On cache le menu feuille
-    if(ui->frBoutons->isVisible())
-        on_btnFeuille_clicked();
-
     fileOpen();
 }
 
-void MainWindow::on_btnSave_clicked()
+void MainWindow::on_abeMenuFeuilleBtnSave_clicked()
 {
-    //! On cache le menu feuille
-    if(ui->frBoutons->isVisible())
-        on_btnFeuille_clicked();
-
     /* Je n'enregistre pas si la zone de texte est vide */
     if(ui->teZoneTexte->toPlainText().isEmpty())
     {
@@ -1056,16 +998,12 @@ void MainWindow::on_btnSave_clicked()
     setWindowModified(false);
 }
 
-void MainWindow::on_btnNew_clicked()
+void MainWindow::on_abeMenuFeuilleBtnNew_clicked()
 {
-    //! On cache le menu feuille
-    if(ui->frBoutons->isVisible())
-        on_btnFeuille_clicked();
-
     if(isWindowModified())
     {
         m_wantNewFile = true;
-        on_btnSave_clicked();
+        on_abeMenuFeuilleBtnSave_clicked();
     }
     else
     {
@@ -1085,62 +1023,3 @@ void MainWindow::showTextPage()
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
     ui->frFormat->setEnabled(true);
 }
-
-
-/** ************************************************************************************************************************
-                            METHODES NON TABLETTE
-  ************************************************************************************************************************** **/
-
-#ifndef __ABULEDUTABLETTEV1__MODE__
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_isWindowMoving) {
-        move(event->globalPos() - m_dragPosition);
-        event->accept();
-    }
-
-}
-
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && ui->lblTitre->rect().contains(event->pos())) {
-        m_dragPosition = event->globalPos() - frameGeometry().topLeft();
-        event->accept();
-        m_isWindowMoving = true;
-    }
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent *event)
-{
-    Q_UNUSED(event);
-    m_isWindowMoving = false;
-}
-
-void MainWindow::showEvent(QShowEvent *)
-{
-    ui->vl_centralWidget->removeWidget(ui->frBoutons);
-    ui->frBoutons->move(0,40);
-    ui->frBoutons->adjustSize();
-}
-
-
-void MainWindow::on_btnFullScreen_clicked()
-{
-    if(isFullScreen())
-    {
-        showNormal();
-        ui->btnFullScreen->setIconeNormale(":/abuledutextev1/buttons/showMaximized");
-    }
-    else
-    {
-        showFullScreen();
-        ui->btnFullScreen->setIconeNormale(":/abuledutextev1/buttons/showNormal");
-    }
-}
-
-void MainWindow::on_btnMinimized_clicked()
-{
-    showMinimized();
-}
-
-#endif

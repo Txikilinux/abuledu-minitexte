@@ -266,9 +266,14 @@ private slots:
     void on_btnLire_clicked();
     void on_btnPause_clicked();
     void on_btnStop_clicked();
-    void on_btnFeuille_clicked();
-    void on_btnPrint_clicked();
-    void on_btnQuit_clicked();
+
+    void on_abeMenuFeuilleBtnNew_clicked();
+    void on_abeMenuFeuilleBtnOpen_clicked();
+    void on_abeMenuFeuilleBtnSave_clicked();
+    void on_abeMenuFeuilleBtnPrint_clicked();
+    void on_abeMenuFeuilleBtnHelp_clicked();
+    void on_abeMenuFeuilleBtnQuit_clicked();
+
     void on_stackedWidget_currentChanged(int arg1);
     void slotClearCurrent();
 
@@ -276,9 +281,6 @@ private slots:
       * @param couleur une couleur sous forme de QColor
       */
     void colorChanged(const QColor &col);
-    void on_btnOpen_clicked();
-    void on_btnSave_clicked();
-    void on_btnNew_clicked();
 
     void showAbeMediathequeGet();
     void showTextPage();
@@ -291,17 +293,6 @@ private slots:
     void decreaseFontSize(int decrease = 2);
 
     void slotHelp();
-    /** ************************************************************************************************************************
-                                METHODES NON TABLETTE
-      ************************************************************************************************************************** **/
-#ifndef __ABULEDUTABLETTEV1__MODE__
-    void mouseMoveEvent(QMouseEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void showEvent(QShowEvent *);
-    void on_btnFullScreen_clicked();
-    void on_btnMinimized_clicked();
-#endif
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
