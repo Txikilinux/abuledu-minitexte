@@ -111,3 +111,4 @@ OTHER_FILES += \
     android/src/org/kde/necessitas/ministro/IMinistro.aidl \
     android/AndroidManifest.xml
 
+include(lib/abuledumenufeuillev1/abuledumenufeuillev1.pri)
