@@ -63,12 +63,15 @@
         <file alias="play">data/images/play.png</file>
         <file alias="pause">data/images/pause.png</file>
         <file alias="stop">data/images/stop.png</file>
-        <file alias="stop-gris">data/images/stop-gris.png</file>
-        <file alias="play-gris">data/images/play-gris.png</file>
-        <file alias="pause-gris">data/images/pause-gris.png</file>
+        <file alias="stopDisabled">data/images/stop-gris.png</file>
+        <file alias="playDisabled">data/images/play-gris.png</file>
+        <file alias="pauseDisabled">data/images/pause-gris.png</file>
         <file alias="showMinimized">data/images/fenetreReduit.png</file>
         <file alias="showNormal">data/images/fenetreMoyen.png</file>
         <file alias="showMaximized">data/images/fenetreGrand.png</file>
+        <file alias="stopHover">data/images/stop-hover.png</file>
+        <file alias="pauseHover">data/images/pause-hover.png</file>
+        <file alias="playHover">data/images/play-hover.png</file>
     </qresource>
     <qresource prefix="/abuledutextev1/format">
         <file alias="italic">data/images/italik-appuy.png</file>

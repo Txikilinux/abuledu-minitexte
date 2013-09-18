@@ -67,18 +67,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()), Qt::UniqueConnection);
 
-    // On crée la barre d'icones et les QActions qui vont bien
+    /* On crée la barre d'icones et les QActions qui vont bien */
     setupToolBarAndActions();
-    // Les connexions concernant les modifications du texte et de son nom
+    /* Les connexions concernant les modifications du texte et de son nom*/
     connect(this, SIGNAL(alignmentRight()),   m_actionAlignRight,   SIGNAL(triggered()), Qt::UniqueConnection);
     connect(this, SIGNAL(alignmentLeft()),    m_actionAlignLeft,    SIGNAL(triggered()), Qt::UniqueConnection);
     connect(this, SIGNAL(alignmentCenter()),  m_actionAlignCenter,  SIGNAL(triggered()), Qt::UniqueConnection);
     connect(this, SIGNAL(alignmentJustify()), m_actionAlignJustify, SIGNAL(triggered()), Qt::UniqueConnection);
 
     connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
-    // On émet un signal inquant si le texte a été modifié
+    /* On émet un signal inquant si le texte a été modifié */
     connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
-    // Le curseur a été déplacé
+    /* Le curseur a été déplacé*/
     connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(cursorMoved()), Qt::UniqueConnection);
 
     m_isNewFile = true;
@@ -88,15 +88,25 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     setWindowFlags(Qt::CustomizeWindowHint);
 
-
 #ifndef Q_OS_ANDROID
     m_picoLecteur = new AbulEduPicottsV1(4);
     ui->btnLire->setEnabled(true);
+    qDebug()<<" ## "<<ui->btnLire->getIconeNormale();
+    qDebug()<<" ## "<<ui->btnLire->getIconeSurvol();
+    qDebug()<<" ## "<<ui->btnLire->getIconePressed();
+    qDebug()<<" ## "<<ui->btnLire->getIconeDisabled();
     ui->btnPause->setEnabled(false);
+    qDebug()<<" ## "<<ui->btnPause->getIconeNormale();
+    qDebug()<<" ## "<<ui->btnPause->getIconeSurvol();
+    qDebug()<<" ## "<<ui->btnPause->getIconePressed();
+    qDebug()<<" ## "<<ui->btnPause->getIconeDisabled();
     ui->btnStop->setEnabled(false);
+    qDebug()<<" ## "<<ui->btnStop->getIconeNormale();
+    qDebug()<<" ## "<<ui->btnStop->getIconeSurvol();
+    qDebug()<<" ## "<<ui->btnStop->getIconePressed();
+    qDebug()<<" ## "<<ui->btnStop->getIconeDisabled();
 #endif
 
-    //    ui->frmPico->hide();
     ui->toolBar->setParent(ui->frFormat);
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
     QTextCharFormat tcf;
@@ -105,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tcf.setFontPointSize(16);
     ui->teZoneTexte->textCursor().setCharFormat(tcf);
 
-    //! Gestion Impression
+    /* Gestion Impression */
 #ifndef QT_NO_PRINTER
     m_printer = new QPrinter(QPrinter::HighResolution);
     m_printDialog = new QPrintDialog(m_printer, this);
@@ -118,16 +128,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
 #endif
 
-    //! Gestion Couleur
+    /* Gestion Couleur*/
     m_colorDialog = new QColorDialog(this);
     ui->vlColor->addWidget(m_colorDialog);
     connect(m_colorDialog,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
     connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
-    //! Gestion Aide @todo non implémentée
-//    connect(ui->btnHelp, SIGNAL(clicked()), this, SLOT(slotHelp()), Qt::UniqueConnection);
-
-    //! On Centre la fenetre
+    /* On Centre la fenetre */
     QDesktopWidget *widget = QApplication::desktop();
     int desktop_width = widget->width();
     int desktop_height = widget->height();
@@ -143,7 +150,7 @@ void MainWindow::test(int a)
 void MainWindow::installTranslator()
 {
     m_locale = QLocale::system().name().section('_', 0, 0);
-    myappTranslator.load("leterrier-imagessequentielles_"+m_locale, "./lang");
+    myappTranslator.load("abuledu-minitexte_"+m_locale, "./lang");
     abeApp->installTranslator(&myappTranslator);
     // pour avoir les boutons des boîtes de dialogue dans la langue locale (fr par défaut)
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));

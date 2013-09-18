@@ -100,7 +100,7 @@
        <item row="0" column="0">
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="pageTexte">
           <property name="enabled">
@@ -143,11 +143,17 @@
                   <height>64</height>
                  </size>
                 </property>
-                <property name="iconeNormale" stdset="0">
-                 <string notr="true">:/abuledutextev1/buttons/play</string>
-                </property>
                 <property name="IconeDisabled" stdset="0">
-                 <string notr="true">:/abuledutextev1/buttons/play-gris</string>
+                 <string notr="true">:/abuledutextev1/buttons/playDisabled</string>
+                </property>
+                <property name="IconePressed" stdset="0">
+                 <string>:/abuledutextev1/buttons/playHover</string>
+                </property>
+                <property name="IconeSurvol" stdset="0">
+                 <string>:/abuledutextev1/buttons/playHover</string>
+                </property>
+                <property name="IconeNormale" stdset="0">
+                 <string>:/abuledutextev1/buttons/play</string>
                 </property>
                </widget>
               </item>
@@ -159,11 +165,17 @@
                   <height>48</height>
                  </size>
                 </property>
-                <property name="iconeNormale" stdset="0">
-                 <string notr="true">:/abuledutextev1/buttons/pause</string>
-                </property>
                 <property name="IconeDisabled" stdset="0">
-                 <string notr="true">:/abuledutextev1/buttons/pause-gris</string>
+                 <string notr="true">:/abuledutextev1/buttons/pauseDisabled</string>
+                </property>
+                <property name="IconePressed" stdset="0">
+                 <string>:/abuledutextev1/buttons/pauseHover</string>
+                </property>
+                <property name="IconeNormale" stdset="0">
+                 <string>:/abuledutextev1/buttons/pause</string>
+                </property>
+                <property name="IconeSurvol" stdset="0">
+                 <string>:/abuledutextev1/buttons/pauseHover</string>
                 </property>
                </widget>
               </item>
@@ -175,11 +187,17 @@
                   <height>48</height>
                  </size>
                 </property>
-                <property name="iconeNormale" stdset="0">
-                 <string notr="true">:/abuledutextev1/buttons/stop</string>
-                </property>
                 <property name="IconeDisabled" stdset="0">
-                 <string notr="true">:/abuledutextev1/buttons/stop-gris</string>
+                 <string notr="true">:/abuledutextev1/buttons/stopDisabled</string>
+                </property>
+                <property name="IconePressed" stdset="0">
+                 <string>:/abuledutextev1/buttons/stopHover</string>
+                </property>
+                <property name="IconeNormale" stdset="0">
+                 <string>:/abuledutextev1/buttons/stop</string>
+                </property>
+                <property name="IconeSurvol" stdset="0">
+                 <string>:/abuledutextev1/buttons/stopHover</string>
                 </property>
                </widget>
               </item>
