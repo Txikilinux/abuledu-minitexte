@@ -37,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     installTranslator();
 
+
+
     ui->abeMediathequeGet->abeSetSourceEnum(AbulEduMediathequeGetV1::abeData);
     ui->abeMediathequeGet->abeHideBoutonTelecharger();
     ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
@@ -87,24 +89,13 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isPicoReading = false;
 #endif
     setWindowFlags(Qt::CustomizeWindowHint);
+    connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),this,SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
 
 #ifndef Q_OS_ANDROID
     m_picoLecteur = new AbulEduPicottsV1(4);
     ui->btnLire->setEnabled(true);
-    qDebug()<<" ## "<<ui->btnLire->getIconeNormale();
-    qDebug()<<" ## "<<ui->btnLire->getIconeSurvol();
-    qDebug()<<" ## "<<ui->btnLire->getIconePressed();
-    qDebug()<<" ## "<<ui->btnLire->getIconeDisabled();
     ui->btnPause->setEnabled(false);
-    qDebug()<<" ## "<<ui->btnPause->getIconeNormale();
-    qDebug()<<" ## "<<ui->btnPause->getIconeSurvol();
-    qDebug()<<" ## "<<ui->btnPause->getIconePressed();
-    qDebug()<<" ## "<<ui->btnPause->getIconeDisabled();
     ui->btnStop->setEnabled(false);
-    qDebug()<<" ## "<<ui->btnStop->getIconeNormale();
-    qDebug()<<" ## "<<ui->btnStop->getIconeSurvol();
-    qDebug()<<" ## "<<ui->btnStop->getIconePressed();
-    qDebug()<<" ## "<<ui->btnStop->getIconeDisabled();
 #endif
 
     ui->toolBar->setParent(ui->frFormat);
@@ -1029,4 +1020,18 @@ void MainWindow::showTextPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
     ui->frFormat->setEnabled(true);
+}
+
+
+void MainWindow::slotChangeLangue(QString lang)
+{
+    qDebug()<<" ---------         slot change langue en "<<lang;
+    qApp->removeTranslator(&qtTranslator);
+    qApp->removeTranslator(&myappTranslator);
+
+    qtTranslator.load("qt_" + lang, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    qApp->installTranslator(&qtTranslator);
+    myappTranslator.load("abuledu-minitexte_" + lang, "lang");
+    qApp->installTranslator(&myappTranslator);
+    ui->retranslateUi(this);
 }

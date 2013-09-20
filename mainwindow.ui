@@ -39,7 +39,7 @@
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <widget class="AbulEduMenuFeuilleV1" name="frTop">
+     <widget class="AbulEduMenuFeuilleV1" name="frmMenuFeuille">
       <property name="maximumSize">
        <size>
         <width>16777215</width>

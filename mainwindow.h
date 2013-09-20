@@ -294,6 +294,9 @@ private slots:
 
     void slotHelp();
 
+    void slotChangeLangue(QString lang);
+
+
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
     void somethingHasChangedInText(bool);

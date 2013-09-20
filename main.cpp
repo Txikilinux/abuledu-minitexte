@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     w = new MainWindow();
     w->showFullScreen();
 #else
-    //! Splashscreen
+    /* Splashscreen */
     AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
     splash->abeSplashScreenLauchUtilitaire(true);
     splash->show();
