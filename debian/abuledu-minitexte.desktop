@@ -9,3 +9,4 @@ Name=Abuledu Minitexte
 Comment=A tiny text writer for AbulEdu
 Icon=/usr/share/abuledu-minitexte/abuledu-minitexte-256.png
 Categories=Education;
+X-Horizon-WindowsExecPath=C:\Program Files\AbulEdu\abuledu-minitexte
