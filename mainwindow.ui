@@ -147,13 +147,13 @@
                  <string notr="true">:/abuledutextev1/buttons/playDisabled</string>
                 </property>
                 <property name="IconePressed" stdset="0">
-                 <string>:/abuledutextev1/buttons/playHover</string>
+                 <string notr="true">:/abuledutextev1/buttons/playHover</string>
                 </property>
                 <property name="IconeSurvol" stdset="0">
-                 <string>:/abuledutextev1/buttons/playHover</string>
+                 <string notr="true">:/abuledutextev1/buttons/playHover</string>
                 </property>
                 <property name="IconeNormale" stdset="0">
-                 <string>:/abuledutextev1/buttons/play</string>
+                 <string notr="true">:/abuledutextev1/buttons/play</string>
                 </property>
                </widget>
               </item>
@@ -169,13 +169,13 @@
                  <string notr="true">:/abuledutextev1/buttons/pauseDisabled</string>
                 </property>
                 <property name="IconePressed" stdset="0">
-                 <string>:/abuledutextev1/buttons/pauseHover</string>
+                 <string notr="true">:/abuledutextev1/buttons/pauseHover</string>
                 </property>
                 <property name="IconeNormale" stdset="0">
-                 <string>:/abuledutextev1/buttons/pause</string>
+                 <string notr="true">:/abuledutextev1/buttons/pause</string>
                 </property>
                 <property name="IconeSurvol" stdset="0">
-                 <string>:/abuledutextev1/buttons/pauseHover</string>
+                 <string notr="true">:/abuledutextev1/buttons/pauseHover</string>
                 </property>
                </widget>
               </item>
@@ -191,13 +191,13 @@
                  <string notr="true">:/abuledutextev1/buttons/stopDisabled</string>
                 </property>
                 <property name="IconePressed" stdset="0">
-                 <string>:/abuledutextev1/buttons/stopHover</string>
+                 <string notr="true">:/abuledutextev1/buttons/stopHover</string>
                 </property>
                 <property name="IconeNormale" stdset="0">
-                 <string>:/abuledutextev1/buttons/stop</string>
+                 <string notr="true">:/abuledutextev1/buttons/stop</string>
                 </property>
                 <property name="IconeSurvol" stdset="0">
-                 <string>:/abuledutextev1/buttons/stopHover</string>
+                 <string notr="true">:/abuledutextev1/buttons/stopHover</string>
                 </property>
                </widget>
               </item>

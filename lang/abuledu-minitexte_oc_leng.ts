@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it_IT">
+<TS version="2.0">
 <context>
     <name>MainWindow</name>
     <message utf8="true">
         <location filename="../mainwindow.ui" line="20"/>
         <source>Mini traitement de texte pour AbulÉdu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="959"/>
-        <source>Aide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -134,6 +129,11 @@
     <message utf8="true">
         <location filename="../mainwindow.cpp" line="958"/>
         <source>Écris un texte, tu pourras l&apos;enregistrer, l&apos;imprimer, l&apos;écouter lire, etc...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="959"/>
+        <source>Aide</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

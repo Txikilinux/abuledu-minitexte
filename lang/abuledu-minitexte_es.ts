@@ -4,208 +4,137 @@
 <context>
     <name>MainWindow</name>
     <message utf8="true">
-        <location filename="../mainwindow.ui" line="14"/>
+        <location filename="../mainwindow.ui" line="20"/>
         <source>Mini traitement de texte pour AbulÉdu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../mainwindow.ui" line="129"/>
-        <source>AbulÉdu - MiniTexte</source>
-        <translation type="unfinished"></translation>
+        <translation>Mini tratamiento de textos para AbulEdu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="151"/>
-        <source>aide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="194"/>
-        <source>new</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="200"/>
-        <source>&amp;Nouveau</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="262"/>
-        <source>open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="268"/>
-        <source>&amp;Ouvrir</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="330"/>
-        <source>save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="336"/>
-        <source>&amp;Enregistrer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="398"/>
-        <source>quit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="404"/>
-        <source>&amp;Quitter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="463"/>
-        <source>help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="469"/>
-        <location filename="../mainwindow.cpp" line="987"/>
+        <location filename="../mainwindow.cpp" line="959"/>
         <source>Aide</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="525"/>
-        <source>print</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="528"/>
-        <source>Im&amp;primer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="584"/>
-        <source>data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="587"/>
-        <source>&amp;Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="823"/>
+        <location filename="../mainwindow.ui" line="271"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="42"/>
+        <location filename="../mainwindow.cpp" line="44"/>
         <source>Insérer l&apos;image</source>
-        <translation type="unfinished"></translation>
+        <translation>Insertar la imagen</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="367"/>
+        <location filename="../mainwindow.cpp" line="351"/>
         <source>&amp;Édition</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Edición</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="375"/>
+        <location filename="../mainwindow.cpp" line="359"/>
         <source>&amp;Gras</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Negrita</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="387"/>
+        <location filename="../mainwindow.cpp" line="371"/>
         <source>&amp;Italique</source>
-        <translation type="unfinished"></translation>
+        <translation>Cu&amp;rsiva</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="399"/>
+        <location filename="../mainwindow.cpp" line="383"/>
         <source>&amp;Souligné</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Subrayado</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="437"/>
-        <location filename="../mainwindow.cpp" line="443"/>
+        <location filename="../mainwindow.cpp" line="421"/>
+        <location filename="../mainwindow.cpp" line="427"/>
         <source>À gauc&amp;he</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Izquierda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="438"/>
-        <location filename="../mainwindow.cpp" line="442"/>
+        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="426"/>
         <source>Au c&amp;entre</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Centrado</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="439"/>
-        <location filename="../mainwindow.cpp" line="441"/>
+        <location filename="../mainwindow.cpp" line="423"/>
+        <location filename="../mainwindow.cpp" line="425"/>
         <source>À d&amp;roite</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Derecha</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="445"/>
+        <location filename="../mainwindow.cpp" line="429"/>
         <source>&amp;Justifié</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Justificado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="557"/>
+        <location filename="../mainwindow.cpp" line="545"/>
         <source>&amp;Couleur...</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;olor...</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="562"/>
+        <location filename="../mainwindow.cpp" line="550"/>
         <source>Insérer une image</source>
-        <translation type="unfinished"></translation>
+        <translation>Insertar una imagen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="646"/>
+        <location filename="../mainwindow.cpp" line="634"/>
         <source>Sans nom</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin nombre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="704"/>
+        <location filename="../mainwindow.cpp" line="693"/>
         <source>Impression</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="874"/>
+        <location filename="../mainwindow.cpp" line="856"/>
         <source>votre ordinateur</source>
-        <translation type="unfinished"></translation>
+        <translation>tu ordenador</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="878"/>
+        <location filename="../mainwindow.cpp" line="860"/>
         <source>votre abeBox personnelle</source>
-        <translation type="unfinished"></translation>
+        <translation>tu abeBox personal</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="882"/>
+        <location filename="../mainwindow.cpp" line="864"/>
         <source>une abeBox partagée</source>
-        <translation type="unfinished"></translation>
+        <translation>tu abeBox compartida</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../mainwindow.cpp" line="868"/>
+        <source>AbulEdu-Médiathèque</source>
+        <translation>AbulEdu Mediateca</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="872"/>
+        <source>un endroit inconnu</source>
+        <translation>en un lugar desconocido</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../mainwindow.cpp" line="878"/>
+        <source>Votre fichier a été enregistré dans </source>
+        <translation>Tu archivo a sido guardado en </translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="881"/>
+        <source> sous le nom : </source>
+        <translation> como : </translation>
     </message>
     <message utf8="true">
         <location filename="../mainwindow.cpp" line="886"/>
-        <source>AbulEdu-Médiathèque</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="890"/>
-        <source>un endroit inconnu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../mainwindow.cpp" line="896"/>
-        <source>Votre fichier a été enregistré dans </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="899"/>
-        <source> sous le nom : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../mainwindow.cpp" line="904"/>
         <source>Votre fichier n&apos;a pas pu être enregistré...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu archivo no a sido guardado...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="906"/>
+        <location filename="../mainwindow.cpp" line="888"/>
         <source>Enregistrement</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../mainwindow.cpp" line="958"/>
+        <source>Écris un texte, tu pourras l&apos;enregistrer, l&apos;imprimer, l&apos;écouter lire, etc...</source>
+        <translation>Escribe tu texto, asi podras guardarlo, imprimirlo, escucharlo, etc...</translation>
     </message>
 </context>
 </TS>

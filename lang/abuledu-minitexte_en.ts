@@ -4,208 +4,173 @@
 <context>
     <name>MainWindow</name>
     <message utf8="true">
-        <location filename="../mainwindow.ui" line="14"/>
+        <location filename="../mainwindow.ui" line="20"/>
         <source>Mini traitement de texte pour AbulÉdu</source>
         <translation>Mini word processor for AbulEdu</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.ui" line="129"/>
         <source>AbulÉdu - MiniTexte</source>
-        <translation>AbulEdu - MiniTexte</translation>
+        <translation type="obsolete">AbulEdu - MiniTexte</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="151"/>
         <source>aide</source>
-        <translation>help</translation>
+        <translation type="obsolete">help</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="194"/>
         <source>new</source>
-        <translation>new</translation>
+        <translation type="obsolete">new</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="200"/>
         <source>&amp;Nouveau</source>
-        <translation>&amp;New</translation>
+        <translation type="obsolete">&amp;New</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="262"/>
         <source>open</source>
-        <translation>open</translation>
+        <translation type="obsolete">open</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="268"/>
         <source>&amp;Ouvrir</source>
-        <translation>&amp;Open</translation>
+        <translation type="obsolete">&amp;Open</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="330"/>
-        <source>save</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="336"/>
         <source>&amp;Enregistrer</source>
-        <translation>&amp;Save</translation>
+        <translation type="obsolete">&amp;Save</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="398"/>
-        <source>quit</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="404"/>
         <source>&amp;Quitter</source>
-        <translation>&amp;Quit</translation>
+        <translation type="obsolete">&amp;Quit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="463"/>
-        <source>help</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="469"/>
-        <location filename="../mainwindow.cpp" line="987"/>
+        <location filename="../mainwindow.cpp" line="959"/>
         <source>Aide</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="525"/>
-        <source>print</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="528"/>
         <source>Im&amp;primer</source>
-        <translation>&amp;Print</translation>
+        <translation type="obsolete">&amp;Print</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="584"/>
-        <source>data</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="587"/>
-        <source>&amp;Data</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="823"/>
+        <location filename="../mainwindow.ui" line="271"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="42"/>
+        <location filename="../mainwindow.cpp" line="44"/>
         <source>Insérer l&apos;image</source>
         <translation>Insert Picture</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="367"/>
+        <location filename="../mainwindow.cpp" line="351"/>
         <source>&amp;Édition</source>
         <translation>&amp;Edit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="375"/>
+        <location filename="../mainwindow.cpp" line="359"/>
         <source>&amp;Gras</source>
         <translation>&amp;Bold</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="387"/>
+        <location filename="../mainwindow.cpp" line="371"/>
         <source>&amp;Italique</source>
         <translation>&amp;Italic</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="399"/>
+        <location filename="../mainwindow.cpp" line="383"/>
         <source>&amp;Souligné</source>
         <translation>&amp;Underlined</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="437"/>
-        <location filename="../mainwindow.cpp" line="443"/>
+        <location filename="../mainwindow.cpp" line="421"/>
+        <location filename="../mainwindow.cpp" line="427"/>
         <source>À gauc&amp;he</source>
         <translation>&amp;Left</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="438"/>
-        <location filename="../mainwindow.cpp" line="442"/>
+        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="426"/>
         <source>Au c&amp;entre</source>
         <translation>&amp;Center</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="439"/>
-        <location filename="../mainwindow.cpp" line="441"/>
+        <location filename="../mainwindow.cpp" line="423"/>
+        <location filename="../mainwindow.cpp" line="425"/>
         <source>À d&amp;roite</source>
         <translation>&amp;Right</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="445"/>
+        <location filename="../mainwindow.cpp" line="429"/>
         <source>&amp;Justifié</source>
         <translation>&amp;Justify</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="557"/>
+        <location filename="../mainwindow.cpp" line="545"/>
         <source>&amp;Couleur...</source>
         <translation>&amp;Color...</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="562"/>
+        <location filename="../mainwindow.cpp" line="550"/>
         <source>Insérer une image</source>
         <translation>Insert Picture</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="646"/>
+        <location filename="../mainwindow.cpp" line="634"/>
         <source>Sans nom</source>
         <translation>Unnamed</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="704"/>
+        <location filename="../mainwindow.cpp" line="693"/>
         <source>Impression</source>
         <translation>Print</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="874"/>
+        <location filename="../mainwindow.cpp" line="856"/>
         <source>votre ordinateur</source>
         <translation>Your computer</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="878"/>
+        <location filename="../mainwindow.cpp" line="860"/>
         <source>votre abeBox personnelle</source>
         <translation>Your personnal abeBox</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="882"/>
+        <location filename="../mainwindow.cpp" line="864"/>
         <source>une abeBox partagée</source>
         <translation>a shared abeBox</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="886"/>
+        <location filename="../mainwindow.cpp" line="868"/>
         <source>AbulEdu-Médiathèque</source>
         <translation>AbulEdu-Mediatheque</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="890"/>
+        <location filename="../mainwindow.cpp" line="872"/>
         <source>un endroit inconnu</source>
         <translation>I don&apos;t know where</translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="896"/>
+        <location filename="../mainwindow.cpp" line="878"/>
         <source>Votre fichier a été enregistré dans </source>
         <translation>File saved in </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="899"/>
+        <location filename="../mainwindow.cpp" line="881"/>
         <source> sous le nom : </source>
         <translation>as : </translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="904"/>
+        <location filename="../mainwindow.cpp" line="886"/>
         <source>Votre fichier n&apos;a pas pu être enregistré...</source>
         <translation>File saving failed...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="906"/>
+        <location filename="../mainwindow.cpp" line="888"/>
         <source>Enregistrement</source>
         <translation>Saving</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../mainwindow.cpp" line="958"/>
+        <source>Écris un texte, tu pourras l&apos;enregistrer, l&apos;imprimer, l&apos;écouter lire, etc...</source>
+        <translation>Write your text, you can save it, print it, listen it, etc...</translation>
     </message>
 </context>
 </TS>
