@@ -485,6 +485,9 @@ void MainWindow::setupToolBarAndActions()
     tb->addWidget(m_btnFontSeyes);
     connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
 
+    /* Philippe 20130926
+     * On veut que ce soit le plus simple possible, je pense qu'une seule police cursive suffit
+
     m_btnFontCrayon= new AbulEduFlatBoutonV1();
     m_btnFontCrayon->setFixedWidth(80);
     m_btnFontCrayon->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
@@ -495,6 +498,7 @@ void MainWindow::setupToolBarAndActions()
     m_btnFontCrayon->setProperty("interligne",120);
     tb->addWidget(m_btnFontCrayon);
     connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
+    */
 
     m_btnFontPlume= new AbulEduFlatBoutonV1();
     m_btnFontPlume->setFixedWidth(80);
