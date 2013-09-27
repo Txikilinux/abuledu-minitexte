@@ -112,3 +112,5 @@ OTHER_FILES += \
     android/AndroidManifest.xml
 
 include(lib/abuledumenufeuillev1/abuledumenufeuillev1.pri)
+include(lib/abuledusingletonv1/abuledusingletonv1.pri)
+include(lib/abuledupluginloaderv1/abuledupluginloaderv1.pri)

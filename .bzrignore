@@ -18,3 +18,5 @@ debug
 release
 ./lib/abuledulangv1
 ./lib/abuledumenufeuillev1
+./lib/abuledusingletonv1
+./lib/abuledupluginloaderv1
