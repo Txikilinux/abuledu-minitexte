@@ -22,8 +22,8 @@ install/$(EXECNAME)::
 	install -d -m 755 $(BUILDTEMP)/usr/share/applications
 	install -m 755 $(BUILDTEMP).wrapper $(BUILDTEMP)/usr/bin/$(EXECNAME)
 	install -m 644 $(CURDIR)/debian/*.desktop $(BUILDTEMP)/usr/share/applications/
-	install -m 644 $(CURDIR)/data/*.abe $(BUILDTEMP)/$(DEST)/data || true
-	install -m 644 $(CURDIR)/exemples/*.abe $(BUILDTEMP)/$(DEST)/data || true
-	install -m 644 $(CURDIR)/data/icones/abuledu-minitexte-256.png $(BUILDTEMP)/$(DEST) || true
-	install -s -m 755 $(CURDIR)/$(EXECNAME) $(BUILDTEMP)/$(EXECDEST)/
+	install -m 644 $(CURDIR)/src/data/*.abe $(BUILDTEMP)/$(DEST)/data || true
+	install -m 644 $(CURDIR)/src/exemples/*.abe $(BUILDTEMP)/$(DEST)/data || true
+	install -m 644 $(CURDIR)/src/data/icones/abuledu-minitexte-256.png $(BUILDTEMP)/$(DEST) || true
+	install -s -m 755 $(CURDIR)/src/$(EXECNAME) $(BUILDTEMP)/$(EXECDEST)/
 	#install -m 644 $(CURDIR)/data/images/*$(EXECNAME)*.png $(BUILDTEMP)/$(DEST)
