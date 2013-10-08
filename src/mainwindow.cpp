@@ -37,8 +37,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     installTranslator();
 
-
-
     ui->abeMediathequeGet->abeSetSourceEnum(AbulEduMediathequeGetV1::abeData);
     ui->abeMediathequeGet->abeHideBoutonTelecharger();
     ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
@@ -85,13 +83,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_isNewFile = true;
     m_wantNewFile = false;
-#ifndef Q_OS_ANDROID
-    m_isPicoReading = false;
-#endif
+
     setWindowFlags(Qt::CustomizeWindowHint);
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),this,SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
 
 #ifndef Q_OS_ANDROID
+    m_isPicoReading = false;
     m_picoLecteur = new AbulEduPicottsV1(4);
     ui->btnLire->setEnabled(true);
     ui->btnPause->setEnabled(false);
@@ -132,7 +129,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
 }
 
-//! Slot de Test ---> Ne Pas Degommer Icham
+/* Slot de Test ---> Ne Pas Degommer Icham */
 void MainWindow::test(int a)
 {
     qDebug() << a;
@@ -143,33 +140,26 @@ void MainWindow::installTranslator()
     m_locale = QLocale::system().name().section('_', 0, 0);
     myappTranslator.load("abuledu-minitexte_"+m_locale, "./lang");
     abeApp->installTranslator(&myappTranslator);
-    // pour avoir les boutons des boîtes de dialogue dans la langue locale (fr par défaut)
+    /* pour avoir les boutons des boîtes de dialogue dans la langue locale (fr par défaut) */
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     abeApp->installTranslator(&qtTranslator);
 
-}
-
-void MainWindow::myFocusChangedSlot(QWidget *ex, QWidget *neo)
-{
-    qDebug() << "ex :: " << ex << " // neo :: " << neo;
 }
 
 void MainWindow::increaseFontSize(int increase)
 {
     QTextCursor cursor = ui->teZoneTexte->textCursor();
     if (!cursor.hasSelection())
-        // Si pas de sélection, on utilise le mot sous le curseur
+        /* Si pas de sélection, on utilise le mot sous le curseur */
         cursor.select(QTextCursor::WordUnderCursor);
     QTextCharFormat fmt;
-    if(cursor.charFormat().fontPointSize() > 15)
-    {
+    if(cursor.charFormat().fontPointSize() > 15){
         fmt.setFontPointSize(cursor.charFormat().fontPointSize()+increase);
     }
-    else
-    {
+    else{
         fmt.setFontPointSize(15+increase);
     }
-    // On l'applique
+    /* On l'applique */
     mergeFormatOnWordOrSelection(fmt);
 }
 
@@ -177,14 +167,14 @@ void MainWindow::decreaseFontSize(int decrease)
 {
     QTextCursor cursor = ui->teZoneTexte->textCursor();
     if (!cursor.hasSelection())
-        // Si pas de sélection, on utilise le mot sous le curseur
+        /* Si pas de sélection, on utilise le mot sous le curseur */
         cursor.select(QTextCursor::WordUnderCursor);
     QTextCharFormat fmt;
     if(cursor.charFormat().fontPointSize() > 15)
     {
         fmt.setFontPointSize(cursor.charFormat().fontPointSize()-decrease);
     }
-    // On l'applique
+    /* On l'applique */
     mergeFormatOnWordOrSelection(fmt);
 }
 
@@ -232,7 +222,7 @@ void MainWindow::abeTexteSetAlignment(Qt::Alignment align)
         emit alignmentCenter();
     else if(align.testFlag(Qt::AlignJustify))
         emit alignmentCenter();
-    updateActions(ui->teZoneTexte->textCursor().charFormat()); // Met le bouton concerné à jour
+    updateActions(ui->teZoneTexte->textCursor().charFormat()); /* Met le bouton concerné à jour */
 }
 
 void MainWindow::abeTexteSetBold(bool onOff)
@@ -265,24 +255,24 @@ bool MainWindow::abeTexteToolBarIsVisible()
 
 void MainWindow::setTextFormat()
 {
-    // On crée le format à appliquer
+    /* On crée le format à appliquer */
     QTextCharFormat fmt;
     fmt.setFontWeight(m_actionTextBold->isChecked() ? QFont::Bold : QFont::Normal);
     fmt.setFontItalic(m_actionTextItalic->isChecked());
     fmt.setFontUnderline(m_actionTextUnderline->isChecked());
-    // On l'applique
+    /* On l'applique */
     mergeFormatOnWordOrSelection(fmt);
 }
 
 void MainWindow::setTextAlign(QAction *action)
 {
-    // On applique le bon alignement pour le paragraphe sous le curseur
+    /* On applique le bon alignement pour le paragraphe sous le curseur */
     if (action == m_actionAlignLeft)
-        ui->teZoneTexte->setAlignment(Qt::AlignLeft | Qt::AlignAbsolute); // Toujours à gauche même en cas de RTL
+        ui->teZoneTexte->setAlignment(Qt::AlignLeft | Qt::AlignAbsolute); /* Toujours à gauche même en cas de RTL */
     else if (action == m_actionAlignCenter)
         ui->teZoneTexte->setAlignment(Qt::AlignHCenter);
     else if (action == m_actionAlignRight)
-        ui->teZoneTexte->setAlignment(Qt::AlignRight | Qt::AlignAbsolute); // Toujours à droite même en cas de RTL
+        ui->teZoneTexte->setAlignment(Qt::AlignRight | Qt::AlignAbsolute); /* Toujours à droite même en cas de RTL */
     else if (action == m_actionAlignJustify)
         ui->teZoneTexte->setAlignment(Qt::AlignJustify);
 }
@@ -291,14 +281,14 @@ void MainWindow::setTextFamily()
 {
     QString f = sender()->objectName();
     if (m_localDebug) qDebug() << " Fonte : " << f;
-    // On applique le format de font sélectionnée
+    /* On applique le format de font sélectionnée */
     QTextCharFormat fmt;
     fmt.setFontFamily(f);
     mergeFormatOnWordOrSelection(fmt);
     setTextSize("20");
     //    ui->teZoneTexte->setFocus();
 
-    //Espacement vertical different
+    /* Espacement vertical different */
     QTextBlockFormat format;
 #if QT_VERSION >= 0x040700
     format.setLineHeight(sender()->property("interligne").toInt(), QTextBlockFormat::ProportionalHeight);
@@ -309,7 +299,7 @@ void MainWindow::setTextFamily()
 
 void MainWindow::setTextSize(const QString &p)
 {
-    // On applique la taille de font sélectionnée
+    /* On applique la taille de font sélectionnée */
     qreal pointSize = p.toFloat();
     if (p.toFloat() > 0)
     {
@@ -344,7 +334,7 @@ void MainWindow::colorChanged(const QColor &col)
 
 void MainWindow::setupToolBarAndActions()
 {
-    // Création de la Barre de boutons
+    /* Création de la Barre de boutons */
     tb = ui->toolBar;
     tb->setToolButtonStyle(Qt::ToolButtonIconOnly);
     tb->setFixedHeight(m_hauteurToolBar);
@@ -354,9 +344,8 @@ void MainWindow::setupToolBarAndActions()
       * Pour l'instant, on utilise l'icone du thème, sinon celle du fichier de ressources
       */
 
-    // Formatage des caractères
-    m_actionTextBold = new QAction(QIcon(":/abuledutextev1/format/bold"),
-                                   trUtf8("&Gras"), this);
+    /* Formatage des caractères */
+    m_actionTextBold = new QAction(QIcon(":/abuledutextev1/format/bold"), trUtf8("&Gras"), this);
     m_actionTextBold->setObjectName("bold");
     m_actionTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
     m_actionTextBold->setPriority(QAction::LowPriority);
@@ -367,8 +356,7 @@ void MainWindow::setupToolBarAndActions()
     tb->addAction(m_actionTextBold);
     m_actionTextBold->setCheckable(true);
 
-    m_actionTextItalic = new QAction(QIcon(":/abuledutextev1/format/italic"),
-                                     trUtf8("&Italique"), this);
+    m_actionTextItalic = new QAction(QIcon(":/abuledutextev1/format/italic"), trUtf8("&Italique"), this);
     m_actionTextItalic->setObjectName("italique");
     m_actionTextItalic->setPriority(QAction::LowPriority);
     m_actionTextItalic->setShortcut(Qt::CTRL + Qt::Key_I);
@@ -379,8 +367,7 @@ void MainWindow::setupToolBarAndActions()
     tb->addAction(m_actionTextItalic);
     m_actionTextItalic->setCheckable(true);
 
-    m_actionTextUnderline = new QAction(QIcon(":/abuledutextev1/format/underlined"),
-                                        trUtf8("&Souligné"), this);
+    m_actionTextUnderline = new QAction(QIcon(":/abuledutextev1/format/underlined"), trUtf8("&Souligné"), this);
     m_actionTextUnderline->setObjectName("underline");
     m_actionTextUnderline->setShortcut(Qt::CTRL + Qt::Key_U);
     m_actionTextUnderline->setPriority(QAction::LowPriority);
@@ -569,7 +556,7 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
     QTextCursor cursor = ui->teZoneTexte->textCursor();
     if (!cursor.hasSelection())
-        // Si pas de sélection, on utilise le mot sous le curseur
+        /* Si pas de sélection, on utilise le mot sous le curseur */
         cursor.select(QTextCursor::WordUnderCursor);
     cursor.mergeCharFormat(format);
     ui->teZoneTexte->mergeCurrentCharFormat(format);
@@ -581,7 +568,6 @@ bool MainWindow::fileSave()
 
     if (m_localDebug) qDebug() << "Ecriture dans le fichier " << m_fileName;
 
-    //
     QFileInfo fi(m_fileName);
 
     QTextDocumentWriter writer(fi.absoluteFilePath(),"HTML");
@@ -589,11 +575,11 @@ bool MainWindow::fileSave()
     if (success)
         ui->teZoneTexte->document()->setModified(false);
 
-    //Le 1er fichier de la liste, c'est le fichier document maitre html
+    /* Le 1er fichier de la liste, c'est le fichier document maitre html */
     QStringList liste(m_fileName);
-    //Parcours du repertoire data pour enquiller tous les autres fichiers
+    /* Parcours du repertoire data pour enquiller tous les autres fichiers */
     QDir dir(fi.absolutePath() + "/data/");
-    //Attention a ne pas prendre le repertoire "." et ".."
+    /* Attention a ne pas prendre le repertoire "." et ".." */
     foreach(QFileInfo fileInfo, dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot)) {
         if(fileInfo.isFile()) {
             liste << fileInfo.absoluteFilePath();
@@ -615,13 +601,13 @@ bool MainWindow::fileSave()
 bool MainWindow::fileSaveAs()
 {
     m_isNewFile = false;
-    fileSave();
+    return fileSave();
 }
 
 void MainWindow::setCurrentFileName(const QString &fileName)
 {
     m_fileName = fileName;
-    // Comme le nom vient de changer, c'est que le fichier vient d'être crée ou vient d'être sauvegardé
+    /* Comme le nom vient de changer, c'est que le fichier vient d'être crée ou vient d'être sauvegardé */
     ui->teZoneTexte->document()->setModified(false);
 
     QDir rep(m_abuledufile->abeFileGetDirectoryTemp().absolutePath());
@@ -637,9 +623,9 @@ void MainWindow::setCurrentFileName(const QString &fileName)
         shownName = QFileInfo(m_fileName).fileName() + "[*]";
     }
 
-    // Au cas ou le widget serait un topLevelWidget()
+    /* Au cas ou le widget serait un topLevelWidget() */
     setWindowTitle(shownName);
-    // On émet un signal avec le nom du fichier suivi de [*] pour affichage dans titre de fenêtre
+    /* On émet un signal avec le nom du fichier suivi de [*] pour affichage dans titre de fenêtre */
     emit fileNameHasChanged(shownName);
 }
 
@@ -650,28 +636,24 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
         if (m_localDebug) qDebug()<<__PRETTY_FUNCTION__<<"ligne"<<__LINE__<<"Le fichier n'existe pas"<<cheminImage;
         return false;
     }
-    else
-    {
-        if(name == "")
-        {
+    else{
+        if(name.isEmpty()){
             name = cheminImage;
         }
         QImage image(cheminImage);
-        if(width == 0 || height == 0)
-        {
+        if(width == 0 || height == 0){
             width = image.width();
             height = image.height();
         }
-        else
-        {
+        else{
             image = image.scaled(width, height, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         }
         ui->teZoneTexte->document()->addResource(QTextDocument::ImageResource, QUrl(name), image);
 
-        /** Changer la méthode d'insertion pour insérer une QTetxtFrame dans laquelle on insérerait une image
-          * ce qui devrait donner plus de souplesse
-          * peut-être :-D
-          */
+        /* Changer la méthode d'insertion pour insérer une QTetxtFrame dans laquelle on insérerait une image
+         * ce qui devrait donner plus de souplesse
+         * peut-être :-D
+         */
         QTextImageFormat *imageFmt = new QTextImageFormat();
         imageFmt->setName(name);
         //        imageFmt->setWidth(width);
@@ -685,10 +667,10 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
 #ifndef QT_NO_PRINTER
 void MainWindow::filePrint(QPrinter *printer)
 {
-    //! On imprime
+    /* On imprime */
     ui->teZoneTexte->print(printer);
 
-    //! On affiche un message
+    /* On affiche un message */
     QString message("Impression en cours");
     AbulEduMessageBoxV1* msgImpression = new AbulEduMessageBoxV1(trUtf8("Impression"), message,this);
     msgImpression->setWink();
@@ -705,7 +687,7 @@ void MainWindow::cursorMoved()
 
 void MainWindow::updateActions(QTextCharFormat fmt)
 {
-    // On actualise les toolButtons ou plutôt les QActions sous-jacentes en fonction du formatage du texte
+    /* On actualise les toolButtons ou plutôt les QActions sous-jacentes en fonction du formatage du texte */
     m_actionTextBold->blockSignals(true);
     m_actionTextBold->setChecked(fmt.fontWeight() >= QFont::Bold);
     m_actionTextBold->blockSignals(false);
@@ -749,7 +731,6 @@ void MainWindow::updateActions(QTextCharFormat fmt)
 
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
 {
-    /** @todo utiliser le paramètre abeFile */
     QString file = abeFile->abeFileGetContent(0).absoluteFilePath();
     QString filename = abeFile->abeFileGetContent(0).baseName() + ".png";
 
@@ -812,7 +793,7 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
     setCurrentFileName(abeFile->abeFileGetContent(0).absoluteFilePath());
 
     // ==============================================================================
-    // lecture du fichier html
+    /* lecture du fichier html */
     if (m_localDebug) qDebug()<<m_fileName;
     QFile  htmlFile(m_fileName);
     if (!htmlFile.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -831,7 +812,7 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 
 
     // ==============================================================================
-    // chargement des ressources dans le textDocument...
+    /* chargement des ressources dans le textDocument... */
     QTextDocument * textDocument = ui->teZoneTexte->document();
     QStringList liste = m_abuledufile->abeFileGetFileList();
     for(int i = 0; i < liste.size(); i++) {
@@ -954,7 +935,7 @@ void MainWindow::on_abeMenuFeuilleBtnHelp_clicked()
 
 void MainWindow::slotHelp()
 {
-    //! On affiche un message
+    /* On affiche un message */
     QString message = trUtf8("Écris un texte, tu pourras l'enregistrer, l'imprimer, l'écouter lire, etc...");
     AbulEduMessageBoxV1* msgAide = new AbulEduMessageBoxV1(trUtf8("Aide"), message,this);
     msgAide->setWink();
@@ -1026,10 +1007,9 @@ void MainWindow::showTextPage()
     ui->frFormat->setEnabled(true);
 }
 
-
 void MainWindow::slotChangeLangue(QString lang)
 {
-    qDebug()<<" ---------         slot change langue en "<<lang;
+    if(m_localDebug) qDebug()<<" ---------         slot change langue en "<<lang;
     qApp->removeTranslator(&qtTranslator);
     qApp->removeTranslator(&myappTranslator);
 

@@ -284,7 +284,6 @@ private slots:
 
     void showAbeMediathequeGet();
     void showTextPage();
-    void myFocusChangedSlot(QWidget *ex, QWidget *neo);
 
     /** Augmente la police de caractères utilisée */
     void increaseFontSize(int increase = 2);
