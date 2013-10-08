@@ -35,7 +35,7 @@ Name: "french"; MessagesFile: "compiler:Languages/French.isl"
 [Files]
 Source: "../release/abuledu-minitexte.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "../src/data/*.abe"; DestDir: "{app}/data"; Flags: ignoreversion recursesubdirs createallsubdirs
-;Source: "../src/exemples/*.abe"; DestDir: "{app}/data"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Source: "../src/exemples/*.abe"; DestDir: "{app}/data"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; Source: "../src/conf/*"; DestDir: "{app}/conf"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; Source: "../src/lang/*.qm"; DestDir: "{app}/lang"; Flags: ignoreversion
 Source: "C:/code/quazip.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -69,11 +69,11 @@ Source: "../src/data/icones/abuledu-minitexte-128.png"; DestDir: "{app}"; Flags:
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-;Name: "{group}/Abuledu-MiniTexte"; Filename: "{app}/abuledu-minitexte.exe"; WorkingDir: "{app}"
-;Name: "{commondesktop}/Abuledu-MiniTexte"; Filename: "{app}/abuledu-minitexte.exe"; Tasks: desktopicon; WorkingDir: "{app}"
+; Name: "{group}/Abuledu-MiniTexte"; Filename: "{app}/abuledu-minitexte.exe"; WorkingDir: "{app}"
+; Name: "{commondesktop}/Abuledu-MiniTexte"; Filename: "{app}/abuledu-minitexte.exe"; Tasks: desktopicon; WorkingDir: "{app}"
 
 [Run]
-;Filename: "{app}/abuledu-minitexte.exe"; Description: "{cm:LaunchProgram,AbulEdu MiniTexte}"; Flags: nowait postinstall skipifsilent
+; Filename: "{app}/abuledu-minitexte.exe"; Description: "{cm:LaunchProgram,AbulEdu MiniTexte}"; Flags: nowait postinstall skipifsilent
 
 [Code]
 procedure UpdateDesktopPath();
@@ -81,6 +81,6 @@ var Strings : TArrayOfString;
 begin
   SetArrayLength(Strings, 1);
   Strings[0] := 'X-Horizon-WindowsExecPath=' + ExpandConstant('{app}');
-
   SaveStringsToFile(ExpandConstant('{win}') + '/abuledu-alacarte/data/profile1.applications/abuledu-minitexte.desktop', Strings, True);
 end;
+
