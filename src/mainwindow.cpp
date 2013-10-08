@@ -832,49 +832,39 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
 {
     if (m_localDebug) qDebug() << "slotAbeFileSaved : " << fileName << " et " << success;
     QString emplacement;
-    if (location == AbulEduBoxFileManagerV1::abePC)
-    {
+    switch (location) {
+    case AbulEduBoxFileManagerV1::abePC:
         emplacement = trUtf8("votre ordinateur");
-    }
-    else if (location == AbulEduBoxFileManagerV1::abeBoxPerso)
-    {
+        break;
+    case AbulEduBoxFileManagerV1::abeBoxPerso:
         emplacement = trUtf8("votre abeBox personnelle");
-    }
-    else if (location == AbulEduBoxFileManagerV1::abeBoxShare)
-    {
+        break;
+    case AbulEduBoxFileManagerV1::abeBoxShare:
         emplacement = trUtf8("une abeBox partagée");
-    }
-    else if (location == AbulEduBoxFileManagerV1::abeMediatheque)
-    {
+        break;
+    case AbulEduBoxFileManagerV1::abeMediatheque:
         emplacement = trUtf8("AbulEdu-Médiathèque");
-    }
-    else
-    {
+        break;
+    default:
         emplacement = trUtf8("un endroit inconnu");
+        break;
     }
-
     QString message;
-    if (success == true)
+    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,this);
+    if(success)
     {
         message = trUtf8("Votre fichier a été enregistré dans ")+emplacement;
-        if (!fileName.isEmpty())
-        {
+        if (!fileName.isEmpty()){
             message.append(trUtf8(" sous le nom : ")+fileName.split("/").last());
         }
-    }
-    else
-    {
-        message = trUtf8("Votre fichier n'a pas pu être enregistré...");
-    }
-    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,this);
-    if (success == true)
-    {
         msgEnregistrement->setWink();
+    }
+    else{
+        message = trUtf8("Votre fichier n'a pas pu être enregistré...");
     }
     msgEnregistrement->show();
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
-    if(m_wantNewFile)
-    {
+    if(m_wantNewFile){
         slotClearCurrent();
         m_wantNewFile = false;
     }
@@ -884,7 +874,7 @@ void MainWindow::on_btnLire_clicked()
 {
 #ifndef Q_OS_ANDROID
     QString txt = QString("<break time=\"1s\"><speed level=\"80\"><volume level=\"100\">%1</speed>").arg(ui->teZoneTexte->toPlainText());
-    if(m_isPicoReading == true) {
+    if(m_isPicoReading) {
         m_picoLecteur->abePicoResume();
     }
     else {
@@ -967,12 +957,9 @@ void MainWindow::on_abeMenuFeuilleBtnOpen_clicked()
 void MainWindow::on_abeMenuFeuilleBtnSave_clicked()
 {
     /* Je n'enregistre pas si la zone de texte est vide */
-    if(ui->teZoneTexte->toPlainText().isEmpty())
-    {
-        return;
-    }
-    if (fileSave())
-    {
+    if(ui->teZoneTexte->toPlainText().isEmpty()) return;
+
+    if (fileSave()){
         ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
         ui->abeBoxFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
         ui->abeBoxFileManager->abeSetFile(m_abuledufile);
@@ -983,13 +970,11 @@ void MainWindow::on_abeMenuFeuilleBtnSave_clicked()
 
 void MainWindow::on_abeMenuFeuilleBtnNew_clicked()
 {
-    if(isWindowModified())
-    {
+    if(isWindowModified()){
         m_wantNewFile = true;
         on_abeMenuFeuilleBtnSave_clicked();
     }
-    else
-    {
+    else{
         slotClearCurrent();
     }
     return;
