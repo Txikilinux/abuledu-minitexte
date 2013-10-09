@@ -789,8 +789,14 @@ void MainWindow::fileOpen()
 
 void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 {
-    if (m_localDebug) qDebug() << "Ouverture du fichier " << abeFile->abeFileGetFileName().filePath();
-    setCurrentFileName(abeFile->abeFileGetContent(0).absoluteFilePath());
+    /* Correction du bug de non apparition de l'image */
+    if(abeFile)
+    {
+        m_abuledufile = abeFile;
+    }
+    if (m_localDebug) qDebug() << "Ouverture du fichier " << m_abuledufile->abeFileGetFileName().filePath();
+    qDebug()<<" dont le repertoire temporaire est "<<m_abuledufile->abeFileGetDirectoryTemp().absolutePath();
+    setCurrentFileName(m_abuledufile->abeFileGetContent(0).absoluteFilePath());
 
     // ==============================================================================
     /* lecture du fichier html */
@@ -947,7 +953,8 @@ void MainWindow::on_stackedWidget_currentChanged(int arg1)
 
 void MainWindow::slotClearCurrent()
 {
-    m_abuledufile->abeClean();
+    /* Je veux faire un nouveau texte, mais je ne veux pas changer d'abe */
+    m_abuledufile->abeCleanDirectory(m_abuledufile->abeFileGetDirectoryTemp().absolutePath(),m_abuledufile->abeFileGetDirectoryTemp().absolutePath());
     ui->teZoneTexte->clear();
     setWindowModified(false);
 }
