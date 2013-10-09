@@ -856,7 +856,6 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
         if (!fileName.isEmpty()){
             message.append(trUtf8(" sous le nom : ")+fileName.split("/").last());
         }
-        msgEnregistrement->setWink();
     }
     else{
         message = trUtf8("Votre fichier n'a pas pu être enregistré...");
