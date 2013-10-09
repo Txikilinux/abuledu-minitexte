@@ -850,7 +850,6 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
         break;
     }
     QString message;
-    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,this);
     if(success)
     {
         message = trUtf8("Votre fichier a été enregistré dans ")+emplacement;
@@ -861,6 +860,11 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
     }
     else{
         message = trUtf8("Votre fichier n'a pas pu être enregistré...");
+    }
+    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,this);
+    if(success)
+    {
+        msgEnregistrement->setWink();
     }
     msgEnregistrement->show();
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
