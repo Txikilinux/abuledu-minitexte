@@ -90,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifndef Q_OS_ANDROID
     m_isPicoReading = false;
     m_picoLecteur = new AbulEduPicottsV1(4);
+    connect(m_picoLecteur, SIGNAL(endOfPlay()),this, SLOT(on_btnStop_clicked()),Qt::UniqueConnection);
     ui->btnLire->setEnabled(true);
     ui->btnPause->setEnabled(false);
     ui->btnStop->setEnabled(false);
