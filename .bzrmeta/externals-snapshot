@@ -1,6 +1,6 @@
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduapplicationv1 src/lib/abuleduapplicationv1 revid:eric.seigne@ryxeo.com-20131008083925-wy9ywdet0tks4gy3
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduconstantesv1/ src/lib/abuleduconstantesv1 revid:eric.seigne@ryxeo.com-20130809201808-2mjcyjh0g5r47h0z
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledunetworkaccessmanagerv1/ src/lib/abuledunetworkaccessmanagerv1 revid:icham.sirat@ryxeo.com-20131007072247-p6p01paccfvlyi51
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduapplicationv1 src/lib/abuleduapplicationv1 revid:eric.seigne@ryxeo.com-20131021131039-7o3vlcko691t8mzz
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduconstantesv1/ src/lib/abuleduconstantesv1 revid:eric.seigne@ryxeo.com-20131019165344-8bl8beaepodjdc3k
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledunetworkaccessmanagerv1/ src/lib/abuledunetworkaccessmanagerv1 revid:eric.seigne@ryxeo.com-20131019225126-opwv3al4dfmkg9yl
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduflatboutonv1/ src/lib/abuleduflatboutonv1 revid:eric.seigne@ryxeo.com-20130927105216-7lswlv8i3bdefd20
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/maia/ src/lib/maia revid:eric.seigne@ryxeo.com-20130805172650-dlkn1yyzyw3nel5e
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduidentitesv1/ src/lib/abuleduidentitesv1 revid:icham.sirat@ryxeo.com-20131008121029-s6ijc7kap0gb42na
@@ -8,8 +8,8 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumessageboxv1/ src/lib/a
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledufilev1 src/lib/abuledufilev1 revid:lenovo@lenovo-ed946bd9-20131008114450-wl5yj48zpqqumko2
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduvirtualkeyboardv1 src/lib/abuleduvirtualkeyboardv1 revid:icham.sirat@ryxeo.com-20131008083330-oy6hdbajutm4op1o
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:eric.seigne@ryxeo.com-20131009183850-iz4j64ideezly7la
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusplashscreenv1/ src/lib/abuledusplashscreenv1 revid:lenovo@lenovo-ed946bd9-20131008114907-wbccg02u27t571x9
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusplashscreenv1/ src/lib/abuledusplashscreenv1 revid:eric.seigne@ryxeo.com-20131019165158-ckrroscrw7bzmflv
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledulangv1/ src/lib/abuledulangv1 revid:eric.seigne@ryxeo.com-20130925134831-zs018ch9z2269pjj
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumenufeuillev1/ src/lib/abuledumenufeuillev1 revid:eric.seigne@ryxeo.com-20131009184741-9p0ru1pejvycwff9
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumenufeuillev1/ src/lib/abuledumenufeuillev1 revid:eric.seigne@ryxeo.com-20131017223113-5n7bpovn1pzu61bc
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusingletonv1 src/lib/abuledusingletonv1 revid:icham.sirat@ryxeo.com-20130926160428-r1znzz0h643fj48h
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupluginloaderv1/ src/lib/abuledupluginloaderv1 revid:icham.sirat@ryxeo.com-20130926160519-igrhi822pw1afdbh

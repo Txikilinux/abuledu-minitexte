@@ -1,6 +1,8 @@
 #!/bin/sh
 
-ICON=/usr/share/applications/abuledu-minitexte.desktop
+APPNAME=abuledu-minitexte
+
+ICON=/usr/share/applications/${APPNAME}.desktop
 ALACARTEDIR=/usr/share/abuledu-alacarte/data/profile1.applications/
 
 xdg-desktop-menu install  --novendor --mode system ${ICON}
