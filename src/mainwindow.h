@@ -262,6 +262,8 @@ public slots:
 
     void test(int);
 
+    void slotSessionAuthenticated(bool enable);
+
 private slots:
     void on_btnLire_clicked();
     void on_btnPause_clicked();
@@ -294,7 +296,6 @@ private slots:
     void slotHelp();
 
     void slotChangeLangue(QString lang);
-
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */

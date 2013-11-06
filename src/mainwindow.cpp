@@ -1015,3 +1015,10 @@ void MainWindow::slotChangeLangue(QString lang)
     qApp->installTranslator(&myappTranslator);
     ui->retranslateUi(this);
 }
+
+void MainWindow::slotSessionAuthenticated(bool enable)
+{
+    if (m_localDebug) qDebug()<<" ++++++++ "<< __FILE__ <<  __LINE__ << __FUNCTION__<< enable;
+    if(enable)
+        abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+}
