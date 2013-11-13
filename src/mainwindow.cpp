@@ -24,6 +24,8 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QAbstractPrintDialog>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -104,16 +106,14 @@ MainWindow::MainWindow(QWidget *parent) :
     tcf.setFontPointSize(16);
     ui->teZoneTexte->textCursor().setCharFormat(tcf);
 
-    /* Gestion Impression */
 #ifndef QT_NO_PRINTER
+    /* Gestion Impression */
     m_printer = new QPrinter(QPrinter::HighResolution);
     m_printDialog = new QPrintDialog(m_printer, this);
     m_printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
     m_printDialog->setStyleSheet("background-color:#FFFFFF");
     ui->glPrint->addWidget(m_printDialog);
-
     connect(m_printDialog, SIGNAL(rejected()), this, SLOT(showTextPage()), Qt::UniqueConnection);
-    connect(m_printDialog, SIGNAL(finished(int)), this, SLOT(test(int)), Qt::UniqueConnection);
     connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
 #endif
 
@@ -123,17 +123,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_colorDialog,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
     connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
+#ifndef __ABULEDUTABLETTEV1__MODE__
     /* On Centre la fenetre */
     QDesktopWidget *widget = QApplication::desktop();
     int desktop_width = widget->width();
     int desktop_height = widget->height();
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
-}
-
-/* Slot de Test ---> Ne Pas Degommer Icham */
-void MainWindow::test(int a)
-{
-    qDebug() << a;
+#endif
 }
 
 void MainWindow::installTranslator()
@@ -677,7 +673,6 @@ void MainWindow::filePrint(QPrinter *printer)
     msgImpression->setWink();
     msgImpression->show();
     connect(msgImpression, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
-
 }
 #endif
 
