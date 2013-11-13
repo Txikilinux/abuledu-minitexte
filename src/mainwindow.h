@@ -260,8 +260,6 @@ public slots:
     /** gestion du retour de sauvegarde fichier via la box file manager */
     void slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success);
 
-    void test();
-
     void slotSessionAuthenticated(bool enable);
 
 private slots:
