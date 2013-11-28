@@ -120,6 +120,7 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Gestion Couleur*/
     m_colorDialog = new QColorDialog(this);
     ui->vlColor->addWidget(m_colorDialog);
+    m_colorDialog->setOptions(QColorDialog::DontUseNativeDialog);
     connect(m_colorDialog,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
     connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
