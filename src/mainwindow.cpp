@@ -124,6 +124,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_colorDialog,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
     connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
 
+    /* Gestion du retour de la page à propos */
+    connect(ui->pageAbout, SIGNAL(signalAbeAproposBtnCloseClicked()), this, SLOT(showTextPage()),Qt::UniqueConnection);
+
 #ifndef __ABULEDUTABLETTEV1__MODE__
     /* On Centre la fenetre */
     QDesktopWidget *widget = QApplication::desktop();
@@ -926,18 +929,9 @@ void MainWindow::on_abeMenuFeuilleBtnPrint_clicked()
 
 void MainWindow::on_abeMenuFeuilleBtnHelp_clicked()
 {
-    slotHelp();
+    ui->stackedWidget->setCurrentWidget(ui->pageAbout);
 }
 
-void MainWindow::slotHelp()
-{
-    /* On affiche un message */
-    QString message = trUtf8("Écris un texte, tu pourras l'enregistrer, l'imprimer, l'écouter lire, etc...");
-    AbulEduMessageBoxV1* msgAide = new AbulEduMessageBoxV1(trUtf8("Aide"), message,this);
-    msgAide->setWink();
-    msgAide->show();
-    connect(msgAide, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
-}
 void MainWindow::on_abeMenuFeuilleBtnQuit_clicked()
 {
     close();

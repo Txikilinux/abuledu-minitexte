@@ -115,3 +115,4 @@ OTHER_FILES += \
     android/src/org/kde/necessitas/ministro/IMinistro.aidl \
     android/AndroidManifest.xml
 
+include(lib/abuleduaproposv1/abuleduaproposv1.pri)

@@ -291,8 +291,6 @@ private slots:
     /** Diminue la police de caractères utilisée */
     void decreaseFontSize(int decrease = 2);
 
-    void slotHelp();
-
     void slotChangeLangue(QString lang);
 
 signals:

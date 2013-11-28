@@ -118,7 +118,7 @@
        <item row="0" column="0">
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>4</number>
+          <number>5</number>
          </property>
          <widget class="QWidget" name="pageTexte">
           <property name="enabled">
@@ -340,6 +340,7 @@
            </item>
           </layout>
          </widget>
+         <widget class="AbulEduAproposV1" name="pageAbout"/>
         </widget>
        </item>
       </layout>
@@ -403,6 +404,12 @@
    <class>AbulEduMenuFeuilleV1</class>
    <extends>QFrame</extends>
    <header>abuledumenufeuillev1.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AbulEduAproposV1</class>
+   <extends>QWidget</extends>
+   <header>abuleduaproposv1.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
