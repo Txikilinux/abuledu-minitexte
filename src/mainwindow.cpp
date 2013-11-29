@@ -507,9 +507,12 @@ void MainWindow::setupToolBarAndActions()
 void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
     QTextCursor cursor = ui->teZoneTexte->textCursor();
-    if (!cursor.hasSelection())
-        /* Si pas de sélection, on utilise le mot sous le curseur */
-        cursor.select(QTextCursor::WordUnderCursor);
+    /* Je me contente de commenter ces lignes, c'est à cause d'elles qu'on avait la remarque de Christine C :
+     *" dans un traitement de texte classique, si je choisis un formatage de texte (ex : gras) avant de taper quoi que ce soit et que je tape du texte après, je tape du gras. Pas là"
+     * Je ne les supprime pas encore en cas qu'elles fassent quelque chose qui manque à quelqu'un */
+//    if (!cursor.hasSelection())
+//        /* Si pas de sélection, on utilise le mot sous le curseur */
+//        cursor.select(QTextCursor::WordUnderCursor);
     cursor.mergeCharFormat(format);
     ui->teZoneTexte->mergeCurrentCharFormat(format);
 }
