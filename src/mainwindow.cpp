@@ -133,6 +133,7 @@ MainWindow::MainWindow(QWidget *parent) :
     int desktop_width = widget->width();
     int desktop_height = widget->height();
     this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
+    ui->teZoneTexte->setFocus();
 #endif
 }
 
