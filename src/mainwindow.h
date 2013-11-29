@@ -226,7 +226,7 @@ public slots:
     void setTextFamily(QAction *action);
 
     /** Applique la taille de font sélectionnée */
-    void setTextSize(const QString &p);
+    void setTextSize(int p);
 
     /** Applique la couleur de texte sélectionnée */
     void setTextColor();

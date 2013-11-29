@@ -214,7 +214,7 @@ void MainWindow::abeTexteSetFontSize(int taille)
 {
     /** @todo Tester taille et l'adapter en fonction des tailles disponibles dans la combobox m_comboSize */
     //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(taille)));
-    setTextSize(QString::number(taille));
+    setTextSize(taille);
 }
 
 void MainWindow::abeTexteSetAlignment(Qt::Alignment align)
@@ -290,8 +290,7 @@ void MainWindow::setTextFamily(QAction* action)
     QTextCharFormat fmt;
     fmt.setFontFamily(f);
     mergeFormatOnWordOrSelection(fmt);
-    setTextSize("20");
-    //    ui->teZoneTexte->setFocus();
+    setTextSize(action->property("defaultPointSize").toInt());
 
     /* Espacement vertical different */
     QTextBlockFormat format;
@@ -302,11 +301,11 @@ void MainWindow::setTextFamily(QAction* action)
     curseur.setBlockFormat(format);
 }
 
-void MainWindow::setTextSize(const QString &p)
+void MainWindow::setTextSize(int p)
 {
     /* On applique la taille de font sélectionnée */
-    qreal pointSize = p.toFloat();
-    if (p.toFloat() > 0)
+    qreal pointSize = p;
+    if (p > 0)
     {
         QTextCharFormat fmt;
         fmt.setFontPointSize(pointSize);
@@ -465,6 +464,7 @@ void MainWindow::setupToolBarAndActions()
     m_actionFontAndika->setObjectName("andika");
     m_actionFontAndika->setPriority(QAction::LowPriority);
     m_actionFontAndika->setProperty("interligne",100);
+    m_actionFontAndika->setProperty("defaultPointSize",20);
     tb2->addAction(m_actionFontAndika);
     m_actionFontAndika->setCheckable(true);
     m_actionFontAndika->trigger();
@@ -473,6 +473,7 @@ void MainWindow::setupToolBarAndActions()
     m_actionFontSeyes->setObjectName("SeyesBDE");
     m_actionFontSeyes->setPriority(QAction::LowPriority);
     m_actionFontSeyes->setProperty("interligne",200);
+    m_actionFontSeyes->setProperty("defaultPointSize",28);
     tb2->addAction(m_actionFontSeyes);
     m_actionFontSeyes->setCheckable(true);
 
@@ -480,6 +481,7 @@ void MainWindow::setupToolBarAndActions()
     m_actionFontPlume->setObjectName("PlumBAE");
     m_actionFontPlume->setPriority(QAction::LowPriority);
     m_actionFontPlume->setProperty("interligne",120);
+    m_actionFontPlume->setProperty("defaultPointSize",22);
     tb2->addAction(m_actionFontPlume);
     m_actionFontPlume->setCheckable(true);
 
