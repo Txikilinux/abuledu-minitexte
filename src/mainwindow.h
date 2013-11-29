@@ -99,7 +99,6 @@ public:
       */
     void abeTexteSetItalic(bool onOff);
 
-
     /** Active le souligné ou pas
       * @param onOff active/désactive le souligné
       */
@@ -130,6 +129,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    void closeEvent(QCloseEvent *e);
+    bool m_isCloseRequested;
+
     /** Crée la barre de d'icones et les actions correspondantes */
     void setupToolBarAndActions();
 
@@ -289,6 +292,8 @@ private slots:
     void decreaseFontSize(int decrease = 2);
 
     void slotChangeLangue(QString lang);
+
+    void on_teZoneTexte_textChanged();
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */

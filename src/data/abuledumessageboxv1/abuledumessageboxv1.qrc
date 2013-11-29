@@ -7,6 +7,8 @@
         <file alias="close">picto/icon-fermer.png</file>
         <file alias="cancel">picto/annuler.png</file>
         <file alias="ok">picto/valider.png</file>
+        <file alias="yes">picto/oui.png</file>
+        <file alias="no">picto/non.png</file>
     </qresource>
     <qresource prefix="/abuledumessageboxv1/settings">
         <file alias="conf">abuledumessageboxv1.conf</file>

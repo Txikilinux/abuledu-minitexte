@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_hauteurToolBar = 48;
 
     m_localDebug = true;
+    m_isCloseRequested = false;
+
 
     installTranslator();
 
@@ -619,6 +621,24 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+    if(!isWindowModified()){
+        e->accept();
+        return;
+    }
+    else
+    {
+        e->ignore();
+        m_isCloseRequested = true;
+        AbulEduMessageBoxV1* msg = new AbulEduMessageBoxV1(trUtf8("Enregistrer le projet"),trUtf8("Le projet comporte des modifications non enregistrées. Voulez-vous sauvegarder ?"));
+        msg->abeSetModeEnum(AbulEduMessageBoxV1::abeYesNoCancelButton);
+        msg->show();
+        connect(msg,SIGNAL(signalAbeMessageBoxYES()),SLOT(on_abeMenuFeuilleBtnSave_clicked()),Qt::UniqueConnection);
+        connect(msg,SIGNAL(signalAbeMessageBoxNO()),SLOT(deleteLater()),Qt::UniqueConnection);
+    }
+}
+
 #ifndef QT_NO_PRINTER
 void MainWindow::filePrint(QPrinter *printer)
 {
@@ -965,4 +985,11 @@ void MainWindow::slotSessionAuthenticated(bool enable)
     if (m_localDebug) qDebug()<<" ++++++++ "<< __FILE__ <<  __LINE__ << __FUNCTION__<< enable;
     if(enable)
         abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
+}
+
+void MainWindow::on_teZoneTexte_textChanged()
+{
+    if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
+        setWindowModified(true);
+    }
 }
