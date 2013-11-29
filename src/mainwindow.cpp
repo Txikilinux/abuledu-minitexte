@@ -845,6 +845,10 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
     {
         msgEnregistrement->setWink();
     }
+    if(m_isCloseRequested)
+    {
+        connect(msgEnregistrement,SIGNAL(signalAbeMessageBoxCloseOrHide()),this,SLOT(deleteLater()),Qt::UniqueConnection);
+    }
     msgEnregistrement->show();
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
     if(m_wantNewFile){
