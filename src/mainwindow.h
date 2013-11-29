@@ -153,6 +153,9 @@ private:
     QAction *m_actionTextBold,
             *m_actionTextItalic,
             *m_actionTextUnderline,
+            *m_actionFontAndika,
+            *m_actionFontSeyes,
+            *m_actionFontPlume,
             *m_actionTextColor,
             *m_actionAlignLeft,
             *m_actionAlignCenter,
@@ -165,20 +168,14 @@ private:
             *m_actionPaste,
             *m_actionImageFromData;
 
-    /** Combobox des Polices */
-//    QComboBox *m_comboFont;
-    AbulEduFlatBoutonV1 *m_btnFontAndika;
-    AbulEduFlatBoutonV1 *m_btnFontPlume;
-    AbulEduFlatBoutonV1 *m_btnFontCrayon;
-    AbulEduFlatBoutonV1 *m_btnFontSeyes;
-    AbulEduFlatBoutonV1 *m_btnFontIncrease;
-    AbulEduFlatBoutonV1 *m_btnFontDecrease;
-
-    /** Combobox des tailles de polices valides */
-//    QComboBox *m_comboSize;
+    QPushButton *m_btnFontIncrease;
+    QPushButton *m_btnFontDecrease;
 
     /** Groupe des actions d'alignement */
     QActionGroup *m_alignActions;
+
+    /** Groupe des actions de police de caractères */
+    QActionGroup *m_fontActions;
 
     /** Le chemin du fichier */
     QString m_fileName;
@@ -226,7 +223,7 @@ public slots:
     void setTextAlign(QAction *action);
 
     /** Applique la font sélectionnée */
-    void setTextFamily();
+    void setTextFamily(QAction *action);
 
     /** Applique la taille de font sélectionnée */
     void setTextSize(const QString &p);

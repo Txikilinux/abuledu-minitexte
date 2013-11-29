@@ -198,8 +198,11 @@ QToolBar *MainWindow::abeTexteGetToolBar()
 
 void MainWindow::abeTexteSetFontFamily(QString fontFamily)
 {
+    /*if(m_localDebug)*/ qDebug()  << __FILE__ <<  __LINE__ << __FUNCTION__<<fontFamily;
     //    m_comboFont->setCurrentFont(QFont(fontFamily));
-    setTextFamily();
+    QAction* act = m_fontActions->findChild<QAction*>(fontFamily);
+    /*if(m_localDebug)*/ qDebug()  << __FILE__ <<  __LINE__ << __FUNCTION__<<act->objectName();
+    setTextFamily(act);
 }
 
 QString MainWindow::abeTexteGetFontFamily()
@@ -279,10 +282,10 @@ void MainWindow::setTextAlign(QAction *action)
         ui->teZoneTexte->setAlignment(Qt::AlignJustify);
 }
 
-void MainWindow::setTextFamily()
+void MainWindow::setTextFamily(QAction* action)
 {
-    QString f = sender()->objectName();
-    if (m_localDebug) qDebug() << " Fonte : " << f;
+    QString f = action->objectName();
+    /*if (m_localDebug)*/ qDebug() << " Fonte : " << f;
     /* On applique le format de font sélectionnée */
     QTextCharFormat fmt;
     fmt.setFontFamily(f);
@@ -293,7 +296,7 @@ void MainWindow::setTextFamily()
     /* Espacement vertical different */
     QTextBlockFormat format;
 #if QT_VERSION >= 0x040700
-    format.setLineHeight(sender()->property("interligne").toInt(), QTextBlockFormat::ProportionalHeight);
+    format.setLineHeight(action->property("interligne").toInt(), QTextBlockFormat::ProportionalHeight);
 #endif
     QTextCursor curseur = ui->teZoneTexte->textCursor();
     curseur.setBlockFormat(format);
@@ -338,6 +341,9 @@ void MainWindow::setupToolBarAndActions()
 {
     /* Création de la Barre de boutons */
     tb = ui->toolBar;
+    QToolBar* tb2 = new QToolBar();
+    tb2->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    tb2->setFixedHeight(m_hauteurToolBar);
     tb->setToolButtonStyle(Qt::ToolButtonIconOnly);
     tb->setFixedHeight(m_hauteurToolBar);
     tb->setWindowTitle(trUtf8("&Édition"));
@@ -380,19 +386,21 @@ void MainWindow::setupToolBarAndActions()
     tb->addAction(m_actionTextUnderline);
     m_actionTextUnderline->setCheckable(true);
 
-    m_btnFontDecrease = new AbulEduFlatBoutonV1();
-    m_btnFontDecrease->setFixedSize(30,30);
-    m_btnFontDecrease->setCouleurFondPressed(QColor("#328aec"));
-    m_btnFontDecrease->setIconeNormale(":/abuledutextev1/format/decrease");
+    m_btnFontDecrease = new QPushButton();
+    m_btnFontDecrease->setFixedSize(m_hauteurToolBar,m_hauteurToolBar);
+    m_btnFontDecrease->setIcon(QIcon(":/abuledutextev1/format/decrease"));
+    m_btnFontDecrease->setIconSize(QSize(32,32));
+    m_btnFontDecrease->setFlat(true);
     m_btnFontDecrease->setObjectName("decrease");
     m_btnFontDecrease->setProperty("interligne",100);
     tb->addWidget(m_btnFontDecrease);
     connect(m_btnFontDecrease, SIGNAL(clicked()), this, SLOT(decreaseFontSize()), Qt::UniqueConnection);
 
-    m_btnFontIncrease = new AbulEduFlatBoutonV1();
-    m_btnFontIncrease->setFixedSize(30,30);
-    m_btnFontIncrease->setCouleurFondPressed(QColor("#328aec"));
-    m_btnFontIncrease->setIconeNormale(":/abuledutextev1/format/increase");
+    m_btnFontIncrease = new QPushButton();
+    m_btnFontIncrease->setFixedSize(m_hauteurToolBar,m_hauteurToolBar);
+    m_btnFontIncrease->setIcon(QIcon(":/abuledutextev1/format/increase"));
+    m_btnFontIncrease->setIconSize(QSize(32,32));
+    m_btnFontIncrease->setFlat(true);
     m_btnFontIncrease->setObjectName("increase");
     m_btnFontIncrease->setProperty("interligne",100);
     tb->addWidget(m_btnFontIncrease);
@@ -433,7 +441,7 @@ void MainWindow::setupToolBarAndActions()
     m_actionAlignJustify->setObjectName("alignjustify");
     m_actionAlignJustify->setCheckable(true);
     m_actionAlignJustify->setPriority(QAction::LowPriority);
-
+    m_actionAlignLeft->trigger();
     tb->addActions(m_alignActions->actions());
 
     tb->addSeparator();
@@ -449,84 +457,35 @@ void MainWindow::setupToolBarAndActions()
         if (m_localDebug) qDebug() << "Erreur sur :/fonts/PLUMBAE.TTF";
     }
 
-    //Pour tablettes, je préfère des boutons ...
-    m_btnFontAndika = new AbulEduFlatBoutonV1();
-    m_btnFontAndika->setFixedWidth(80);
-    m_btnFontAndika->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-    //    m_btnFontAndika->setCouleurFondPressed(QColor("#328aec"));
-    m_btnFontAndika->setText("Andika");
-    m_btnFontAndika->setFont(QFont("andika",14));
-    m_btnFontAndika->setObjectName("andika");
-    m_btnFontAndika->setProperty("interligne",100);
-    tb->addWidget(m_btnFontAndika);
-    connect(m_btnFontAndika, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
+    m_fontActions = new QActionGroup(this);
+    m_fontActions->setObjectName("groupfont");
+    connect(m_fontActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextFamily(QAction*)), Qt::UniqueConnection);
+    //Pour tablettes, je préfère des boutons ... mais pas les retours de test (philippe 20131129)
+    m_actionFontAndika = new QAction(QIcon(":/abuledutextev1/format/fontAndika"), trUtf8("&Andika"), m_fontActions);
+    m_actionFontAndika->setObjectName("andika");
+    m_actionFontAndika->setPriority(QAction::LowPriority);
+    m_actionFontAndika->setProperty("interligne",100);
+    tb2->addAction(m_actionFontAndika);
+    m_actionFontAndika->setCheckable(true);
+    m_actionFontAndika->trigger();
 
-    m_btnFontSeyes= new AbulEduFlatBoutonV1();
-    m_btnFontSeyes->setFixedWidth(80);
-    m_btnFontSeyes->setText("Seyes");
-    m_btnFontSeyes->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-    //    m_btnFontSeyes->setCouleursFond(QColor("#67beff"),QColor("#67beff"),QColor("#328aec"),QColor(Qt::lightGray));
-    //    m_btnFontSeyes->setCouleurFondPressed(QColor("#328aec"));
-    m_btnFontSeyes->setFont(QFont("SeyesBDE",16));
-    m_btnFontSeyes->setObjectName("SeyesBDE");
-    m_btnFontSeyes->setProperty("interligne",200);
-    //m_btnFontSeyes->setTextePadding(30,10,30,10);
-    tb->addWidget(m_btnFontSeyes);
-    connect(m_btnFontSeyes, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
+    m_actionFontSeyes = new QAction(QIcon(":/abuledutextev1/format/fontSeyes"), trUtf8("&Seyes"), m_fontActions);
+    m_actionFontSeyes->setObjectName("SeyesBDE");
+    m_actionFontSeyes->setPriority(QAction::LowPriority);
+    m_actionFontSeyes->setProperty("interligne",200);
+    tb2->addAction(m_actionFontSeyes);
+    m_actionFontSeyes->setCheckable(true);
 
-    /* Philippe 20130926
-     * On veut que ce soit le plus simple possible, je pense qu'une seule police cursive suffit
+    m_actionFontPlume = new QAction(QIcon(":/abuledutextev1/format/fontPlume"), trUtf8("&Plume"), m_fontActions);
+    m_actionFontPlume->setObjectName("PlumBAE");
+    m_actionFontPlume->setPriority(QAction::LowPriority);
+    m_actionFontPlume->setProperty("interligne",120);
+    tb2->addAction(m_actionFontPlume);
+    m_actionFontPlume->setCheckable(true);
 
-    m_btnFontCrayon= new AbulEduFlatBoutonV1();
-    m_btnFontCrayon->setFixedWidth(80);
-    m_btnFontCrayon->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-    //    m_btnFontCrayon->setCouleurFondPressed(QColor("#328aec"));
-    m_btnFontCrayon->setText("Crayon");
-    m_btnFontCrayon->setFont(QFont("CrayonE",16));
-    m_btnFontCrayon->setObjectName("CrayonE");
-    m_btnFontCrayon->setProperty("interligne",120);
-    tb->addWidget(m_btnFontCrayon);
-    connect(m_btnFontCrayon, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
-    */
-
-    m_btnFontPlume= new AbulEduFlatBoutonV1();
-    m_btnFontPlume->setFixedWidth(80);
-    m_btnFontPlume->setCouleursTexte(QColor(Qt::white),QColor(Qt::white),QColor(Qt::white),QColor(Qt::lightGray));
-    //    m_btnFontPlume->setCouleurFondPressed(QColor("#328aec"));
-    m_btnFontPlume->setText("Plume");
-    m_btnFontPlume->setFont(QFont("PlumBAE",16));
-    m_btnFontPlume->setObjectName("PlumBAE");
-    m_btnFontPlume->setProperty("interligne",120);
-    tb->addWidget(m_btnFontPlume);
-    connect(m_btnFontPlume, SIGNAL(clicked()), this, SLOT(setTextFamily()), Qt::UniqueConnection);
-
+    tb2->setIconSize(QSize(64,48));
+    tb->addWidget(tb2);
     tb->addSeparator();
-
-    // Les actions concernant le choix de la police création de la combobox
-    //    m_comboFont = new QComboBox(tb);
-    //    m_comboFont->setObjectName("combofont");
-    //    m_comboFont->addItem("Andika");
-    //    m_comboFont->addItem("CrayonE");
-    //    m_comboFont->addItem("PlumBAE");
-    //    m_comboFont->addItem("SeyesBDE");
-    //    tb->addWidget(m_comboFont);
-    //    m_comboFont->setEditable(false);
-    //    connect(m_comboFont, SIGNAL(activated(QString)),
-    //            this, SLOT(setTextFamily(QString)));
-    //    // La taille de la police, création de la combobox
-    //    m_comboSize = new QComboBox(tb);
-    //    m_comboSize->setObjectName("comboSize");
-    //    tb->addWidget(m_comboSize);
-    //    m_comboSize->setEditable(true);
-
-    //    QFontDatabase db;
-    //    foreach(int size, db.standardSizes())
-    //        m_comboSize->addItem(QString::number(size)); // On ajoute dans la combobox les tailles valides
-
-    //    connect(m_comboSize, SIGNAL(activated(QString)),
-    //            this, SLOT(setTextSize(QString)));
-    //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(QApplication::font()
-    //                                                                       .pointSize())));
 
     // Création de l'icone de la couleur sélectionnée
     QPixmap pix(16, 16);
@@ -541,17 +500,6 @@ void MainWindow::setupToolBarAndActions()
 
     connect(m_actionImageFromData, SIGNAL(triggered()), this, SLOT(showAbeMediathequeGet()), Qt::UniqueConnection);
     tb->addAction(m_actionImageFromData);
-
-
-    //    QWidget *spacerWidget = new QWidget(ui->toolBar);
-    //    spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    //    spacerWidget->setVisible(true);
-    //    QAction *actionQuit = new QAction(QIcon(":/abuledutextev1/fermer-48"),trUtf8("Quit"), this);
-    //    connect(actionQuit,SIGNAL(triggered()),this,SLOT(close()));
-
-    //    ui->toolBar->addWidget(spacerWidget);
-    //    ui->toolBar->addAction(actionQuit);
-
 }
 
 void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)

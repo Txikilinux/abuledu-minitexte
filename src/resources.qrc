@@ -83,5 +83,11 @@
         <file alias="justify">data/images/justifier-appuy.png</file>
         <file alias="decrease">data/images/reduire.png</file>
         <file alias="increase">data/images/agrandir.png</file>
+        <file alias="fontPlume">data/images/plume-appuy.png</file>
+        <file>data/images/plume.png</file>
+        <file>data/images/seyes.png</file>
+        <file alias="fontSeyes">data/images/seyes-appuy.png</file>
+        <file>data/images/andika.png</file>
+        <file alias="fontAndika">data/images/andika-appuy.png</file>
     </qresource>
 </RCC>
