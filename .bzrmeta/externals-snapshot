@@ -4,13 +4,13 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledunetworkaccessmanagerv1/
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduflatboutonv1/ src/lib/abuleduflatboutonv1 revid:eric.seigne@ryxeo.com-20130927105216-7lswlv8i3bdefd20
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/maia/ src/lib/maia revid:eric.seigne@ryxeo.com-20131025165101-tlwq5dekebv3nsv6
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduidentitesv1/ src/lib/abuleduidentitesv1 revid:icham.sirat@ryxeo.com-20131113165428-669hx8bxcm8jpkc3
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumessageboxv1/ src/lib/abuledumessageboxv1 revid:icham.sirat@ryxeo.com-20131025124447-unq3r3ajiozo19tp
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumessageboxv1/ src/lib/abuledumessageboxv1 revid:philippe.cadaugade@ryxeo.com-20131129154406-a9jfbhvn0w7nxaeb
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledufilev1 src/lib/abuledufilev1 revid:eric.seigne@ryxeo.com-20131122225049-4uwnzyn50wmws90v
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduvirtualkeyboardv1 src/lib/abuleduvirtualkeyboardv1 revid:philippe.cadaugade@ryxeo.com-20131129143258-a257429f5tksplnh
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:frucot.jeanlouis@free.fr-20131022152156-u2qis2z9hs63bmbl
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusplashscreenv1/ src/lib/abuledusplashscreenv1 revid:eric.seigne@ryxeo.com-20131123100639-ics5k2jhzkr8y7is
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledulangv1/ src/lib/abuledulangv1 revid:eric.seigne@ryxeo.com-20131030180044-nvpgvjev3917r1hb
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumenufeuillev1/ src/lib/abuledumenufeuillev1 revid:philippe.cadaugade@ryxeo.com-20131115143120-ne0xd7udxbff84ko
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumenufeuillev1/ src/lib/abuledumenufeuillev1 revid:eric.seigne@ryxeo.com-20131201160339-iz1jhq73147z7zeg
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusingletonv1 src/lib/abuledusingletonv1 revid:icham.sirat@ryxeo.com-20131114131541-amijblz464p6s9ng
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupluginloaderv1/ src/lib/abuledupluginloaderv1 revid:icham.sirat@ryxeo.com-20130926160519-igrhi822pw1afdbh
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaproposv1 src/lib/abuleduaproposv1 revid:philippe.cadaugade@ryxeo.com-20131127113820-ssxp0sobk645scrm

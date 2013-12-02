@@ -623,7 +623,7 @@ bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal hei
 
 void MainWindow::closeEvent(QCloseEvent *e)
 {
-    if(!isWindowModified()){
+    if(!isWindowModified() || (m_isNewFile && ui->teZoneTexte->toPlainText().isEmpty())){
         e->accept();
         return;
     }
@@ -768,13 +768,17 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
     {
         m_abuledufile = abeFile;
     }
-    if (m_localDebug) qDebug() << "Ouverture du fichier " << m_abuledufile->abeFileGetFileName().filePath();
-    qDebug()<<" dont le repertoire temporaire est "<<m_abuledufile->abeFileGetDirectoryTemp().absolutePath();
+    if (m_localDebug) {
+        qDebug() << "Ouverture du fichier " << m_abuledufile->abeFileGetFileName().filePath();
+        qDebug()<<" dont le repertoire temporaire est "<<m_abuledufile->abeFileGetDirectoryTemp().absolutePath();
+        qDebug()<<m_fileName;
+    }
+
+    m_isNewFile = false;
     setCurrentFileName(m_abuledufile->abeFileGetContent(0).absoluteFilePath());
 
     // ==============================================================================
     /* lecture du fichier html */
-    if (m_localDebug) qDebug()<<m_fileName;
     QFile  htmlFile(m_fileName);
     if (!htmlFile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return;
