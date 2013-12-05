@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/abuleduaproposv1">
-        <file>help_fr.txt</file>
-        <file>presentation_fr.txt</file>
-        <file>about_fr.txt</file>
+        <file>help_fr.html</file>
+        <file>presentation_fr.html</file>
+        <file>about_fr.html</file>
     </qresource>
 </RCC>
