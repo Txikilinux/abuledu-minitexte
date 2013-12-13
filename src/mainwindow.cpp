@@ -98,6 +98,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btnLire->setEnabled(true);
     ui->btnPause->setEnabled(false);
     ui->btnStop->setEnabled(false);
+
+    connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)), m_picoLecteur, SLOT(slotAbePicoSetLang(QString)), Qt::UniqueConnection);
 #endif
 
     ui->toolBar->setParent(ui->frFormat);
