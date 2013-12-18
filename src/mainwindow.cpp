@@ -633,7 +633,7 @@ void MainWindow::closeEvent(QCloseEvent *e)
     {
         e->ignore();
         m_isCloseRequested = true;
-        AbulEduMessageBoxV1* msg = new AbulEduMessageBoxV1(trUtf8("Enregistrer le projet"),trUtf8("Le projet comporte des modifications non enregistrées. Voulez-vous sauvegarder ?"));
+        AbulEduMessageBoxV1* msg = new AbulEduMessageBoxV1(trUtf8("Enregistrer le projet"),trUtf8("Le projet comporte des modifications non enregistrées. Voulez-vous sauvegarder ?"),true,ui->stackedWidget->currentWidget());
         msg->abeSetModeEnum(AbulEduMessageBoxV1::abeYesNoCancelButton);
         msg->show();
         connect(msg,SIGNAL(signalAbeMessageBoxYES()),SLOT(on_abeMenuFeuilleBtnSave_clicked()),Qt::UniqueConnection);
@@ -649,7 +649,7 @@ void MainWindow::filePrint(QPrinter *printer)
 
     /* On affiche un message */
     QString message("Impression en cours");
-    AbulEduMessageBoxV1* msgImpression = new AbulEduMessageBoxV1(trUtf8("Impression"), message,this);
+    AbulEduMessageBoxV1* msgImpression = new AbulEduMessageBoxV1(trUtf8("Impression"), message,true,ui->pagePrint);
     msgImpression->setWink();
     msgImpression->show();
     connect(msgImpression, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
@@ -846,7 +846,7 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
     else{
         message = trUtf8("Votre fichier n'a pas pu être enregistré...");
     }
-    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,this);
+    AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,true,ui->pageBoxFileManager);
     if(success)
     {
         msgEnregistrement->setWink();
