@@ -21,3 +21,4 @@ release
 ./src/lib/abuledusingletonv1
 ./src/lib/abuledupluginloaderv1
 ./src/lib/abuleduaproposv1
+./src/lib/abuleduloggerv1

@@ -116,3 +116,4 @@ OTHER_FILES += \
     android/AndroidManifest.xml
 
 include(lib/abuleduaproposv1/abuleduaproposv1.pri)
+include(lib/abuleduloggerv1/abuleduloggerv1.pri)
