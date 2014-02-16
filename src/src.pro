@@ -4,14 +4,6 @@
 #
 #-------------------------------------------------
 
-!android {
-  system(ccache -V):QMAKE_CXX = ccache g++
-}
-android {
-  DEFINES += QT_NO_PRINTER=1
-  system(ccache -V):QMAKE_CXX = ccache arm-linux-gnueabi-g++-4.6
-}
-
 INCLUDEPATH += $$PWD
 DEPENDPATH  += $$PWD
 
@@ -117,3 +109,4 @@ OTHER_FILES += \
 
 include(lib/abuleduaproposv1/abuleduaproposv1.pri)
 include(lib/abuleduloggerv1/abuleduloggerv1.pri)
+include(lib/abuleduandroidsupportv1/abuleduandroidsupportv1.pri)
