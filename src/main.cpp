@@ -3,7 +3,7 @@
   * @warning aucun traitement d'erreur n'est pour l'instant implémenté
   * @see https://redmine.ryxeo.com/projects/abuledu-minitexte
   * @author 2011 Jean-Louis Frucot <frucot.jeanlouis@free.fr>
-  * @author 2012 Eric Seigne <eric.seigne@ryxeo.com>
+  * @author 2012-2014 Eric Seigne <eric.seigne@ryxeo.com>
   * @see The GNU Public License (GPL)
   *
   * This program is free software; you can redistribute it and/or modify
@@ -33,10 +33,14 @@ int main(int argc, char *argv[])
 
     MainWindow *w;
 
-#ifdef __ABULEDUTABLETTEV1__MODE__
+#ifdef Q_OS_ANDROID
+    w = new MainWindow();
+    w->showMaximized();
+#else
+  #ifdef __ABULEDUTABLETTEV1__MODE__
     w = new MainWindow();
     w->showFullScreen();
-#else
+  #else
     /* Splashscreen */
     AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowFullScreen);
     splash->abeSplashScreenLauchUtilitaire(true);
@@ -44,6 +48,7 @@ int main(int argc, char *argv[])
     w = new MainWindow();
     splash->setMainWindow(w);
     splash->launch(1000); //pour les developpeurs presses, remplacer le 1000 par 100 mais attention : plus le temps de transmettre l'authentification
+  #endif
 #endif
 
     return a.exec();
