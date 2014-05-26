@@ -28,7 +28,7 @@
   <widget class="QWidget" name="centralWidget">
    <property name="styleSheet">
     <string notr="true">QWidget #centralWidget {
-  background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(84, 181, 255, 213), stop:1 rgba(195, 231, 255, 157));
+  background-color: #85cbfa;
 }</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
@@ -168,6 +168,9 @@
             <widget class="QTextEdit" name="teZoneTexte">
              <property name="focusPolicy">
               <enum>Qt::StrongFocus</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#fbfbfb;</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
