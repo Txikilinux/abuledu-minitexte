@@ -39,6 +39,21 @@ MainWindow::MainWindow(QWidget *parent) :
     m_localDebug = true;
     m_isCloseRequested = false;
 
+    qDebug()<<" /////////////////////////////////////////////////////////////////////////////////////////////////////// ";
+    qDebug()<<abeApp->getAbeApplicationMultiMediaSettings()->abeMultiMediaSettingsGetTTSLanguageFromIso6392("eng");
+    qDebug()<<" /////////////////////////////////////////////////////////////////////////////////////////////////////// ";
+
+#ifdef Q_OS_WIN
+    switch(QSysInfo::windowsVersion())
+    {
+        case QSysInfo::WV_2000: qDebug()<< "Windows 2000";break;
+        case QSysInfo::WV_XP: qDebug()<< "Windows XP";break;
+        case QSysInfo::WV_VISTA: qDebug()<< "Windows Vista";break;
+        case QSysInfo::WV_WINDOWS7: qDebug()<< "Windows Seven";break;
+        case QSysInfo::WV_WINDOWS8: qDebug()<< "Windows 8";break;
+        default: qDebug()<< "Windows";break;
+    }
+#endif
 
     installTranslator();
 
@@ -92,18 +107,37 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowFlags(Qt::CustomizeWindowHint);
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),this,SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
 
+    m_multimedia = new AbulEduMultiMediaV1(AbulEduMultiMediaV1::Sound);
+//    m_multimedia->abeMultiMediaGetAudioControlWidget()->setParent(ui->frmControlAudio);
+    m_multimedia->abeMultiMediaGetAudioControlWidget()->abeControlAudioSetDirection(QBoxLayout::TopToBottom);
+    m_multimedia->abeMultiMediaSetButtonVisible(AbulEduMultiMediaV1::BtnMagnifyingGlass | AbulEduMultiMediaV1::BtnPrevious | AbulEduMultiMediaV1::BtnNext | AbulEduMultiMediaV1::BtnHide | AbulEduMultiMediaV1::BtnRecord,false);
+    m_multimedia->abeMultiMediaForceStop();
+    ui->frmControlAudio->layout()->addWidget(m_multimedia->abeMultiMediaGetAudioControlWidget());
+    ui->frmControlAudio->setMaximumSize(m_multimedia->abeMultiMediaGetAudioControlWidget()->size());
+    connect(m_multimedia->abeMultiMediaGetAudioControlWidget(), SIGNAL(signalAbeControlAudioPlayClicked()),this, SLOT(slotReadContent()),Qt::UniqueConnection);
+    qDebug()<<m_multimedia->abeMultiMediaGetAudioControlWidget()->size();
+    qDebug()<<ui->frmControlAudio->size();
+    ui->pageTexte->adjustSize();
+    /** @todo autres langues ? */
+    if(m_multimedia->abeMultiMediaGetTTSlang() != AbulEduMultiMediaSettingsV1::fre){
+        m_multimedia->abeMultimediaSetTTS(AbulEduMultiMediaSettingsV1::fre);
+    }
+//    m_multimedia->abeMultiMediaSetNewMedia(AbulEduMediaMedias(QString(),QString(),ui->leReconnaitre->text()));
+
+
+
 #ifndef Q_OS_ANDROID
     m_isPicoReading = false;
     m_picoLecteur = new AbulEduPicottsV1(4);
     connect(m_picoLecteur, SIGNAL(endOfPlay()),this, SLOT(on_btnStop_clicked()),Qt::UniqueConnection);
-    ui->btnLire->setEnabled(true);
-    ui->btnPause->setEnabled(false);
-    ui->btnStop->setEnabled(false);
+//    ui->btnLire->setEnabled(true);
+//    ui->btnPause->setEnabled(false);
+//    ui->btnStop->setEnabled(false);
 
-    connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)), m_picoLecteur, SLOT(slotAbePicoSetLang(QString)), Qt::UniqueConnection);
+    connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)), m_multimedia, SLOT(slotAbeMultimediaSetTTSfromIso6391(QString)), Qt::UniqueConnection);
 #endif
 
-    ui->toolBar->setParent(ui->frFormat);
+    ui->toolBar->setParent(ui->frmFormat);
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
     QTextCharFormat tcf;
     tcf.setFontFamily("Andika");
@@ -761,7 +795,7 @@ void MainWindow::fileOpen()
     ui->abeBoxFileManager->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeOpen);
     ui->abeBoxFileManager->abeRefresh(AbulEduBoxFileManagerV1::abePC);
     ui->stackedWidget->setCurrentWidget(ui->pageBoxFileManager);
-    ui->frFormat->setEnabled(true);
+    ui->frmFormat->setEnabled(true);
 }
 
 void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
@@ -873,10 +907,11 @@ void MainWindow::on_btnLire_clicked()
     }
     else {
         m_picoLecteur->abePicoPlay(txt);
+        qDebug()<<"Appel de abePicoPlay pour "<<txt;
     }
-    ui->btnLire->setEnabled(false);
-    ui->btnPause->setEnabled(true);
-    ui->btnStop->setEnabled(true);
+//    ui->btnLire->setEnabled(false);
+//    ui->btnPause->setEnabled(true);
+//    ui->btnStop->setEnabled(true);
     m_isPicoReading = !m_isPicoReading;
 #endif
 }
@@ -885,9 +920,9 @@ void MainWindow::on_btnPause_clicked()
 {
 #ifndef Q_OS_ANDROID
     m_picoLecteur->abePicoPause();
-    ui->btnLire->setEnabled(true);
-    ui->btnPause->setEnabled(false);
-    ui->btnStop->setEnabled(true);
+//    ui->btnLire->setEnabled(true);
+//    ui->btnPause->setEnabled(false);
+//    ui->btnStop->setEnabled(true);
 #endif
 }
 
@@ -896,9 +931,9 @@ void MainWindow::on_btnStop_clicked()
 #ifndef Q_OS_ANDROID
     m_picoLecteur->abePicoStop();
     m_isPicoReading = false;
-    ui->btnLire->setEnabled(true);
-    ui->btnPause->setEnabled(false);
-    ui->btnStop->setEnabled(false);
+//    ui->btnLire->setEnabled(true);
+//    ui->btnPause->setEnabled(false);
+//    ui->btnStop->setEnabled(false);
 #endif
 }
 
@@ -924,7 +959,7 @@ void MainWindow::on_abeMenuFeuilleBtnQuit_clicked()
 
 void MainWindow::on_stackedWidget_currentChanged(int arg1)
 {
-    if (m_localDebug) qDebug()<<"page courante : "<<ui->stackedWidget->currentWidget()->objectName();
+    if (m_localDebug) qDebug()<<"page courante : "<<ui->stackedWidget->widget(arg1)->objectName();
 }
 
 void MainWindow::slotClearCurrent()
@@ -975,7 +1010,7 @@ void MainWindow::showAbeMediathequeGet()
 void MainWindow::showTextPage()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
-    ui->frFormat->setEnabled(true);
+    ui->frmFormat->setEnabled(true);
 }
 
 void MainWindow::slotChangeLangue(QString lang)
@@ -1003,4 +1038,11 @@ void MainWindow::on_teZoneTexte_textChanged()
     if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
         setWindowModified(true);
     }
+}
+
+void MainWindow::slotReadContent()
+{
+    if (m_localDebug) qDebug()<<" ++++++++ "<< __FUNCTION__;
+    m_multimedia->abeMultiMediaSetNewMedia(AbulEduMediaMedias(QString(),QString(),ui->teZoneTexte->toPlainText()));
+    m_multimedia->abeMultiMediaPlay();
 }

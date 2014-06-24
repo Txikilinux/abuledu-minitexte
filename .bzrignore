@@ -10,3 +10,5 @@ ui_*
 debug
 release
 
+./src/lib/abuledumultimediav1
+./src/lib/abuleduaudiov1

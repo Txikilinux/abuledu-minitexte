@@ -47,11 +47,7 @@
 #include "abuleduflatboutonv1.h"
 #include "abuledumediathequegetv1.h"
 #include "abuleduboxfilemanagerv1.h"
-
-#ifndef Q_OS_ANDROID
-#include "abuledupicottsv1.h"
-#endif
-
+#include "abuledumultimediav1.h"
 
 namespace Ui {
 class MainWindow;
@@ -199,6 +195,9 @@ private:
     bool   m_isWindowMoving;
 
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
+
+    AbulEduMultiMediaV1* m_multimedia;
+
 #ifndef Q_OS_ANDROID
     AbulEduPicottsV1              *m_picoLecteur;
     bool m_isPicoReading;
@@ -295,6 +294,8 @@ private slots:
     void slotChangeLangue(QString lang);
 
     void on_teZoneTexte_textChanged();
+
+    void slotReadContent();
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */

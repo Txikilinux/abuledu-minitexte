@@ -118,29 +118,60 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="0" column="1">
-            <widget class="QFrame" name="frmPico">
-             <layout class="QVBoxLayout" name="verticalLayout">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-             </layout>
+           <item row="1" column="2">
+            <widget class="QFrame" name="frmControlAudio">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>200</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_5"/>
             </widget>
            </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QFrame" name="frFormat">
+           <item row="2" column="2">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>392</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="1" rowspan="2">
+            <widget class="QTextEdit" name="teZoneTexte">
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#fbfbfb;</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="lineWidth">
+              <number>0</number>
+             </property>
+             <property name="horizontalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOff</enum>
+             </property>
+             <property name="autoFormatting">
+              <set>QTextEdit::AutoAll</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="3">
+            <widget class="QFrame" name="frmFormat">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -164,112 +195,49 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0" rowspan="4">
-            <widget class="QTextEdit" name="teZoneTexte">
-             <property name="focusPolicy">
-              <enum>Qt::StrongFocus</enum>
+           <item row="1" column="0" rowspan="2">
+            <widget class="QFrame" name="frmLeftBorder">
+             <property name="minimumSize">
+              <size>
+               <width>10</width>
+               <height>0</height>
+              </size>
              </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:#fbfbfb;</string>
+             <property name="maximumSize">
+              <size>
+               <width>20</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>
-             <property name="lineWidth">
-              <number>0</number>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="autoFormatting">
-              <set>QTextEdit::AutoAll</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="AbulEduFlatBoutonV1" name="btnLire">
-             <property name="minimumSize">
-              <size>
-               <width>48</width>
-               <height>48</height>
-              </size>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>64</width>
-               <height>64</height>
-              </size>
-             </property>
-             <property name="IconeDisabled" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/playDisabled</string>
-             </property>
-             <property name="IconePressed" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/playHover</string>
-             </property>
-             <property name="IconeSurvol" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/playHover</string>
-             </property>
-             <property name="IconeNormale" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/play</string>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
              </property>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="AbulEduFlatBoutonV1" name="btnPause">
+            <widget class="QFrame" name="frmBottomBorder">
              <property name="minimumSize">
               <size>
-               <width>48</width>
-               <height>48</height>
+               <width>0</width>
+               <height>10</height>
               </size>
              </property>
-             <property name="IconeDisabled" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/pauseDisabled</string>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
              </property>
-             <property name="IconePressed" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/pauseHover</string>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
              </property>
-             <property name="IconeNormale" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/pause</string>
-             </property>
-             <property name="IconeSurvol" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/pauseHover</string>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
              </property>
             </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="AbulEduFlatBoutonV1" name="btnStop">
-             <property name="minimumSize">
-              <size>
-               <width>48</width>
-               <height>48</height>
-              </size>
-             </property>
-             <property name="IconeDisabled" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/stopDisabled</string>
-             </property>
-             <property name="IconePressed" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/stopHover</string>
-             </property>
-             <property name="IconeNormale" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/stop</string>
-             </property>
-             <property name="IconeSurvol" stdset="0">
-              <string notr="true">:/abuledutextev1/buttons/stopHover</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>392</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -409,11 +377,6 @@
    <extends>QWidget</extends>
    <header>abuleduboxfilemanagerv1.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>AbulEduFlatBoutonV1</class>
-   <extends>QPushButton</extends>
-   <header>abuleduflatboutonv1.h</header>
   </customwidget>
   <customwidget>
    <class>AbulEduMediathequeGetV1</class>
