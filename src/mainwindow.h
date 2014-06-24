@@ -198,12 +198,6 @@ private:
 
     AbulEduMultiMediaV1* m_multimedia;
 
-#ifndef Q_OS_ANDROID
-    AbulEduPicottsV1              *m_picoLecteur;
-    bool m_isPicoReading;
-#endif
-
-
 #ifndef QT_NO_PRINTER
     /** Gestion Impression */
     QPrintDialog *m_printDialog;
@@ -263,10 +257,6 @@ public slots:
     void slotSessionAuthenticated(bool enable);
 
 private slots:
-    void on_btnLire_clicked();
-    void on_btnPause_clicked();
-    void on_btnStop_clicked();
-
     void on_abeMenuFeuilleBtnNew_clicked();
     void on_abeMenuFeuilleBtnOpen_clicked();
     void on_abeMenuFeuilleBtnSave_clicked();

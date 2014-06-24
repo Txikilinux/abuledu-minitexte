@@ -36,12 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_hauteurToolBar = 48;
 
-    m_localDebug = true;
+    m_localDebug = false;
     m_isCloseRequested = false;
-
-    qDebug()<<" /////////////////////////////////////////////////////////////////////////////////////////////////////// ";
-    qDebug()<<abeApp->getAbeApplicationMultiMediaSettings()->abeMultiMediaSettingsGetTTSLanguageFromIso6392("eng");
-    qDebug()<<" /////////////////////////////////////////////////////////////////////////////////////////////////////// ";
 
 #ifdef Q_OS_WIN
     switch(QSysInfo::windowsVersion())
@@ -115,8 +111,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->frmControlAudio->layout()->addWidget(m_multimedia->abeMultiMediaGetAudioControlWidget());
     ui->frmControlAudio->setMaximumSize(m_multimedia->abeMultiMediaGetAudioControlWidget()->size());
     connect(m_multimedia->abeMultiMediaGetAudioControlWidget(), SIGNAL(signalAbeControlAudioPlayClicked()),this, SLOT(slotReadContent()),Qt::UniqueConnection);
-    qDebug()<<m_multimedia->abeMultiMediaGetAudioControlWidget()->size();
-    qDebug()<<ui->frmControlAudio->size();
     ui->pageTexte->adjustSize();
     /** @todo autres langues ? */
     if(m_multimedia->abeMultiMediaGetTTSlang() != AbulEduMultiMediaSettingsV1::fre){
@@ -124,18 +118,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 //    m_multimedia->abeMultiMediaSetNewMedia(AbulEduMediaMedias(QString(),QString(),ui->leReconnaitre->text()));
 
-
-
-#ifndef Q_OS_ANDROID
-    m_isPicoReading = false;
-    m_picoLecteur = new AbulEduPicottsV1(4);
-    connect(m_picoLecteur, SIGNAL(endOfPlay()),this, SLOT(on_btnStop_clicked()),Qt::UniqueConnection);
-//    ui->btnLire->setEnabled(true);
-//    ui->btnPause->setEnabled(false);
-//    ui->btnStop->setEnabled(false);
-
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)), m_multimedia, SLOT(slotAbeMultimediaSetTTSfromIso6391(QString)), Qt::UniqueConnection);
-#endif
 
     ui->toolBar->setParent(ui->frmFormat);
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
@@ -324,7 +307,7 @@ void MainWindow::setTextAlign(QAction *action)
 void MainWindow::setTextFamily(QAction* action)
 {
     QString f = action->objectName();
-    /*if (m_localDebug)*/ qDebug() << " Fonte : " << f;
+    if (m_localDebug) qDebug() << " Fonte : " << f;
     /* On applique le format de font sélectionnée */
     QTextCharFormat fmt;
     fmt.setFontFamily(f);
@@ -896,45 +879,6 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
         slotClearCurrent();
         m_wantNewFile = false;
     }
-}
-
-void MainWindow::on_btnLire_clicked()
-{
-#ifndef Q_OS_ANDROID
-    QString txt = QString("<break time=\"1s\"><speed level=\"80\"><volume level=\"100\">%1</speed>").arg(ui->teZoneTexte->toPlainText());
-    if(m_isPicoReading) {
-        m_picoLecteur->abePicoResume();
-    }
-    else {
-        m_picoLecteur->abePicoPlay(txt);
-        qDebug()<<"Appel de abePicoPlay pour "<<txt;
-    }
-//    ui->btnLire->setEnabled(false);
-//    ui->btnPause->setEnabled(true);
-//    ui->btnStop->setEnabled(true);
-    m_isPicoReading = !m_isPicoReading;
-#endif
-}
-
-void MainWindow::on_btnPause_clicked()
-{
-#ifndef Q_OS_ANDROID
-    m_picoLecteur->abePicoPause();
-//    ui->btnLire->setEnabled(true);
-//    ui->btnPause->setEnabled(false);
-//    ui->btnStop->setEnabled(true);
-#endif
-}
-
-void MainWindow::on_btnStop_clicked()
-{
-#ifndef Q_OS_ANDROID
-    m_picoLecteur->abePicoStop();
-    m_isPicoReading = false;
-//    ui->btnLire->setEnabled(true);
-//    ui->btnPause->setEnabled(false);
-//    ui->btnStop->setEnabled(false);
-#endif
 }
 
 void MainWindow::on_abeMenuFeuilleBtnPrint_clicked()
