@@ -151,12 +151,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
 #ifndef __ABULEDUTABLETTEV1__MODE__
     /* On Centre la fenetre */
-    QDesktopWidget *widget = QApplication::desktop();
-    int desktop_width = widget->width();
-    int desktop_height = widget->height();
-    this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
+    centrerFenetre();
     ui->teZoneTexte->setFocus();
 #endif
+}
+
+void MainWindow::centrerFenetre()
+{
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
+    QDesktopWidget *widget = QApplication::desktop();
+    int desktop_width  = widget->screen(widget->screenNumber(this))->width();
+    int desktop_height = widget->screen(widget->screenNumber(this))->height();
+    this->move((desktop_width-this->width())/2, (desktop_height-this->height())/2);
 }
 
 void MainWindow::installTranslator()

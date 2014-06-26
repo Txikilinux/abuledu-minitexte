@@ -210,6 +210,8 @@ private:
     QTranslator myappTranslator;
     QString m_locale;
 
+    void centrerFenetre();
+
 public slots:
     /** Formate le texte en fonction des toolButtons activés
       * Gras, Souligné, Italic
