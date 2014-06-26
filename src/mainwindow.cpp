@@ -65,19 +65,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
-
-    //    m_abuleduFileManagerOpen = new AbulEduBoxFileManagerV1(0);
-    //    m_abuleduFileManagerOpen->abeSetFile(m_abuledufile);
-    //    connect(m_abuleduFileManagerOpen, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)));
     ui->abeBoxFileManager->abeMediathequeGetHideCloseBouton(true);
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)), Qt::UniqueConnection);
-
-
-    //    m_abuleduFileManagerSave = new AbulEduBoxFileManagerV1(0);
-    //    m_abuleduFileManagerSave->abeSetFile(m_abuledufile);
-    //    m_abuleduFileManagerSave->abeSetOpenOrSaveEnum(AbulEduBoxFileManagerV1::abeSave);
-    //    connect(m_abuleduFileManagerSave, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
-    //            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)));
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
             this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)), Qt::UniqueConnection);
 
@@ -104,7 +93,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),this,SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
 
     m_multimedia = new AbulEduMultiMediaV1(AbulEduMultiMediaV1::Sound);
-//    m_multimedia->abeMultiMediaGetAudioControlWidget()->setParent(ui->frmControlAudio);
     m_multimedia->abeMultiMediaGetAudioControlWidget()->abeControlAudioSetDirection(QBoxLayout::TopToBottom);
     m_multimedia->abeMultiMediaSetButtonVisible(AbulEduMultiMediaV1::BtnMagnifyingGlass | AbulEduMultiMediaV1::BtnPrevious | AbulEduMultiMediaV1::BtnNext | AbulEduMultiMediaV1::BtnHide | AbulEduMultiMediaV1::BtnRecord,false);
     m_multimedia->abeMultiMediaForceStop();
@@ -116,7 +104,6 @@ MainWindow::MainWindow(QWidget *parent) :
     if(m_multimedia->abeMultiMediaGetTTSlang() != AbulEduMultiMediaSettingsV1::fre){
         m_multimedia->abeMultimediaSetTTS(AbulEduMultiMediaSettingsV1::fre);
     }
-//    m_multimedia->abeMultiMediaSetNewMedia(AbulEduMediaMedias(QString(),QString(),ui->leReconnaitre->text()));
 
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)), m_multimedia, SLOT(slotAbeMultimediaSetTTSfromIso6391(QString)), Qt::UniqueConnection);
 
@@ -227,10 +214,10 @@ QToolBar *MainWindow::abeTexteGetToolBar()
 
 void MainWindow::abeTexteSetFontFamily(QString fontFamily)
 {
-    /*if(m_localDebug)*/ qDebug()  << __FILE__ <<  __LINE__ << __FUNCTION__<<fontFamily;
+    if(m_localDebug) qDebug()  << __FILE__ <<  __LINE__ << __FUNCTION__<<fontFamily;
     //    m_comboFont->setCurrentFont(QFont(fontFamily));
     QAction* act = m_fontActions->findChild<QAction*>(fontFamily);
-    /*if(m_localDebug)*/ qDebug()  << __FILE__ <<  __LINE__ << __FUNCTION__<<act->objectName();
+    if(m_localDebug) qDebug()  << __FILE__ <<  __LINE__ << __FUNCTION__<<act->objectName();
     setTextFamily(act);
 }
 
@@ -352,10 +339,9 @@ void MainWindow::setTextColor()
 
 void MainWindow::colorChanged(const QColor &col)
 {
-
-    if (!col.isValid())
+    if (!col.isValid()){
         return;
-
+    }
     QTextCharFormat fmt;
     fmt.setForeground(col);
     mergeFormatOnWordOrSelection(fmt);
@@ -436,12 +422,12 @@ void MainWindow::setupToolBarAndActions()
 
     tb->addSeparator();
 
-    // Alignement des paragraphes
+    /* Alignement des paragraphes */
     m_alignActions = new QActionGroup(this);
     m_alignActions->setObjectName("groupalign");
     connect(m_alignActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextAlign(QAction*)), Qt::UniqueConnection);
 
-    // On modifie la position des icones en fonction du sens du texte LTR ou RTL
+    /* On modifie la position des icones en fonction du sens du texte LTR ou RTL */
     if (QApplication::isLeftToRight()) {
         m_actionAlignLeft = new QAction(QIcon(":/abuledutextev1/format/left"), trUtf8("À gauc&he"), m_alignActions);
         m_actionAlignCenter = new QAction(QIcon(":/abuledutextev1/format/center"), trUtf8("Au c&entre"), m_alignActions);
@@ -488,7 +474,7 @@ void MainWindow::setupToolBarAndActions()
     m_fontActions = new QActionGroup(this);
     m_fontActions->setObjectName("groupfont");
     connect(m_fontActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextFamily(QAction*)), Qt::UniqueConnection);
-    //Pour tablettes, je préfère des boutons ... mais pas les retours de test (philippe 20131129)
+    /* Pour tablettes, je préfère des boutons ... mais pas les retours de test (philippe 20131129) */
     m_actionFontAndika = new QAction(QIcon(":/abuledutextev1/format/fontAndika"), trUtf8("&Andika"), m_fontActions);
     m_actionFontAndika->setObjectName("andika");
     m_actionFontAndika->setPriority(QAction::LowPriority);
@@ -518,7 +504,7 @@ void MainWindow::setupToolBarAndActions()
     tb->addWidget(tb2);
     tb->addSeparator();
 
-    // Création de l'icone de la couleur sélectionnée
+    /* Création de l'icone de la couleur sélectionnée */
     QPixmap pix(16, 16);
     pix.fill(Qt::black);
     m_actionTextColor = new QAction(pix, trUtf8("&Couleur..."), this);
@@ -671,7 +657,6 @@ void MainWindow::filePrint(QPrinter *printer)
 {
     /* On imprime */
     ui->teZoneTexte->print(printer);
-
     /* On affiche un message */
     QString message("Impression en cours");
     AbulEduMessageBoxV1* msgImpression = new AbulEduMessageBoxV1(trUtf8("Impression"), message,true,ui->pagePrint);
@@ -732,6 +717,7 @@ void MainWindow::updateActions(QTextCharFormat fmt)
 
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
 {
+    Q_UNUSED(code)
     QString file = abeFile->abeFileGetContent(0).absoluteFilePath();
     QString filename = abeFile->abeFileGetContent(0).baseName() + ".png";
 
@@ -772,7 +758,7 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
     cursor.insertText("Source: " + abeFile->abeFileGetIdentifier() + "\n",fmt);
     cursor.insertText("Auteur: " + abeFile->abeFileGetCreator(),fmt);
 
-    //Retour normal
+    /* Retour normal */
     QTextBlockFormat blockFormat;
     fmt.setFontItalic(false);
     cursor.insertBlock(blockFormat,fmt);
@@ -804,7 +790,6 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
     m_isNewFile = false;
     setCurrentFileName(m_abuledufile->abeFileGetContent(0).absoluteFilePath());
 
-    // ==============================================================================
     /* lecture du fichier html */
     QFile  htmlFile(m_fileName);
     if (!htmlFile.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -821,8 +806,6 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
     document->setHtml(htmlContent);
     ui->teZoneTexte->setDocument(document);
 
-
-    // ==============================================================================
     /* chargement des ressources dans le textDocument... */
     QTextDocument * textDocument = ui->teZoneTexte->document();
     QStringList liste = m_abuledufile->abeFileGetFileList();
@@ -835,7 +818,6 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
             if (m_localDebug) qDebug() << " ++ " << fi.absoluteFilePath() << " en tant que " << Uri;
         }
     }
-
     ui->teZoneTexte->update();
 }
 
@@ -966,7 +948,7 @@ void MainWindow::showTextPage()
 
 void MainWindow::slotChangeLangue(QString lang)
 {
-    if(m_localDebug) qDebug()<<" ---------         slot change langue en "<<lang;
+    if(m_localDebug) qDebug()<<__FUNCTION__<<" en "<<lang;
     qApp->removeTranslator(&qtTranslator);
     qApp->removeTranslator(&myappTranslator);
 
