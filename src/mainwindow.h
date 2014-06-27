@@ -65,14 +65,14 @@ public:
     QTextDocument *abeTexteGetDocument();
 
     /** Retourne un pointeur vers la barre de boutons */
-    QToolBar *abeTexteGetToolBar();
+//    QToolBar *abeTexteGetToolBar();
 
     /** Retourne un pointeur vers la barre de boutons */
-    QMenuBar *abeTexteGetMenuBar();
+//    QMenuBar *abeTexteGetMenuBar();
 
     /** Fixe la police sous le curseur courant
       * @param fontFamily le nom de la police
-      */
+*/
     void abeTexteSetFontFamily(QString fontFamily);
     QString abeTexteGetFontFamily();
 
@@ -104,22 +104,22 @@ public:
     /** Montre ou cache la ToolBar
       * @param ouiNon visible/masquée
       */
-    void abeTexteToolBarSetVisible(bool ouiNon);
+//    void abeTexteToolBarSetVisible(bool ouiNon);
 
     /** Retourne la visibilité de la ToolBar
       * @return true->visible, false->invisible
       */
-    bool abeTexteToolBarIsVisible();
+//    bool abeTexteToolBarIsVisible();
 
     /** Crée la QMenuBar si elle ne l'était pas */
-    void abeTexteSetMenuBar(bool ouiNon);
+//    void abeTexteSetMenuBar(bool ouiNon);
 
     /** Retourne l'existance de la menuBar
       * @return true->Elle existe, false-> elle n'existe pas.
       */
-    bool abeTexteHasMenuBar();
+//    bool abeTexteHasMenuBar();
 
-    /** insére une image à lo'endroit du curseur
+    /** insére une image à l'endroit du curseur
       * @param cheminImage Le chemin vers l'image à insérer
       */
     bool abeTexteInsertImage(QString cheminImage, qreal width = 0, qreal height = 0, QTextFrameFormat::Position position = QTextFrameFormat::InFlow, QString name = "");
@@ -131,7 +131,7 @@ private:
     bool m_isCloseRequested;
 
     /** Crée la barre de d'icones et les actions correspondantes */
-    void setupToolBarAndActions();
+    void setupToolButtons();
 
     /** Implémente le mécanisme de translation de l'application dans la langue locale */
     void installTranslator();
@@ -147,46 +147,15 @@ private:
     void setCurrentFileName(const QString &fileName);
 
     /** Crée une barre de menu avec les QActions disponibles */
-    void setupMenuBar();
-
-    /** Liste des QActions (pas toutes implémentées) */
-    QAction *m_actionTextBold,
-            *m_actionTextItalic,
-            *m_actionTextUnderline,
-            *m_actionFontAndika,
-            *m_actionFontSeyes,
-            *m_actionFontPlume,
-            *m_actionTextColor,
-            *m_actionAlignLeft,
-            *m_actionAlignCenter,
-            *m_actionAlignRight,
-            *m_actionAlignJustify,
-            *m_actionUndo,
-            *m_actionRedo,
-            *m_actionCut,
-            *m_actionCopy,
-            *m_actionPaste,
-            *m_actionImageFromData;
-
-    QPushButton *m_btnFontIncrease;
-    QPushButton *m_btnFontDecrease;
-
-    /** Groupe des actions d'alignement */
-    QActionGroup *m_alignActions;
-
-    /** Groupe des actions de police de caractères */
-    QActionGroup *m_fontActions;
+//    void setupMenuBar();
 
     /** Le chemin du fichier */
     QString m_fileName;
 
     bool m_localDebug;
-    QToolBar *tb;
-    QMenuBar *m_menuBar;
     int m_hauteurToolBar;
     QString m_font;
 
-    bool m_hasMenuBar;
     bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...
     bool m_wantNewFile;
 
@@ -211,6 +180,7 @@ private:
     QString m_locale;
 
     void centrerFenetre();
+    void initMultimedia();
 
 public slots:
     /** Formate le texte en fonction des toolButtons activés
@@ -243,7 +213,7 @@ public slots:
 //    void cursorMoved(QTextCursor curseur);
     void cursorMoved();
     /** Mets à jour l'état des boutons de la tool barre en fonction du formatage */
-    void updateActions(QTextCharFormat fmt);
+//    void updateActions(QTextCharFormat fmt);
 
     void slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code);
 
