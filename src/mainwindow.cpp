@@ -58,6 +58,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     installTranslator();
 
+    QFontDatabase fonts;
+    if( ! fonts.addApplicationFont(":/abuledutextev1/Seyes")) {
+        qDebug() << "Erreur sur :/fonts/SEYESBDE.TTF";
+    }
+    if( ! fonts.addApplicationFont(":/abuledutextev1/Crayon")) {
+        qDebug() << "Erreur sur :/fonts/CRAYONE.TTF";
+    }
+    if( ! fonts.addApplicationFont(":/abuledutextev1/Plume")) {
+        qDebug() << "Erreur sur :/fonts/PLUMBAE.TTF";
+    }
+
     ui->abeMediathequeGet->abeSetSourceEnum(AbulEduMediathequeGetV1::abeData);
     ui->abeMediathequeGet->abeHideBoutonTelecharger();
     ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
@@ -135,17 +146,6 @@ MainWindow::MainWindow(QWidget *parent) :
     /*Page par défaut */
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 
-
-    QFontDatabase fonts;
-    if( ! fonts.addApplicationFont(":/abuledutextev1/Seyes")) {
-        if (m_localDebug) qDebug() << "Erreur sur :/fonts/SEYESBDE.TTF";
-    }
-    if( ! fonts.addApplicationFont(":/abuledutextev1/Crayon")) {
-        if (m_localDebug) qDebug() << "Erreur sur :/fonts/CRAYONE.TTF";
-    }
-    if( ! fonts.addApplicationFont(":/abuledutextev1/Plume")) {
-        if (m_localDebug) qDebug() << "Erreur sur :/fonts/PLUMBAE.TTF";
-    }
 }
 
 void MainWindow::centrerFenetre()
@@ -164,6 +164,7 @@ void MainWindow::initMultimedia()
     m_multimedia->abeMultiMediaGetAudioControlWidget()->abeControlAudioSetDirection(QBoxLayout::TopToBottom);
     m_multimedia->abeMultiMediaSetButtonVisible(AbulEduMultiMediaV1::BtnMagnifyingGlass | AbulEduMultiMediaV1::BtnPrevious | AbulEduMultiMediaV1::BtnNext | AbulEduMultiMediaV1::BtnHide | AbulEduMultiMediaV1::BtnRecord,false);
     m_multimedia->abeMultiMediaForceStop();
+    m_multimedia->abeMultiMediaSetTextVisible(false);
     connect(m_multimedia->abeMultiMediaGetAudioControlWidget(), SIGNAL(signalAbeControlAudioPlayClicked()),this, SLOT(slotReadContent()),Qt::UniqueConnection);
 
     /** @todo autres langues ? */
