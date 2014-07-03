@@ -1,8 +1,5 @@
 <RCC>
     <qresource prefix="/abuledutextev1">
-        <file alias="Crayon">data/fonts/CRAYONE.TTF</file>
-        <file alias="Plume">data/fonts/PLUMBAE.TTF</file>
-        <file alias="Seyes">data/fonts/SEYESBDE.TTF</file>
         <file>data/images/cloud.svg</file>
         <file>data/images/mac/editcopy.png</file>
         <file>data/images/mac/editcut.png</file>
@@ -43,6 +40,8 @@
         <file>data/images/win/zoomin.png</file>
         <file>data/images/win/zoomout.png</file>
         <file alias="fermer-48">data/images/fermer-48.png</file>
+        <file alias="Ecolier">data/fonts/ECOLIER.ttf</file>
+        <file alias="Cursive">data/fonts/CURSIVESTANDARD.ttf</file>
     </qresource>
     <qresource prefix="/abuledutextev1/buttons">
         <file alias="dataHover">data/images/data-over.png</file>

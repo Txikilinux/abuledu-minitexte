@@ -47,28 +47,18 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef Q_OS_WIN
     switch(QSysInfo::windowsVersion())
     {
-        case QSysInfo::WV_2000: qDebug()<< "Windows 2000";break;
-        case QSysInfo::WV_XP: qDebug()<< "Windows XP";break;
-        case QSysInfo::WV_VISTA: qDebug()<< "Windows Vista";break;
-        case QSysInfo::WV_WINDOWS7: qDebug()<< "Windows Seven";break;
-        case QSysInfo::WV_WINDOWS8: qDebug()<< "Windows 8";break;
-        default: qDebug()<< "Windows";break;
+    case QSysInfo::WV_2000: qDebug()<< "Windows 2000";break;
+    case QSysInfo::WV_XP: qDebug()<< "Windows XP";break;
+    case QSysInfo::WV_VISTA: qDebug()<< "Windows Vista";break;
+    case QSysInfo::WV_WINDOWS7: qDebug()<< "Windows Seven";break;
+    case QSysInfo::WV_WINDOWS8: qDebug()<< "Windows 8";break;
+    default: qDebug()<< "Windows";break;
     }
 #endif
 
     installTranslator();
 
-    QFontDatabase fonts;
-    if( ! fonts.addApplicationFont(":/abuledutextev1/Seyes")) {
-        qDebug() << "Erreur sur :/fonts/SEYESBDE.TTF";
-    }
-    if( ! fonts.addApplicationFont(":/abuledutextev1/Crayon")) {
-        qDebug() << "Erreur sur :/fonts/CRAYONE.TTF";
-    }
-    if( ! fonts.addApplicationFont(":/abuledutextev1/Plume")) {
-        qDebug() << "Erreur sur :/fonts/PLUMBAE.TTF";
-    }
-
+    /***************************** AbeMediatheque ***************************************/
     ui->abeMediathequeGet->abeSetSourceEnum(AbulEduMediathequeGetV1::abeData);
     ui->abeMediathequeGet->abeHideBoutonTelecharger();
     ui->abeMediathequeGet->abeSetCustomBouton1(trUtf8("Insérer l'image"));
@@ -81,28 +71,36 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
+
+    /***************************** AbeBoxFileManager ***************************************/
     ui->abeBoxFileManager->abeMediathequeGetHideCloseBouton(true);
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)), Qt::UniqueConnection);
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
             this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)), Qt::UniqueConnection);
-
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()), Qt::UniqueConnection);
 
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
-    /* On émet un signal inquant si le texte a été modifié */
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
-    /* Le curseur a été déplacé*/
-//    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(cursorMoved()), Qt::UniqueConnection);
-
+    /***************************** MenuFeuille ***************************************/
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),this,SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
 
-    initMultimedia();
 
-    QTextCharFormat tcf;
-    tcf.setFontFamily("Andika");
-    tcf.setFontItalic(false);
-    tcf.setFontPointSize(16);
-    ui->teZoneTexte->textCursor().setCharFormat(tcf);
+    //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
+    //    /* On émet un signal inquant si le texte a été modifié */
+    //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
+
+    /* Le curseur a été déplacé*/
+    //    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(cursorMoved()), Qt::UniqueConnection);
+
+    initMultimedia();
+    initSignalMapperFontChange();
+
+    /***************************** Chargement des Fonts ***************************************/
+    QFontDatabase fonts;
+    if(!fonts.addApplicationFont(":/abuledutextev1/Ecolier")) {
+        qDebug() << "Erreur sur :/fonts/ECOLIER.TTF";
+    }
+    if(!fonts.addApplicationFont(":/abuledutextev1/Cursive")) {
+        qDebug() << "Erreur sur :/fonts/CURSIVE.TTF";
+    }
 
 #ifndef QT_NO_PRINTER
     /* Gestion Impression */
@@ -142,10 +140,17 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Bouton Data */
     connect(ui->btn_data, SIGNAL(clicked()), SLOT(showAbeMediathequeGet()), Qt::UniqueConnection);
 
-
     /*Page par défaut */
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 
+
+    /* Font par défaut */
+    connect(ui->teZoneTexte, SIGNAL(currentCharFormatChanged(QTextCharFormat)), this, SLOT(slotCurrentCharFormatChanged(QTextCharFormat)));
+    m_fontSize = 30;            /* taille par defaut */
+
+//    ui->teZoneTexte->setFont(QFont("Andika"));
+
+    ui->btn_andika->click();    /* Andika par defaut */
 }
 
 void MainWindow::centrerFenetre()
@@ -174,6 +179,22 @@ void MainWindow::initMultimedia()
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),
             m_multimedia, SLOT(slotAbeMultimediaSetTTSfromIso6391(QString)), Qt::UniqueConnection);
 }
+
+void MainWindow::initSignalMapperFontChange()
+{
+    signalMapperFontChange = new QSignalMapper(this);
+    connect(signalMapperFontChange, SIGNAL(mapped(QString)), SLOT(slotChangeFont(QString)));
+    signalMapperFontChange->setMapping(ui->btn_andika,  "Andika");
+    signalMapperFontChange->setMapping(ui->btn_seyes,   "Ecolier_lignes");
+    signalMapperFontChange->setMapping(ui->btn_plume,   "CursiveStandard");
+
+    connect(ui->btn_andika, SIGNAL(clicked()), signalMapperFontChange, SLOT(map()));
+    connect(ui->btn_seyes, SIGNAL(clicked()), signalMapperFontChange, SLOT(map()));
+    connect(ui->btn_plume, SIGNAL(clicked()), signalMapperFontChange, SLOT(map()));
+}
+
+
+
 
 void MainWindow::installTranslator()
 {
@@ -244,9 +265,9 @@ void MainWindow::abeTexteSetFontFamily(QString fontFamily)
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << fontFamily;
 
     //    m_comboFont->setCurrentFont(QFont(fontFamily));
-//    QAction* act = m_fontActions->findChild<QAction*>(fontFamily);
-//    ABULEDU_LOG_TRACE() << act->objectName();
-//    setTextFamily(act);
+    //    QAction* act = m_fontActions->findChild<QAction*>(fontFamily);
+    //    ABULEDU_LOG_TRACE() << act->objectName();
+    //    setTextFamily(act);
 }
 
 QString MainWindow::abeTexteGetFontFamily()
@@ -278,31 +299,31 @@ void MainWindow::abeTexteSetAlignment(Qt::Alignment align)
     else if(align.testFlag(Qt::AlignJustify))
         emit alignmentCenter();
 
-//    updateActions(ui->teZoneTexte->textCursor().charFormat()); /* Met le bouton concerné à jour */
+    //    updateActions(ui->teZoneTexte->textCursor().charFormat()); /* Met le bouton concerné à jour */
 }
 
 void MainWindow::abeTexteSetBold(bool onOff)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
 
-//    m_actionTextBold->setChecked(onOff);
-//    setTextFormat();
+    //    m_actionTextBold->setChecked(onOff);
+    //    setTextFormat();
 }
 
 void MainWindow::abeTexteSetItalic(bool onOff)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
 
-//    m_actionTextItalic->setChecked(onOff);
-//    setTextFormat();
+    //    m_actionTextItalic->setChecked(onOff);
+    //    setTextFormat();
 }
 
 void MainWindow::abeTexteSetUnderline(bool onOff)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
 
-//    m_actionTextUnderline->setChecked(onOff);
-//    setTextFormat();
+    //    m_actionTextUnderline->setChecked(onOff);
+    //    setTextFormat();
 }
 
 void MainWindow::setTextFormat()
@@ -310,12 +331,12 @@ void MainWindow::setTextFormat()
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
     /* On crée le format à appliquer */
-//    QTextCharFormat fmt;
-//    fmt.setFontWeight(m_actionTextBold->isChecked() ? QFont::Bold : QFont::Normal);
-//    fmt.setFontItalic(m_actionTextItalic->isChecked());
-//    fmt.setFontUnderline(m_actionTextUnderline->isChecked());
-//    /* On l'applique */
-//    mergeFormatOnWordOrSelection(fmt);
+    //    QTextCharFormat fmt;
+    //    fmt.setFontWeight(m_actionTextBold->isChecked() ? QFont::Bold : QFont::Normal);
+    //    fmt.setFontItalic(m_actionTextItalic->isChecked());
+    //    fmt.setFontUnderline(m_actionTextUnderline->isChecked());
+    //    /* On l'applique */
+    //    mergeFormatOnWordOrSelection(fmt);
 }
 
 void MainWindow::setTextAlign(QAction *action)
@@ -323,14 +344,14 @@ void MainWindow::setTextAlign(QAction *action)
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << action;
 
     /* On applique le bon alignement pour le paragraphe sous le curseur */
-//    if (action == m_actionAlignLeft)
-//        ui->teZoneTexte->setAlignment(Qt::AlignLeft | Qt::AlignAbsolute); /* Toujours à gauche même en cas de RTL */
-//    else if (action == m_actionAlignCenter)
-//        ui->teZoneTexte->setAlignment(Qt::AlignHCenter);
-//    else if (action == m_actionAlignRight)
-//        ui->teZoneTexte->setAlignment(Qt::AlignRight | Qt::AlignAbsolute); /* Toujours à droite même en cas de RTL */
-//    else if (action == m_actionAlignJustify)
-//        ui->teZoneTexte->setAlignment(Qt::AlignJustify);
+    //    if (action == m_actionAlignLeft)
+    //        ui->teZoneTexte->setAlignment(Qt::AlignLeft | Qt::AlignAbsolute); /* Toujours à gauche même en cas de RTL */
+    //    else if (action == m_actionAlignCenter)
+    //        ui->teZoneTexte->setAlignment(Qt::AlignHCenter);
+    //    else if (action == m_actionAlignRight)
+    //        ui->teZoneTexte->setAlignment(Qt::AlignRight | Qt::AlignAbsolute); /* Toujours à droite même en cas de RTL */
+    //    else if (action == m_actionAlignJustify)
+    //        ui->teZoneTexte->setAlignment(Qt::AlignJustify);
 }
 
 void MainWindow::setTextFamily(QAction* action)
@@ -398,7 +419,7 @@ void MainWindow::colorChanged(const QColor &col)
 //{
 //    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
-    /* Création de la Barre de boutons */
+/* Création de la Barre de boutons */
 //    tb = ui->toolBar;
 //    QToolBar* tb2 = new QToolBar();
 //    tb2->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -408,7 +429,7 @@ void MainWindow::colorChanged(const QColor &col)
 //    tb->setWindowTitle(trUtf8("&Édition"));
 
 
-    /* Formatage des caractères */
+/* Formatage des caractères */
 //    m_actionTextBold = new QAction(QIcon(":/abuledutextev1/format/bold"), trUtf8("&Gras"), this);
 //    m_actionTextBold->setObjectName("bold");
 //    m_actionTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
@@ -520,21 +541,6 @@ void MainWindow::colorChanged(const QColor &col)
 //    m_actionFontPlume->setProperty("defaultPointSize",22);
 //    m_actionFontPlume->setCheckable(true);
 //}
-
-void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-
-    QTextCursor cursor = ui->teZoneTexte->textCursor();
-    /* Je me contente de commenter ces lignes, c'est à cause d'elles qu'on avait la remarque de Christine C :
-     *" dans un traitement de texte classique, si je choisis un formatage de texte (ex : gras) avant de taper quoi que ce soit et que je tape du texte après, je tape du gras. Pas là"
-     * Je ne les supprime pas encore en cas qu'elles fassent quelque chose qui manque à quelqu'un */
-//    if (!cursor.hasSelection())
-//        /* Si pas de sélection, on utilise le mot sous le curseur */
-//        cursor.select(QTextCursor::WordUnderCursor);
-    cursor.mergeCharFormat(format);
-    ui->teZoneTexte->mergeCurrentCharFormat(format);
-}
 
 bool MainWindow::fileSave()
 {
@@ -666,11 +672,6 @@ void MainWindow::closeEvent(QCloseEvent *e)
     }
 }
 
-void MainWindow::setupToolButtons()
-{
-
-}
-
 #ifndef QT_NO_PRINTER
 void MainWindow::filePrint(QPrinter *printer)
 {
@@ -691,14 +692,14 @@ void MainWindow::cursorMoved()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
-//    updateActions(ui->teZoneTexte->textCursor().charFormat());
+    //    updateActions(ui->teZoneTexte->textCursor().charFormat());
 }
 
 //void MainWindow::updateActions(QTextCharFormat fmt)
 //{
 //    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
-    /* On actualise les toolButtons ou plutôt les QActions sous-jacentes en fonction du formatage du texte */
+/* On actualise les toolButtons ou plutôt les QActions sous-jacentes en fonction du formatage du texte */
 //    m_actionTextBold->blockSignals(true);
 //    m_actionTextBold->setChecked(fmt.fontWeight() >= QFont::Bold);
 //    m_actionTextBold->blockSignals(false);
@@ -731,13 +732,13 @@ void MainWindow::cursorMoved()
 //    m_actionAlignJustify->setChecked(ui->teZoneTexte->alignment().testFlag(Qt::AlignJustify));
 //    m_actionAlignJustify->blockSignals(false);
 
-    //    m_comboFont->blockSignals(true);
-    //    //    m_comboFont->setCurrentFont(fmt.font());
-    //    m_comboFont->blockSignals(false);
+//    m_comboFont->blockSignals(true);
+//    //    m_comboFont->setCurrentFont(fmt.font());
+//    m_comboFont->blockSignals(false);
 
-    //    m_comboSize->blockSignals(true);
-    //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(fmt.font().pointSize())));
-    //    m_comboSize->blockSignals(false);
+//    m_comboSize->blockSignals(true);
+//    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(fmt.font().pointSize())));
+//    m_comboSize->blockSignals(false);
 //}
 
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
@@ -1019,19 +1020,83 @@ void MainWindow::slotSessionAuthenticated(bool enable)
         abeApp->getAbeNetworkAccessManager()->abeSSOLogin();
 }
 
-void MainWindow::on_teZoneTexte_textChanged()
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
-
-    if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
-        setWindowModified(true);
-    }
-}
-
 void MainWindow::slotReadContent()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
 
     m_multimedia->abeMultiMediaSetNewMedia(AbulEduMediaMedias(QString(),QString(),ui->teZoneTexte->toPlainText()));
     m_multimedia->abeMultiMediaPlay();
+}
+
+/***
+ *
+ *  GESTION CHANGEMENT POLICE
+ *
+ * ***/
+void MainWindow::slotChangeFont(const QString &font)
+{
+    qDebug() << "On change de FONT ::" << font;
+    m_fontFamily = font;
+
+    QTextCharFormat tcf;
+    tcf.setFontFamily(font);
+    tcf.setFont(font);
+    tcf.setFontPointSize(m_fontSize);
+
+//    QTextCursor textCursor = ui->teZoneTexte->textCursor();
+//    QTextBlockFormat textBlockFormat  = textCursor.blockFormat();
+//    textBlockFormat.setLineHeight((m_fontSize * 3), QTextBlockFormat::FixedHeight);  //set line height
+//    textCursor.setBlockFormat(textBlockFormat);
+
+    mergeFormatOnWordOrSelection(tcf);
+}
+
+void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
+{
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
+    QTextCursor cursor = ui->teZoneTexte->textCursor();
+    //    if (!cursor.hasSelection())
+    //        cursor.select(QTextCursor::WordUnderCursor);
+    cursor.mergeCharFormat(format);
+    ui->teZoneTexte->mergeCurrentCharFormat(format);
+//    ui->teZoneTexte->setFontFamily(format.fontFamily());
+//    ui->teZoneTexte->setFont(format.font());
+
+    qDebug() << format.fontFamily();
+}
+
+
+void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
+{
+    qDebug() << __FUNCTION__ << tcf.fontFamily() << m_fontFamily;
+
+    /* Petite protection (met une font par defaut quand on efface tout) */
+    if(tcf.fontFamily() != m_fontFamily)
+        slotChangeFont(m_fontFamily);
+
+    /*  Ici gérer les changements de police et repercuter sur interface */
+    if(m_fontFamily == "CursiveStandard" ){
+        ui->btn_plume->click();
+    }
+
+    else if (m_fontFamily ==  "Andika") {
+        ui->btn_andika->click();
+    }
+
+    else if (m_fontFamily ==  "Ecolier_lignes" ){
+        ui->btn_seyes->click();
+    }
+}
+
+void MainWindow::on_teZoneTexte_textChanged()
+{
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
+    //    if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
+    //        setWindowModified(true);
+    //    }
+
+//    qDebug() << ui->teZoneTexte->textCursor().blockCharFormat().font()
+//             << ui->teZoneTexte->textCursor().blockCharFormat().verticalAlignment()
+//             << ui->teZoneTexte->textCursor().blockCharFormat().fontFixedPitch();
 }

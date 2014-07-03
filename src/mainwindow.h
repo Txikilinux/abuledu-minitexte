@@ -30,7 +30,7 @@
 #include <QMainWindow>
 #include <QTextDocument>
 #include <QMenu>
-#include <QAction>
+#include <QFont>
 
 #include <QTextCharFormat>
 #include <QColorDialog>
@@ -43,6 +43,7 @@
 #include <QTextFrameFormat>
 #include <QUrl>
 #include <QImageReader>
+#include <QSignalMapper>
 
 #include "abuleduflatboutonv1.h"
 #include "abuledumediathequegetv1.h"
@@ -130,9 +131,6 @@ private:
     void closeEvent(QCloseEvent *e);
     bool m_isCloseRequested;
 
-    /** Crée la barre de d'icones et les actions correspondantes */
-    void setupToolButtons();
-
     /** Implémente le mécanisme de translation de l'application dans la langue locale */
     void installTranslator();
 
@@ -146,15 +144,11 @@ private:
       */
     void setCurrentFileName(const QString &fileName);
 
-    /** Crée une barre de menu avec les QActions disponibles */
-//    void setupMenuBar();
-
     /** Le chemin du fichier */
     QString m_fileName;
 
     bool m_localDebug;
     int m_hauteurToolBar;
-    QString m_font;
 
     bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...
     bool m_wantNewFile;
@@ -179,8 +173,14 @@ private:
     QTranslator myappTranslator;
     QString m_locale;
 
+    QSignalMapper *signalMapperFontChange;
+
+    QString m_fontFamily;
+    int m_fontSize;
+
     void centrerFenetre();
     void initMultimedia();
+    void initSignalMapperFontChange();
 
 public slots:
     /** Formate le texte en fonction des toolButtons activés
@@ -259,6 +259,9 @@ private slots:
 
     void slotReadContent();
 
+    void slotChangeFont(const QString &);
+
+    void slotCurrentCharFormatChanged(QTextCharFormat);
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
     void somethingHasChangedInText(bool);
