@@ -92,6 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initMultimedia();
     initSignalMapperFontChange();
+    initSignalMapperFormFontChange();
 
     /***************************** Chargement des Fonts ***************************************/
     QFontDatabase fonts;
@@ -148,9 +149,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->teZoneTexte, SIGNAL(currentCharFormatChanged(QTextCharFormat)), this, SLOT(slotCurrentCharFormatChanged(QTextCharFormat)));
     m_fontSize = 30;            /* taille par defaut */
 
-//    ui->teZoneTexte->setFont(QFont("Andika"));
+    //    ui->teZoneTexte->setFont(QFont("Andika"));
 
     ui->btn_andika->click();    /* Andika par defaut */
+    m_textCharFormat = ui->teZoneTexte->textCursor().charFormat();
 }
 
 void MainWindow::centrerFenetre()
@@ -182,19 +184,29 @@ void MainWindow::initMultimedia()
 
 void MainWindow::initSignalMapperFontChange()
 {
-    signalMapperFontChange = new QSignalMapper(this);
-    connect(signalMapperFontChange, SIGNAL(mapped(QString)), SLOT(slotChangeFont(QString)));
-    signalMapperFontChange->setMapping(ui->btn_andika,  "Andika");
-    signalMapperFontChange->setMapping(ui->btn_seyes,   "Ecolier_lignes");
-    signalMapperFontChange->setMapping(ui->btn_plume,   "CursiveStandard");
+    m_signalMapperFontChange = new QSignalMapper(this);
+    connect(m_signalMapperFontChange, SIGNAL(mapped(QString)), SLOT(slotChangeFont(QString)), Qt::UniqueConnection);
+    m_signalMapperFontChange->setMapping(ui->btn_andika,  "Andika");
+    m_signalMapperFontChange->setMapping(ui->btn_seyes,   "Ecolier_lignes");
+    m_signalMapperFontChange->setMapping(ui->btn_plume,   "CursiveStandard");
 
-    connect(ui->btn_andika, SIGNAL(clicked()), signalMapperFontChange, SLOT(map()));
-    connect(ui->btn_seyes, SIGNAL(clicked()), signalMapperFontChange, SLOT(map()));
-    connect(ui->btn_plume, SIGNAL(clicked()), signalMapperFontChange, SLOT(map()));
+    connect(ui->btn_andika, SIGNAL(clicked()), m_signalMapperFontChange, SLOT(map()), Qt::UniqueConnection);
+    connect(ui->btn_seyes, SIGNAL(clicked()), m_signalMapperFontChange, SLOT(map()), Qt::UniqueConnection);
+    connect(ui->btn_plume, SIGNAL(clicked()), m_signalMapperFontChange, SLOT(map()), Qt::UniqueConnection);
 }
 
+void MainWindow::initSignalMapperFormFontChange()
+{
+    m_signalMapperFontFormChange = new QSignalMapper(this);
+    connect(m_signalMapperFontFormChange, SIGNAL(mapped(QString)), SLOT(slotChangeFormFont(QString)), Qt::UniqueConnection);
+    m_signalMapperFontFormChange->setMapping(ui->btn_bold, "bold");
+    m_signalMapperFontFormChange->setMapping(ui->btn_italic, "italic");
+    m_signalMapperFontFormChange->setMapping(ui->btn_underlined, "underlined");
 
-
+    connect(ui->btn_bold, SIGNAL(clicked()), m_signalMapperFontFormChange, SLOT(map()), Qt::UniqueConnection);
+    connect(ui->btn_italic, SIGNAL(clicked()), m_signalMapperFontFormChange, SLOT(map()), Qt::UniqueConnection);
+    connect(ui->btn_underlined, SIGNAL(clicked()), m_signalMapperFontFormChange, SLOT(map()), Qt::UniqueConnection);
+}
 
 void MainWindow::installTranslator()
 {
@@ -1036,19 +1048,41 @@ void MainWindow::slotReadContent()
 void MainWindow::slotChangeFont(const QString &font)
 {
     qDebug() << "On change de FONT ::" << font;
-    m_fontFamily = font;
+    //    m_fontFamily = font;
 
-    QTextCharFormat tcf;
-    tcf.setFontFamily(font);
-    tcf.setFont(font);
-    tcf.setFontPointSize(m_fontSize);
+    qDebug() << ui->teZoneTexte->textCursor().charFormat();
 
-//    QTextCursor textCursor = ui->teZoneTexte->textCursor();
-//    QTextBlockFormat textBlockFormat  = textCursor.blockFormat();
-//    textBlockFormat.setLineHeight((m_fontSize * 3), QTextBlockFormat::FixedHeight);  //set line height
-//    textCursor.setBlockFormat(textBlockFormat);
+    //    QTextCharFormat tcf;
+    //    tcf.setFontFamily(font);
+    //    tcf.setFont(font);
+    //    tcf.setFontPointSize(m_fontSize);
+    //    m_textCharFormat = tcf;
+    //    mergeFormatOnWordOrSelection(tcf);
 
-    mergeFormatOnWordOrSelection(tcf);
+    m_textCharFormat .setFontFamily(font);
+    m_textCharFormat .setFont(font);
+    m_textCharFormat .setFontPointSize(m_fontSize);
+
+    mergeFormatOnWordOrSelection(m_textCharFormat );
+}
+
+void MainWindow::slotChangeFormFont(const QString &form)
+{
+    qDebug() << "On change de form ::" << form;
+
+    /* On crée le format à appliquer */
+    //    QTextCharFormat fmt;
+    //    fmt.setFontWeight(ui->btn_bold->isChecked() ? QFont::Bold : QFont::Normal);
+    //    fmt.setFontItalic(ui->btn_italic->isChecked());
+    //    fmt.setFontUnderline(ui->btn_underlined->isChecked());
+    //    /* On l'applique */
+    //    mergeFormatOnWordOrSelection(fmt);
+
+    m_textCharFormat.setFontWeight(ui->btn_bold->isChecked() ? QFont::Bold : QFont::Normal);
+    m_textCharFormat.setFontItalic(ui->btn_italic->isChecked());
+    m_textCharFormat.setFontUnderline(ui->btn_underlined->isChecked());
+    /* On l'applique */
+    mergeFormatOnWordOrSelection(m_textCharFormat);
 }
 
 void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
@@ -1056,36 +1090,39 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
     QTextCursor cursor = ui->teZoneTexte->textCursor();
-    //    if (!cursor.hasSelection())
+    //    if (cursor.hasSelection())
     //        cursor.select(QTextCursor::WordUnderCursor);
     cursor.mergeCharFormat(format);
     ui->teZoneTexte->mergeCurrentCharFormat(format);
-//    ui->teZoneTexte->setFontFamily(format.fontFamily());
-//    ui->teZoneTexte->setFont(format.font());
-
-    qDebug() << format.fontFamily();
 }
-
 
 void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 {
-    qDebug() << __FUNCTION__ << tcf.fontFamily() << m_fontFamily;
-
-    /* Petite protection (met une font par defaut quand on efface tout) */
-    if(tcf.fontFamily() != m_fontFamily)
-        slotChangeFont(m_fontFamily);
+    //    qDebug() << __FUNCTION__ << tcf.fontFamily() ;
+    //    tcf = m_textCharFormat;
+    qDebug() << "############################################"<<tcf.fontFamily() << m_textCharFormat.fontFamily() << ui->teZoneTexte->currentFont() ;
+    /* Bouton bold */
+    ui->btn_bold->setChecked((tcf.fontWeight() > 50));
+    /* Bouton underlined */
+    ui->btn_underlined->setChecked(tcf.fontUnderline());
+    /* Bouton Italic */
+    ui->btn_italic->setChecked(tcf.fontItalic());
 
     /*  Ici gérer les changements de police et repercuter sur interface */
-    if(m_fontFamily == "CursiveStandard" ){
-        ui->btn_plume->click();
+    if (tcf.fontFamily() == "CursiveStandard" ){
+        ui->btn_plume->setChecked(true);
+    }
+    else if (tcf.fontFamily()  ==  "Andika") {
+        ui->btn_andika->setChecked(true);
+    }
+    else if (tcf.fontFamily() ==  "Ecolier_lignes" ){
+        ui->btn_seyes->setChecked(true);
     }
 
-    else if (m_fontFamily ==  "Andika") {
-        ui->btn_andika->click();
-    }
-
-    else if (m_fontFamily ==  "Ecolier_lignes" ){
-        ui->btn_seyes->click();
+    if(/*m_textCharFormat.fontFamily() != tcf.fontFamily() && */ui->teZoneTexte->toPlainText().isEmpty()){
+        qDebug() << "+++++++++++++++++++++++++++++++   +++++++++++++++++++++++++  " << "C'est mon cas ";
+        mergeFormatOnWordOrSelection(m_textCharFormat);
+        //        m_textCharFormat = tcf;
     }
 }
 
@@ -1096,7 +1133,7 @@ void MainWindow::on_teZoneTexte_textChanged()
     //        setWindowModified(true);
     //    }
 
-//    qDebug() << ui->teZoneTexte->textCursor().blockCharFormat().font()
-//             << ui->teZoneTexte->textCursor().blockCharFormat().verticalAlignment()
-//             << ui->teZoneTexte->textCursor().blockCharFormat().fontFixedPitch();
+    //    qDebug() << ui->teZoneTexte->textCursor().blockCharFormat().font()
+    //             << ui->teZoneTexte->textCursor().blockCharFormat().verticalAlignment()
+    //             << ui->teZoneTexte->textCursor().blockCharFormat().fontFixedPitch();
 }

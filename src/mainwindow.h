@@ -54,9 +54,16 @@ namespace Ui {
 class MainWindow;
 }
 
+//namespace ABULEDU_MINITEXTE_FONTS {
+// const char * const ANDIKA              = "Andika";
+// const char * const ECOLIER_LIGNES      = "Ecolier_lignes";
+// const char * const CURSIVE_STANDARD    = "CursiveStandard";
+//}
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -173,14 +180,18 @@ private:
     QTranslator myappTranslator;
     QString m_locale;
 
-    QSignalMapper *signalMapperFontChange;
+    QSignalMapper *m_signalMapperFontChange;
+    QSignalMapper *m_signalMapperFontFormChange;
 
-    QString m_fontFamily;
+//    QString m_fontFamily;
     int m_fontSize;
+
+    QTextCharFormat m_textCharFormat;
 
     void centrerFenetre();
     void initMultimedia();
     void initSignalMapperFontChange();
+    void initSignalMapperFormFontChange();
 
 public slots:
     /** Formate le texte en fonction des toolButtons activés
@@ -260,8 +271,10 @@ private slots:
     void slotReadContent();
 
     void slotChangeFont(const QString &);
+    void slotChangeFormFont(const QString &);
 
     void slotCurrentCharFormatChanged(QTextCharFormat);
+
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
     void somethingHasChangedInText(bool);
