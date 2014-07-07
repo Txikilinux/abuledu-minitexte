@@ -197,13 +197,13 @@ public slots:
     /** Formate le texte en fonction des toolButtons activés
       * Gras, Souligné, Italic
       */
-    void setTextFormat();
+//    void setTextFormat();
 
     /** Aligne le texte en fonction des boutons activés */
     void setTextAlign(QAction *action);
 
     /** Applique la font sélectionnée */
-    void setTextFamily(QAction *action);
+//    void setTextFamily(QAction *action);
 
     /** Applique la taille de font sélectionnée */
     void setTextSize(int p);
@@ -258,11 +258,11 @@ private slots:
     void showAbeMediathequeGet();
     void showTextPage();
 
-    /** Augmente la police de caractères utilisée */
-    void increaseFontSize(int increase = 2);
+//    /** Augmente la police de caractères utilisée */
+//    void increaseFontSize(int increase = 2);
 
-    /** Diminue la police de caractères utilisée */
-    void decreaseFontSize(int decrease = 2);
+//    /** Diminue la police de caractères utilisée */
+//    void decreaseFontSize(int decrease = 2);
 
     void slotChangeLangue(QString lang);
 
@@ -272,8 +272,12 @@ private slots:
 
     void slotChangeFont(const QString &);
     void slotChangeFormFont(const QString &);
-
+    void slotChangeFontSize(int );
     void slotCurrentCharFormatChanged(QTextCharFormat);
+
+    void on_btn_increase_clicked();
+
+    void on_btn_decrease_clicked();
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */

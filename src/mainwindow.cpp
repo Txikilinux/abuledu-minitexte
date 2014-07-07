@@ -144,12 +144,9 @@ MainWindow::MainWindow(QWidget *parent) :
     /*Page par défaut */
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 
-
     /* Font par défaut */
     connect(ui->teZoneTexte, SIGNAL(currentCharFormatChanged(QTextCharFormat)), this, SLOT(slotCurrentCharFormatChanged(QTextCharFormat)));
     m_fontSize = 30;            /* taille par defaut */
-
-    //    ui->teZoneTexte->setFont(QFont("Andika"));
 
     ui->btn_andika->click();    /* Andika par defaut */
     m_textCharFormat = ui->teZoneTexte->textCursor().charFormat();
@@ -221,42 +218,6 @@ void MainWindow::installTranslator()
 
 }
 
-void MainWindow::increaseFontSize(int increase)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << increase;
-
-    QTextCursor cursor = ui->teZoneTexte->textCursor();
-    if (!cursor.hasSelection())
-        /* Si pas de sélection, on utilise le mot sous le curseur */
-        cursor.select(QTextCursor::WordUnderCursor);
-    QTextCharFormat fmt;
-    if(cursor.charFormat().fontPointSize() > 15){
-        fmt.setFontPointSize(cursor.charFormat().fontPointSize()+increase);
-    }
-    else{
-        fmt.setFontPointSize(15+increase);
-    }
-    /* On l'applique */
-    mergeFormatOnWordOrSelection(fmt);
-}
-
-void MainWindow::decreaseFontSize(int decrease)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << decrease;
-
-    QTextCursor cursor = ui->teZoneTexte->textCursor();
-    if (!cursor.hasSelection())
-        /* Si pas de sélection, on utilise le mot sous le curseur */
-        cursor.select(QTextCursor::WordUnderCursor);
-    QTextCharFormat fmt;
-    if(cursor.charFormat().fontPointSize() > 15)
-    {
-        fmt.setFontPointSize(cursor.charFormat().fontPointSize()-decrease);
-    }
-    /* On l'applique */
-    mergeFormatOnWordOrSelection(fmt);
-}
-
 MainWindow::~MainWindow()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
@@ -272,31 +233,31 @@ QTextDocument *MainWindow::abeTexteGetDocument()
     return ui->teZoneTexte->document();
 }
 
-void MainWindow::abeTexteSetFontFamily(QString fontFamily)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << fontFamily;
+//void MainWindow::abeTexteSetFontFamily(QString fontFamily)
+//{
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << fontFamily;
 
-    //    m_comboFont->setCurrentFont(QFont(fontFamily));
-    //    QAction* act = m_fontActions->findChild<QAction*>(fontFamily);
-    //    ABULEDU_LOG_TRACE() << act->objectName();
-    //    setTextFamily(act);
-}
+//    //    m_comboFont->setCurrentFont(QFont(fontFamily));
+//    //    QAction* act = m_fontActions->findChild<QAction*>(fontFamily);
+//    //    ABULEDU_LOG_TRACE() << act->objectName();
+//    //    setTextFamily(act);
+//}
 
-QString MainWindow::abeTexteGetFontFamily()
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+//QString MainWindow::abeTexteGetFontFamily()
+//{
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
-    //    return m_comboFont->font().family();
-}
+//    //    return m_comboFont->font().family();
+//}
 
-void MainWindow::abeTexteSetFontSize(int taille)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << taille;
+//void MainWindow::abeTexteSetFontSize(int taille)
+//{
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << taille;
 
-    /** @todo Tester taille et l'adapter en fonction des tailles disponibles dans la combobox m_comboSize */
-    //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(taille)));
-    setTextSize(taille);
-}
+//    /** @todo Tester taille et l'adapter en fonction des tailles disponibles dans la combobox m_comboSize */
+//    //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(taille)));
+//    setTextSize(taille);
+//}
 
 void MainWindow::abeTexteSetAlignment(Qt::Alignment align)
 {
@@ -314,42 +275,42 @@ void MainWindow::abeTexteSetAlignment(Qt::Alignment align)
     //    updateActions(ui->teZoneTexte->textCursor().charFormat()); /* Met le bouton concerné à jour */
 }
 
-void MainWindow::abeTexteSetBold(bool onOff)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
+//void MainWindow::abeTexteSetBold(bool onOff)
+//{
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
 
-    //    m_actionTextBold->setChecked(onOff);
-    //    setTextFormat();
-}
+//    //    m_actionTextBold->setChecked(onOff);
+//    //    setTextFormat();
+//}
 
-void MainWindow::abeTexteSetItalic(bool onOff)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
+//void MainWindow::abeTexteSetItalic(bool onOff)
+//{
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
 
-    //    m_actionTextItalic->setChecked(onOff);
-    //    setTextFormat();
-}
+//    //    m_actionTextItalic->setChecked(onOff);
+//    //    setTextFormat();
+//}
 
-void MainWindow::abeTexteSetUnderline(bool onOff)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
+//void MainWindow::abeTexteSetUnderline(bool onOff)
+//{
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
 
-    //    m_actionTextUnderline->setChecked(onOff);
-    //    setTextFormat();
-}
+//    //    m_actionTextUnderline->setChecked(onOff);
+//    //    setTextFormat();
+//}
 
-void MainWindow::setTextFormat()
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+//void MainWindow::setTextFormat()
+//{
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
-    /* On crée le format à appliquer */
-    //    QTextCharFormat fmt;
-    //    fmt.setFontWeight(m_actionTextBold->isChecked() ? QFont::Bold : QFont::Normal);
-    //    fmt.setFontItalic(m_actionTextItalic->isChecked());
-    //    fmt.setFontUnderline(m_actionTextUnderline->isChecked());
-    //    /* On l'applique */
-    //    mergeFormatOnWordOrSelection(fmt);
-}
+//    /* On crée le format à appliquer */
+//    //    QTextCharFormat fmt;
+//    //    fmt.setFontWeight(m_actionTextBold->isChecked() ? QFont::Bold : QFont::Normal);
+//    //    fmt.setFontItalic(m_actionTextItalic->isChecked());
+//    //    fmt.setFontUnderline(m_actionTextUnderline->isChecked());
+//    //    /* On l'applique */
+//    //    mergeFormatOnWordOrSelection(fmt);
+//}
 
 void MainWindow::setTextAlign(QAction *action)
 {
@@ -366,26 +327,26 @@ void MainWindow::setTextAlign(QAction *action)
     //        ui->teZoneTexte->setAlignment(Qt::AlignJustify);
 }
 
-void MainWindow::setTextFamily(QAction* action)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << action;
+//void MainWindow::setTextFamily(QAction* action)
+//{
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << action;
 
-    QString f = action->objectName();
-    if (m_localDebug) qDebug() << " Fonte : " << f;
-    /* On applique le format de font sélectionnée */
-    QTextCharFormat fmt;
-    fmt.setFontFamily(f);
-    mergeFormatOnWordOrSelection(fmt);
-    setTextSize(action->property("defaultPointSize").toInt());
+//    QString f = action->objectName();
+//    if (m_localDebug) qDebug() << " Fonte : " << f;
+//    /* On applique le format de font sélectionnée */
+//    QTextCharFormat fmt;
+//    fmt.setFontFamily(f);
+//    mergeFormatOnWordOrSelection(fmt);
+//    setTextSize(action->property("defaultPointSize").toInt());
 
-    /* Espacement vertical different */
-    QTextBlockFormat format;
-#if QT_VERSION >= 0x040700
-    format.setLineHeight(action->property("interligne").toInt(), QTextBlockFormat::ProportionalHeight);
-#endif
-    QTextCursor curseur = ui->teZoneTexte->textCursor();
-    curseur.setBlockFormat(format);
-}
+//    /* Espacement vertical different */
+//    QTextBlockFormat format;
+//#if QT_VERSION >= 0x040700
+//    format.setLineHeight(action->property("interligne").toInt(), QTextBlockFormat::ProportionalHeight);
+//#endif
+//    QTextCursor curseur = ui->teZoneTexte->textCursor();
+//    curseur.setBlockFormat(format);
+//}
 
 void MainWindow::setTextSize(int p)
 {
@@ -426,133 +387,6 @@ void MainWindow::colorChanged(const QColor &col)
     ui->btn_color->setIcon(pix);
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
-
-//void MainWindow::setupToolBarAndActions()
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-
-/* Création de la Barre de boutons */
-//    tb = ui->toolBar;
-//    QToolBar* tb2 = new QToolBar();
-//    tb2->setToolButtonStyle(Qt::ToolButtonIconOnly);
-//    tb2->setFixedHeight(m_hauteurToolBar);
-//    tb->setToolButtonStyle(Qt::ToolButtonIconOnly);
-//    tb->setFixedHeight(m_hauteurToolBar);
-//    tb->setWindowTitle(trUtf8("&Édition"));
-
-
-/* Formatage des caractères */
-//    m_actionTextBold = new QAction(QIcon(":/abuledutextev1/format/bold"), trUtf8("&Gras"), this);
-//    m_actionTextBold->setObjectName("bold");
-//    m_actionTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
-//    m_actionTextBold->setPriority(QAction::LowPriority);
-//    QFont bold;
-//    bold.setBold(true);
-//    m_actionTextBold->setFont(bold);
-//    connect(m_actionTextBold, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
-//    m_actionTextBold->setCheckable(true);
-
-//    m_actionTextItalic = new QAction(QIcon(":/abuledutextev1/format/italic"), trUtf8("&Italique"), this);
-//    m_actionTextItalic->setObjectName("italique");
-//    m_actionTextItalic->setPriority(QAction::LowPriority);
-//    m_actionTextItalic->setShortcut(Qt::CTRL + Qt::Key_I);
-//    QFont italic;
-//    italic.setItalic(true);
-//    m_actionTextItalic->setFont(italic);
-//    connect(m_actionTextItalic, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
-//    m_actionTextItalic->setCheckable(true);
-
-//    m_actionTextUnderline = new QAction(QIcon(":/abuledutextev1/format/underlined"), trUtf8("&Souligné"), this);
-//    m_actionTextUnderline->setObjectName("underline");
-//    m_actionTextUnderline->setShortcut(Qt::CTRL + Qt::Key_U);
-//    m_actionTextUnderline->setPriority(QAction::LowPriority);
-//    QFont underline;
-//    underline.setUnderline(true);
-//    m_actionTextUnderline->setFont(underline);
-//    connect(m_actionTextUnderline, SIGNAL(triggered()), this, SLOT(setTextFormat()), Qt::UniqueConnection);
-//    m_actionTextUnderline->setCheckable(true);
-
-//    m_btnFontDecrease = new QPushButton();
-//    m_btnFontDecrease->setFixedSize(m_hauteurToolBar,m_hauteurToolBar);
-//    m_btnFontDecrease->setIcon(QIcon(":/abuledutextev1/format/decrease"));
-//    m_btnFontDecrease->setIconSize(QSize(32,32));
-//    m_btnFontDecrease->setFlat(true);
-//    m_btnFontDecrease->setObjectName("decrease");
-//    m_btnFontDecrease->setProperty("interligne",100);
-//    connect(m_btnFontDecrease, SIGNAL(clicked()), this, SLOT(decreaseFontSize()), Qt::UniqueConnection);
-
-//    m_btnFontIncrease = new QPushButton();
-//    m_btnFontIncrease->setFixedSize(m_hauteurToolBar,m_hauteurToolBar);
-//    m_btnFontIncrease->setIcon(QIcon(":/abuledutextev1/format/increase"));
-//    m_btnFontIncrease->setIconSize(QSize(32,32));
-//    m_btnFontIncrease->setFlat(true);
-//    m_btnFontIncrease->setObjectName("increase");
-//    m_btnFontIncrease->setProperty("interligne",100);
-//    connect(m_btnFontIncrease, SIGNAL(clicked()), this, SLOT(increaseFontSize()), Qt::UniqueConnection);
-
-//    /* Alignement des paragraphes */
-//    m_alignActions = new QActionGroup(this);
-//    m_alignActions->setObjectName("groupalign");
-//    connect(m_alignActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextAlign(QAction*)), Qt::UniqueConnection);
-
-//    /* On modifie la position des icones en fonction du sens du texte LTR ou RTL */
-//    if (QApplication::isLeftToRight()) {
-//        m_actionAlignLeft = new QAction(QIcon(":/abuledutextev1/format/left"), trUtf8("À gauc&he"), m_alignActions);
-//        m_actionAlignCenter = new QAction(QIcon(":/abuledutextev1/format/center"), trUtf8("Au c&entre"), m_alignActions);
-//        m_actionAlignRight = new QAction(QIcon(":/abuledutextev1/format/right"), trUtf8("À d&roite"), m_alignActions);
-//    } else {
-//        m_actionAlignRight = new QAction(QIcon(":/abuledutextev1/format/right"), trUtf8("À d&roite"), m_alignActions);
-//        m_actionAlignCenter = new QAction(QIcon(":/abuledutextev1/format/center"), trUtf8("Au c&entre"), m_alignActions);
-//        m_actionAlignLeft = new QAction(QIcon(":/abuledutextev1/format/left"), trUtf8("À gauc&he"), m_alignActions);
-//    }
-//    m_actionAlignJustify = new QAction(QIcon(":/abuledutextev1/format/justify"), trUtf8("&Justifié"), m_alignActions);
-
-//    m_actionAlignLeft->setShortcut(Qt::CTRL + Qt::Key_L);
-//    m_actionAlignLeft->setObjectName("alignleft");
-//    m_actionAlignLeft->setCheckable(true);
-//    m_actionAlignLeft->setPriority(QAction::LowPriority);
-//    m_actionAlignCenter->setShortcut(Qt::CTRL + Qt::Key_E);
-//    m_actionAlignCenter->setObjectName("aligncenter");
-//    m_actionAlignCenter->setCheckable(true);
-//    m_actionAlignCenter->setPriority(QAction::LowPriority);
-//    m_actionAlignRight->setShortcut(Qt::CTRL + Qt::Key_R);
-//    m_actionAlignRight->setObjectName("alignright");
-//    m_actionAlignRight->setCheckable(true);
-//    m_actionAlignRight->setPriority(QAction::LowPriority);
-//    m_actionAlignJustify->setShortcut(Qt::CTRL + Qt::Key_J);
-//    m_actionAlignJustify->setObjectName("alignjustify");
-//    m_actionAlignJustify->setCheckable(true);
-//    m_actionAlignJustify->setPriority(QAction::LowPriority);
-//    m_actionAlignLeft->trigger();
-
-
-
-//    m_fontActions = new QActionGroup(this);
-//    m_fontActions->setObjectName("groupfont");
-//    connect(m_fontActions, SIGNAL(triggered(QAction*)), this, SLOT(setTextFamily(QAction*)), Qt::UniqueConnection);
-//    /* Pour tablettes, je préfère des boutons ... mais pas les retours de test (philippe 20131129) */
-//    m_actionFontAndika = new QAction(QIcon(":/abuledutextev1/format/fontAndika"), trUtf8("&Andika"), m_fontActions);
-//    m_actionFontAndika->setObjectName("andika");
-//    m_actionFontAndika->setPriority(QAction::LowPriority);
-//    m_actionFontAndika->setProperty("interligne",100);
-//    m_actionFontAndika->setProperty("defaultPointSize",20);
-//    m_actionFontAndika->setCheckable(true);
-//    m_actionFontAndika->trigger();
-
-//    m_actionFontSeyes = new QAction(QIcon(":/abuledutextev1/format/fontSeyes"), trUtf8("&Seyes"), m_fontActions);
-//    m_actionFontSeyes->setObjectName("SeyesBDE");
-//    m_actionFontSeyes->setPriority(QAction::LowPriority);
-//    m_actionFontSeyes->setProperty("interligne",200);
-//    m_actionFontSeyes->setProperty("defaultPointSize",28);
-//    m_actionFontSeyes->setCheckable(true);
-
-//    m_actionFontPlume = new QAction(QIcon(":/abuledutextev1/format/fontPlume"), trUtf8("&Plume"), m_fontActions);
-//    m_actionFontPlume->setObjectName("PlumBAE");
-//    m_actionFontPlume->setPriority(QAction::LowPriority);
-//    m_actionFontPlume->setProperty("interligne",120);
-//    m_actionFontPlume->setProperty("defaultPointSize",22);
-//    m_actionFontPlume->setCheckable(true);
-//}
 
 bool MainWindow::fileSave()
 {
@@ -706,52 +540,6 @@ void MainWindow::cursorMoved()
 
     //    updateActions(ui->teZoneTexte->textCursor().charFormat());
 }
-
-//void MainWindow::updateActions(QTextCharFormat fmt)
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-
-/* On actualise les toolButtons ou plutôt les QActions sous-jacentes en fonction du formatage du texte */
-//    m_actionTextBold->blockSignals(true);
-//    m_actionTextBold->setChecked(fmt.fontWeight() >= QFont::Bold);
-//    m_actionTextBold->blockSignals(false);
-
-//    m_actionTextItalic->blockSignals(true);
-//    m_actionTextItalic->setChecked(fmt.fontItalic());
-//    m_actionTextItalic->blockSignals(false);
-
-//    m_actionTextUnderline->blockSignals(true);
-//    m_actionTextUnderline->setChecked(fmt.fontUnderline());
-//    m_actionTextUnderline->blockSignals(false);
-
-//    //    m_actionTextColor->blockSignals(true);
-//    colorChanged(fmt.foreground().color());
-//    //    m_actionTextColor->blockSignals(false);
-
-//    m_actionAlignLeft->blockSignals(true);
-//    m_actionAlignLeft->setChecked(ui->teZoneTexte->alignment().testFlag(Qt::AlignLeft));
-//    m_actionAlignLeft->blockSignals(false);
-
-//    m_actionAlignCenter->blockSignals(true);
-//    m_actionAlignCenter->setChecked(ui->teZoneTexte->alignment().testFlag(Qt::AlignHCenter));
-//    m_actionAlignCenter->blockSignals(false);
-
-//    m_actionAlignRight->blockSignals(true);
-//    m_actionAlignRight->setChecked(ui->teZoneTexte->alignment().testFlag(Qt::AlignRight));
-//    m_actionAlignRight->blockSignals(false);
-
-//    m_actionAlignJustify->blockSignals(true);
-//    m_actionAlignJustify->setChecked(ui->teZoneTexte->alignment().testFlag(Qt::AlignJustify));
-//    m_actionAlignJustify->blockSignals(false);
-
-//    m_comboFont->blockSignals(true);
-//    //    m_comboFont->setCurrentFont(fmt.font());
-//    m_comboFont->blockSignals(false);
-
-//    m_comboSize->blockSignals(true);
-//    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(fmt.font().pointSize())));
-//    m_comboSize->blockSignals(false);
-//}
 
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
 {
@@ -1040,11 +828,11 @@ void MainWindow::slotReadContent()
     m_multimedia->abeMultiMediaPlay();
 }
 
-/***
+/*************************************************************************************************************************************
  *
  *  GESTION CHANGEMENT POLICE
  *
- * ***/
+ * ***********************************************************************************************************************************/
 void MainWindow::slotChangeFont(const QString &font)
 {
     qDebug() << "On change de FONT ::" << font;
@@ -1059,9 +847,9 @@ void MainWindow::slotChangeFont(const QString &font)
     //    m_textCharFormat = tcf;
     //    mergeFormatOnWordOrSelection(tcf);
 
-    m_textCharFormat .setFontFamily(font);
-    m_textCharFormat .setFont(font);
-    m_textCharFormat .setFontPointSize(m_fontSize);
+    m_textCharFormat.setFontFamily(font);
+    m_textCharFormat.setFont(font);
+    m_textCharFormat.setFontPointSize(m_fontSize);
 
     mergeFormatOnWordOrSelection(m_textCharFormat );
 }
@@ -1098,8 +886,6 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 
 void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 {
-    //    qDebug() << __FUNCTION__ << tcf.fontFamily() ;
-    //    tcf = m_textCharFormat;
     qDebug() << "############################################"<<tcf.fontFamily() << m_textCharFormat.fontFamily() << ui->teZoneTexte->currentFont() ;
     /* Bouton bold */
     ui->btn_bold->setChecked((tcf.fontWeight() > 50));
@@ -1136,4 +922,27 @@ void MainWindow::on_teZoneTexte_textChanged()
     //    qDebug() << ui->teZoneTexte->textCursor().blockCharFormat().font()
     //             << ui->teZoneTexte->textCursor().blockCharFormat().verticalAlignment()
     //             << ui->teZoneTexte->textCursor().blockCharFormat().fontFixedPitch();
+}
+
+void MainWindow::slotChangeFontSize(int newSize)
+{
+    qDebug() << "+++++++++++++++++++++ " << newSize ;
+    qreal pointSize = newSize;
+    if(newSize > 0){
+        QTextCharFormat fmt;
+        fmt.setFontPointSize(pointSize);
+        mergeFormatOnWordOrSelection(fmt);
+    }
+}
+
+void MainWindow::on_btn_increase_clicked()
+{
+    m_fontSize += 2;
+    slotChangeFontSize(m_fontSize);
+}
+
+void MainWindow::on_btn_decrease_clicked()
+{
+    m_fontSize -= 2;
+    slotChangeFontSize(m_fontSize);
 }

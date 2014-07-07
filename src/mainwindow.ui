@@ -530,7 +530,7 @@
                 </property>
                 <property name="icon">
                  <iconset resource="resources.qrc">
-                  <normaloff>:/abuledutextev1/format/fontPlume</normaloff>:/abuledutextev1/format/fontPlume</iconset>
+                  <normaloff>:/abuledutextev1/format/fontCursive</normaloff>:/abuledutextev1/format/fontCursive</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
