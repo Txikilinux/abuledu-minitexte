@@ -3,7 +3,7 @@
 
 #define EXECNAME "abuledu-minitexte"
 #define ICONNAME "abuledu-minitexte"
-#define DIRNAME "Minitexte"
+#define DIRNAME "abuledu-minitexte"
 #define APPNAME "Les outils d'AbulEdu - Minitexte"
 
 [Setup]
