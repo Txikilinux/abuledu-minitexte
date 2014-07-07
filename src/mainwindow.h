@@ -182,6 +182,7 @@ private:
 
     QSignalMapper *m_signalMapperFontChange;
     QSignalMapper *m_signalMapperFontFormChange;
+    QSignalMapper *m_signalMapperTextAlignChange;
 
 //    QString m_fontFamily;
     int m_fontSize;
@@ -192,7 +193,7 @@ private:
     void initMultimedia();
     void initSignalMapperFontChange();
     void initSignalMapperFormFontChange();
-
+    void initSignalMapperTextAlignChange();
 public slots:
     /** Formate le texte en fonction des toolButtons activés
       * Gras, Souligné, Italic
@@ -221,8 +222,7 @@ public slots:
     void filePrint(QPrinter*);
 #endif
 
-//    void cursorMoved(QTextCursor curseur);
-    void cursorMoved();
+    void slotCursorMoved();
     /** Mets à jour l'état des boutons de la tool barre en fonction du formatage */
 //    void updateActions(QTextCharFormat fmt);
 
@@ -274,9 +274,9 @@ private slots:
     void slotChangeFormFont(const QString &);
     void slotChangeFontSize(int );
     void slotCurrentCharFormatChanged(QTextCharFormat);
+    void slotChangeTextAlign(const QString &);
 
     void on_btn_increase_clicked();
-
     void on_btn_decrease_clicked();
 
 signals:

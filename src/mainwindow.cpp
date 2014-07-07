@@ -88,11 +88,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
 
     /* Le curseur a été déplacé*/
-    //    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(cursorMoved()), Qt::UniqueConnection);
+    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(slotCursorMoved()), Qt::UniqueConnection);
 
     initMultimedia();
     initSignalMapperFontChange();
     initSignalMapperFormFontChange();
+    initSignalMapperTextAlignChange();
 
     /***************************** Chargement des Fonts ***************************************/
     QFontDatabase fonts;
@@ -149,6 +150,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_fontSize = 30;            /* taille par defaut */
 
     ui->btn_andika->click();    /* Andika par defaut */
+    ui->btn_leftText->click();  /* Alignement à gauche par défaut */
     m_textCharFormat = ui->teZoneTexte->textCursor().charFormat();
 }
 
@@ -203,6 +205,21 @@ void MainWindow::initSignalMapperFormFontChange()
     connect(ui->btn_bold, SIGNAL(clicked()), m_signalMapperFontFormChange, SLOT(map()), Qt::UniqueConnection);
     connect(ui->btn_italic, SIGNAL(clicked()), m_signalMapperFontFormChange, SLOT(map()), Qt::UniqueConnection);
     connect(ui->btn_underlined, SIGNAL(clicked()), m_signalMapperFontFormChange, SLOT(map()), Qt::UniqueConnection);
+}
+
+void MainWindow::initSignalMapperTextAlignChange()
+{
+    m_signalMapperTextAlignChange = new QSignalMapper(this);
+    connect(m_signalMapperTextAlignChange, SIGNAL(mapped(QString)), SLOT(slotChangeTextAlign(QString)), Qt::UniqueConnection);
+    m_signalMapperTextAlignChange->setMapping(ui->btn_leftText, "left");
+    m_signalMapperTextAlignChange->setMapping(ui->btn_centerText, "center");
+    m_signalMapperTextAlignChange->setMapping(ui->btn_rightText, "right");
+    m_signalMapperTextAlignChange->setMapping(ui->btn_justifyText, "justify");
+
+    connect(ui->btn_leftText, SIGNAL(clicked()), m_signalMapperTextAlignChange, SLOT(map()), Qt::UniqueConnection);
+    connect(ui->btn_centerText, SIGNAL(clicked()), m_signalMapperTextAlignChange, SLOT(map()), Qt::UniqueConnection);
+    connect(ui->btn_rightText, SIGNAL(clicked()), m_signalMapperTextAlignChange, SLOT(map()), Qt::UniqueConnection);
+    connect(ui->btn_justifyText, SIGNAL(clicked()), m_signalMapperTextAlignChange, SLOT(map()), Qt::UniqueConnection);
 }
 
 void MainWindow::installTranslator()
@@ -354,8 +371,7 @@ void MainWindow::setTextSize(int p)
 
     /* On applique la taille de font sélectionnée */
     qreal pointSize = p;
-    if (p > 0)
-    {
+    if (p > 0) {
         QTextCharFormat fmt;
         fmt.setFontPointSize(pointSize);
         mergeFormatOnWordOrSelection(fmt);
@@ -532,14 +548,39 @@ void MainWindow::filePrint(QPrinter *printer)
     msgImpression->show();
     connect(msgImpression, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
 }
-#endif
 
-void MainWindow::cursorMoved()
+void MainWindow::slotCursorMoved()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
-    //    updateActions(ui->teZoneTexte->textCursor().charFormat());
+
+    qDebug() << ui->teZoneTexte->alignment();
+    qDebug() << ui->teZoneTexte->alignment().testFlag(Qt::AlignLeft)
+             << ui->teZoneTexte->alignment().testFlag(Qt::AlignHCenter)
+             << ui->teZoneTexte->alignment().testFlag(Qt::AlignRight)
+             << ui->teZoneTexte->alignment().testFlag(Qt::AlignJustify);
+
+
+    /* Répercussions graphiques de l'alignement */
+    if(ui->teZoneTexte->alignment().testFlag(Qt::AlignLeft)){
+        qDebug() << "TEST GAUCHE OK";
+        ui->btn_leftText->click();
+    }
+    else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignHCenter)){
+        qDebug() << "TEST CENTER OK";
+        ui->btn_centerText->click();
+    }
+    else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignRight)){
+        qDebug() << "TEST RIGHT OK";
+        ui->btn_rightText->click();
+    }
+    else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignJustify)){
+        qDebug() << "TEST JUSTIFY OK";
+        ui->btn_justifyText->click();
+    }
 }
+#endif
+
 
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
 {
@@ -835,18 +876,7 @@ void MainWindow::slotReadContent()
  * ***********************************************************************************************************************************/
 void MainWindow::slotChangeFont(const QString &font)
 {
-    qDebug() << "On change de FONT ::" << font;
-    //    m_fontFamily = font;
-
-    qDebug() << ui->teZoneTexte->textCursor().charFormat();
-
-    //    QTextCharFormat tcf;
-    //    tcf.setFontFamily(font);
-    //    tcf.setFont(font);
-    //    tcf.setFontPointSize(m_fontSize);
-    //    m_textCharFormat = tcf;
-    //    mergeFormatOnWordOrSelection(tcf);
-
+    qDebug() << "On change de FONT ::" << font << ui->teZoneTexte->textCursor().charFormat();
     m_textCharFormat.setFontFamily(font);
     m_textCharFormat.setFont(font);
     m_textCharFormat.setFontPointSize(m_fontSize);
@@ -859,13 +889,6 @@ void MainWindow::slotChangeFormFont(const QString &form)
     qDebug() << "On change de form ::" << form;
 
     /* On crée le format à appliquer */
-    //    QTextCharFormat fmt;
-    //    fmt.setFontWeight(ui->btn_bold->isChecked() ? QFont::Bold : QFont::Normal);
-    //    fmt.setFontItalic(ui->btn_italic->isChecked());
-    //    fmt.setFontUnderline(ui->btn_underlined->isChecked());
-    //    /* On l'applique */
-    //    mergeFormatOnWordOrSelection(fmt);
-
     m_textCharFormat.setFontWeight(ui->btn_bold->isChecked() ? QFont::Bold : QFont::Normal);
     m_textCharFormat.setFontItalic(ui->btn_italic->isChecked());
     m_textCharFormat.setFontUnderline(ui->btn_underlined->isChecked());
@@ -905,6 +928,8 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
         ui->btn_seyes->setChecked(true);
     }
 
+    qDebug() << "Alignement : " <<ui->teZoneTexte->alignment();
+
     if(/*m_textCharFormat.fontFamily() != tcf.fontFamily() && */ui->teZoneTexte->toPlainText().isEmpty()){
         qDebug() << "+++++++++++++++++++++++++++++++   +++++++++++++++++++++++++  " << "C'est mon cas ";
         mergeFormatOnWordOrSelection(m_textCharFormat);
@@ -912,16 +937,31 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
     }
 }
 
+void MainWindow::slotChangeTextAlign(const QString& align)
+{
+    qDebug() << "++++++++++++++++++++++++ " << align;
+
+    if(align == "left"){
+        ui->teZoneTexte->setAlignment(Qt::AlignLeft | Qt::AlignAbsolute);
+    }
+    else if(align == "center"){
+        ui->teZoneTexte->setAlignment(Qt::AlignHCenter);
+    }
+    else if(align == "right"){
+        ui->teZoneTexte->setAlignment(Qt::AlignRight | Qt::AlignAbsolute);
+    }
+    else if(align == "justify"){
+       ui->teZoneTexte->setAlignment(Qt::AlignJustify);
+    }
+}
+
 void MainWindow::on_teZoneTexte_textChanged()
 {
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
+//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
     //    if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
     //        setWindowModified(true);
     //    }
 
-    //    qDebug() << ui->teZoneTexte->textCursor().blockCharFormat().font()
-    //             << ui->teZoneTexte->textCursor().blockCharFormat().verticalAlignment()
-    //             << ui->teZoneTexte->textCursor().blockCharFormat().fontFixedPitch();
 }
 
 void MainWindow::slotChangeFontSize(int newSize)
