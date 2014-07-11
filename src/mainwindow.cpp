@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isCloseRequested  = false;
     m_isNewFile         = true;
     m_wantNewFile       = false;
-
     setWindowFlags(Qt::CustomizeWindowHint);
 
 #ifdef Q_OS_WIN
@@ -787,8 +786,14 @@ void MainWindow::slotReadContent()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
 
-    m_multimedia->abeMultiMediaSetNewMedia(AbulEduMediaMedias(QString(),QString(),ui->teZoneTexte->toPlainText()));
+    (ui->teZoneTexte->textCursor().hasSelection()) ? (m_textToSpeech = ui->teZoneTexte->textCursor().selectedText()) : (m_textToSpeech = ui->teZoneTexte->toPlainText());
+
+    if(m_textToSpeech.isEmpty())
+        return;
+
+    m_multimedia->abeMultiMediaSetNewMedia(AbulEduMediaMedias(QString(),QString(),m_textToSpeech));
     m_multimedia->abeMultiMediaPlay();
+    m_textToSpeech.clear();
 }
 
 /*************************************************************************************************************************************

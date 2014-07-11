@@ -187,6 +187,8 @@ private:
 
     QStringList m_listColors;
 
+    QString m_textToSpeech;
+
     void centrerFenetre();
     void initMultimedia();
     void initSignalMapperFontChange();
