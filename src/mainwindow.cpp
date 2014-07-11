@@ -47,12 +47,12 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef Q_OS_WIN
     switch(QSysInfo::windowsVersion())
     {
-    case QSysInfo::WV_2000: qDebug()<< "Windows 2000";break;
-    case QSysInfo::WV_XP: qDebug()<< "Windows XP";break;
-    case QSysInfo::WV_VISTA: qDebug()<< "Windows Vista";break;
-    case QSysInfo::WV_WINDOWS7: qDebug()<< "Windows Seven";break;
-    case QSysInfo::WV_WINDOWS8: qDebug()<< "Windows 8";break;
-    default: qDebug()<< "Windows";break;
+    case QSysInfo::WV_2000: if(m_localDebug) qDebug()<< "Windows 2000";break;
+    case QSysInfo::WV_XP: if(m_localDebug) qDebug()<< "Windows XP";break;
+    case QSysInfo::WV_VISTA: if(m_localDebug) qDebug()<< "Windows Vista";break;
+    case QSysInfo::WV_WINDOWS7: if(m_localDebug) qDebug()<< "Windows Seven";break;
+    case QSysInfo::WV_WINDOWS8: if(m_localDebug) qDebug()<< "Windows 8";break;
+    default: if(m_localDebug) qDebug()<< "Windows";break;
     }
 #endif
 
@@ -174,8 +174,8 @@ void MainWindow::initMultimedia()
     connect(m_multimedia->abeMultiMediaGetAudioControlWidget(), SIGNAL(signalAbeControlAudioPlayClicked()),this, SLOT(slotReadContent()),Qt::UniqueConnection);
 
     /** @todo autres langues ? */
-    if(m_multimedia->abeMultiMediaGetTTSlang() != AbulEduMultiMediaSettingsV1::fre){
-        m_multimedia->abeMultimediaSetTTS(AbulEduMultiMediaSettingsV1::fre);
+    if(m_multimedia->abeMultiMediaGetTTSlang() != AbulEduPicottsV1::fr){
+        m_multimedia->abeMultimediaSetTTS(AbulEduPicottsV1::fr);
     }
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),
             m_multimedia, SLOT(slotAbeMultimediaSetTTSfromIso6391(QString)), Qt::UniqueConnection);
@@ -909,7 +909,7 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 
 void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 {
-    qDebug() << "############################################"<<tcf.fontFamily() << m_textCharFormat.fontFamily() << ui->teZoneTexte->currentFont() ;
+    if(m_localDebug) qDebug() << __PRETTY_FUNCTION__<<tcf.fontFamily() << m_textCharFormat.fontFamily() << ui->teZoneTexte->currentFont() ;
     /* Bouton bold */
     ui->btn_bold->setChecked((tcf.fontWeight() > 50));
     /* Bouton underlined */
