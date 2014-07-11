@@ -37,8 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_hauteurToolBar = 48;
 
-    /* @warning */
-    m_localDebug        = true;
+    m_localDebug        = false;
     m_isCloseRequested  = false;
     m_isNewFile         = true;
     m_wantNewFile       = false;
@@ -154,6 +153,8 @@ void MainWindow::centrerFenetre()
 
 void MainWindow::initMultimedia()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
     m_multimedia = new AbulEduMultiMediaV1(AbulEduMultiMediaV1::Sound, ui->frmControlAudio);
     m_multimedia->abeMultiMediaGetAudioControlWidget()->abeControlAudioSetDirection(QBoxLayout::TopToBottom);
     m_multimedia->abeMultiMediaSetButtonVisible(AbulEduMultiMediaV1::BtnMagnifyingGlass | AbulEduMultiMediaV1::BtnPrevious | AbulEduMultiMediaV1::BtnNext | AbulEduMultiMediaV1::BtnHide | AbulEduMultiMediaV1::BtnRecord,false);
@@ -171,6 +172,8 @@ void MainWindow::initMultimedia()
 
 void MainWindow::initSignalMapperFontChange()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
     m_signalMapperFontChange = new QSignalMapper(this);
     connect(m_signalMapperFontChange, SIGNAL(mapped(QString)), SLOT(slotChangeFont(QString)), Qt::UniqueConnection);
     m_signalMapperFontChange->setMapping(ui->btn_andika,  "Andika");
@@ -184,6 +187,8 @@ void MainWindow::initSignalMapperFontChange()
 
 void MainWindow::initSignalMapperFormFontChange()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
     m_signalMapperFontFormChange = new QSignalMapper(this);
     connect(m_signalMapperFontFormChange, SIGNAL(mapped(QString)), SLOT(slotChangeFormFont(QString)), Qt::UniqueConnection);
     m_signalMapperFontFormChange->setMapping(ui->btn_bold, "bold");
@@ -197,6 +202,8 @@ void MainWindow::initSignalMapperFormFontChange()
 
 void MainWindow::initSignalMapperTextAlignChange()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
     m_signalMapperTextAlignChange = new QSignalMapper(this);
     connect(m_signalMapperTextAlignChange, SIGNAL(mapped(QString)), SLOT(slotChangeTextAlign(QString)), Qt::UniqueConnection);
     m_signalMapperTextAlignChange->setMapping(ui->btn_leftText, "left");
@@ -212,6 +219,7 @@ void MainWindow::initSignalMapperTextAlignChange()
 
 void MainWindow::initComboBoxColor(QComboBox *cb)
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
     if(!cb) return;
 
 //    const QStringList colorNames = QColor::colorNames();
@@ -238,7 +246,6 @@ void MainWindow::initComboBoxColor(QComboBox *cb)
     }
 
     /* Par défaut, couleur noire */
-//    cb->setCurrentIndex(0);
     slotChangeColor(0);
 }
 
@@ -267,56 +274,6 @@ QTextDocument *MainWindow::abeTexteGetDocument()
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
     return ui->teZoneTexte->document();
-}
-
-void MainWindow::abeTexteSetAlignment(Qt::Alignment align)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << align;
-
-    if(align.testFlag(Qt::AlignRight))
-        emit alignmentRight();
-    else if(align.testFlag(Qt::AlignLeft))
-        emit alignmentLeft();
-    else if(align.testFlag(Qt::AlignHCenter))
-        emit alignmentCenter();
-    else if(align.testFlag(Qt::AlignJustify))
-        emit alignmentCenter();
-
-    //    updateActions(ui->teZoneTexte->textCursor().charFormat()); /* Met le bouton concerné à jour */
-}
-
-void MainWindow::setTextAlign(QAction *action)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << action;
-}
-
-void MainWindow::setTextSize(int p)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << p;
-
-    /* On applique la taille de font sélectionnée */
-    qreal pointSize = p;
-    if (p > 0) {
-        QTextCharFormat fmt;
-        fmt.setFontPointSize(pointSize);
-        mergeFormatOnWordOrSelection(fmt);
-    }
-}
-
-void MainWindow::colorChanged(const QColor &col)
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-
-    if (!col.isValid()){
-        return;
-    }
-    QTextCharFormat fmt;
-    fmt.setForeground(col);
-    mergeFormatOnWordOrSelection(fmt);
-    QPixmap pix(16,16);
-    pix.fill(col);
-//    ui->btn_color->setIcon(pix);
-    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
 bool MainWindow::fileSave()
@@ -392,7 +349,7 @@ void MainWindow::setCurrentFileName(const QString &fileName)
     emit fileNameHasChanged(shownName);
 }
 
-bool MainWindow::abeTexteInsertImage(QString cheminImage, qreal width, qreal height, QTextFrameFormat::Position position, QString name)
+bool MainWindow::abeTexteInsertImage(const QString &cheminImage, qreal width, qreal height, const QTextFrameFormat::Position &position, QString name)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
@@ -468,14 +425,6 @@ void MainWindow::slotCursorMoved()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
-
-    qDebug() << ui->teZoneTexte->alignment();
-    qDebug() << ui->teZoneTexte->alignment().testFlag(Qt::AlignLeft)
-             << ui->teZoneTexte->alignment().testFlag(Qt::AlignHCenter)
-             << ui->teZoneTexte->alignment().testFlag(Qt::AlignRight)
-             << ui->teZoneTexte->alignment().testFlag(Qt::AlignJustify);
-
-
     /* Répercussions graphiques de l'alignement */
     if(ui->teZoneTexte->alignment().testFlag(Qt::AlignLeft)){
         qDebug() << "TEST GAUCHE OK";
@@ -495,7 +444,6 @@ void MainWindow::slotCursorMoved()
     }
 }
 #endif
-
 
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
 {
@@ -803,7 +751,8 @@ void MainWindow::slotReadContent()
  * ***********************************************************************************************************************************/
 void MainWindow::slotChangeFont(const QString &font)
 {
-    qDebug() << "On change de FONT ::" << font << ui->teZoneTexte->textCursor().charFormat();
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << font << ui->teZoneTexte->textCursor().charFormat();
+
     m_textCharFormat.setFontFamily(font);
     m_textCharFormat.setFont(font);
     m_textCharFormat.setFontPointSize(m_fontSize);
@@ -813,7 +762,7 @@ void MainWindow::slotChangeFont(const QString &font)
 
 void MainWindow::slotChangeFormFont(const QString &form)
 {
-    qDebug() << "On change de form ::" << form;
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__  << form;
 
     /* On crée le format à appliquer */
     m_textCharFormat.setFontWeight(ui->btn_bold->isChecked() ? QFont::Bold : QFont::Normal);
@@ -836,7 +785,7 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 
 void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 {
-    if(m_localDebug) qDebug() << __PRETTY_FUNCTION__<<tcf.fontFamily() << m_textCharFormat.fontFamily() << ui->teZoneTexte->currentFont() ;
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ /*<< tcf.fontFamily() << m_textCharFormat.fontFamily() << ui->teZoneTexte->currentFont()*/ ;
     /* Bouton bold */
     ui->btn_bold->setChecked((tcf.fontWeight() > 50));
     /* Bouton underlined */
@@ -873,7 +822,7 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 
 void MainWindow::slotChangeTextAlign(const QString& align)
 {
-    qDebug() << "++++++++++++++++++++++++ " << align;
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << align;
 
     if(align == "left"){
         ui->teZoneTexte->setAlignment(Qt::AlignLeft | Qt::AlignAbsolute);
@@ -900,7 +849,7 @@ void MainWindow::on_teZoneTexte_textChanged()
 
 void MainWindow::slotChangeFontSize(int newSize)
 {
-    qDebug() << "+++++++++++++++++++++ " << newSize ;
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << newSize ;
     qreal pointSize = newSize;
     if(newSize > 0){
         QTextCharFormat fmt;
@@ -923,7 +872,7 @@ void MainWindow::on_btn_decrease_clicked()
 
 void MainWindow::slotChangeColor(int index)
 {
-    qDebug() << "On change de couleur : " << index;
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << "On change de couleur : " << index;
     // const QStringList colorNames = QColor::colorNames();
     /* On change le fond */
    QColor color(m_listColors.at(index));

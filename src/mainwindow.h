@@ -84,16 +84,6 @@ public:
     void abeTexteSetFontFamily(QString fontFamily);
     QString abeTexteGetFontFamily();
 
-    /** Fixe la taille de la police courante
-      * @param taille la taille de la police
-      */
-    void abeTexteSetFontSize(int taille);
-
-    /** Fixe l'alignement du paragraphe courant
-      * @param align L'alignement du paragraphe : Qt::AlignLeft Qt::AlignRight Qt::AlignHCenter QT::AlignJustify
-      */
-    void abeTexteSetAlignment(Qt::Alignment align);
-
     /** Active le Bold ou pas
       * @param onOff active/désactive le Bold
       */
@@ -109,28 +99,10 @@ public:
       */
     void abeTexteSetUnderline(bool onOff);
 
-    /** Montre ou cache la ToolBar
-      * @param ouiNon visible/masquée
-      */
-//    void abeTexteToolBarSetVisible(bool ouiNon);
-
-    /** Retourne la visibilité de la ToolBar
-      * @return true->visible, false->invisible
-      */
-//    bool abeTexteToolBarIsVisible();
-
-    /** Crée la QMenuBar si elle ne l'était pas */
-//    void abeTexteSetMenuBar(bool ouiNon);
-
-    /** Retourne l'existance de la menuBar
-      * @return true->Elle existe, false-> elle n'existe pas.
-      */
-//    bool abeTexteHasMenuBar();
-
     /** insére une image à l'endroit du curseur
       * @param cheminImage Le chemin vers l'image à insérer
       */
-    bool abeTexteInsertImage(QString cheminImage, qreal width = 0, qreal height = 0, QTextFrameFormat::Position position = QTextFrameFormat::InFlow, QString name = "");
+    bool abeTexteInsertImage(const QString &cheminImage, qreal width = 0, qreal height = 0, const QTextFrameFormat::Position &position = QTextFrameFormat::InFlow, QString name = "");
 
 private:
     Ui::MainWindow *ui;
@@ -197,19 +169,6 @@ private:
     void initComboBoxColor(QComboBox *cb);
 
 public slots:
-    /** Formate le texte en fonction des toolButtons activés
-      * Gras, Souligné, Italic
-      */
-//    void setTextFormat();
-
-    /** Aligne le texte en fonction des boutons activés */
-    void setTextAlign(QAction *action);
-
-    /** Applique la font sélectionnée */
-//    void setTextFamily(QAction *action);
-
-    /** Applique la taille de font sélectionnée */
-    void setTextSize(int p);
 
     /** Enregistre le texte */
     bool fileSave();
@@ -249,11 +208,6 @@ private slots:
     void on_stackedWidget_currentChanged(int arg1);
     void slotClearCurrent();
 
-    /** Fixe la couleur de l'icone dans la barre de boutons
-      * @param couleur une couleur sous forme de QColor
-      */
-    void colorChanged(const QColor &col);
-
     void slotChangeColor(int);
 
     void showAbeMediathequeGet();
@@ -282,12 +236,6 @@ signals:
       * @param le nom du fichier avec [*] en fin de nom
       */
     void fileNameHasChanged(const QString newFileName);
-
-    // Signaux émis pour simuler l'appui sur les toolbutons
-    void alignmentRight();
-    void alignmentLeft();
-    void alignmentCenter();
-    void alignmentJustify();
 };
 
 #endif // MAINWINDOW_H
