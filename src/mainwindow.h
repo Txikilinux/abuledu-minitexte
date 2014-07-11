@@ -257,7 +257,7 @@ private slots:
     void showAbeMediathequeGet();
     void showTextPage();
 
-    void slotChangeLangue(QString lang);
+    void slotChangeLangue(const QString &lang);
 
     void on_teZoneTexte_textChanged();
 

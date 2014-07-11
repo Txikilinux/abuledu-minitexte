@@ -37,7 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_hauteurToolBar = 48;
 
-    m_localDebug        = false;
+    /* @warning */
+    m_localDebug        = true;
     m_isCloseRequested  = false;
     m_isNewFile         = true;
     m_wantNewFile       = false;
@@ -755,9 +756,13 @@ void MainWindow::showTextPage()
     ui->frmFormat->setEnabled(true);
 }
 
-void MainWindow::slotChangeLangue(QString lang)
+void MainWindow::slotChangeLangue(const QString &lang)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << " en "<<lang;
+
+     /* #3766 : le retranslateUi() efface tout le texte */
+    const QString textToReplace = ui->teZoneTexte->document()->toHtml();
+
     qApp->removeTranslator(&qtTranslator);
     qApp->removeTranslator(&myappTranslator);
 
@@ -766,6 +771,8 @@ void MainWindow::slotChangeLangue(QString lang)
     myappTranslator.load("abuledu-minitexte_" + lang, "lang");
     qApp->installTranslator(&myappTranslator);
     ui->retranslateUi(this);
+
+    ui->teZoneTexte->setHtml(textToReplace);
 }
 
 void MainWindow::slotSessionAuthenticated(bool enable)
