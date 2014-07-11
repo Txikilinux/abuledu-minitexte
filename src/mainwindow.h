@@ -173,9 +173,6 @@ private:
     QPrintDialog *m_printDialog;
     QPrinter *m_printer;
 #endif
-    /** Gestion Choix Couleur */
-    QColorDialog* m_colorDialog;
-
     QTranslator qtTranslator;
     QTranslator myappTranslator;
     QString m_locale;
@@ -184,16 +181,19 @@ private:
     QSignalMapper *m_signalMapperFontFormChange;
     QSignalMapper *m_signalMapperTextAlignChange;
 
-//    QString m_fontFamily;
     int m_fontSize;
 
     QTextCharFormat m_textCharFormat;
+
+    QStringList m_listColors;
 
     void centrerFenetre();
     void initMultimedia();
     void initSignalMapperFontChange();
     void initSignalMapperFormFontChange();
     void initSignalMapperTextAlignChange();
+    void initComboBoxColor(QComboBox *cb);
+
 public slots:
     /** Formate le texte en fonction des toolButtons activés
       * Gras, Souligné, Italic
@@ -208,9 +208,6 @@ public slots:
 
     /** Applique la taille de font sélectionnée */
     void setTextSize(int p);
-
-    /** Applique la couleur de texte sélectionnée */
-    void setTextColor();
 
     /** Enregistre le texte */
     bool fileSave();
@@ -255,14 +252,10 @@ private slots:
       */
     void colorChanged(const QColor &col);
 
+    void slotChangeColor(int);
+
     void showAbeMediathequeGet();
     void showTextPage();
-
-//    /** Augmente la police de caractères utilisée */
-//    void increaseFontSize(int increase = 2);
-
-//    /** Diminue la police de caractères utilisée */
-//    void decreaseFontSize(int decrease = 2);
 
     void slotChangeLangue(QString lang);
 

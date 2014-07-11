@@ -114,38 +114,26 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_printDialog, SIGNAL(rejected()), this, SLOT(showTextPage()), Qt::UniqueConnection);
     connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
 #endif
-
-    /* Gestion Couleur*/
-    m_colorDialog = new QColorDialog(this);
-    ui->vlColor->addWidget(m_colorDialog);
-    m_colorDialog->setOptions(QColorDialog::DontUseNativeDialog);
-    connect(m_colorDialog,SIGNAL(colorSelected(QColor)),this,SLOT(colorChanged(QColor)), Qt::UniqueConnection);
-    connect(m_colorDialog, SIGNAL(rejected()),this,SLOT(showTextPage()), Qt::UniqueConnection);
-
-    /* Gestion du retour de la page à propos */
-    connect(ui->pageAbout, SIGNAL(signalAbeAproposBtnCloseClicked()), this, SLOT(showTextPage()),Qt::UniqueConnection);
-
 #ifndef __ABULEDUTABLETTEV1__MODE__
     /* On Centre la fenetre */
     centrerFenetre();
     ui->teZoneTexte->setFocus();
 #endif
 
-    /* Gestion FrameBoutonsFormat */
+    /***************************** Gestion Couleur ***************************************/
+    initComboBoxColor(ui->cb_colorChooser);
+    connect( ui->cb_colorChooser, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChangeColor(int)), Qt::UniqueConnection);
 
-    /* Bouton Choix Couleur */
-    QPixmap pix(16, 16);
-    pix.fill(Qt::black);
-    ui->btn_color->setIcon(QIcon(pix));
-    connect(ui->btn_color, SIGNAL(clicked()), SLOT(setTextColor()), Qt::UniqueConnection);
+    /***************************** Gestion du retour de la page à propos ***************************************/
+    connect(ui->pageAbout, SIGNAL(signalAbeAproposBtnCloseClicked()), this, SLOT(showTextPage()),Qt::UniqueConnection);
 
-    /* Bouton Data */
+    /***************************** Gestion Bouton Data ***************************************/
     connect(ui->btn_data, SIGNAL(clicked()), SLOT(showAbeMediathequeGet()), Qt::UniqueConnection);
 
-    /*Page par défaut */
+    /***************************** Page par défaut ***************************************/
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 
-    /* Font par défaut */
+    /***************************** Font par défaut ***************************************/
     connect(ui->teZoneTexte, SIGNAL(currentCharFormatChanged(QTextCharFormat)), this, SLOT(slotCurrentCharFormatChanged(QTextCharFormat)));
     m_fontSize = 30;            /* taille par defaut */
 
@@ -222,6 +210,38 @@ void MainWindow::initSignalMapperTextAlignChange()
     connect(ui->btn_justifyText, SIGNAL(clicked()), m_signalMapperTextAlignChange, SLOT(map()), Qt::UniqueConnection);
 }
 
+void MainWindow::initComboBoxColor(QComboBox *cb)
+{
+    if(!cb) return;
+
+//    const QStringList colorNames = QColor::colorNames();
+//    int index = 0;
+//    foreach (const QString &colorName, colorNames) {
+//        const QColor color(colorName);
+//        cb->addItem(colorName, color);
+//        const QModelIndex idx = cb->model()->index(index++, 0);
+//        cb->model()->setData(idx, color, Qt::BackgroundColorRole);
+//    }
+
+    m_listColors << "black"<<  "white" << "darkGray" << "gray" <<  "lightGray" << "red"
+             << "green" << "blue" << "cyan" << "magenta" << "yellow" << "darkRed"
+             << "darkGreen" << "darkBlue" << "darkCyan" << "darkMagenta" ;
+
+    int index = 0;
+    foreach (const QString &colorName, m_listColors) {
+        const QColor color(colorName);
+        cb->addItem("",color);
+        const QModelIndex idx = cb->model()->index(index++, 0);
+        cb->model()->setData(idx, color, Qt::BackgroundColorRole);
+
+        qDebug() << color;
+    }
+
+    /* Par défaut, couleur noire */
+//    cb->setCurrentIndex(0);
+    slotChangeColor(0);
+}
+
 void MainWindow::installTranslator()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
@@ -232,7 +252,6 @@ void MainWindow::installTranslator()
     /* pour avoir les boutons des boîtes de dialogue dans la langue locale (fr par défaut) */
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     abeApp->installTranslator(&qtTranslator);
-
 }
 
 MainWindow::~MainWindow()
@@ -250,32 +269,6 @@ QTextDocument *MainWindow::abeTexteGetDocument()
     return ui->teZoneTexte->document();
 }
 
-//void MainWindow::abeTexteSetFontFamily(QString fontFamily)
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << fontFamily;
-
-//    //    m_comboFont->setCurrentFont(QFont(fontFamily));
-//    //    QAction* act = m_fontActions->findChild<QAction*>(fontFamily);
-//    //    ABULEDU_LOG_TRACE() << act->objectName();
-//    //    setTextFamily(act);
-//}
-
-//QString MainWindow::abeTexteGetFontFamily()
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-
-//    //    return m_comboFont->font().family();
-//}
-
-//void MainWindow::abeTexteSetFontSize(int taille)
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << taille;
-
-//    /** @todo Tester taille et l'adapter en fonction des tailles disponibles dans la combobox m_comboSize */
-//    //    m_comboSize->setCurrentIndex(m_comboSize->findText(QString::number(taille)));
-//    setTextSize(taille);
-//}
-
 void MainWindow::abeTexteSetAlignment(Qt::Alignment align)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << align;
@@ -292,78 +285,10 @@ void MainWindow::abeTexteSetAlignment(Qt::Alignment align)
     //    updateActions(ui->teZoneTexte->textCursor().charFormat()); /* Met le bouton concerné à jour */
 }
 
-//void MainWindow::abeTexteSetBold(bool onOff)
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
-
-//    //    m_actionTextBold->setChecked(onOff);
-//    //    setTextFormat();
-//}
-
-//void MainWindow::abeTexteSetItalic(bool onOff)
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
-
-//    //    m_actionTextItalic->setChecked(onOff);
-//    //    setTextFormat();
-//}
-
-//void MainWindow::abeTexteSetUnderline(bool onOff)
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << onOff;
-
-//    //    m_actionTextUnderline->setChecked(onOff);
-//    //    setTextFormat();
-//}
-
-//void MainWindow::setTextFormat()
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-
-//    /* On crée le format à appliquer */
-//    //    QTextCharFormat fmt;
-//    //    fmt.setFontWeight(m_actionTextBold->isChecked() ? QFont::Bold : QFont::Normal);
-//    //    fmt.setFontItalic(m_actionTextItalic->isChecked());
-//    //    fmt.setFontUnderline(m_actionTextUnderline->isChecked());
-//    //    /* On l'applique */
-//    //    mergeFormatOnWordOrSelection(fmt);
-//}
-
 void MainWindow::setTextAlign(QAction *action)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << action;
-
-    /* On applique le bon alignement pour le paragraphe sous le curseur */
-    //    if (action == m_actionAlignLeft)
-    //        ui->teZoneTexte->setAlignment(Qt::AlignLeft | Qt::AlignAbsolute); /* Toujours à gauche même en cas de RTL */
-    //    else if (action == m_actionAlignCenter)
-    //        ui->teZoneTexte->setAlignment(Qt::AlignHCenter);
-    //    else if (action == m_actionAlignRight)
-    //        ui->teZoneTexte->setAlignment(Qt::AlignRight | Qt::AlignAbsolute); /* Toujours à droite même en cas de RTL */
-    //    else if (action == m_actionAlignJustify)
-    //        ui->teZoneTexte->setAlignment(Qt::AlignJustify);
 }
-
-//void MainWindow::setTextFamily(QAction* action)
-//{
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << action;
-
-//    QString f = action->objectName();
-//    if (m_localDebug) qDebug() << " Fonte : " << f;
-//    /* On applique le format de font sélectionnée */
-//    QTextCharFormat fmt;
-//    fmt.setFontFamily(f);
-//    mergeFormatOnWordOrSelection(fmt);
-//    setTextSize(action->property("defaultPointSize").toInt());
-
-//    /* Espacement vertical different */
-//    QTextBlockFormat format;
-//#if QT_VERSION >= 0x040700
-//    format.setLineHeight(action->property("interligne").toInt(), QTextBlockFormat::ProportionalHeight);
-//#endif
-//    QTextCursor curseur = ui->teZoneTexte->textCursor();
-//    curseur.setBlockFormat(format);
-//}
 
 void MainWindow::setTextSize(int p)
 {
@@ -378,16 +303,6 @@ void MainWindow::setTextSize(int p)
     }
 }
 
-void MainWindow::setTextColor()
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-
-    ui->stackedWidget->setCurrentWidget(ui->pageColor);
-
-    if(!m_colorDialog->isVisible())
-        m_colorDialog->setVisible(true);
-}
-
 void MainWindow::colorChanged(const QColor &col)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
@@ -400,7 +315,7 @@ void MainWindow::colorChanged(const QColor &col)
     mergeFormatOnWordOrSelection(fmt);
     QPixmap pix(16,16);
     pix.fill(col);
-    ui->btn_color->setIcon(pix);
+//    ui->btn_color->setIcon(pix);
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
@@ -929,6 +844,13 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
     }
 
     qDebug() << "Alignement : " <<ui->teZoneTexte->alignment();
+    qDebug() << "Color : " <<ui->teZoneTexte->textCursor().charFormat().foreground().color();
+
+    /* Definition de la bonne couleur dans la comboBox suivant celle présente sous le curseur */
+    int index = ui->cb_colorChooser->findData(ui->teZoneTexte->textCursor().charFormat().foreground().color());
+    if ( index != -1 ) { // -1 for not found
+        ui->cb_colorChooser->setCurrentIndex(index);
+    }
 
     if(/*m_textCharFormat.fontFamily() != tcf.fontFamily() && */ui->teZoneTexte->toPlainText().isEmpty()){
         qDebug() << "+++++++++++++++++++++++++++++++   +++++++++++++++++++++++++  " << "C'est mon cas ";
@@ -951,13 +873,13 @@ void MainWindow::slotChangeTextAlign(const QString& align)
         ui->teZoneTexte->setAlignment(Qt::AlignRight | Qt::AlignAbsolute);
     }
     else if(align == "justify"){
-       ui->teZoneTexte->setAlignment(Qt::AlignJustify);
+        ui->teZoneTexte->setAlignment(Qt::AlignJustify);
     }
 }
 
 void MainWindow::on_teZoneTexte_textChanged()
 {
-//    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
+    //    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
     //    if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
     //        setWindowModified(true);
     //    }
@@ -985,4 +907,25 @@ void MainWindow::on_btn_decrease_clicked()
 {
     m_fontSize -= 2;
     slotChangeFontSize(m_fontSize);
+}
+
+void MainWindow::slotChangeColor(int index)
+{
+    qDebug() << "On change de couleur : " << index;
+    // const QStringList colorNames = QColor::colorNames();
+    /* On change le fond */
+   QColor color(m_listColors.at(index));
+   QPalette palette = ui->cb_colorChooser->palette();
+   palette.setColor(QPalette::Base, color);
+   ui->cb_colorChooser->setPalette(palette);
+
+   /* Méthode petity carré conservée (petites icones) */
+//   int size = ui->cb_colorChooser->style()->pixelMetric(QStyle::PM_SmallIconSize);
+//   QPixmap pixmap(size, size);
+//   pixmap.fill(color);
+//   ui->cb_colorChooser->setItemData(index, pixmap, Qt::DecorationRole);
+
+   QTextCharFormat fmt;
+   fmt.setForeground(color);
+   mergeFormatOnWordOrSelection(fmt);
 }
