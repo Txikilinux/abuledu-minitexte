@@ -2,12 +2,10 @@ Source: abuledu-minitexte
 Section: admin
 Priority: extra
 Maintainer: Eric Seigne <eric.seigne@ryxeo.com>
-Build-Depends: cdbs, libqt5webkit5-dev, qt5-qmake, qtbase5-dev, libqt5core5, zlib1g-dev, libexiv2-dev, libpulse-dev
+Build-Depends: cdbs, libqt5webkit5-dev, qt5-qmake, qtbase5-dev, libqt5core5, zlib1g-dev, libexiv2-dev, libpulse-dev, libvorbis-dev
 Standards-Version: 3.8.3
 Homepage: http://www.abuledu.org/abuledu-minitexte
 Vcs-Browser: https://redmine.ryxeo.com/projects/abuledu-minitexte/issues
-
-
 
 Package: abuledu-minitexte
 Architecture: any

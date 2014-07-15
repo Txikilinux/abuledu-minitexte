@@ -6,10 +6,10 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/maia/ src/lib/maia revid:eric.
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduidentitesv1/ src/lib/abuleduidentitesv1 revid:icham.sirat@ryxeo.com-20140522092440-9dgrbt6db3qt5j97
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumessageboxv1/ src/lib/abuledumessageboxv1 revid:philippe.cadaugade@ryxeo.com-20140522135859-2qx4wdmlvpzwwfcw
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledufilev1 src/lib/abuledufilev1 revid:philippe.cadaugade@ryxeo.com-20140623160850-x5pkzdj6n220tyom
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:philippe.cadaugade@ryxeo.com-20140711083302-v4cys2k0ab41cvkl
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:philippe.cadaugade@ryxeo.com-20140711140657-fu99jx72ai1pfoo0
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusplashscreenv1/ src/lib/abuledusplashscreenv1 revid:eric.seigne@ryxeo.com-20140519105050-bykgg0e6zdwjqyfb
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledulangv1/ src/lib/abuledulangv1 revid:eric.seigne@ryxeo.com-20131030180044-nvpgvjev3917r1hb
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumenufeuillev1/ src/lib/abuledumenufeuillev1 revid:philippe.cadaugade@ryxeo.com-20140624141211-3r902pazsy38t00o
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumenufeuillev1/ src/lib/abuledumenufeuillev1 revid:philippe.cadaugade@ryxeo.com-20140711140313-o96fo3006ql39hep
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusingletonv1 src/lib/abuledusingletonv1 revid:icham.sirat@ryxeo.com-20131219084203-ntzm0in10fg4ulsh
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupluginloaderv1/ src/lib/abuledupluginloaderv1 revid:icham.sirat@ryxeo.com-20140225144249-1irhzlvpnvj8p9yo
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaproposv1 src/lib/abuleduaproposv1 revid:philippe.cadaugade@ryxeo.com-20140623161221-2vlq4k4l0nno248m
