@@ -420,6 +420,7 @@ void MainWindow::filePrint(QPrinter *printer)
     msgImpression->show();
     connect(msgImpression, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
 }
+#endif
 
 void MainWindow::slotCursorMoved()
 {
@@ -443,7 +444,6 @@ void MainWindow::slotCursorMoved()
         ui->btn_justifyText->click();
     }
 }
-#endif
 
 void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, int code)
 {
