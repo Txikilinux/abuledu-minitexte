@@ -93,6 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initSignalMapperFontChange();
     initSignalMapperFormFontChange();
     initSignalMapperTextAlignChange();
+    initTooltips();
 
     /***************************** Chargement des Fonts ***************************************/
     QFontDatabase fonts;
@@ -247,6 +248,24 @@ void MainWindow::initComboBoxColor(QComboBox *cb)
 
     /* Par défaut, couleur noire */
     slotChangeColor(0);
+}
+
+void MainWindow::initTooltips()
+{
+    ui->btn_bold->setToolTip(trUtf8("Mettre le texte en gras"));
+    ui->btn_italic->setToolTip(trUtf8("Mettre le texte en italique"));
+    ui->btn_underlined->setToolTip(trUtf8("Souligner le texte"));
+    ui->btn_decrease->setToolTip(trUtf8("Diminuer la taille de police du texte"));
+    ui->btn_increase->setToolTip(trUtf8("Augmenter la taille de police du texte"));
+    ui->btn_leftText->setToolTip(trUtf8("Aligner le texte à gauche"));
+    ui->btn_centerText->setToolTip(trUtf8("Centrer le texte"));
+    ui->btn_rightText->setToolTip(trUtf8("Aligner le texte à droite"));
+    ui->btn_justifyText->setToolTip(trUtf8("Justifier le texte"));
+    ui->btn_andika->setToolTip(trUtf8("Définir la police Andika pour le texte"));
+    ui->btn_seyes->setToolTip(trUtf8("Définir la police Seyes pour le texte"));
+    ui->btn_plume->setToolTip(trUtf8("Définir la police Plume pour le texte"));
+    ui->cb_colorChooser->setToolTip(trUtf8("Définir la couleur de la police"));
+    ui->btn_data->setToolTip(trUtf8("Récupérer une ressource image depuis le service AbulEdu-Mediatheque"));
 }
 
 void MainWindow::installTranslator()

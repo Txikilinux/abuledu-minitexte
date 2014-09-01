@@ -167,6 +167,7 @@ private:
     void initSignalMapperFormFontChange();
     void initSignalMapperTextAlignChange();
     void initComboBoxColor(QComboBox *cb);
+    void initTooltips();
 
 public slots:
 
