@@ -853,10 +853,17 @@ border-radius : 5px;
 }
 #btnCursiveMicroTexte::checked,
 #btnMajusculeMicroTexte::checked,
-#btnMinusculeMicroTexte::checked {
-background-color:#0D90F6;r
+#btnMinusculeMicroTexte::checked,
+#btnDecreasePoliceMicroTexte::pressed,
+#btnIncreasePoliceMicroTexte::pressed,
+#btnHelpMicroTexte::pressed,
+#btnNewMicroTexte::pressed,
+#btnOpenMicroTexte::pressed,
+#btnPrintMicroTexte::pressed,
+#btnQuitMicroTexte::pressed,
+#btnSaveMicroTexte::pressed {
+background-color:#0D90F6;
 }
-
 </string>
       </property>
       <property name="frameShape">
