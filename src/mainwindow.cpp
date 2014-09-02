@@ -141,9 +141,30 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btn_leftText->click();  /* Alignement à gauche par défaut */
     m_textCharFormat = ui->teZoneTexte->textCursor().charFormat();
 
-    /** #3861 Fusion mini/microtexte 1 commit */
-    ui->frTopMicroTexte->hide();
-    ui->lblTitreMicroTexte->hide();
+#ifdef __MICROTEXTE_MODE__
+        ui->frmMenuFeuille->hide();
+        ui->frmFormat->hide();
+
+        /* Connexion des boutons */
+        connect(ui->btnNewMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnNew_clicked()), Qt::UniqueConnection);
+        connect(ui->btnOpenMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnOpen_clicked()), Qt::UniqueConnection);
+        connect(ui->btnSaveMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnSave_clicked()), Qt::UniqueConnection);
+        connect(ui->btnMajusculeMicroTexte, SIGNAL(clicked()), SLOT(slotFontCaps()), Qt::UniqueConnection);
+        connect(ui->btnMinusculeMicroTexte, SIGNAL(clicked()), SLOT(slotFontLower()), Qt::UniqueConnection);
+        // connect(ui->btnCursiveMicroTexte, SIGNAL(clicked()), SLOT(slotChangeFont(QString)));
+        connect(ui->btnDecreasePoliceMicroTexte, SIGNAL(clicked()), SLOT(on_btn_decrease_clicked()), Qt::UniqueConnection);
+        connect(ui->btnIncreasePoliceMicroTexte, SIGNAL(clicked()), SLOT(on_btn_increase_clicked()), Qt::UniqueConnection);
+        connect(ui->btnPrintMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnPrint_clicked()), Qt::UniqueConnection);
+        connect(ui->btnHelpMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnHelp_clicked()), Qt::UniqueConnection);
+
+        connect(ui->btnQuitMicroTexte, SIGNAL(clicked()), abeApp, SLOT(quit()), Qt::UniqueConnection);
+
+        /* Caps par defaut */
+        ui->btnMajusculeMicroTexte->click();
+#else
+        ui->frTopMicroTexte->hide();
+        ui->lblTitreMicroTexte->hide();
+#endif
 }
 
 void MainWindow::centrerFenetre()
@@ -780,7 +801,13 @@ void MainWindow::slotChangeFont(const QString &font)
     m_textCharFormat.setFont(font);
     m_textCharFormat.setFontPointSize(m_fontSize);
 
-    mergeFormatOnWordOrSelection(m_textCharFormat );
+    if(ui->btnMajusculeMicroTexte->isChecked())
+        m_textCharFormat.setFontCapitalization(QFont::AllUppercase);
+    else if(ui->btnMinusculeMicroTexte->isChecked())
+        m_textCharFormat.setFontCapitalization(QFont::AllLowercase);
+
+
+    mergeFormatOnWordOrSelection(m_textCharFormat);
 }
 
 void MainWindow::slotChangeFormFont(const QString &form)
@@ -819,6 +846,7 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
     /*  Ici gérer les changements de police et repercuter sur interface */
     if (tcf.fontFamily() == "CursiveStandard" ){
         ui->btn_plume->setChecked(true);
+        ui->btnCursiveMicroTexte->setChecked(true);
     }
     else if (tcf.fontFamily()  ==  "Andika") {
         ui->btn_andika->setChecked(true);
@@ -834,6 +862,16 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
     int index = ui->cb_colorChooser->findData(ui->teZoneTexte->textCursor().charFormat().foreground().color());
     if ( index != -1 ) { // -1 for not found
         ui->cb_colorChooser->setCurrentIndex(index);
+    }
+
+    /* Repercussions Majuscule/Minuscule/Cursive Microtexte */
+    if(ui->teZoneTexte->textCursor().charFormat().fontCapitalization()== QFont::AllUppercase){
+        qDebug() << "Test CAPS OK";
+        ui->btnMajusculeMicroTexte->setChecked(true);
+    }
+    else if(ui->teZoneTexte->textCursor().charFormat().fontCapitalization() == QFont::AllLowercase){
+        qDebug() << "Test LOWER OK";
+        ui->btnMinusculeMicroTexte->setChecked(true);
     }
 
     if(/*m_textCharFormat.fontFamily() != tcf.fontFamily() && */ui->teZoneTexte->toPlainText().isEmpty()){
@@ -859,6 +897,22 @@ void MainWindow::slotChangeTextAlign(const QString& align)
     else if(align == "justify"){
         ui->teZoneTexte->setAlignment(Qt::AlignJustify);
     }
+}
+
+void MainWindow::slotFontCaps()
+{
+//    QTextCharFormat tcf;
+//    m_textCharFormat.setFontCapitalization(QFont::AllUppercase);
+//    mergeFormatOnWordOrSelection(m_textCharFormat);
+    slotChangeFont("Andika");
+}
+
+void MainWindow::slotFontLower()
+{
+//    QTextCharFormat tcf;
+//    m_textCharFormat.setFontCapitalization(QFont::AllLowercase);
+//    mergeFormatOnWordOrSelection(m_textCharFormat);
+    slotChangeFont("Andika");
 }
 
 void MainWindow::on_teZoneTexte_textChanged()
@@ -912,4 +966,9 @@ void MainWindow::slotChangeColor(int index)
    QTextCharFormat fmt;
    fmt.setForeground(color);
    mergeFormatOnWordOrSelection(fmt);
+}
+
+void MainWindow::on_btnCursiveMicroTexte_clicked()
+{
+    slotChangeFont("CursiveStandard");
 }

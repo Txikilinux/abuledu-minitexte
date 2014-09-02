@@ -225,9 +225,13 @@ private slots:
     void slotChangeFontSize(int );
     void slotCurrentCharFormatChanged(QTextCharFormat);
     void slotChangeTextAlign(const QString &);
+    void slotFontCaps();
+    void slotFontLower();
 
     void on_btn_increase_clicked();
     void on_btn_decrease_clicked();
+
+    void on_btnCursiveMicroTexte_clicked();
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */
