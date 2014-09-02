@@ -9,7 +9,7 @@ DEPENDPATH  += $$PWD
 
 QT       += core gui script xml network
 
-TARGET = abuledu-minitexte
+TARGET   = abuledu-minitexte
 TEMPLATE = app
 
 SOURCES += main.cpp\
@@ -29,6 +29,11 @@ win32{
 
 macx {
  ICON = ../macos/icones/abuledu-minitexte.icns
+}
+
+microtexte {
+ message(COMPILATION MODE MICROTEXTE)
+ DEFINES += __MICROTEXTE_MODE__=1
 }
 
 include(lib/abuleduapplicationv1/abuleduapplicationv1.pri)
