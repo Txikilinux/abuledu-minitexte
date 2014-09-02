@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
+    <width>1026</width>
     <height>600</height>
    </rect>
   </property>
@@ -774,9 +774,7 @@ p, li { white-space: pre-wrap; }
          <number>0</number>
         </property>
         <item row="0" column="0">
-         <widget class="AbulEduMediathequeGetV1" name="abeMediathequeGet" native="true">
-          <zorder>btnPolice3</zorder>
-         </widget>
+         <widget class="AbulEduMediathequeGetV1" name="abeMediathequeGet" native="true"/>
         </item>
        </layout>
       </widget>
@@ -822,8 +820,6 @@ p, li { white-space: pre-wrap; }
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <zorder>frTop</zorder>
-      <zorder>frTop</zorder>
      </widget>
     </item>
     <item row="1" column="0">
@@ -839,6 +835,29 @@ p, li { white-space: pre-wrap; }
         <width>1024</width>
         <height>90</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#btnCursiveMicroTexte,
+#btnDecreasePoliceMicroTexte,
+#btnIncreasePoliceMicroTexte,
+#btnHelpMicroTexte, 
+#btnMajusculeMicroTexte,
+#btnMinusculeMicroTexte,
+#btnNewMicroTexte,
+#btnOpenMicroTexte,
+#btnPrintMicroTexte,
+#btnQuitMicroTexte,
+#btnSaveMicroTexte{
+background-color: #85cbfa;
+border-radius : 5px;
+}
+#btnCursiveMicroTexte::checked,
+#btnMajusculeMicroTexte::checked,
+#btnMinusculeMicroTexte::checked {
+background-color:#0D90F6;r
+}
+
+</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -866,7 +885,7 @@ p, li { white-space: pre-wrap; }
         <number>0</number>
        </property>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnNewMicroTexte">
+        <widget class="QToolButton" name="btnNewMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -889,49 +908,22 @@ p, li { white-space: pre-wrap; }
           <string>new</string>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">image: url(:/abuledutextev1/buttons/new); 
+</string>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string>:/abuledutextev1/buttons/newHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/new</string>
+         <property name="iconSize">
+          <size>
+           <width>64</width>
+           <height>64</height>
+          </size>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnOpenMicroTexte">
+        <widget class="QToolButton" name="btnOpenMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -954,49 +946,15 @@ p, li { white-space: pre-wrap; }
           <string>open</string>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">image: url(:/abuledutextev1/buttons/open);</string>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/openHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/open</string>
-         </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnSaveMicroTexte">
+        <widget class="QToolButton" name="btnSaveMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1019,49 +977,16 @@ p, li { white-space: pre-wrap; }
           <string>save</string>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">image: url(:/abuledutextev1/buttons/save);
+</string>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/saveHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/save</string>
-         </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnMajusculeMicroTexte">
+        <widget class="QToolButton" name="btnMajusculeMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1084,49 +1009,22 @@ p, li { white-space: pre-wrap; }
           <string>new</string>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">image: url(:/abuledutextev1/buttons/capitale);
+</string>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/capitaleHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/capitale</string>
+         <property name="autoExclusive">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnMinusculeMicroTexte">
+        <widget class="QToolButton" name="btnMinusculeMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1149,49 +1047,22 @@ p, li { white-space: pre-wrap; }
           <string>new</string>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">image: url(:/abuledutextev1/buttons/mini);
+</string>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/miniHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/mini</string>
+         <property name="autoExclusive">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnCursiveMicroTexte">
+        <widget class="QToolButton" name="btnCursiveMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1211,52 +1082,28 @@ p, li { white-space: pre-wrap; }
           <string/>
          </property>
          <property name="whatsThis">
-          <string>new</string>
+          <string/>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">image: url(:/abuledutextev1/buttons/manuscrit);
+</string>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
+         <property name="checked">
+          <bool>false</bool>
          </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/manuscritHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/manuscrit</string>
+         <property name="autoExclusive">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnDecreasePoliceMicroTexte">
+        <widget class="QToolButton" name="btnDecreasePoliceMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1275,47 +1122,17 @@ p, li { white-space: pre-wrap; }
          <property name="whatsThis">
           <string>print</string>
          </property>
+         <property name="styleSheet">
+          <string notr="true">image: url(:/abuledutextev1/buttons/decrease);
+</string>
+         </property>
          <property name="text">
           <string/>
-         </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/decreaseHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/decrease</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnIncreasePoliceMicroTexte">
+        <widget class="QToolButton" name="btnIncreasePoliceMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1334,47 +1151,17 @@ p, li { white-space: pre-wrap; }
          <property name="whatsThis">
           <string>print</string>
          </property>
+         <property name="styleSheet">
+          <string notr="true">image: url(:/abuledutextev1/buttons/increase);
+</string>
+         </property>
          <property name="text">
           <string/>
-         </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/increaseHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/increase</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnPrintMicroTexte">
+        <widget class="QToolButton" name="btnPrintMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1393,47 +1180,17 @@ p, li { white-space: pre-wrap; }
          <property name="whatsThis">
           <string>print</string>
          </property>
+         <property name="styleSheet">
+          <string notr="true">image: url(:/abuledutextev1/buttons/print);
+</string>
+         </property>
          <property name="text">
           <string/>
-         </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/printHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/print</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnHelpMicroTexte">
+        <widget class="QToolButton" name="btnHelpMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1453,49 +1210,16 @@ p, li { white-space: pre-wrap; }
           <string>help</string>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">image: url(:/abuledutextev1/buttons/help);
+</string>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/helpHover</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/help</string>
-         </property>
         </widget>
        </item>
        <item>
-        <widget class="AbulEduFlatBoutonV1" name="btnQuitMicroTexte">
+        <widget class="QToolButton" name="btnQuitMicroTexte">
          <property name="minimumSize">
           <size>
            <width>78</width>
@@ -1518,44 +1242,11 @@ p, li { white-space: pre-wrap; }
           <string>quit</string>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">image: url(:/abuledutextev1/buttons/quit);
+</string>
          </property>
          <property name="text">
           <string/>
-         </property>
-         <property name="CouleurTexteNormale" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTexteSurvol" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurTextePressed" stdset="0">
-          <color>
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="CouleurFondPressed" stdset="0">
-          <color alpha="50">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </property>
-         <property name="IconeSurvol" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/quit-over</string>
-         </property>
-         <property name="IconeNormale" stdset="0">
-          <string notr="true">:/abuledutextev1/buttons/quit</string>
          </property>
         </widget>
        </item>
@@ -1612,11 +1303,6 @@ font-size:24px;
    <extends>QWidget</extends>
    <header>abuleduaproposv1.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>AbulEduFlatBoutonV1</class>
-   <extends>QPushButton</extends>
-   <header>abuleduflatboutonv1.h</header>
   </customwidget>
  </customwidgets>
  <resources>
