@@ -140,6 +140,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btn_andika->click();    /* Andika par defaut */
     ui->btn_leftText->click();  /* Alignement à gauche par défaut */
     m_textCharFormat = ui->teZoneTexte->textCursor().charFormat();
+
+    /** #3861 Fusion mini/microtexte 1 commit */
+    ui->frTopMicroTexte->hide();
+    ui->lblTitreMicroTexte->hide();
 }
 
 void MainWindow::centrerFenetre()

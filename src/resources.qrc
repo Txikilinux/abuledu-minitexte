@@ -1,44 +1,5 @@
 <RCC>
     <qresource prefix="/abuledutextev1">
-        <file>data/images/cloud.svg</file>
-        <file>data/images/mac/editcopy.png</file>
-        <file>data/images/mac/editcut.png</file>
-        <file>data/images/mac/editpaste.png</file>
-        <file>data/images/mac/editredo.png</file>
-        <file>data/images/mac/editundo.png</file>
-        <file>data/images/mac/exportpdf.png</file>
-        <file>data/images/mac/filenew.png</file>
-        <file>data/images/mac/fileopen.png</file>
-        <file>data/images/mac/fileprint.png</file>
-        <file>data/images/mac/filesave.png</file>
-        <file>data/images/mac/textbold.png</file>
-        <file>data/images/mac/textcenter.png</file>
-        <file>data/images/mac/textitalic.png</file>
-        <file>data/images/mac/textjustify.png</file>
-        <file>data/images/mac/textleft.png</file>
-        <file>data/images/mac/textright.png</file>
-        <file>data/images/mac/textunder.png</file>
-        <file>data/images/mac/zoomin.png</file>
-        <file>data/images/mac/zoomout.png</file>
-        <file>data/images/win/editcopy.png</file>
-        <file>data/images/win/editcut.png</file>
-        <file>data/images/win/editpaste.png</file>
-        <file>data/images/win/editredo.png</file>
-        <file>data/images/win/editundo.png</file>
-        <file>data/images/win/exportpdf.png</file>
-        <file>data/images/win/filenew.png</file>
-        <file>data/images/win/fileopen.png</file>
-        <file>data/images/win/fileprint.png</file>
-        <file>data/images/win/filesave.png</file>
-        <file>data/images/win/textbold.png</file>
-        <file>data/images/win/textcenter.png</file>
-        <file>data/images/win/textitalic.png</file>
-        <file>data/images/win/textjustify.png</file>
-        <file>data/images/win/textleft.png</file>
-        <file>data/images/win/textright.png</file>
-        <file>data/images/win/textunder.png</file>
-        <file>data/images/win/zoomin.png</file>
-        <file>data/images/win/zoomout.png</file>
         <file alias="fermer-48">data/images/fermer-48.png</file>
         <file alias="Ecolier">data/fonts/ECOLIER.ttf</file>
         <file alias="Cursive">data/fonts/CURSIVESTANDARD.ttf</file>
@@ -71,6 +32,16 @@
         <file alias="stopHover">data/images/stop-hover.png</file>
         <file alias="pauseHover">data/images/pause-hover.png</file>
         <file alias="playHover">data/images/play-hover.png</file>
+        <file alias="capitaleHover">data/images/capitale-over.png</file>
+        <file alias="capitale">data/images/capitale.png</file>
+        <file alias="manuscritHover">data/images/manuscrit-over.png</file>
+        <file alias="manuscrit">data/images/manuscrit.png</file>
+        <file alias="miniHover">data/images/mini-over.png</file>
+        <file alias="mini">data/images/mini.png</file>
+        <file alias="increase">data/images/agrandir.png</file>
+        <file alias="increaseHover">data/images/agrandir-over.png</file>
+        <file alias="decreaseHover">data/images/reduire-over.png</file>
+        <file alias="decrease">data/images/reduire.png</file>
     </qresource>
     <qresource prefix="/abuledutextev1/format">
         <file alias="italic">data/images/italik-appuy.png</file>
