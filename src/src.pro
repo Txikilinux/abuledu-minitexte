@@ -32,8 +32,11 @@ macx {
 }
 
 microtexte {
- message(COMPILATION MODE MICROTEXTE)
- DEFINES += __MICROTEXTE_MODE__=1
+    DEFINES += __MICROTEXTE_MODE__=1
+    TARGET = abuledu-microtexte
+}
+else {
+    TARGET = abuledu-minitexte
 }
 
 include(lib/abuleduapplicationv1/abuleduapplicationv1.pri)
@@ -44,12 +47,10 @@ include(lib/abuleduidentitesv1/abuleduidentitesv1.pri)
 include(lib/abuleduflatboutonv1/abuleduflatboutonv1.pri)
 include(lib/maia/maia.pri)
 include(lib/abuledufilev1/abuledufilev1.pri)
-
 #include(futurelib/abuledutextev1/abuledutextev1.pri)
 include(lib/abuledupicottsv1/abuledupicottsv1.pri)
 include(lib/abuledusplashscreenv1/abuledusplashscreenv1.pri)
 include(lib/abuledulangv1/abuledulangv1.pri)
-
 include(lib/abuledumenufeuillev1/abuledumenufeuillev1.pri)
 include(lib/abuledusingletonv1/abuledusingletonv1.pri)
 include(lib/abuledupluginloaderv1/abuledupluginloaderv1.pri)
