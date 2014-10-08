@@ -2,4 +2,4 @@ TEMPLATE = subdirs
 
 SUBDIRS += src
 
-include(config.pri)
+#include(config.pri)

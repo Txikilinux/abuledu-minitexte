@@ -27,7 +27,6 @@
 #include "ui_mainwindow.h"
 #include <QAbstractPrintDialog>
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -141,30 +140,30 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btn_leftText->click();  /* Alignement à gauche par défaut */
     m_textCharFormat = ui->teZoneTexte->textCursor().charFormat();
 
-#ifdef __MICROTEXTE_MODE__
-        ui->frmMenuFeuille->hide();
-        ui->frmFormat->hide();
+//#ifdef __MICROTEXTE_MODE__
+//        ui->frmMenuFeuille->hide();
+//        ui->frmFormat->hide();
 
-        /* Connexion des boutons */
-        connect(ui->btnNewMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnNew_clicked()), Qt::UniqueConnection);
-        connect(ui->btnOpenMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnOpen_clicked()), Qt::UniqueConnection);
-        connect(ui->btnSaveMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnSave_clicked()), Qt::UniqueConnection);
-        connect(ui->btnMajusculeMicroTexte, SIGNAL(clicked()), SLOT(slotFontCaps()), Qt::UniqueConnection);
-        connect(ui->btnMinusculeMicroTexte, SIGNAL(clicked()), SLOT(slotFontLower()), Qt::UniqueConnection);
-        // connect(ui->btnCursiveMicroTexte, SIGNAL(clicked()), SLOT(slotChangeFont(QString)));
-        connect(ui->btnDecreasePoliceMicroTexte, SIGNAL(clicked()), SLOT(on_btn_decrease_clicked()), Qt::UniqueConnection);
-        connect(ui->btnIncreasePoliceMicroTexte, SIGNAL(clicked()), SLOT(on_btn_increase_clicked()), Qt::UniqueConnection);
-        connect(ui->btnPrintMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnPrint_clicked()), Qt::UniqueConnection);
-        connect(ui->btnHelpMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnHelp_clicked()), Qt::UniqueConnection);
+//        /* Connexion des boutons */
+//        connect(ui->btnNewMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnNew_clicked()), Qt::UniqueConnection);
+//        connect(ui->btnOpenMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnOpen_clicked()), Qt::UniqueConnection);
+//        connect(ui->btnSaveMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnSave_clicked()), Qt::UniqueConnection);
+//        connect(ui->btnMajusculeMicroTexte, SIGNAL(clicked()), SLOT(slotFontCaps()), Qt::UniqueConnection);
+//        connect(ui->btnMinusculeMicroTexte, SIGNAL(clicked()), SLOT(slotFontLower()), Qt::UniqueConnection);
+//        // connect(ui->btnCursiveMicroTexte, SIGNAL(clicked()), SLOT(slotChangeFont(QString)));
+//        connect(ui->btnDecreasePoliceMicroTexte, SIGNAL(clicked()), SLOT(on_btn_decrease_clicked()), Qt::UniqueConnection);
+//        connect(ui->btnIncreasePoliceMicroTexte, SIGNAL(clicked()), SLOT(on_btn_increase_clicked()), Qt::UniqueConnection);
+//        connect(ui->btnPrintMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnPrint_clicked()), Qt::UniqueConnection);
+//        connect(ui->btnHelpMicroTexte, SIGNAL(clicked()), SLOT(on_abeMenuFeuilleBtnHelp_clicked()), Qt::UniqueConnection);
 
-        connect(ui->btnQuitMicroTexte, SIGNAL(clicked()), abeApp, SLOT(quit()), Qt::UniqueConnection);
+//        connect(ui->btnQuitMicroTexte, SIGNAL(clicked()), abeApp, SLOT(quit()), Qt::UniqueConnection);
 
-        /* Caps par defaut */
-        ui->btnMajusculeMicroTexte->click();
-#else
+//        /* Caps par defaut */
+//        ui->btnMajusculeMicroTexte->click();
+//#else
         ui->frTopMicroTexte->hide();
         ui->lblTitreMicroTexte->hide();
-#endif
+//#endif
 }
 
 void MainWindow::centrerFenetre()
