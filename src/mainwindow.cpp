@@ -616,6 +616,9 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
         message = trUtf8("Votre fichier n'a pas pu être enregistré...");
     }
     AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,true,ui->pageBoxFileManager);
+    /* #3935 Retour pageTexte apres appui bouton fermer */
+    connect(msgEnregistrement, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+
     if(success)
     {
         msgEnregistrement->setWink();
@@ -624,8 +627,8 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
     {
         connect(msgEnregistrement,SIGNAL(signalAbeMessageBoxCloseOrHide()),this,SLOT(deleteLater()),Qt::UniqueConnection);
     }
+
     msgEnregistrement->show();
-    ui->stackedWidget->setCurrentWidget(ui->pageTexte);
     if(m_wantNewFile){
         slotClearCurrent();
         m_wantNewFile = false;
