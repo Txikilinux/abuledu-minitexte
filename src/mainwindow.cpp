@@ -512,8 +512,8 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
     QTextCharFormat fmt;
     fmt.setFontPointSize(8);
     fmt.setFontItalic(true);
-    cursor.insertText("Source: " + abeFile->abeFileGetIdentifier() + "\n",fmt);
-    cursor.insertText("Auteur: " + abeFile->abeFileGetCreator(),fmt);
+    cursor.insertText("Source: " + abeFile->abeFileGetIdentifier() +";"+ "\n",fmt);
+    cursor.insertText("Auteur: " + abeFile->abeFileGetCreator() +";",fmt);
     fmt = m_textCharFormat;
     cursor.insertText("",fmt);
 
@@ -767,7 +767,14 @@ void MainWindow::slotReadContent()
 
     if(m_textToSpeech.isEmpty())
         return;
-
+    while(m_textToSpeech.indexOf("Source:",Qt::CaseSensitive) > -1){
+        int beginning = m_textToSpeech.indexOf("Source:",Qt::CaseSensitive);
+        int end = m_textToSpeech.indexOf(";",m_textToSpeech.indexOf("Source:",Qt::CaseSensitive),Qt::CaseSensitive);
+        m_textToSpeech.remove(m_textToSpeech.mid(beginning,1+end-beginning));
+        beginning = m_textToSpeech.indexOf("Auteur:",Qt::CaseSensitive);
+        end = m_textToSpeech.indexOf(";",m_textToSpeech.indexOf("Auteur:",Qt::CaseSensitive),Qt::CaseSensitive);
+        m_textToSpeech.remove(m_textToSpeech.mid(beginning,1+end-beginning));
+    }
     m_multimedia->abeMultiMediaSetNewMedia(AbulEduMediaMedias(QString(),QString(),m_textToSpeech));
     m_multimedia->abeMultiMediaPlay();
     m_textToSpeech.clear();
