@@ -146,7 +146,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->frTopMicroTexte->hide();
     ui->lblTitreMicroTexte->hide();
-
+    setWindowModified(false);
 }
 
 void MainWindow::centrerFenetre()
