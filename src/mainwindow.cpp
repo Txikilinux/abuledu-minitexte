@@ -100,10 +100,10 @@ MainWindow::MainWindow(QWidget *parent) :
     /***************************** Chargement des Fonts ***************************************/
     QFontDatabase fonts;
     if(!fonts.addApplicationFont(":/abuledutextev1/Ecolier")) {
-        qDebug() << "Erreur sur :/fonts/ECOLIER.TTF";
+        if(m_localDebug) qDebug() << "Erreur sur :/fonts/ECOLIER.TTF";
     }
     if(!fonts.addApplicationFont(":/abuledutextev1/Cursive")) {
-        qDebug() << "Erreur sur :/fonts/CURSIVE.TTF";
+        if(m_localDebug) qDebug() << "Erreur sur :/fonts/CURSIVE.TTF";
     }
 
 #ifndef QT_NO_PRINTER
@@ -249,7 +249,7 @@ void MainWindow::initComboBoxColor(QComboBox *cb)
         const QModelIndex idx = cb->model()->index(index++, 0);
         cb->model()->setData(idx, color, Qt::BackgroundColorRole);
 
-        qDebug() << color;
+        if(m_localDebug) qDebug() << color;
     }
 
     /* Par défaut, couleur noire */
@@ -307,7 +307,7 @@ bool MainWindow::fileSave()
 
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
 
-    if (m_localDebug) qDebug() << "Ecriture dans le fichier " << m_fileName;
+    if (m_localDebug) if(m_localDebug) qDebug() << "Ecriture dans le fichier " << m_fileName;
 
     QFileInfo fi(m_fileName);
 
@@ -453,19 +453,19 @@ void MainWindow::slotCursorMoved()
 
     /* Répercussions graphiques de l'alignement */
     if(ui->teZoneTexte->alignment().testFlag(Qt::AlignLeft)){
-        qDebug() << "TEST GAUCHE OK";
+        if(m_localDebug) qDebug() << "TEST GAUCHE OK";
         ui->btn_leftText->click();
     }
     else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignHCenter)){
-        qDebug() << "TEST CENTER OK";
+        if(m_localDebug) qDebug() << "TEST CENTER OK";
         ui->btn_centerText->click();
     }
     else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignRight)){
-        qDebug() << "TEST RIGHT OK";
+        if(m_localDebug) qDebug() << "TEST RIGHT OK";
         ui->btn_rightText->click();
     }
     else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignJustify)){
-        qDebug() << "TEST JUSTIFY OK";
+        if(m_localDebug) qDebug() << "TEST JUSTIFY OK";
         ui->btn_justifyText->click();
     }
 }
@@ -505,21 +505,22 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
 
     imageFormat.setName(Uri.toString());
     cursor.insertImage(imageFormat);
-    cursor.insertText("\n");
 
-    //Les sources et l'auteur (?)
+    /*Les sources et l'auteur (?) */
     QTextListFormat listFormat;
     cursor.insertList(listFormat);
     QTextCharFormat fmt;
+    fmt.setFontPointSize(8);
     fmt.setFontItalic(true);
     cursor.insertText("Source: " + abeFile->abeFileGetIdentifier() + "\n",fmt);
     cursor.insertText("Auteur: " + abeFile->abeFileGetCreator(),fmt);
+    fmt = m_textCharFormat;
+    cursor.insertText("",fmt);
 
     /* Retour normal */
     QTextBlockFormat blockFormat;
     fmt.setFontItalic(false);
     cursor.insertBlock(blockFormat,fmt);
-
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
@@ -839,8 +840,10 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
         ui->btn_seyes->setChecked(true);
     }
 
-    qDebug() << "Alignement : " <<ui->teZoneTexte->alignment();
-    qDebug() << "Color : " <<ui->teZoneTexte->textCursor().charFormat().foreground().color();
+    if(m_localDebug) {
+        qDebug() << "Alignement : " <<ui->teZoneTexte->alignment();
+        qDebug() << "Color : " <<ui->teZoneTexte->textCursor().charFormat().foreground().color();
+    }
 
     /* Definition de la bonne couleur dans la comboBox suivant celle présente sous le curseur */
     int index = ui->cb_colorChooser->findData(ui->teZoneTexte->textCursor().charFormat().foreground().color());
@@ -850,16 +853,16 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 
     /* Repercussions Majuscule/Minuscule/Cursive Microtexte */
     if(ui->teZoneTexte->textCursor().charFormat().fontCapitalization()== QFont::AllUppercase){
-        qDebug() << "Test CAPS OK";
+        if(m_localDebug) qDebug() << "Test CAPS OK";
         ui->btnMajusculeMicroTexte->setChecked(true);
     }
     else if(ui->teZoneTexte->textCursor().charFormat().fontCapitalization() == QFont::AllLowercase){
-        qDebug() << "Test LOWER OK";
+        if(m_localDebug) qDebug() << "Test LOWER OK";
         ui->btnMinusculeMicroTexte->setChecked(true);
     }
 
     if(/*m_textCharFormat.fontFamily() != tcf.fontFamily() && */ui->teZoneTexte->toPlainText().isEmpty()){
-        qDebug() << "+++++++++++++++++++++++++++++++   +++++++++++++++++++++++++  " << "C'est mon cas ";
+        if(m_localDebug) qDebug() << "+++++++++++++++++++++++++++++++   +++++++++++++++++++++++++  " << "C'est mon cas ";
         mergeFormatOnWordOrSelection(m_textCharFormat);
         //        m_textCharFormat = tcf;
     }
@@ -913,9 +916,10 @@ void MainWindow::slotChangeFontSize(int newSize)
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << newSize ;
     qreal pointSize = newSize;
     if(newSize > 0){
-        QTextCharFormat fmt;
+        QTextCharFormat fmt = m_textCharFormat;
         fmt.setFontPointSize(pointSize);
         mergeFormatOnWordOrSelection(fmt);
+        m_textCharFormat = fmt;
     }
 }
 
