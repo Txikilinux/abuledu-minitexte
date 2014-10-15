@@ -131,6 +131,7 @@ private:
 
     bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...
     bool m_wantNewFile;
+    bool m_wantOpenFile;
 
     /** Position de la souris pour gerer le deplacement de la fenetre */
     QPoint m_dragPosition;

@@ -36,10 +36,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_hauteurToolBar = 48;
 
-    m_localDebug        = false;
+    m_localDebug        = true;
     m_isCloseRequested  = false;
     m_isNewFile         = true;
     m_wantNewFile       = false;
+    m_wantOpenFile      = false;
     setWindowFlags(Qt::CustomizeWindowHint);
 
 #ifdef Q_OS_WIN
@@ -81,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),this,SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
 
 
-    //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
+        connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
     //    /* On émet un signal inquant si le texte a été modifié */
     //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
 
@@ -581,6 +582,7 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
         }
     }
     ui->teZoneTexte->update();
+    setWindowModified(false);
 }
 
 void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success)
@@ -618,14 +620,14 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
     }
     AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,true,ui->pageBoxFileManager);
     /* #3935 Retour pageTexte apres appui bouton fermer */
-    connect(msgEnregistrement, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+    if(!m_wantOpenFile){
+        connect(msgEnregistrement, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+    }
 
-    if(success)
-    {
+    if(success){
         msgEnregistrement->setWink();
     }
-    if(m_isCloseRequested)
-    {
+    if(m_isCloseRequested){
         connect(msgEnregistrement,SIGNAL(signalAbeMessageBoxCloseOrHide()),this,SLOT(deleteLater()),Qt::UniqueConnection);
     }
 
@@ -633,6 +635,10 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
     if(m_wantNewFile){
         slotClearCurrent();
         m_wantNewFile = false;
+    }
+    if(m_wantOpenFile){
+        fileOpen();
+        m_wantOpenFile = false;
     }
 }
 
@@ -674,7 +680,7 @@ void MainWindow::slotClearCurrent()
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
     /* Je veux faire un nouveau texte, mais je ne veux pas changer d'abe */
-    m_abuledufile->abeCleanDirectory(m_abuledufile->abeFileGetDirectoryTemp().absolutePath(),m_abuledufile->abeFileGetDirectoryTemp().absolutePath());
+    m_abuledufile->abeCleanDirectoryRecursively(m_abuledufile->abeFileGetDirectoryTemp().absolutePath());
     ui->teZoneTexte->clear();
     setWindowModified(false);
 }
@@ -683,7 +689,18 @@ void MainWindow::on_abeMenuFeuilleBtnOpen_clicked()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
-    fileOpen();
+    if(isWindowModified()){
+        m_wantOpenFile = true;
+        AbulEduMessageBoxV1* msg = new AbulEduMessageBoxV1(trUtf8("Ouvrir un projet"),trUtf8("Le projet actuel comporte des modifications non enregistrées. Voulez-vous sauvegarder ?"),true,ui->stackedWidget->currentWidget());
+        msg->abeSetModeEnum(AbulEduMessageBoxV1::abeYesNoCancelButton);
+        msg->show();
+        connect(msg,SIGNAL(signalAbeMessageBoxYES()),SLOT(on_abeMenuFeuilleBtnSave_clicked()),Qt::UniqueConnection);
+        connect(msg,SIGNAL(signalAbeMessageBoxNO()),SLOT(fileOpen()),Qt::UniqueConnection);
+    }
+    else{
+        fileOpen();
+    }
+    return;
 }
 
 void MainWindow::on_abeMenuFeuilleBtnSave_clicked()
@@ -708,7 +725,11 @@ void MainWindow::on_abeMenuFeuilleBtnNew_clicked()
 
     if(isWindowModified()){
         m_wantNewFile = true;
-        on_abeMenuFeuilleBtnSave_clicked();
+        AbulEduMessageBoxV1* msg = new AbulEduMessageBoxV1(trUtf8("Nouveau projet"),trUtf8("Le projet comporte des modifications non enregistrées. Voulez-vous sauvegarder ?"),true,ui->stackedWidget->currentWidget());
+        msg->abeSetModeEnum(AbulEduMessageBoxV1::abeYesNoCancelButton);
+        msg->show();
+        connect(msg,SIGNAL(signalAbeMessageBoxYES()),SLOT(on_abeMenuFeuilleBtnSave_clicked()),Qt::UniqueConnection);
+        connect(msg,SIGNAL(signalAbeMessageBoxNO()),SLOT(slotClearCurrent()),Qt::UniqueConnection);
     }
     else{
         slotClearCurrent();
@@ -911,10 +932,10 @@ void MainWindow::slotFontLower()
 
 void MainWindow::on_teZoneTexte_textChanged()
 {
-    //    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
-    //    if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
-    //        setWindowModified(true);
-    //    }
+        ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
+        if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
+            setWindowModified(true);
+        }
 
 }
 
