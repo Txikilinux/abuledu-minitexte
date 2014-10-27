@@ -97,6 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initSignalMapperFormFontChange();
     initSignalMapperTextAlignChange();
     initTooltips();
+    ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + trUtf8("texte non enregistré"));
 
     /***************************** Chargement des Fonts ***************************************/
     QFontDatabase fonts;
@@ -543,6 +544,7 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
     if(abeFile)
     {
         m_abuledufile = abeFile;
+        ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + m_abuledufile->abeFileGetFileName().fileName());
     }
     if (m_localDebug) {
         qDebug() << "Ouverture du fichier " << m_abuledufile->abeFileGetFileName().filePath();
@@ -640,6 +642,7 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
         fileOpen();
         m_wantOpenFile = false;
     }
+    ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + m_abuledufile->abeFileGetFileName().fileName());
 }
 
 void MainWindow::on_abeMenuFeuilleBtnPrint_clicked()
@@ -681,6 +684,7 @@ void MainWindow::slotClearCurrent()
 
     /* Je veux faire un nouveau texte, mais je ne veux pas changer d'abe */
     m_abuledufile->abeCleanDirectoryRecursively(m_abuledufile->abeFileGetDirectoryTemp().absolutePath());
+    ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + trUtf8("texte non enregistré"));
     ui->teZoneTexte->clear();
     setWindowModified(false);
 }
@@ -705,7 +709,7 @@ void MainWindow::on_abeMenuFeuilleBtnOpen_clicked()
 
 void MainWindow::on_abeMenuFeuilleBtnSave_clicked()
 {
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+    ABULEDU_LOG_DEBUG() << __PRETTY_FUNCTION__;
 
     /* Je n'enregistre pas si la zone de texte est vide */
     if(ui->teZoneTexte->toPlainText().isEmpty()) return;
