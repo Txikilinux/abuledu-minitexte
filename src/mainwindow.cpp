@@ -271,9 +271,9 @@ void MainWindow::initTooltips()
     ui->btn_justifyText->setToolTip(trUtf8("Justifier le texte"));
     ui->btn_andika->setToolTip(trUtf8("Définir la police Andika pour le texte"));
     ui->btn_seyes->setToolTip(trUtf8("Définir la police Seyes pour le texte"));
-    ui->btn_plume->setToolTip(trUtf8("Définir la police Plume pour le texte"));
+    ui->btn_plume->setToolTip(trUtf8("Définir la police Cursive Standard pour le texte"));
     ui->cb_colorChooser->setToolTip(trUtf8("Définir la couleur de la police"));
-    ui->btn_data->setToolTip(trUtf8("Récupérer une ressource image depuis le service AbulEdu-Mediatheque"));
+    ui->btn_data->setToolTip(trUtf8("Récupérer une ressource image depuis le service AbulEdu data"));
 }
 
 void MainWindow::installTranslator()
