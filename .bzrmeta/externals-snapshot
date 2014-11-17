@@ -1,12 +1,12 @@
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduapplicationv1 src/lib/abuleduapplicationv1 revid:philippe.cadaugade@ryxeo.com-20140929134052-b5dpgf4g01h2f8td
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduapplicationv1 src/lib/abuleduapplicationv1 revid:icham.sirat@ryxeo.com-20141027162845-k4ksa3kzcod6wxm0
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduconstantesv1/ src/lib/abuleduconstantesv1 revid:icham.sirat@ryxeo.com-20140523133356-ckwptipjfomavv47
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledunetworkaccessmanagerv1/ src/lib/abuledunetworkaccessmanagerv1 revid:icham.sirat@ryxeo.com-20141008122537-0qu7o494gvs56chc
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledunetworkaccessmanagerv1/ src/lib/abuledunetworkaccessmanagerv1 revid:icham.sirat@ryxeo.com-20141031162731-7i9yuqyhbte7q1m3
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduflatboutonv1/ src/lib/abuleduflatboutonv1 revid:philippe.cadaugade@ryxeo.com-20141009084220-aa51hs24i8pbenkn
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/maia/ src/lib/maia revid:eric.seigne@ryxeo.com-20131231005306-3pi9ou9pz64ncqk8
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduidentitesv1/ src/lib/abuleduidentitesv1 revid:icham.sirat@ryxeo.com-20141007081325-gwj81qqgeo50aytk
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumessageboxv1/ src/lib/abuledumessageboxv1 revid:philippe.cadaugade@ryxeo.com-20141009145641-5gsbqmwcwrkk3qlm
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledufilev1 src/lib/abuledufilev1 revid:icham.sirat@ryxeo.com-20141010134835-5g0dth7y8orcrjz0
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:eric.seigne@ryxeo.com-20140729195539-4x93hulkcpoyopic
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:philippe.cadaugade@ryxeo.com-20141107080016-2kb45x4kid58l9ej
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusplashscreenv1/ src/lib/abuledusplashscreenv1 revid:icham.sirat@ryxeo.com-20141009084658-dzx5hbzsb12sdo36
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledulangv1/ src/lib/abuledulangv1 revid:eric.seigne@ryxeo.com-20131030180044-nvpgvjev3917r1hb
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumenufeuillev1/ src/lib/abuledumenufeuillev1 revid:philippe.cadaugade@ryxeo.com-20140711140313-o96fo3006ql39hep
@@ -16,5 +16,5 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaproposv1 src/lib/abule
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduloggerv1/ src/lib/abuleduloggerv1 revid:philippe.cadaugade@ryxeo.com-20140929133819-a2aspicgmrgkewkk
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduandroidsupportv1/ src/lib/abuleduandroidsupportv1 revid:eric.seigne@ryxeo.com-20140729194356-9koz0kga2ctv5jao
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduloadinganimationv1/ src/lib/abuleduloadinganimationv1 revid:icham.sirat@ryxeo.com-20140722153159-nsdztybn1feb992k
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumultimediav1 src/lib/abuledumultimediav1 revid:philippe.cadaugade@ryxeo.com-20140829070301-3dx77uo2k329dszu
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumultimediav1 src/lib/abuledumultimediav1 revid:philippe.cadaugade@ryxeo.com-20141107075825-tgllc7xx1axydvyr
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaudiov1/ src/lib/abuleduaudiov1 revid:eric.seigne@ryxeo.com-20140721125904-93viu6hmgul92793
