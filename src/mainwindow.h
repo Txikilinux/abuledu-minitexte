@@ -126,7 +126,6 @@ private:
     /** Le chemin du fichier */
     QString m_fileName;
 
-    bool m_localDebug;
     int m_hauteurToolBar;
 
     bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...

@@ -36,7 +36,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_hauteurToolBar = 48;
 
-    m_localDebug        = true;
     m_isCloseRequested  = false;
     m_isNewFile         = true;
     m_wantNewFile       = false;
@@ -46,12 +45,12 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef Q_OS_WIN
     switch(QSysInfo::windowsVersion())
     {
-    case QSysInfo::WV_2000: if(m_localDebug) qDebug()<< "Windows 2000";break;
-    case QSysInfo::WV_XP: if(m_localDebug) qDebug()<< "Windows XP";break;
-    case QSysInfo::WV_VISTA: if(m_localDebug) qDebug()<< "Windows Vista";break;
-    case QSysInfo::WV_WINDOWS7: if(m_localDebug) qDebug()<< "Windows Seven";break;
-    case QSysInfo::WV_WINDOWS8: if(m_localDebug) qDebug()<< "Windows 8";break;
-    default: if(m_localDebug) qDebug()<< "Windows";break;
+    case QSysInfo::WV_2000: qDebug()<< "Windows 2000";break;
+    case QSysInfo::WV_XP: qDebug()<< "Windows XP";break;
+    case QSysInfo::WV_VISTA: qDebug()<< "Windows Vista";break;
+    case QSysInfo::WV_WINDOWS7: qDebug()<< "Windows Seven";break;
+    case QSysInfo::WV_WINDOWS8: qDebug()<< "Windows 8";break;
+    default: qDebug()<< "Windows";break;
     }
 #endif
 
@@ -82,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),this,SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
 
 
-        connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
+    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
     //    /* On émet un signal inquant si le texte a été modifié */
     //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
 
@@ -102,10 +101,10 @@ MainWindow::MainWindow(QWidget *parent) :
     /***************************** Chargement des Fonts ***************************************/
     QFontDatabase fonts;
     if(!fonts.addApplicationFont(":/abuledutextev1/Ecolier")) {
-        if(m_localDebug) qDebug() << "Erreur sur :/fonts/ECOLIER.TTF";
+        ABULEDU_LOG_DEBUG() << "Erreur sur :/fonts/ECOLIER.TTF";
     }
     if(!fonts.addApplicationFont(":/abuledutextev1/Cursive")) {
-        if(m_localDebug) qDebug() << "Erreur sur :/fonts/CURSIVE.TTF";
+        ABULEDU_LOG_DEBUG() << "Erreur sur :/fonts/CURSIVE.TTF";
     }
 
 #ifndef QT_NO_PRINTER
@@ -250,8 +249,7 @@ void MainWindow::initComboBoxColor(QComboBox *cb)
         cb->addItem("",color);
         const QModelIndex idx = cb->model()->index(index++, 0);
         cb->model()->setData(idx, color, Qt::BackgroundColorRole);
-
-        if(m_localDebug) qDebug() << color;
+        ABULEDU_LOG_DEBUG() << color;
     }
 
     /* Par défaut, couleur noire */
@@ -260,6 +258,8 @@ void MainWindow::initComboBoxColor(QComboBox *cb)
 
 void MainWindow::initTooltips()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
     ui->btn_bold->setToolTip(trUtf8("Mettre le texte en gras"));
     ui->btn_italic->setToolTip(trUtf8("Mettre le texte en italique"));
     ui->btn_underlined->setToolTip(trUtf8("Souligner le texte"));
@@ -309,7 +309,7 @@ bool MainWindow::fileSave()
 
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
 
-    if (m_localDebug) if(m_localDebug) qDebug() << "Ecriture dans le fichier " << m_fileName;
+    ABULEDU_LOG_DEBUG() << "Ecriture dans le fichier " << m_fileName;
 
     QFileInfo fi(m_fileName);
 
@@ -382,7 +382,7 @@ bool MainWindow::abeTexteInsertImage(const QString &cheminImage, qreal width, qr
 
     QFile fichier(cheminImage);
     if(!fichier.exists()){
-        if (m_localDebug) qDebug()<<__PRETTY_FUNCTION__<<"ligne"<<__LINE__<<"Le fichier n'existe pas"<<cheminImage;
+        ABULEDU_LOG_DEBUG() << "Le fichier n'existe pas" << cheminImage;
         return false;
     }
     else{
@@ -455,19 +455,19 @@ void MainWindow::slotCursorMoved()
 
     /* Répercussions graphiques de l'alignement */
     if(ui->teZoneTexte->alignment().testFlag(Qt::AlignLeft)){
-        if(m_localDebug) qDebug() << "TEST GAUCHE OK";
+        ABULEDU_LOG_DEBUG() << "TEST GAUCHE OK";
         ui->btn_leftText->click();
     }
     else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignHCenter)){
-        if(m_localDebug) qDebug() << "TEST CENTER OK";
+        ABULEDU_LOG_DEBUG() << "TEST CENTER OK";
         ui->btn_centerText->click();
     }
     else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignRight)){
-        if(m_localDebug) qDebug() << "TEST RIGHT OK";
+        ABULEDU_LOG_DEBUG() << "TEST RIGHT OK";
         ui->btn_rightText->click();
     }
     else if(ui->teZoneTexte->alignment().testFlag(Qt::AlignJustify)){
-        if(m_localDebug) qDebug() << "TEST JUSTIFY OK";
+        ABULEDU_LOG_DEBUG() << "TEST JUSTIFY OK";
         ui->btn_justifyText->click();
     }
 }
@@ -480,7 +480,7 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
     QString file = abeFile->abeFileGetContent(0).absoluteFilePath();
     QString filename = abeFile->abeFileGetContent(0).baseName() + ".png";
 
-    if (m_localDebug) qDebug() << "  slotMediathequeDownload : " << file << " et " << filename;
+    ABULEDU_LOG_DEBUG() << "slotMediathequeDownload : " << file << " et " << filename;
 
     QUrl Uri ( QString ( "mydata://data/%1" ).arg ( filename ) );
     QImage image = QImageReader ( file ).read().scaledToWidth(150,Qt::SmoothTransformation);
@@ -503,7 +503,7 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
     if(!image.save(imageDest)) {
         //        if (m_localDebug) qDebug() << "******* ERREUR de sauvegarde de " << imageDest;
     }
-    if (m_localDebug) qDebug() << "Sauvegarde de l'image dans " << imageDest;
+    ABULEDU_LOG_DEBUG() << "Sauvegarde de l'image dans " << imageDest;
 
     imageFormat.setName(Uri.toString());
     cursor.insertImage(imageFormat);
@@ -546,11 +546,10 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
         m_abuledufile = abeFile;
         ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + m_abuledufile->abeFileGetFileName().fileName());
     }
-    if (m_localDebug) {
-        qDebug() << "Ouverture du fichier " << m_abuledufile->abeFileGetFileName().filePath();
-        qDebug()<<" dont le repertoire temporaire est "<<m_abuledufile->abeFileGetDirectoryTemp().absolutePath();
-        qDebug()<<m_fileName;
-    }
+
+    ABULEDU_LOG_DEBUG() << "Ouverture du fichier " << m_abuledufile->abeFileGetFileName().filePath()
+                        <<" dont le repertoire temporaire est "<<m_abuledufile->abeFileGetDirectoryTemp().absolutePath()
+                        << m_fileName;
 
     m_isNewFile = false;
     setCurrentFileName(m_abuledufile->abeFileGetContent(0).absoluteFilePath());
@@ -580,7 +579,7 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
             QUrl Uri ( QString ( "mydata://data/%1" ).arg ( fi.fileName() ) );
             QImage image = QImageReader(fi.absoluteFilePath()).read();
             textDocument->addResource( QTextDocument::ImageResource, Uri, QVariant ( image ) );
-            if (m_localDebug) qDebug() << " ++ " << fi.absoluteFilePath() << " en tant que " << Uri;
+            ABULEDU_LOG_DEBUG() << " ++ " << fi.absoluteFilePath() << " en tant que " << Uri;
         }
     }
     ui->teZoneTexte->update();
@@ -675,7 +674,7 @@ void MainWindow::on_stackedWidget_currentChanged(int arg1)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << arg1;
 
-    if (m_localDebug) qDebug()<<"page courante : "<<ui->stackedWidget->widget(arg1)->objectName();
+    ABULEDU_LOG_DEBUG() << "page courante : "<<ui->stackedWidget->widget(arg1)->objectName();
 }
 
 void MainWindow::slotClearCurrent()
@@ -709,7 +708,7 @@ void MainWindow::on_abeMenuFeuilleBtnOpen_clicked()
 
 void MainWindow::on_abeMenuFeuilleBtnSave_clicked()
 {
-    ABULEDU_LOG_DEBUG() << __PRETTY_FUNCTION__;
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 
     /* Je n'enregistre pas si la zone de texte est vide */
     if(ui->teZoneTexte->toPlainText().isEmpty()) return;
@@ -872,10 +871,8 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
         ui->btn_seyes->setChecked(true);
     }
 
-    if(m_localDebug) {
-        qDebug() << "Alignement : " <<ui->teZoneTexte->alignment();
-        qDebug() << "Color : " <<ui->teZoneTexte->textCursor().charFormat().foreground().color();
-    }
+    ABULEDU_LOG_DEBUG() << "Alignement : " <<ui->teZoneTexte->alignment()
+                        << "Color : " <<ui->teZoneTexte->textCursor().charFormat().foreground().color();
 
     /* Definition de la bonne couleur dans la comboBox suivant celle présente sous le curseur */
     int index = ui->cb_colorChooser->findData(ui->teZoneTexte->textCursor().charFormat().foreground().color());
@@ -885,16 +882,16 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 
     /* Repercussions Majuscule/Minuscule/Cursive Microtexte */
     if(ui->teZoneTexte->textCursor().charFormat().fontCapitalization()== QFont::AllUppercase){
-        if(m_localDebug) qDebug() << "Test CAPS OK";
+        ABULEDU_LOG_DEBUG() << "Test CAPS OK";
         ui->btnMajusculeMicroTexte->setChecked(true);
     }
     else if(ui->teZoneTexte->textCursor().charFormat().fontCapitalization() == QFont::AllLowercase){
-        if(m_localDebug) qDebug() << "Test LOWER OK";
+        ABULEDU_LOG_DEBUG() << "Test LOWER OK";
         ui->btnMinusculeMicroTexte->setChecked(true);
     }
 
     if(/*m_textCharFormat.fontFamily() != tcf.fontFamily() && */ui->teZoneTexte->toPlainText().isEmpty()){
-        if(m_localDebug) qDebug() << "+++++++++++++++++++++++++++++++   +++++++++++++++++++++++++  " << "C'est mon cas ";
+        ABULEDU_LOG_DEBUG() << "+++++++++++++++++++++++++++++++   +++++++++++++++++++++++++  " << "C'est mon cas ";
         mergeFormatOnWordOrSelection(m_textCharFormat);
         //        m_textCharFormat = tcf;
     }
@@ -920,6 +917,8 @@ void MainWindow::slotChangeTextAlign(const QString& align)
 
 void MainWindow::slotFontCaps()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
 //    QTextCharFormat tcf;
 //    m_textCharFormat.setFontCapitalization(QFont::AllUppercase);
 //    mergeFormatOnWordOrSelection(m_textCharFormat);
@@ -928,6 +927,7 @@ void MainWindow::slotFontCaps()
 
 void MainWindow::slotFontLower()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
 //    QTextCharFormat tcf;
 //    m_textCharFormat.setFontCapitalization(QFont::AllLowercase);
 //    mergeFormatOnWordOrSelection(m_textCharFormat);
@@ -936,10 +936,10 @@ void MainWindow::slotFontLower()
 
 void MainWindow::on_teZoneTexte_textChanged()
 {
-        ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
-        if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
-            setWindowModified(true);
-        }
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ ;
+    if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
+        setWindowModified(true);
+    }
 
 }
 
@@ -957,25 +957,29 @@ void MainWindow::slotChangeFontSize(int newSize)
 
 void MainWindow::on_btn_increase_clicked()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
     m_fontSize += 2;
     slotChangeFontSize(m_fontSize);
 }
 
 void MainWindow::on_btn_decrease_clicked()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+
     m_fontSize -= 2;
     slotChangeFontSize(m_fontSize);
 }
 
 void MainWindow::slotChangeColor(int index)
 {
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << "On change de couleur : " << index;
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << index;
     // const QStringList colorNames = QColor::colorNames();
     /* On change le fond */
-   QColor color(m_listColors.at(index));
-   QPalette palette = ui->cb_colorChooser->palette();
-   palette.setColor(QPalette::Base, color);
-   ui->cb_colorChooser->setPalette(palette);
+    QColor color(m_listColors.at(index));
+    QPalette palette = ui->cb_colorChooser->palette();
+    palette.setColor(QPalette::Base, color);
+    ui->cb_colorChooser->setPalette(palette);
 
    /* Méthode petity carré conservée (petites icones) */
 //   int size = ui->cb_colorChooser->style()->pixelMetric(QStyle::PM_SmallIconSize);
@@ -990,5 +994,6 @@ void MainWindow::slotChangeColor(int index)
 
 void MainWindow::on_btnCursiveMicroTexte_clicked()
 {
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
     slotChangeFont("CursiveStandard");
 }
