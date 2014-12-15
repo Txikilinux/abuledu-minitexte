@@ -186,7 +186,7 @@ void MainWindow::initSignalMapperFontChange()
     connect(m_signalMapperFontChange, SIGNAL(mapped(QString)), SLOT(slotChangeFont(QString)), Qt::UniqueConnection);
     m_signalMapperFontChange->setMapping(ui->btn_andika,  "Andika");
     m_signalMapperFontChange->setMapping(ui->btn_seyes,   "Ecolier_lignes");
-    m_signalMapperFontChange->setMapping(ui->btn_plume,   "CursiveStandard");
+    m_signalMapperFontChange->setMapping(ui->btn_plume,   "Cursive standard");
 
     connect(ui->btn_andika, SIGNAL(clicked()), m_signalMapperFontChange, SLOT(map()), Qt::UniqueConnection);
     connect(ui->btn_seyes, SIGNAL(clicked()), m_signalMapperFontChange, SLOT(map()), Qt::UniqueConnection);
@@ -860,7 +860,7 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
     ui->btn_italic->setChecked(tcf.fontItalic());
 
     /*  Ici gérer les changements de police et repercuter sur interface */
-    if (tcf.fontFamily() == "CursiveStandard" ){
+    if (tcf.fontFamily() == "Cursive standard" ){
         ui->btn_plume->setChecked(true);
         ui->btnCursiveMicroTexte->setChecked(true);
     }
@@ -995,5 +995,5 @@ void MainWindow::slotChangeColor(int index)
 void MainWindow::on_btnCursiveMicroTexte_clicked()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-    slotChangeFont("CursiveStandard");
+    slotChangeFont("Cursive standard");
 }
