@@ -72,24 +72,25 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /***************************** AbeBoxFileManager ***************************************/
     ui->abeBoxFileManager->abeMediathequeGetHideCloseBouton(true);
-    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)), Qt::UniqueConnection);
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)),
+            SLOT(slotOpenFile(QSharedPointer<AbulEduFileV1>)), Qt::UniqueConnection);
     connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)),
-            this, SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)), Qt::UniqueConnection);
-    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),this, SLOT(showTextPage()), Qt::UniqueConnection);
+            SLOT(slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation,QString,bool)), Qt::UniqueConnection);
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileCloseOrHide()),
+            SLOT(showTextPage()), Qt::UniqueConnection);
 
     /***************************** MenuFeuille ***************************************/
-    connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),this,SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
+    connect(ui->frmMenuFeuille, SIGNAL(signalAbeMenuFeuilleChangeLanguage(QString)),
+            SLOT(slotChangeLangue(QString)),Qt::UniqueConnection);
 
-
-    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)), Qt::UniqueConnection);
-    //    /* On émet un signal inquant si le texte a été modifié */
-    //    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(somethingHasChangedInText(bool)), Qt::UniqueConnection);
+    connect(ui->teZoneTexte->document(), SIGNAL(modificationChanged(bool)),
+            SLOT(setWindowModified(bool)), Qt::UniqueConnection);
 
     /* Le curseur a été déplacé*/
-    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), this, SLOT(slotCursorMoved()), Qt::UniqueConnection);
+    connect(ui->teZoneTexte, SIGNAL(cursorPositionChanged()), SLOT(slotCursorMoved()), Qt::UniqueConnection);
 
     /* #3933 Affichage texte au chargement d'un abe*/
-    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), this, SLOT(showTextPage()), Qt::UniqueConnection);
+    connect(ui->abeBoxFileManager, SIGNAL(signalAbeFileSelected(QSharedPointer<AbulEduFileV1>)), SLOT(showTextPage()), Qt::UniqueConnection);
 
     initMultimedia();
     initSignalMapperFontChange();
@@ -110,12 +111,15 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifndef QT_NO_PRINTER
     /* Gestion Impression */
     m_printer = new QPrinter(QPrinter::HighResolution);
-    m_printDialog = new QPrintDialog(m_printer, this);
+    m_printDialog = new QPrintDialog(m_printer /*, this*/);
     m_printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
     m_printDialog->setStyleSheet("background-color:#FFFFFF");
-    ui->glPrint->addWidget(m_printDialog);
-    connect(m_printDialog, SIGNAL(rejected()), this, SLOT(showTextPage()), Qt::UniqueConnection);
-    connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
+    /* #4077 -> impossible d'integrer QPrintDialog dans un widget sous windows */
+    #ifndef Q_OS_WIN
+        ui->glPrint->addWidget(m_printDialog);
+        connect(m_printDialog, SIGNAL(rejected()), this, SLOT(showTextPage()), Qt::UniqueConnection);
+        connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
+    #endif
 #endif
 #ifndef __ABULEDUTABLETTEV1__MODE__
     /* On Centre la fenetre */
@@ -652,8 +656,10 @@ void MainWindow::on_abeMenuFeuilleBtnPrint_clicked()
     if(!m_printDialog->isVisible())
         m_printDialog->showNormal();
 #endif
-
+#ifndef Q_OS_WIN32
+    /* #4077 -> impossible d'integrer QPrintDialog dans un widget sous windows */
     ui->stackedWidget->setCurrentWidget(ui->pagePrint);
+#endif
 }
 
 void MainWindow::on_abeMenuFeuilleBtnHelp_clicked()
