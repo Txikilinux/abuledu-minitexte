@@ -45,10 +45,9 @@ int main(int argc, char *argv[])
     AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
     splash->abeSplashScreenLauchUtilitaire(true);
     splash->show();
+    splash->launch(1000);
     w = new MainWindow();
-//    w->show();
     splash->setMainWindow(w);
-    splash->launch(1000); //pour les developpeurs presses, remplacer le 1000 par 100 mais attention : plus le temps de transmettre l'authentification
   #endif
 #endif
 
