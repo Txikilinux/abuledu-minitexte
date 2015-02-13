@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
     splash->abeSplashScreenLauchUtilitaire(true);
     splash->show();
+    abeApp->processEvents();
     splash->launch(1000);
     w = new MainWindow();
     splash->setMainWindow(w);
