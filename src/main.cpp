@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     splash->abeSplashScreenLauchUtilitaire(true);
     splash->show();
     abeApp->processEvents();
-    splash->launch(1000);
+    splash->launch(4000);
     w = new MainWindow();
     splash->setMainWindow(w);
   #endif
