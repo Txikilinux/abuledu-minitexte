@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isNewFile         = true;
     m_wantNewFile       = false;
     m_wantOpenFile      = false;
-    setWindowFlags(Qt::CustomizeWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint);
 
 #ifdef Q_OS_WIN
     switch(QSysInfo::windowsVersion())
