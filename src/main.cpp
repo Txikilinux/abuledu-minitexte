@@ -3,7 +3,7 @@
   * @warning aucun traitement d'erreur n'est pour l'instant implémenté
   * @see https://redmine.ryxeo.com/projects/abuledu-minitexte
   * @author 2011 Jean-Louis Frucot <frucot.jeanlouis@free.fr>
-  * @author 2012-2014 Eric Seigne <eric.seigne@ryxeo.com>
+  * @author 2012-2015 Eric Seigne <eric.seigne@ryxeo.com>
   * @see The GNU Public License (GPL)
   *
   * This program is free software; you can redistribute it and/or modify
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     splash->abeSplashScreenLauchUtilitaire(true);
     splash->show();
     abeApp->processEvents();
-    splash->launch(1000);
+    splash->launch(4000);
     w = new MainWindow();
     splash->setMainWindow(w);
   #endif
