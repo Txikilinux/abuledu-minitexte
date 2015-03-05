@@ -566,6 +566,9 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 
     QString htmlContent;
     QTextStream in(&htmlFile);
+#ifdef Q_OS_WIN
+    in.setCodec(QTextCodec::codecForName("UTF-8"));
+#endif
     while (!in.atEnd()) {
         htmlContent.append(in.readLine());
     }
