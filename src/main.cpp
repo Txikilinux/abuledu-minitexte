@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     w->showFullScreen();
   #else
     /* Splashscreen */
-    AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowNoState);
+    AbulEduSplashScreenV1 *splash = new AbulEduSplashScreenV1(0,true,Qt::WindowMaximized);
     splash->abeSplashScreenLauchUtilitaire(true);
     splash->show();
     abeApp->processEvents();
