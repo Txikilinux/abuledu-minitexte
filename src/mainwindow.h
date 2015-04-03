@@ -108,7 +108,6 @@ private:
     Ui::MainWindow *ui;
 
     void closeEvent(QCloseEvent *e);
-    bool m_isCloseRequested;
 
     /** Implémente le mécanisme de translation de l'application dans la langue locale */
     void installTranslator();
@@ -129,12 +128,9 @@ private:
     int m_hauteurToolBar;
 
     bool m_isNewFile; //pour savoir si le fichier actuel est un nouveau fichier ou pas ...
+    bool m_isCloseRequested;
     bool m_wantNewFile;
     bool m_wantOpenFile;
-
-    /** Position de la souris pour gerer le deplacement de la fenetre */
-    QPoint m_dragPosition;
-    bool   m_isWindowMoving;
 
     QSharedPointer<AbulEduFileV1>  m_abuledufile;
 
@@ -161,7 +157,6 @@ private:
 
     QString m_textToSpeech;
 
-    void centrerFenetre();
     void initMultimedia();
     void initSignalMapperFontChange();
     void initSignalMapperFormFontChange();
@@ -170,7 +165,6 @@ private:
     void initTooltips();
 
 public slots:
-
     /** Enregistre le texte */
     bool fileSave();
 
