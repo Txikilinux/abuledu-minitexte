@@ -880,14 +880,15 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
         ui->btn_seyes->setChecked(true);
     }
 
-    ABULEDU_LOG_DEBUG() << "Alignement : " <<ui->teZoneTexte->alignment()
-                        << "Color : " <<ui->teZoneTexte->textCursor().charFormat().foreground().color();
-
-    /* Definition de la bonne couleur dans la comboBox suivant celle présente sous le curseur */
-    int index = ui->cb_colorChooser->findData(ui->teZoneTexte->textCursor().charFormat().foreground().color());
-    if ( index != -1 ) { // -1 for not found
-        ui->cb_colorChooser->setCurrentIndex(index);
-    }
+    ABULEDU_LOG_DEBUG() << "Alignement:"  <<  ui->teZoneTexte->alignment()
+                        << "Color:"       <<  ui->teZoneTexte->textCursor().charFormat().foreground().color();
+    /* #4303 Répercussions de la copuleur courante */
+    slotChangeColor(ui->cb_colorChooser->currentIndex());
+//    /* Definition de la bonne couleur dans la comboBox suivant celle présente sous le curseur */
+//    int index = ui->cb_colorChooser->findData(ui->teZoneTexte->textCursor().charFormat().foreground().color());
+//    if ( index != -1 ) { // -1 for not found
+//        ui->cb_colorChooser->setCurrentIndex(index);
+//    }
 
     /* Repercussions Majuscule/Minuscule/Cursive Microtexte */
     if(ui->teZoneTexte->textCursor().charFormat().fontCapitalization()== QFont::AllUppercase){
@@ -902,7 +903,7 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
     if(/*m_textCharFormat.fontFamily() != tcf.fontFamily() && */ui->teZoneTexte->toPlainText().isEmpty()){
         ABULEDU_LOG_DEBUG() << "+++++++++++++++++++++++++++++++   +++++++++++++++++++++++++  " << "C'est mon cas ";
         mergeFormatOnWordOrSelection(m_textCharFormat);
-        //        m_textCharFormat = tcf;
+//        m_textCharFormat = tcf;
     }
 }
 
@@ -927,19 +928,12 @@ void MainWindow::slotChangeTextAlign(const QString& align)
 void MainWindow::slotFontCaps()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-
-//    QTextCharFormat tcf;
-//    m_textCharFormat.setFontCapitalization(QFont::AllUppercase);
-//    mergeFormatOnWordOrSelection(m_textCharFormat);
     slotChangeFont("Andika");
 }
 
 void MainWindow::slotFontLower()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-//    QTextCharFormat tcf;
-//    m_textCharFormat.setFontCapitalization(QFont::AllLowercase);
-//    mergeFormatOnWordOrSelection(m_textCharFormat);
     slotChangeFont("Andika");
 }
 
@@ -949,16 +943,16 @@ void MainWindow::on_teZoneTexte_textChanged()
     if(!isWindowModified() && !ui->teZoneTexte->document()->isEmpty()) {
         setWindowModified(true);
     }
-
 }
 
 void MainWindow::slotChangeFontSize(int newSize)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << newSize ;
-    qreal pointSize = newSize;
+    const qreal pointSize = newSize;
     if(newSize > 0){
         QTextCharFormat fmt = m_textCharFormat;
         fmt.setFontPointSize(pointSize);
+        m_textCharFormat.setForeground(ui->teZoneTexte->textColor());
         mergeFormatOnWordOrSelection(fmt);
         m_textCharFormat = fmt;
     }
