@@ -119,6 +119,9 @@
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
+             <property name="toolTip">
+              <string>Mettre le texte en gras</string>
+             </property>
              <property name="text">
               <string notr="true"/>
              </property>
@@ -144,6 +147,9 @@
             <widget class="QToolButton" name="btn_italic">
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="toolTip">
+              <string>Mettre le texte en italique</string>
              </property>
              <property name="text">
               <string notr="true"/>
@@ -171,6 +177,9 @@
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
+             <property name="toolTip">
+              <string>Souligner le texte</string>
+             </property>
              <property name="text">
               <string notr="true"/>
              </property>
@@ -197,6 +206,9 @@
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
+             <property name="toolTip">
+              <string>Réduire</string>
+             </property>
              <property name="text">
               <string notr="true"/>
              </property>
@@ -222,6 +234,9 @@
             <widget class="QToolButton" name="btn_increase">
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="toolTip">
+              <string>Agrandir</string>
              </property>
              <property name="text">
               <string notr="true"/>
@@ -289,6 +304,9 @@
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
                 </property>
+                <property name="toolTip">
+                 <string>Aligner le texte à gauche</string>
+                </property>
                 <property name="text">
                  <string notr="true"/>
                 </property>
@@ -317,6 +335,9 @@
                <widget class="QToolButton" name="btn_centerText">
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="toolTip">
+                 <string>Centrer le texte</string>
                 </property>
                 <property name="text">
                  <string notr="true"/>
@@ -347,6 +368,9 @@
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
                 </property>
+                <property name="toolTip">
+                 <string>Aligner le texte à droite</string>
+                </property>
                 <property name="text">
                  <string notr="true"/>
                 </property>
@@ -375,6 +399,9 @@
                <widget class="QToolButton" name="btn_justifyText">
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="toolTip">
+                 <string>Justifier le texte</string>
                 </property>
                 <property name="text">
                  <string notr="true"/>
@@ -448,6 +475,9 @@
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
                 </property>
+                <property name="toolTip">
+                 <string>Définir la police Andika pour le texte</string>
+                </property>
                 <property name="text">
                  <string notr="true"/>
                 </property>
@@ -477,6 +507,9 @@
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
                 </property>
+                <property name="toolTip">
+                 <string>Définir la police Seyes pour le texte</string>
+                </property>
                 <property name="text">
                  <string notr="true"/>
                 </property>
@@ -505,6 +538,9 @@
                <widget class="QToolButton" name="btn_plume">
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="toolTip">
+                 <string>Définir la police Cursive Standard pour le texte</string>
                 </property>
                 <property name="text">
                  <string notr="true"/>
@@ -563,6 +599,9 @@
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
              </property>
+             <property name="toolTip">
+              <string>Définir la couleur de la police</string>
+             </property>
              <property name="sizeAdjustPolicy">
               <enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum>
              </property>
@@ -581,6 +620,9 @@
             <widget class="QToolButton" name="btn_data">
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="toolTip">
+              <string>Insérer une image</string>
              </property>
              <property name="text">
               <string notr="true"/>
@@ -909,7 +951,7 @@ background-color:#0D90F6;
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Nouveau texte</string>
          </property>
          <property name="whatsThis">
           <string>new</string>
@@ -947,7 +989,7 @@ background-color:#0D90F6;
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Ouverture</string>
          </property>
          <property name="whatsThis">
           <string>open</string>
@@ -978,7 +1020,7 @@ background-color:#0D90F6;
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Enregistrement</string>
          </property>
          <property name="whatsThis">
           <string>save</string>
@@ -1010,7 +1052,7 @@ background-color:#0D90F6;
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Majuscule</string>
          </property>
          <property name="whatsThis">
           <string>new</string>
@@ -1048,7 +1090,7 @@ background-color:#0D90F6;
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Minuscule</string>
          </property>
          <property name="whatsThis">
           <string>new</string>
@@ -1086,7 +1128,7 @@ background-color:#0D90F6;
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Cursive</string>
          </property>
          <property name="whatsThis">
           <string/>
@@ -1126,6 +1168,9 @@ background-color:#0D90F6;
          <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
+         <property name="toolTip">
+          <string>Réduire</string>
+         </property>
          <property name="whatsThis">
           <string>print</string>
          </property>
@@ -1154,6 +1199,9 @@ background-color:#0D90F6;
          </property>
          <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>Agrandir</string>
          </property>
          <property name="whatsThis">
           <string>print</string>
@@ -1184,6 +1232,9 @@ background-color:#0D90F6;
          <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
+         <property name="toolTip">
+          <string>Impression</string>
+         </property>
          <property name="whatsThis">
           <string>print</string>
          </property>
@@ -1212,6 +1263,9 @@ background-color:#0D90F6;
          </property>
          <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>Aide</string>
          </property>
          <property name="whatsThis">
           <string>help</string>
@@ -1243,7 +1297,7 @@ background-color:#0D90F6;
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Sortie</string>
          </property>
          <property name="whatsThis">
           <string>quit</string>

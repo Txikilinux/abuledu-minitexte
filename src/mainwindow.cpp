@@ -113,8 +113,8 @@ MainWindow::MainWindow(QWidget *parent) :
     initSignalMapperFontChange();
     initSignalMapperFormFontChange();
     initSignalMapperTextAlignChange();
-    initTooltips();
-    ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + trUtf8("texte non enregistré"));
+    ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + trUtf8("Sans nom"));
+    ui->frTopMicroTexte->setMinimumWidth(500);
 
     /***************************** Chargement des Fonts ***************************************/
     QFontDatabase fonts;
@@ -257,25 +257,6 @@ void MainWindow::initComboBoxColor(QComboBox *cb)
 
     /* Par défaut, couleur noire */
     slotChangeColor(0);
-}
-
-void MainWindow::initTooltips()
-{
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-    ui->btn_bold->setToolTip(trUtf8("Mettre le texte en gras"));
-    ui->btn_italic->setToolTip(trUtf8("Mettre le texte en italique"));
-    ui->btn_underlined->setToolTip(trUtf8("Souligner le texte"));
-    ui->btn_decrease->setToolTip(trUtf8("Diminuer la taille de police du texte"));
-    ui->btn_increase->setToolTip(trUtf8("Augmenter la taille de police du texte"));
-    ui->btn_leftText->setToolTip(trUtf8("Aligner le texte à gauche"));
-    ui->btn_centerText->setToolTip(trUtf8("Centrer le texte"));
-    ui->btn_rightText->setToolTip(trUtf8("Aligner le texte à droite"));
-    ui->btn_justifyText->setToolTip(trUtf8("Justifier le texte"));
-    ui->btn_andika->setToolTip(trUtf8("Définir la police Andika pour le texte"));
-    ui->btn_seyes->setToolTip(trUtf8("Définir la police Seyes pour le texte"));
-    ui->btn_plume->setToolTip(trUtf8("Définir la police Cursive Standard pour le texte"));
-    ui->cb_colorChooser->setToolTip(trUtf8("Définir la couleur de la police"));
-    ui->btn_data->setToolTip(trUtf8("Récupérer une ressource image depuis le service AbulEdu data"));
 }
 
 void MainWindow::installTranslator()
@@ -666,7 +647,7 @@ void MainWindow::slotClearCurrent()
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
     /* Je veux faire un nouveau texte, mais je ne veux pas changer d'abe */
     m_abuledufile->abeCleanDirectoryRecursively(m_abuledufile->abeFileGetDirectoryTemp().absolutePath());
-    ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + trUtf8("texte non enregistré"));
+    ui->frmMenuFeuille->abeMenuFeuilleSetTitle(abeApp->getAbeApplicationLongName()+ " -- " + trUtf8("Sans nom"));
     ui->teZoneTexte->clear();
     setWindowModified(false);
 }
@@ -811,10 +792,16 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
     QTextCursor cursor = ui->teZoneTexte->textCursor();
-    //    if (cursor.hasSelection())
-    //        cursor.select(QTextCursor::WordUnderCursor);
-    cursor.mergeCharFormat(format);
-    ui->teZoneTexte->mergeCurrentCharFormat(format);
+
+    /* mettre le cursor au début */
+    cursor.setPosition(QTextCursor::Start);
+    while(!cursor.position() == QTextCursor::End){
+        cursor.select(QTextCursor::WordUnderCursor);
+        //    if (cursor.hasSelection())
+        //        cursor.select(QTextCursor::WordUnderCursor);
+        cursor.mergeCharFormat(format);
+        cursor.movePosition(QTextCursor::Right);
+    }
 }
 
 void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
