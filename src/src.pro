@@ -31,14 +31,6 @@ macx {
  ICON = ../macos/icones/abuledu-minitexte.icns
 }
 
-#microtexte {
-#    DEFINES += __MICROTEXTE_MODE__=1
-#    TARGET = abuledu-microtexte
-#}
-#else {
-    TARGET = abuledu-minitexte
-#}
-
 include(lib/abuleduapplicationv1/abuleduapplicationv1.pri)
 include(lib/abuleduconstantesv1/abuleduconstantesv1.pri)
 include(lib/abuledunetworkaccessmanagerv1/abuledunetworkaccessmanagerv1.pri)
