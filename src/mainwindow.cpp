@@ -170,6 +170,8 @@ void MainWindow::initMultimedia()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
     m_multimedia = new AbulEduMultiMediaV1(AbulEduMultiMediaV1::Sound, ui->frmControlAudio);
+    m_multimedia->abeMultiMediaGetAudioControlWidget()->abeControlAudioSetSpeedControlVisible(true);
+    m_multimedia->abeMultiMediaGetAudioControlWidget()->abeControlAudioGetFrameSpeed()->setStyleSheet("color:#0a73f4;");
     m_multimedia->abeMultiMediaGetAudioControlWidget()->abeControlAudioSetDirection(QBoxLayout::TopToBottom);
     m_multimedia->abeMultiMediaSetButtonVisible(AbulEduMultiMediaV1::BtnMagnifyingGlass | AbulEduMultiMediaV1::BtnPrevious | AbulEduMultiMediaV1::BtnNext | AbulEduMultiMediaV1::BtnHide | AbulEduMultiMediaV1::BtnRecord,false);
     m_multimedia->abeMultiMediaForceStop();
@@ -398,6 +400,7 @@ void MainWindow::closeEvent(QCloseEvent *e)
         m_isCloseRequested = true;
         AbulEduMessageBoxV1* msg = new AbulEduMessageBoxV1(trUtf8("Enregistrer le projet"),trUtf8("Le projet comporte des modifications non enregistrées. Voulez-vous sauvegarder ?"),true,ui->stackedWidget->currentWidget());
         msg->abeSetModeEnum(AbulEduMessageBoxV1::abeYesNoCancelButton);
+        msg->abeMessageBoxSetMultimedia();
         msg->show();
         connect(msg,SIGNAL(signalAbeMessageBoxYES()),SLOT(on_abeMenuFeuilleBtnSave_clicked()),Qt::UniqueConnection);
         connect(msg,SIGNAL(signalAbeMessageBoxNO()),SLOT(deleteLater()),Qt::UniqueConnection);
@@ -413,6 +416,7 @@ void MainWindow::filePrint(QPrinter *printer)
     /* On affiche un message */
     QString message("Impression en cours");
     AbulEduMessageBoxV1* msgImpression = new AbulEduMessageBoxV1(trUtf8("Impression"), message,true,ui->pagePrint);
+    msgImpression->abeMessageBoxSetMultimedia();
     msgImpression->setWink();
     msgImpression->show();
     connect(msgImpression, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
@@ -587,6 +591,7 @@ void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileMan
         message = trUtf8("Votre fichier n'a pas pu être enregistré...");
     }
     AbulEduMessageBoxV1* msgEnregistrement = new AbulEduMessageBoxV1(trUtf8("Enregistrement"), message,true,ui->pageBoxFileManager);
+    msgEnregistrement->abeMessageBoxSetMultimedia();
     /* #3935 Retour pageTexte apres appui bouton fermer */
     if(!m_wantOpenFile){
         connect(msgEnregistrement, SIGNAL(signalAbeMessageBoxCloseOrHide()), this, SLOT(showTextPage()), Qt::UniqueConnection);
@@ -659,6 +664,7 @@ void MainWindow::on_abeMenuFeuilleBtnOpen_clicked()
         m_wantOpenFile = true;
         AbulEduMessageBoxV1* msg = new AbulEduMessageBoxV1(trUtf8("Ouvrir un projet"),trUtf8("Le projet actuel comporte des modifications non enregistrées. Voulez-vous sauvegarder ?"),true,ui->stackedWidget->currentWidget());
         msg->abeSetModeEnum(AbulEduMessageBoxV1::abeYesNoCancelButton);
+        msg->abeMessageBoxSetMultimedia();
         msg->show();
         connect(msg,SIGNAL(signalAbeMessageBoxYES()),SLOT(on_abeMenuFeuilleBtnSave_clicked()),Qt::UniqueConnection);
         connect(msg,SIGNAL(signalAbeMessageBoxNO()),SLOT(fileOpen()),Qt::UniqueConnection);
@@ -690,6 +696,7 @@ void MainWindow::on_abeMenuFeuilleBtnNew_clicked()
     if(isWindowModified()){
         m_wantNewFile = true;
         AbulEduMessageBoxV1* msg = new AbulEduMessageBoxV1(trUtf8("Nouveau projet"),trUtf8("Le projet comporte des modifications non enregistrées. Voulez-vous sauvegarder ?"),true,ui->stackedWidget->currentWidget());
+        msg->abeMessageBoxSetMultimedia();
         msg->abeSetModeEnum(AbulEduMessageBoxV1::abeYesNoCancelButton);
         msg->show();
         connect(msg,SIGNAL(signalAbeMessageBoxYES()),SLOT(on_abeMenuFeuilleBtnSave_clicked()),Qt::UniqueConnection);
