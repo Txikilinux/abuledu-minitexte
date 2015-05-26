@@ -560,8 +560,10 @@ void MainWindow::slotOpenFile(QSharedPointer<AbulEduFileV1> abeFile)
 
 void MainWindow::slotAbeFileSaved(AbulEduBoxFileManagerV1::enumAbulEduBoxFileManagerSavingLocation location, QString fileName, bool success)
 {
-    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << fileName << " et " << success;
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ << location << fileName << " et " << success ;
     QString emplacement;
+
+    qDebug() << ui->abeBoxFileManager->abeBoxFileManagerGetSavingLocation();
     switch (location) {
     case AbulEduBoxFileManagerV1::abePC:
         emplacement = trUtf8("votre ordinateur");
@@ -809,6 +811,8 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
         cursor.mergeCharFormat(format);
         cursor.movePosition(QTextCursor::Right);
     }
+
+    ui->teZoneTexte->mergeCurrentCharFormat(format);
 }
 
 void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
@@ -835,13 +839,12 @@ void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 
     ABULEDU_LOG_DEBUG() << "Alignement:"  <<  ui->teZoneTexte->alignment()
                         << "Color:"       <<  ui->teZoneTexte->textCursor().charFormat().foreground().color();
-    /* #4303 Répercussions de la copuleur courante */
-    slotChangeColor(ui->cb_colorChooser->currentIndex());
-//    /* Definition de la bonne couleur dans la comboBox suivant celle présente sous le curseur */
-//    int index = ui->cb_colorChooser->findData(ui->teZoneTexte->textCursor().charFormat().foreground().color());
-//    if ( index != -1 ) { // -1 for not found
-//        ui->cb_colorChooser->setCurrentIndex(index);
-//    }
+
+    /* Definition de la bonne couleur dans la comboBox suivant celle présente sous le curseur */
+    int index = ui->cb_colorChooser->findData(ui->teZoneTexte->textCursor().charFormat().foreground().color());
+    if ( index != -1 ) {
+        ui->cb_colorChooser->setCurrentIndex(index);
+    }
 
     /* Repercussions Majuscule/Minuscule/Cursive Microtexte */
     if(ui->teZoneTexte->textCursor().charFormat().fontCapitalization()== QFont::AllUppercase){
