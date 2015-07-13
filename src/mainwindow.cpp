@@ -800,17 +800,15 @@ void MainWindow::slotChangeFormFont(const QString &form)
 void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
-    QTextCursor cursor = ui->teZoneTexte->textCursor();
-
+    /** 20150713 [ich]: pourquoi remettrait-on le curseur au début ? (d'ailleurs je n'ai pas vu où cela sert ! */
     /* mettre le cursor au début */
-    cursor.setPosition(QTextCursor::Start);
-    while(!cursor.position() == QTextCursor::End){
-        cursor.select(QTextCursor::WordUnderCursor);
-        //    if (cursor.hasSelection())
-        //        cursor.select(QTextCursor::WordUnderCursor);
-        cursor.mergeCharFormat(format);
-        cursor.movePosition(QTextCursor::Right);
-    }
+//    QTextCursor cursor = ui->teZoneTexte->textCursor();
+//    cursor.setPosition(QTextCursor::Start);
+//    while(!cursor.position() == QTextCursor::End){
+//        cursor.select(QTextCursor::WordUnderCursor);
+//        cursor.mergeCharFormat(format);
+//        cursor.movePosition(QTextCursor::Right);
+//    }
 
     ui->teZoneTexte->mergeCurrentCharFormat(format);
 }
@@ -818,6 +816,10 @@ void MainWindow::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 void MainWindow::slotCurrentCharFormatChanged(QTextCharFormat tcf)
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__ /*<< tcf.fontFamily() << m_textCharFormat.fontFamily() << ui->teZoneTexte->currentFont()*/ ;
+
+    if(ui->teZoneTexte->textCursor().hasSelection())
+        return;
+
     /* Bouton bold */
     ui->btn_bold->setChecked((tcf.fontWeight() > 50));
     /* Bouton underlined */
