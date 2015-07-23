@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
       m_printDialog(0),
       m_printer(0),
 #endif
+      m_fileDialog(0),
   qtTranslator(0),
   myappTranslator(0),
   m_locale(QString()),
@@ -134,6 +135,17 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(m_printDialog, SIGNAL(accepted(QPrinter*)), this, SLOT(filePrint(QPrinter*)), Qt::UniqueConnection);
     #endif
 #endif
+    m_fileDialog = new QFileDialog(this, trUtf8("Exporter sous..."),
+                                                      QDir::homePath(), trUtf8("ODF files (*.odt)"));
+    m_fileDialog->setOption(QFileDialog::DontUseNativeDialog, true);
+    ui->glFileDialog->addWidget(m_fileDialog);
+    m_fileDialog->setVisible(true);
+    connect(m_fileDialog, SIGNAL(accepted()), m_fileDialog, SLOT(show()), Qt::UniqueConnection);
+    connect(m_fileDialog, SIGNAL(rejected()), m_fileDialog, SLOT(show()), Qt::UniqueConnection);
+    connect(m_fileDialog, SIGNAL(accepted()), this, SLOT(showTextPage()),Qt::UniqueConnection);
+    connect(m_fileDialog, SIGNAL(fileSelected(QString)), this, SLOT(slotExportAsOdt(QString)),Qt::UniqueConnection);
+    connect(m_fileDialog, SIGNAL(rejected()), this, SLOT(showTextPage()),Qt::UniqueConnection);
+
 #ifndef __ABULEDUTABLETTEV1__MODE__
     /* On Centre la fenetre */
     abeApp->abeCenterWindow(this);
@@ -692,6 +704,25 @@ void MainWindow::on_abeMenuFeuilleBtnSave_clicked()
     setWindowModified(false);
 }
 
+void MainWindow::on_abeMenuFeuilleBtnExport_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageFileDialog);
+}
+
+
+void MainWindow::slotExportAsOdt(QString fileName)
+{
+    if (fileName.isEmpty()){
+        return;
+    }
+    if (!fileName.endsWith(".odt", Qt::CaseInsensitive)){
+        fileName += ".odt";
+    }
+    QTextDocumentWriter writer(fileName);
+    writer.write(ui->teZoneTexte->document());
+    return ;
+}
+
 void MainWindow::on_abeMenuFeuilleBtnNew_clicked()
 {
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
@@ -955,3 +986,4 @@ void MainWindow::on_btnCursiveMicroTexte_clicked()
     ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
     slotChangeFont("Cursive standard");
 }
+

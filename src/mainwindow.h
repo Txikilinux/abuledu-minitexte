@@ -141,6 +141,8 @@ private:
     QPrintDialog *m_printDialog;
     QPrinter *m_printer;
 #endif
+
+    QFileDialog* m_fileDialog;
     QTranslator qtTranslator;
     QTranslator myappTranslator;
     QString m_locale;
@@ -195,6 +197,7 @@ private slots:
     void on_abeMenuFeuilleBtnNew_clicked();
     void on_abeMenuFeuilleBtnOpen_clicked();
     void on_abeMenuFeuilleBtnSave_clicked();
+    void on_abeMenuFeuilleBtnExport_clicked();
     void on_abeMenuFeuilleBtnPrint_clicked();
     void on_abeMenuFeuilleBtnHelp_clicked();
     void on_abeMenuFeuilleBtnQuit_clicked();
@@ -225,6 +228,8 @@ private slots:
     void on_btn_decrease_clicked();
 
     void on_btnCursiveMicroTexte_clicked();
+
+    void slotExportAsOdt(QString fileName);
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */

@@ -50,7 +50,7 @@
     <item row="4" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="pageTexte">
        <property name="enabled">
@@ -843,6 +843,9 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="AbulEduAproposV1" name="pageAbout"/>
+      <widget class="QWidget" name="pageFileDialog">
+       <layout class="QGridLayout" name="glFileDialog"/>
+      </widget>
      </widget>
     </item>
     <item row="2" column="0">
