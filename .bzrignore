@@ -1,14 +1,3 @@
 ./exemples
 ./src/lib
 ./src/lang
-./src/.build
-./src/Makefile
-*.user
-moc*
-qrc*
-ui_*
-debug
-release
-
-./src/lib/abuledumultimediav1
-./src/lib/abuleduaudiov1
