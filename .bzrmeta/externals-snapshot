@@ -6,7 +6,7 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/maia/ src/lib/maia revid:icham
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduidentitesv1/ src/lib/abuleduidentitesv1 revid:icham.sirat@ryxeo.com-20150402074838-6xgl0mko0cib9h4d
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumessageboxv1/ src/lib/abuledumessageboxv1 revid:philippe.cadaugade@ryxeo.com-20150722160457-0yurh2c6fwpds5a5
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledufilev1 src/lib/abuledufilev1 revid:philippe.cadaugade@ryxeo.com-20151009102328-d6us3phck9v8qemf
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:eric.seigne@ryxeo.com-20150731123723-wgrk70kdvmxbucph
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupicottsv1/ src/lib/abuledupicottsv1 revid:eric.seigne@ryxeo.com-20151016105656-40mpdm0fgs4ubphh
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusplashscreenv1/ src/lib/abuledusplashscreenv1 revid:icham.sirat@ryxeo.com-20150724142641-u0o8jao8p7hg824a
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledulangv1/ src/lib/abuledulangv1 revid:eric.seigne@ryxeo.com-20131030180044-nvpgvjev3917r1hb
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumenufeuillev1/ src/lib/abuledumenufeuillev1 revid:philippe.cadaugade@ryxeo.com-20151012094730-cwygmmd5a9ebfoho
@@ -14,7 +14,7 @@ bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledusingletonv1 src/lib/abu
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledupluginloaderv1/ src/lib/abuledupluginloaderv1 revid:icham.sirat@ryxeo.com-20150319101902-iot4dbuypwe252jm
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaproposv1 src/lib/abuleduaproposv1 revid:icham.sirat@ryxeo.com-20150319105927-pl1jfb64g8bct744
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduloggerv1/ src/lib/abuleduloggerv1 revid:icham.sirat@ryxeo.com-20150824075008-pbbuhovj9shdkb6i
-bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduandroidsupportv1/ src/lib/abuleduandroidsupportv1 revid:eric.seigne@ryxeo.com-20140729194356-9koz0kga2ctv5jao
+bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduandroidsupportv1/ src/lib/abuleduandroidsupportv1 revid:eric.seigne@ryxeo.com-20151016105734-nhxo0t6yu5knhmye
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduloadinganimationv1/ src/lib/abuleduloadinganimationv1 revid:eric.seigne@ryxeo.com-20150713162744-2apg7evaf03wzenq
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuledumultimediav1 src/lib/abuledumultimediav1 revid:eric.seigne@ryxeo.com-20151009091858-a4y2uc4i3lz2m2x6
 bzr://redmine.ryxeo.com/code/leterrier-developpeu/abuleduaudiov1/ src/lib/abuleduaudiov1 revid:icham.sirat@ryxeo.com-20150721082356-w3xcyhjylwxd8y69
