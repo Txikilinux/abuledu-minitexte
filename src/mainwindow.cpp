@@ -63,12 +63,12 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef Q_OS_WIN
     switch(QSysInfo::windowsVersion())
     {
-        case QSysInfo::WV_2000: qDebug()<< "Windows 2000";break;
-        case QSysInfo::WV_XP: qDebug()<< "Windows XP";break;
-        case QSysInfo::WV_VISTA: qDebug()<< "Windows Vista";break;
-        case QSysInfo::WV_WINDOWS7: qDebug()<< "Windows Seven";break;
-        case QSysInfo::WV_WINDOWS8: qDebug()<< "Windows 8";break;
-        default: qDebug()<< "Windows";break;
+    case QSysInfo::WV_2000: ABULEDU_LOG_DEBUG()<< "Windows 2000";break;
+    case QSysInfo::WV_XP: ABULEDU_LOG_DEBUG()<< "Windows XP";break;
+    case QSysInfo::WV_VISTA: ABULEDU_LOG_DEBUG()<< "Windows Vista";break;
+    case QSysInfo::WV_WINDOWS7: ABULEDU_LOG_DEBUG()<< "Windows Seven";break;
+    case QSysInfo::WV_WINDOWS8: ABULEDU_LOG_DEBUG()<< "Windows 8";break;
+    default: ABULEDU_LOG_DEBUG()<< "Windows";break;
     }
 #endif
 
