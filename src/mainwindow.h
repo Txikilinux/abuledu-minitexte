@@ -159,11 +159,15 @@ private:
 
     QString m_textToSpeech;
 
+    QString m_lastOpenDir;
+
     void initMultimedia();
     void initSignalMapperFontChange();
     void initSignalMapperFormFontChange();
     void initSignalMapperTextAlignChange();
     void initComboBoxColor(QComboBox *cb);
+
+    void addPicture(QString filename, QString file = QString());
 
 public slots:
     /** Enregistre le texte */
@@ -230,6 +234,8 @@ private slots:
     void on_btnCursiveMicroTexte_clicked();
 
     void slotExportAsOdt(QString fileName);
+
+    void slotLocalFileDialogSelected(QString fileName);
 
 signals:
     /** Signal émis lors du changement d'état du texte true -> texte modifié, false texte non modifié */

@@ -53,7 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
   m_fontSize(0),
   m_textCharFormat(QTextCharFormat()),
   m_listColors(0),
-  m_textToSpeech(QString())
+  m_textToSpeech(QString()),
+  m_lastOpenDir(QDir::homePath())
 
 {
     setAttribute(Qt::WA_QuitOnClose);
@@ -84,6 +85,19 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Attention au cas où il n'y a pas de réponse, on est bloqué à un endroit du stackedWidget */
     connect(ui->abeMediathequeGet, SIGNAL(signalMediathequeFileDownloaded(QSharedPointer<AbulEduFileV1>,int)), this, SLOT(slotMediathequeDownload(QSharedPointer<AbulEduFileV1>,int)),Qt::UniqueConnection);
     connect(ui->abeMediathequeGet, SIGNAL(signalAbeMediathequeGetCloseOrHide()),this, SLOT(showTextPage()),Qt::UniqueConnection);
+
+    /* L'ajout d'image depuis le disque dur: on evite la popup en integrant le qfiledialog dans notre widget */
+    QFileDialog *f = new QFileDialog(this, trUtf8("Sélectionner une image"),
+                                     m_lastOpenDir,trUtf8("Fichiers Images (*.png *.jpg *.JPG *.jpeg *.svg)"));
+    f->setOption(QFileDialog::DontUseNativeDialog, true);
+    ui->tabWidgetImagesPage1Layout->addWidget(f);
+    //Si on ne fait pas ca le dialog "disparait" quand on clique sur un fichier
+    connect(f, SIGNAL(accepted()), f, SLOT(show()),Qt::UniqueConnection);
+    connect(f, SIGNAL(rejected()), f, SLOT(show()),Qt::UniqueConnection);
+    connect(f, SIGNAL(rejected()), this, SLOT(showTextPage()),Qt::UniqueConnection);
+    //et on importe une image quand c'est le cas
+    connect(f, SIGNAL(fileSelected(QString)), this, SLOT(slotLocalFileDialogSelected(QString)),Qt::UniqueConnection);
+    ui->tabWidgetImages->setCurrentWidget(ui->tabWidgetImagesPage2);
 
     m_abuledufile = QSharedPointer<AbulEduFileV1>(new AbulEduFileV1, &QObject::deleteLater);
     setCurrentFileName(m_abuledufile->abeFileGetDirectoryTemp().absolutePath() + "/document.html");
@@ -465,8 +479,36 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
 
     ABULEDU_LOG_DEBUG() << "slotMediathequeDownload : " << file << " et " << filename;
 
+    addPicture(filename,file);
+    /*Les sources et l'auteur (?) */
+    QTextCursor cursor = ui->teZoneTexte->textCursor();
+    QTextListFormat listFormat;
+    cursor.insertList(listFormat);
+    QTextCharFormat fmt;
+    fmt.setFontPointSize(8);
+    fmt.setFontItalic(true);
+    cursor.insertText("Source: " + abeFile->abeFileGetIdentifier() +";"+ "\n",fmt);
+    cursor.insertText("Auteur: " + abeFile->abeFileGetCreator() +";",fmt);
+    fmt = m_textCharFormat;
+    cursor.insertText("",fmt);
+
+    /* Retour normal */
+    QTextBlockFormat blockFormat;
+    fmt.setFontItalic(false);
+    cursor.insertBlock(blockFormat,fmt);
+}
+
+
+void MainWindow::addPicture(QString filename, QString file)
+{
     const QUrl Uri ( QString ( "mydata://data/%1" ).arg ( filename ) );
-    QImage image = QImageReader ( file ).read().scaledToWidth(150,Qt::SmoothTransformation);
+    QImage image;
+    if(file.isNull()){
+        image = QImageReader ( filename ).read().scaledToWidth(150,Qt::SmoothTransformation);
+    }
+    else{
+        image = QImageReader ( file ).read().scaledToWidth(150,Qt::SmoothTransformation);
+    }
 
     QFileInfo fi(m_fileName);
     QString imageDest = QString("%1/data/%2").arg(fi.absolutePath()).arg(filename);
@@ -491,21 +533,7 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
     imageFormat.setName(Uri.toString());
     cursor.insertImage(imageFormat);
 
-    /*Les sources et l'auteur (?) */
-    QTextListFormat listFormat;
-    cursor.insertList(listFormat);
-    QTextCharFormat fmt;
-    fmt.setFontPointSize(8);
-    fmt.setFontItalic(true);
-    cursor.insertText("Source: " + abeFile->abeFileGetIdentifier() +";"+ "\n",fmt);
-    cursor.insertText("Auteur: " + abeFile->abeFileGetCreator() +";",fmt);
-    fmt = m_textCharFormat;
-    cursor.insertText("",fmt);
 
-    /* Retour normal */
-    QTextBlockFormat blockFormat;
-    fmt.setFontItalic(false);
-    cursor.insertBlock(blockFormat,fmt);
     ui->stackedWidget->setCurrentWidget(ui->pageTexte);
 }
 
@@ -721,6 +749,17 @@ void MainWindow::slotExportAsOdt(QString fileName)
     QTextDocumentWriter writer(fileName);
     writer.write(ui->teZoneTexte->document());
     return ;
+}
+
+void MainWindow::slotLocalFileDialogSelected(QString fileName)
+{
+    ABULEDU_LOG_TRACE() << __PRETTY_FUNCTION__;
+    QFileInfo fi(fileName);
+    if(fi.exists())
+    {
+        addPicture(fi.absoluteFilePath());
+        m_lastOpenDir = fi.absolutePath();
+    }
 }
 
 void MainWindow::on_abeMenuFeuilleBtnNew_clicked()
