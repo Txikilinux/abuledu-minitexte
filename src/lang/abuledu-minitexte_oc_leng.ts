@@ -25,13 +25,13 @@
     </message>
     <message utf8="true">
         <location filename="../mainwindow.ui" line="210"/>
-        <location filename="../mainwindow.ui" line="1172"/>
+        <location filename="../mainwindow.ui" line="1175"/>
         <source>Réduire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="239"/>
-        <location filename="../mainwindow.ui" line="1204"/>
+        <location filename="../mainwindow.ui" line="1207"/>
         <source>Agrandir</source>
         <translation type="unfinished"></translation>
     </message>
@@ -85,76 +85,76 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="954"/>
+        <location filename="../mainwindow.ui" line="957"/>
         <source>Nouveau texte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="957"/>
-        <location filename="../mainwindow.ui" line="1058"/>
-        <location filename="../mainwindow.ui" line="1096"/>
+        <location filename="../mainwindow.ui" line="960"/>
+        <location filename="../mainwindow.ui" line="1061"/>
+        <location filename="../mainwindow.ui" line="1099"/>
         <source>new</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="992"/>
+        <location filename="../mainwindow.ui" line="995"/>
         <source>Ouverture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="995"/>
+        <location filename="../mainwindow.ui" line="998"/>
         <source>open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1026"/>
+        <location filename="../mainwindow.ui" line="1029"/>
         <source>save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1055"/>
+        <location filename="../mainwindow.ui" line="1058"/>
         <source>Majuscule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1093"/>
+        <location filename="../mainwindow.ui" line="1096"/>
         <source>Minuscule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1131"/>
+        <location filename="../mainwindow.ui" line="1134"/>
         <source>Cursive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1175"/>
-        <location filename="../mainwindow.ui" line="1207"/>
-        <location filename="../mainwindow.ui" line="1239"/>
+        <location filename="../mainwindow.ui" line="1178"/>
+        <location filename="../mainwindow.ui" line="1210"/>
+        <location filename="../mainwindow.ui" line="1242"/>
         <source>print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1271"/>
+        <location filename="../mainwindow.ui" line="1274"/>
         <source>help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1300"/>
+        <location filename="../mainwindow.ui" line="1303"/>
         <source>Sortie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1303"/>
+        <location filename="../mainwindow.ui" line="1306"/>
         <source>quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.ui" line="1335"/>
+        <location filename="../mainwindow.ui" line="1338"/>
         <source>AbulÉdu - MicroTexte</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="79"/>
+        <location filename="../mainwindow.cpp" line="80"/>
         <source>Insérer l&apos;image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -164,92 +164,102 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="116"/>
-        <location filename="../mainwindow.cpp" line="342"/>
-        <location filename="../mainwindow.cpp" line="650"/>
+        <location filename="../mainwindow.cpp" line="117"/>
+        <location filename="../mainwindow.cpp" line="356"/>
+        <location filename="../mainwindow.cpp" line="669"/>
         <source>Sans nom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1236"/>
-        <location filename="../mainwindow.cpp" line="415"/>
+        <location filename="../mainwindow.ui" line="1239"/>
+        <location filename="../mainwindow.cpp" line="430"/>
         <source>Impression</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="399"/>
+        <location filename="../mainwindow.cpp" line="138"/>
+        <source>Exporter sous...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="139"/>
+        <source>ODF files (*.odt)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="413"/>
         <source>Enregistrer le projet</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="399"/>
-        <location filename="../mainwindow.cpp" line="692"/>
+        <location filename="../mainwindow.cpp" line="413"/>
+        <location filename="../mainwindow.cpp" line="731"/>
         <source>Le projet comporte des modifications non enregistrées. Voulez-vous sauvegarder ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="563"/>
+        <location filename="../mainwindow.cpp" line="581"/>
         <source>votre ordinateur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="566"/>
+        <location filename="../mainwindow.cpp" line="584"/>
         <source>votre abeBox personnelle</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="569"/>
+        <location filename="../mainwindow.cpp" line="587"/>
         <source>une abeBox partagée</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="572"/>
+        <location filename="../mainwindow.cpp" line="590"/>
         <source>AbulEdu-Médiathèque</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="575"/>
+        <location filename="../mainwindow.cpp" line="593"/>
         <source>un endroit inconnu</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="581"/>
+        <location filename="../mainwindow.cpp" line="599"/>
         <source>Votre fichier a été enregistré dans </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="583"/>
+        <location filename="../mainwindow.cpp" line="601"/>
         <source> sous le nom : </source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="587"/>
+        <location filename="../mainwindow.cpp" line="605"/>
         <source>Votre fichier n&apos;a pas pu être enregistré...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="660"/>
+        <location filename="../mainwindow.cpp" line="679"/>
         <source>Ouvrir un projet</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../mainwindow.cpp" line="660"/>
+        <location filename="../mainwindow.cpp" line="679"/>
         <source>Le projet actuel comporte des modifications non enregistrées. Voulez-vous sauvegarder ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="692"/>
+        <location filename="../mainwindow.cpp" line="731"/>
         <source>Nouveau projet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1023"/>
-        <location filename="../mainwindow.cpp" line="589"/>
+        <location filename="../mainwindow.ui" line="1026"/>
+        <location filename="../mainwindow.cpp" line="607"/>
         <source>Enregistrement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1268"/>
+        <location filename="../mainwindow.ui" line="1271"/>
         <source>Aide</source>
         <translation type="unfinished"></translation>
     </message>
