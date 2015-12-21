@@ -542,7 +542,6 @@ void MainWindow::slotMediathequeDownload(QSharedPointer<AbulEduFileV1> abeFile, 
 
 void MainWindow::addPicture(QString filename, QString file)
 {
-    const QUrl Uri ( QString ( "mydata://data/%1" ).arg ( filename ) );
     QImage image;
     if(file.isNull()){
         image = QImageReader ( filename ).read().scaledToWidth(150,Qt::SmoothTransformation);
@@ -552,8 +551,11 @@ void MainWindow::addPicture(QString filename, QString file)
     }
 
     QFileInfo fi(m_fileName);
+    /* 20151221 Philippe et Jean-Louis : on fait le choix d'enregistrer toutes les images en png à cause de problème survenus à l'enregistrement d'images jpg venues du disque dur */
     QString imageDest = QString("%1/data/%2").arg(fi.absolutePath()).arg(filename);
-    //    Uri.setUrl(imageDest);
+    QFileInfo fi2(imageDest);
+    QString imageDestBis = QString("%1/data/%2.png").arg(fi.absolutePath()).arg(fi2.baseName());
+    const QUrl Uri ( QString ( "mydata://data/%1.png" ).arg (fi2.baseName()) );
 
     QTextDocument * textDocument = ui->teZoneTexte->document();
     textDocument->addResource( QTextDocument::ImageResource, Uri, QVariant ( image ) );
@@ -566,10 +568,10 @@ void MainWindow::addPicture(QString filename, QString file)
     if(!rep.exists()) {
         rep.mkpath(fi.absolutePath() + "/data/");
     }
-    if(!image.save(imageDest)) {
+    if(!image.save(imageDestBis)) {
         //        if (m_localDebug) qDebug() << "******* ERREUR de sauvegarde de " << imageDest;
     }
-    ABULEDU_LOG_DEBUG() << "Sauvegarde de l'image dans " << imageDest;
+    ABULEDU_LOG_DEBUG() << "Sauvegarde de l'image dans " << imageDestBis;
 
     imageFormat.setName(Uri.toString());
     cursor.insertImage(imageFormat);
@@ -798,7 +800,7 @@ void MainWindow::slotLocalFileDialogSelected(QString fileName)
     QFileInfo fi(fileName);
     if(fi.exists())
     {
-        addPicture(fi.absoluteFilePath());
+        addPicture(fi.fileName(),fi.absoluteFilePath());
         m_lastOpenDir = fi.absolutePath();
     }
 }
