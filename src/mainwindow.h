@@ -169,6 +169,11 @@ private:
     void initSignalMapperTextAlignChange();
     void initComboBoxColor(QComboBox *cb);
 
+    ///
+    /// \brief addPicture ajoute une image au texte
+    /// \param filename est le nom de l'image appelé par l'application, indépendant du répertoire temporaire dans lequel l'image se trouve ou se trouvera
+    /// \param file est le nom du fichier créé par copie dans le répertoire temporaire (contient le chemin dudit répertoire temporaire)
+    ///
     void addPicture(QString filename, QString file = QString());
 
 public slots:

@@ -439,20 +439,21 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
     if (event->type() == QEvent::KeyPress)
     {
         QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-        qDebug()  << "Touche pressée" << keyEvent->key();
         switch (keyEvent->key())
         {
         case Qt::Key_V:
-            //                qDebug()<<"Touche V";
             if(keyEvent->modifiers() == Qt::ControlModifier && !keyEvent->isAutoRepeat())
             {
                 if (QApplication::clipboard()->mimeData()->hasImage())
                 {
                     QImage image = qvariant_cast<QImage>(QApplication::clipboard()->image());
-                    QTextCursor cursor = ui->teZoneTexte->textCursor();
-                    QTextDocument *document = ui->teZoneTexte->document();
-                    document->addResource(QTextDocument::ImageResource, QUrl("image"), image);
-                    cursor.insertImage("image");
+                    QFileInfo fi(m_fileName);
+                    QDir rep(fi.absolutePath() + "/data/");
+                    if(!rep.exists()) {
+                        rep.mkpath(fi.absolutePath() + "/data/");
+                    }
+                    image.save(fi.absolutePath()+QString("/data/imageCollee%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss")));
+                    addPicture(QString("imageCollee%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss")),fi.absolutePath()+QString("/data/imageCollee%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss")));
                     return true;
                 }
                 else {
