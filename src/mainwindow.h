@@ -109,6 +109,8 @@ private:
 
     void closeEvent(QCloseEvent *e);
 
+    bool eventFilter(QObject *obj, QEvent *event);
+
     /** Implémente le mécanisme de translation de l'application dans la langue locale */
     void installTranslator();
 

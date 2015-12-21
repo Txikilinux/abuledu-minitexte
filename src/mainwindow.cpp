@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     setAttribute(Qt::WA_QuitOnClose);
     ui->setupUi(this);
+    ui->teZoneTexte->installEventFilter(this);
     setWindowFlags(Qt::FramelessWindowHint);
 
 #ifdef Q_OS_WIN
@@ -431,6 +432,45 @@ void MainWindow::closeEvent(QCloseEvent *e)
         connect(msg,SIGNAL(signalAbeMessageBoxYES()),SLOT(on_abeMenuFeuilleBtnSave_clicked()),Qt::UniqueConnection);
         connect(msg,SIGNAL(signalAbeMessageBoxNO()),SLOT(deleteLater()),Qt::UniqueConnection);
     }
+}
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        qDebug()  << "Touche pressée" << keyEvent->key();
+        switch (keyEvent->key())
+        {
+        case Qt::Key_V:
+            //                qDebug()<<"Touche V";
+            if(keyEvent->modifiers() == Qt::ControlModifier && !keyEvent->isAutoRepeat())
+            {
+                if (QApplication::clipboard()->mimeData()->hasImage())
+                {
+                    QImage image = qvariant_cast<QImage>(QApplication::clipboard()->image());
+                    QTextCursor cursor = ui->teZoneTexte->textCursor();
+                    QTextDocument *document = ui->teZoneTexte->document();
+                    document->addResource(QTextDocument::ImageResource, QUrl("image"), image);
+                    cursor.insertImage("image");
+                    return true;
+                }
+                else {
+                    return QObject::eventFilter(obj,event);
+                }
+            }
+            else {
+                return QObject::eventFilter(obj,event);
+            }
+            break;
+
+        default:
+            return QObject::eventFilter(obj,event);
+            break;
+        }
+
+    }
+    else return QObject::eventFilter(obj,event);
 }
 
 #ifndef QT_NO_PRINTER
