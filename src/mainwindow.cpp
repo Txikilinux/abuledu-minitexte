@@ -446,15 +446,21 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
             {
                 if (QApplication::clipboard()->mimeData()->hasImage())
                 {
-                    QImage image = qvariant_cast<QImage>(QApplication::clipboard()->image());
-                    QFileInfo fi(m_fileName);
-                    QDir rep(fi.absolutePath() + "/data/");
-                    if(!rep.exists()) {
-                        rep.mkpath(fi.absolutePath() + "/data/");
+                    if(QApplication::clipboard()->image().size().isNull()){
+                        AbulEduMessageBoxV1::showInformation(trUtf8("Impossible de coller l'image, sans taille est probablement trop importante."));
+                        return false;
                     }
-                    image.save(fi.absolutePath()+QString("/data/imageCollee%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss")));
-                    addPicture(QString("imageCollee%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss")),fi.absolutePath()+QString("/data/imageCollee%1.png").arg(QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss")));
-                    return true;
+                    else{
+                        QFileInfo fi(m_fileName);
+                        QDir rep(fi.absolutePath() + "/data/");
+                        if(!rep.exists()) {
+                            rep.mkpath(fi.absolutePath() + "/data/");
+                        }
+                        QString timeStamp = QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss");
+                        QApplication::clipboard()->image().save(fi.absolutePath()+QString("/data/imageCollee%1.png").arg(timeStamp));
+                        addPicture(QString("imageCollee%1.png").arg(timeStamp),fi.absolutePath()+QString("/data/imageCollee%1.png").arg(timeStamp));
+                        return true;
+                    }
                 }
                 else {
                     return QObject::eventFilter(obj,event);
