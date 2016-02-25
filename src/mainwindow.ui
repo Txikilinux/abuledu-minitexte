@@ -50,7 +50,7 @@
     <item row="4" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pageTexte">
        <property name="enabled">
@@ -713,8 +713,7 @@
              <enum>Qt::StrongFocus</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:#fbfbfb;
-font: 30pt &quot;Andika&quot;;</string>
+             <string notr="true">background-color:#fbfbfb;</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
