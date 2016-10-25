@@ -1,0 +1,60 @@
+[submodule "src/lib/abuleduapplicationv1"]
+	path = src/lib/abuleduapplicationv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduapplicationv1.git
+[submodule "src/lib/abuleduconstantesv1"]
+	path = src/lib/abuleduconstantesv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduconstantesv1.git
+[submodule "src/lib/abuledunetworkaccessmanagerv1"]
+	path = src/lib/abuledunetworkaccessmanagerv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledunetworkaccessmanagerv1.git
+[submodule "src/lib/abuleduflatboutonv1"]
+	path = src/lib/abuleduflatboutonv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduflatboutonv1.git
+[submodule "src/lib/maia"]
+	path = src/lib/maia
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/maia.git
+[submodule "src/lib/abuleduidentitesv1"]
+	path = src/lib/abuleduidentitesv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduidentitesv1.git
+[submodule "src/lib/abuledumessageboxv1"]
+	path = src/lib/abuledumessageboxv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledumessageboxv1.git
+[submodule "src/lib/abuledufilev1"]
+	path = src/lib/abuledufilev1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledufilev1.git
+[submodule "src/lib/abuledupicottsv1"]
+	path = src/lib/abuledupicottsv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledupicottsv1.git
+[submodule "src/lib/abuledusplashscreenv1"]
+	path = src/lib/abuledusplashscreenv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledusplashscreenv1.git
+[submodule "src/lib/abuledulangv1"]
+	path = src/lib/abuledulangv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledulangv1.git
+[submodule "src/lib/abuledumenufeuillev1"]
+	path = src/lib/abuledumenufeuillev1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledumenufeuillev1.git
+[submodule "src/lib/abuledusingletonv1"]
+	path = src/lib/abuledusingletonv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledusingletonv1.git
+[submodule "src/lib/abuledupluginloaderv1"]
+	path = src/lib/abuledupluginloaderv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledupluginloaderv1.git
+[submodule "src/lib/abuleduaproposv1"]
+	path = src/lib/abuleduaproposv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduaproposv1.git
+[submodule "src/lib/abuleduloggerv1"]
+	path = src/lib/abuleduloggerv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduloggerv1.git
+[submodule "src/lib/abuleduandroidsupportv1"]
+	path = src/lib/abuleduandroidsupportv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduandroidsupportv1.git
+[submodule "src/lib/abuleduloadinganimationv1"]
+	path = src/lib/abuleduloadinganimationv1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduloadinganimationv1.git
+[submodule "src/lib/abuledumultimediav1"]
+	path = src/lib/abuledumultimediav1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuledumultimediav1.git
+[submodule "src/lib/abuleduaudiov1"]
+	path = src/lib/abuleduaudiov1
+	url = http://redmine.abuledu.org/ryxeo/leterrier-developpeurs/abuleduaudiov1.git
